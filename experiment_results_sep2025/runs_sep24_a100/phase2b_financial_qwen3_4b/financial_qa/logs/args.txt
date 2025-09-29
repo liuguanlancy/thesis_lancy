@@ -1,0 +1,72 @@
+Experiment Configuration
+============================================================
+Timestamp: 2025-09-22 14:58:22
+Output Directory: ./runs/phase2b_financial_qwen3_4b/financial_qa
+
+Arguments:
+------------------------------------------------------------
+actual_attn_implementation    : flash_attention_2
+adam_beta1                    : 0.9
+adam_beta2                    : 0.999
+adam_epsilon                  : 1e-08
+attn_implementation           : flash_attention_2
+batch_size                    : 2
+bf16                          : True
+dataset                       : stanfordnlp/imdb
+dataset_config                : None
+dataset_configs               : [None, None, None, None, None, 'small_lite', None, 'wikitext-103-v1']
+datasets                      : ['virattt/financial-qa-10K', 'FinGPT/fingpt-sentiment-train', 'gbharti/finance-alpaca', 'LLukas22/fiqa', 'zeroshot/twitter-financial-news-sentiment', 'JanosAudran/financial-reports-sec', 'ashraq/financial-news-articles', 'wikitext']
+ddp_backend                   : nccl
+device                        : auto
+disable_mps_fix               : False
+eval_max_batches              : 100
+eval_on_start                 : True
+eval_steps                    : 1000
+eval_strategy                 : steps
+fp16                          : False
+gradient_accumulation_steps   : 4
+greater_is_better             : False
+grpo_beta                     : 0.1
+grpo_group_size               : 2
+learning_rate                 : 2e-05
+load_best_model_at_end        : False
+log_eval_spread               : True
+logging_steps                 : None
+lora_alpha                    : 64
+lora_dropout                  : 0.1
+lora_r                        : 32
+lora_target_modules           : ['q_proj', 'k_proj', 'v_proj', 'o_proj']
+lr_scheduler_type             : cosine
+max_completion_length         : 512
+max_grad_norm                 : 1.0
+max_length                    : 1024
+max_prompt_length             : 512
+max_steps                     : 12207
+metric_for_best_model         : eval_loss
+mixture_rates                 : [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+mode                          : pretrain
+model                         : Qwen/Qwen3-4B-Base
+moe_expert_parallel           : False
+moe_load_in_4bit              : False
+moe_load_in_8bit              : False
+multi_gpu                     : False
+no_mixed_precision            : False
+num_train_epochs              : 1
+output_dir                    : ./runs/phase2b_financial_qwen3_4b/financial_qa
+packing_max_length            : None
+resume_from_checkpoint        : None
+return_position_ids           : True
+reward_model                  : None
+rl_learning_rate              : 1e-06
+rl_warmup_steps               : 100
+save_steps                    : 1000
+save_strategy                 : steps
+save_total_limit              : 2
+separate_mixture_eval         : True
+task                          : auto
+use_flash_attention           : False
+use_lora                      : True
+use_packing                   : True
+warmup_ratio                  : 0.0
+warmup_steps                  : 1220
+weight_decay                  : 0.01

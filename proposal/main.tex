@@ -1,0 +1,143 @@
+% Source: http://tex.stackexchange.com/a/5374/23931
+\documentclass[11pt, a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.0in]{geometry}
+\usepackage[square, sort, numbers]{natbib}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{mwe}
+\usepackage{bm}
+\setlength{\bibsep}{1.0pt}
+\usepackage{sectsty}
+\usepackage{amsfonts}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{xspace}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{varwidth}
+\usepackage{tabularx}
+\usepackage{subfig}
+\usepackage{diagbox}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage[bottom]{footmisc}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\bridge}[1]{{\color{orange} \textbf{\textit{#1}}}}
+\newcommand{\support}[1]{{\color{blue}\textit{#1}}}
+\newcommand{\link}[1]{{\color{red}\textit{#1}}}
+
+\newcommand{\answer}[1]{{\color{green!55!black}\textbf{#1}}}
+\newcommand{\sentid}[1]{{\color{green!55!black}#1}}
+\newcommand\datasetname{\textsc{HotpotQA}}
+\newcommand\hotpotqa{\textsc{HotpotQA}}
+\newcommand\squad{{SQuAD}}
+\newcommand\cnn{{CNN/DailyMail}}
+\newcommand\newsqa{\textsc{NewsQA}}
+\newcommand\triviaqa{{TriviaQA}}
+\newcommand\searchqa{{SearchQA}}
+\newcommand\wikihop{{QAngaroo}}
+\newcommand\complexwebq{\textsc{ComplexWebQuestions}}
+\newcommand\parlai{{ParlAI}}
+\newcommand{\orw}[1]{\textcolor{green}{\textbf{#1}}}
+\newcommand{\mow}[1]{\textcolor{red}{\textbf{#1}}}
+
+\newcommand\fone{F\textsubscript{1}}
+\setlength{\bibsep}{3pt plus 0.3ex}
+
+% \rhead{Research Proposal \\ Applying to Master Thesis Project}
+% \lhead{Applicant Name: Guanlan Liu \\ Date of Birth: Sept. 11, 1999}
+\rfoot{Page \thepage}
+
+\usepackage{times}
+\newcommand{\HRule}{\rule{\linewidth}{0.7mm}}
+\renewcommand{\baselinestretch}{1.0} 
+\setlength{\parskip}{0.1em}
+
+\makeatletter% since there's an at-sign (@) in the command name
+%\vspace{-0.5cm}
+% \renewcommand{\@maketitle}{%
+%   \parindent=0pt% don't indent paragraphs in the title block
+%   \centering
+%   {\Large \bfseries\textsc{\@title}}
+ 
+% }
+
+\makeatother% resets the meaning of the at-sign (@)
+\title{\LARGE \bfseries\textsc {Master Thesis Proposal: Information-Secure Language Models for Finance Applications}}
+\author{Guanlan Liu \\ University of Zurich \\ \href{mailto:guanlan.liu@uzh.ch}{guanlan.liu@uzh.ch}}
+\date{}
+
+\begin{document}
+  \maketitle% prints the title block
+  \thispagestyle{fancy}
+
+\begin{abstract}
+
+Recent advancements in Generative Artificial Intelligence (GenAI) have created significant opportunities across various sectors, particularly in Finance. One notable application allows users to upload financial statements, such as balance sheets or income statements, to online chatbots like ChatGPT or Gemini for analysis. While this capability greatly reduces workload, it raises critical privacy and security concerns, especially when dealing with confidential or pre-public financial documents. Besides, LLMs usually underperform on tasks it has never seen. To improve LLM on novel tasks, one usually needs to finetune the LLM on these tasks. However, finetuning LLMs can both be very expensive and also environmentally unfriendly. This thesis proposes an innovative solution to address these challenges. 
+
+We explore the development of \textbf{a lightweight, privacy-preserving chatbot designed specifically for financial applications}. Our solution aims to run efficiently on local devices such as laptops or even phones, eliminating the need to upload sensitive data to external online services. By prioritizing data security and minimizing hardware requirements, our chatbot addresses the growing demand for secure, on-device AI solutions in the financial sector, balancing the benefits of using LLMs with data protection requirements. 
+
+\end{abstract}
+
+\section{Motivation}
+
+In today's rapidly evolving technological landscape, closed-source models like ChatGPT require users to upload private information to a remote server operated by another company. This practice introduces significant security and compliance concerns, particularly in the financial sector, where data privacy and regulatory adherence are paramount. Moreover, these remote models are often exceedingly large; it is rumored that GPT-4 has more than 200 billion parameters. Such extensive models are not environmentally friendly, considering the substantial hardware and electricity requirements. Additionally, the cost of using services like the ChatGPT API can be prohibitively high, making extensive use economically unreasonable for many organizations.
+
+\section{Literature Review}
+
+The rapid development of large language models (LLMs) has transformed natural language processing, enabling complex tasks such as language translation, summarization, and conversational AI~\cite{devlin2018bert, brown2020language}. Models like GPT-3~\cite{brown2020language} and GPT-4 have demonstrated remarkable capabilities but come with significant drawbacks, particularly in terms of data privacy, computational resources, and cost.
+
+In the financial sector, confidentiality and compliance are important. The use of closed-source models that require data to be processed on external servers, such as ChatGPT, poses substantial risks related to data breaches and non-compliance with regulations like GDPR~\cite{voigt2017eu}. These concerns necessitate solutions that can operate securely on local devices.
+
+Recent advancements in open-source LLMs, such as LLaMA~\cite{touvron2023llama, touvron2023llama2, llama3}, Gemma~\cite{gemma2}, have made it feasible to deploy powerful models on personal hardware. LLaMA and Gemma models range from 70B down to 1.5B parameters, providing options that balance performance and computational efficiency. Techniques like Low-Rank Adaptation (LoRA)~\cite{hu2021lora} allow for efficient finetuning of these models by reducing the number of trainable parameters, making the process more accessible and less resource-intensive.
+
+In the financial domain, models like FinBERT~\cite{araci2019finbert}, FinGPT~\cite{fingpt} and BloombergGPT~\cite{bloomberggpt} have been developed for specialized tasks such as sentiment analysis and named entity recognition as well as general tasks like chatting. However, these models are either not not capable of chatting or are too large for practical personal usage.
+
+Our work aims to bridge this gap by developing a lightweight, privacy-preserving chatbot tailored for financial applications. By finetuning a smaller open-source model like LLaMA3 1B/3B or Gemma2 2B using techniques like LoRA, we can create a model that runs efficiently on local devices, ensuring data remains secure while providing robust performance.
+
+
+\section{Proposed Method}
+Open-source models present a viable alternative, providing both cost-efficiency and robust performance. One noteworthy example is the recently released LLaMA 3.2~\cite{llama3}, an 1.5 billion parameter model as well as the newly released Gemma2~\cite{gemma2} 2 billion parameter model. By finetuning such a model with our own data, we can achieve performance levels comparable to much larger, more expensive models. finetuning involves training the model on domain-specific tasks, such as next-token prediction, using our own datasets. This results in a specialized model that is tailored to our unique requirements, offering improved performance and cost savings.
+
+\subsection{Model Selection}
+
+The first step is to select an appropriate open-source model. Given the requirements for both performance and efficiency, I plan to use Gemma2 2B as it is the most powerful smaller-than-3B model so far. A 2B model is well-suited to deploy on personal laptops or phones. As a reference, the upcoming Apple Intelligence\footnote{\url{https://machinelearning.apple.com/research/introducing-apple-foundation-models}} is a 3B model deployed on phones.
+
+\subsection{Implementing Process}
+
+The finetuning process will involve several steps:
+
+\begin{itemize}
+    \item \textbf{Data Collection}: Gather a comprehensive dataset relevant to our financial applications. This dataset will include various financial documents, statements, and historical data.
+    \item \textbf{Preprocessing}: Clean and preprocess the data to ensure it is in a suitable format for model training..
+    \item \textbf{Training}: Utilize the collected data to finetune the selected open-source model. The training process will focus on next-token prediction. To mitigate resource constraints, we can finetune with LoRA~\cite{lora}. For computation resources, we can use free GPUs from Kaggle\footnote{\url{https://www.kaggle.com/code/dansbecker/running-kaggle-kernels-with-a-gpu}} or Google Colab\footnote{\url{https://colab.research.google.com/}}.
+    \item \textbf{Evaluation}: After finetuning, the model will be evaluated by humans on various downstream tasks.
+\end{itemize}
+
+
+\subsection{Cost Efficiency}
+
+Deploying and maintaining a smaller, finetuned model is more cost-effective than relying on large, remote models. The reduced computational requirements mean lower energy consumption and hardware costs. Additionally, avoiding API fees from services like ChatGPT further saves more costs.
+
+\subsection{Scalability}
+
+Our approach also allows for scalability. As our data and requirements evolve, we can finetune additional models or scale up the existing models to suit increased demand.
+
+\section{Conclusion}
+
+By leveraging open-source models and deploying them on our own servers, we can address critical security and compliance issues while significantly reducing costs. finetuning smaller models like Gemma2 2B enables us to achieve performance levels comparable to larger, closed-source models, offering a practical and efficient solution for financial applications. This approach not only enhances data privacy and security but also provides a scalable, cost-effective solution for leveraging GenAI in the financial sector.
+
+\bibliographystyle{unsrt}
+\bibliography{ref}
+
+\end{document}

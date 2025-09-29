@@ -1,0 +1,23 @@
+{
+  "eval_financial_qa/loss": 6.593651294708252,
+  "eval_financial_qa/perplexity": 730.4430696180378,
+  "eval_fingpt/loss": 3.1276941299438477,
+  "eval_fingpt/perplexity": 22.821295882129647,
+  "eval_alpaca/loss": 3.0578441619873047,
+  "eval_alpaca/perplexity": 21.281627929360443,
+  "eval_fiqa/loss": 3.0638010501861572,
+  "eval_fiqa/perplexity": 21.40877854262943,
+  "eval_twitter/loss": 3.7635741233825684,
+  "eval_twitter/perplexity": 43.10220359869095,
+  "eval_financial_repor/loss": 3.7876837253570557,
+  "eval_financial_repor/perplexity": 44.154008927257024,
+  "eval_financial_news_/loss": 3.0834708213806152,
+  "eval_financial_news_/perplexity": 21.834053133595734,
+  "eval_average/loss": 3.7825313295636858,
+  "eval_average/perplexity": 129.29214823310014,
+  "eval_loss": 3.7825313295636858,
+  "eval_spread/max_min_diff": 709.1614416886774,
+  "eval_spread/std_dev": 245.60363484900822,
+  "eval_spread/relative_spread": 548.495366021867,
+  "epoch": 5.430160142348754
+}

@@ -1,0 +1,138 @@
+% LaTeX formulas for dataset mixture ratio calculations
+% For inclusion in thesis methodology section
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\begin{document}
+
+\section{Mathematical Formulation of Dataset Mixing}
+
+\subsection{Square Root Scaling}
+
+Given a set of datasets $\mathcal{D} = \{D_1, D_2, ..., D_n\}$ with token counts $T = \{t_1, t_2, ..., t_n\}$, the square root scaling weight for dataset $i$ is:
+
+\begin{equation}
+w_i^{\text{sqrt}} = \frac{\sqrt{t_i}}{\sum_{j=1}^{n} \sqrt{t_j}}
+\end{equation}
+
+\subsection{50\% Capping Rule}
+
+The capping operation is defined as:
+
+\begin{equation}
+w_i^{\text{capped}} =
+\begin{cases}
+0.5 & \text{if } w_i^{\text{sqrt}} > 0.5 \\
+w_i^{\text{sqrt}} + \delta_i & \text{if } w_i^{\text{sqrt}} \leq 0.5
+\end{cases}
+\end{equation}
+
+where the redistribution term $\delta_i$ is:
+
+\begin{equation}
+\delta_i = \frac{w_i^{\text{sqrt}}}{\sum_{j \in \mathcal{U}} w_j^{\text{sqrt}}} \cdot \max(0, \max_k(w_k^{\text{sqrt}}) - 0.5)
+\end{equation}
+
+and $\mathcal{U} = \{j : w_j^{\text{sqrt}} \leq 0.5\}$ is the set of uncapped datasets.
+
+\subsection{Normalization Constraint}
+
+The final weights must satisfy:
+
+\begin{equation}
+\sum_{i=1}^{n} w_i^{\text{capped}} = 1.0
+\end{equation}
+
+\subsection{Effective Sampling Probability}
+
+During training, the probability of sampling from dataset $D_i$ at any given step is:
+
+\begin{equation}
+P(D_i) = w_i^{\text{capped}}
+\end{equation}
+
+\subsection{Expected Sample Count}
+
+For a training run of $S$ total samples, the expected number of samples from dataset $D_i$ is:
+
+\begin{equation}
+\mathbb{E}[s_i] = S \cdot w_i^{\text{capped}}
+\end{equation}
+
+\subsection{Dataset Balance Metric}
+
+The balance score $B$ measures how evenly distributed the mixture is:
+
+\begin{equation}
+B = 1 - \frac{\sum_{i=1}^{n} |w_i^{\text{capped}} - \frac{1}{n}|}{2(1 - \frac{1}{n})}
+\end{equation}
+
+where $B = 1$ indicates perfect uniformity and $B = 0$ indicates complete imbalance.
+
+\subsection{Entropy of Mixture}
+
+The entropy $H$ of the mixture distribution is:
+
+\begin{equation}
+H = -\sum_{i=1}^{n} w_i^{\text{capped}} \log_2(w_i^{\text{capped}})
+\end{equation}
+
+Maximum entropy $H_{\max} = \log_2(n)$ occurs with uniform distribution.
+
+\subsection{Algorithm: 50\% Cap with Redistribution}
+
+\begin{algorithm}
+\caption{Calculate Mixture Rates with 50\% Cap}
+\begin{algorithmic}[1]
+\REQUIRE Token counts $T = \{t_1, ..., t_n\}$
+\ENSURE Mixture weights $W = \{w_1, ..., w_n\}$
+\STATE $W \leftarrow \emptyset$
+\FOR{$i = 1$ to $n$}
+    \STATE $w_i \leftarrow \frac{\sqrt{t_i}}{\sum_{j=1}^{n} \sqrt{t_j}}$
+\ENDFOR
+\IF{$\max(W) > 0.5$}
+    \STATE $i_{\max} \leftarrow \arg\max(W)$
+    \STATE $excess \leftarrow w_{i_{\max}} - 0.5$
+    \STATE $w_{i_{\max}} \leftarrow 0.5$
+    \STATE $remaining \leftarrow \sum_{j \neq i_{\max}} w_j$
+    \FOR{$j \neq i_{\max}$}
+        \STATE $w_j \leftarrow w_j + excess \cdot \frac{w_j}{remaining}$
+    \ENDFOR
+\ENDIF
+\RETURN $W$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Temperature-Based Sampling (Alternative)}
+
+The T5 paper uses temperature-based sampling:
+
+\begin{equation}
+w_i^{\text{temp}} = \frac{t_i^{1/\tau}}{\sum_{j=1}^{n} t_j^{1/\tau}}
+\end{equation}
+
+where $\tau$ is the temperature parameter. Note that $\tau = 2$ is equivalent to square root scaling.
+
+\subsection{Effective Learning Rate per Dataset}
+
+When using a global learning rate $\eta$, the effective learning rate for dataset $D_i$ is:
+
+\begin{equation}
+\eta_i^{\text{eff}} = \eta \cdot w_i^{\text{capped}}
+\end{equation}
+
+\subsection{Gradient Contribution}
+
+The expected gradient contribution from dataset $D_i$ over the full training run is:
+
+\begin{equation}
+\mathbb{E}[\nabla_i] = w_i^{\text{capped}} \cdot \mathbb{E}[\nabla_{D_i}]
+\end{equation}
+
+where $\mathbb{E}[\nabla_{D_i}]$ is the expected gradient from a single sample of dataset $D_i$.
+
+\end{document}
