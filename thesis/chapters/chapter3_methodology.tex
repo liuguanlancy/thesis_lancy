@@ -192,6 +192,20 @@ We report three complementary metrics:
 
 \textbf{Perplexity}: Interpretable transformation of cross-entropy: $\text{PPL} = \exp(\mathcal{L})$. Represents effective vocabulary size the model considers at each prediction. PPL = 10 means the model is effectively choosing among 10 tokens on average. Lower is better. Primary metric for comparisons in this thesis.
 
-\textbf{Relative Spread (Coefficient of Variation)}: Measures cross-dataset variance: $\text{CV} = \sigma / \mu$ where $\sigma$ is standard deviation and $\mu$ is mean perplexity across the 8 test sets. Lower CV indicates more robust generalization (consistent performance across domains); higher CV indicates specialization or brittleness. Useful for comparing mixture strategies.
+\textbf{Relative Spread (Coefficient of Variation)}: Measures cross-dataset variance: $\text{CV} = \sigma / \mu$ where $\sigma$ is the (sample) standard deviation and $\mu$ is the mean \emph{perplexity} across the 8 evaluation test sets. Lower CV indicates more robust generalization (consistent performance across domains); higher CV indicates specialization or brittleness. Useful for comparing mixture strategies. We report CV as a percentage: $\text{CV}\% = 100\,\sigma/\mu$.
+
+\paragraph{CV computation details}
+For each trained model/configuration $m$:
+\begin{enumerate}
+    \item Compute token-averaged cross-entropy on each evaluation set $d\in\mathcal{D}$, then convert to perplexity via $\mathrm{PPL}_d(m) = \exp(\mathcal{L}_d(m))$.
+    \item Form the 8-dimensional vector of perplexities $\mathbf{p}(m) = [\mathrm{PPL}_d(m)]_{d\in\mathcal{D}}$ (macro over datasets; all 8 sets are weighted equally).
+    \item Compute the macro mean and (sample) standard deviation across datasets:
+    \begin{equation*}
+        \mu(m) = \frac{1}{|\mathcal{D}|}\sum_{d\in\mathcal{D}} \mathrm{PPL}_d(m),\qquad
+        \sigma(m) = \sqrt{\frac{1}{|\mathcal{D}|-1}\sum_{d\in\mathcal{D}}\bigl(\mathrm{PPL}_d(m) - \mu(m)\bigr)^2} \, .
+    \end{equation*}
+    \item Report $\mathrm{CV}(m) = \sigma(m)/\mu(m)$ and $\mathrm{CV}\%(m) = 100\,\sigma(m)/\mu(m)$.
+\end{enumerate}
+Notes: (i) CV uses \emph{perplexity}, not cross-entropy. (ii) The averaging is \emph{macro} across datasets (each test set contributes equally), while each dataset-level perplexity itself is computed as a micro-average over all tokens in that test set. (iii) Configurations with any non-finite perplexity (e.g., training collapse leading to $\infty$) are excluded from CV computation and are flagged in tables; CV is computed only when all eight values are finite. When we report an \emph{in-domain} CV (e.g., for SEC in \Cref{tab:experiments_overview}), the same definition is applied over subdivisions within that dataset, whereas \emph{cross-dataset} CV uses the 8-set vector above.
 
 All metrics are computed on full test sets (no subsampling) with the same sequence length (2,048 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).
