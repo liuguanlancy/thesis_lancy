@@ -1,2 +1,15 @@
-% Use original background for more detail
-\input{../thesis/chapters/chapter2_background}
+\chapter{Background and Related Work}
+
+This chapter reviews work most relevant to data mixture effects in financial language model pretraining. We focus on (i) financial NLP models and tasks, (ii) pretraining objectives and scaling, (iii) mixture strategies and domain adaptation.
+
+\section{Financial NLP Landscape}
+Financial NLP spans sentiment classification (news, social media), question answering (reports, earnings calls), document understanding (SEC filings), and numerical reasoning \parencite{yang2020finqa}. Domain-specialized models demonstrate the value of finance-focused training: BloombergGPT (50B) mixes finance and general corpora and achieves strong financial benchmarks while retaining general ability \parencite{wu2023bloomberggpt}; FinBERT variants continue pretraining BERT on financial text to improve sentiment tasks \parencite{araci2019finbert,yang2020finbert}; and FinGPT explores open-source financial LLMs with instruction-tuned pipelines \parencite{yang2023fingpt}. Challenges are distinct: privacy constraints (on-prem/edge inference), limited curated data, and fast-evolving vocabulary.
+
+\section{Pretraining Objectives and Scaling}
+Modern LLMs are predominantly decoder-only transformers trained with the causal LM objective \parencite{radford2019language,brown2020language,touvron2023llama}. Scaling laws connect achievable loss to model size, dataset size, and compute \parencite{kaplan2020scaling}, while Chinchilla recommends trading parameters for more tokens (data-efficient scaling) \parencite{hoffmann2022training}. In practice, hyperparameters must scale with size: learning rate reductions with increasing width/parameters improve stability and performance \parencite{mccandlish2018empirical}. Efficient training stacks (ZeRO, Megatron-LM) enable billion-parameter models on commodity clusters \parencite{rajbhandari2020zero,narayanan2021efficient}.
+
+\section{Mixture Strategies}
+Mixture construction affects both specialization and generalization. Common strategies include temperature sampling (size-based reweighting), capping large sources to ensure diversity (e.g., 50cap), and equal mixing \parencite{arivazhagan2019massively,longpre2023pretrainer,sanh2022multitask}. Curriculum variants sequence corpora by difficulty or domain, but evidence is mixed at LLM scale; many systems converge on simultaneous mixtures with careful proportions \parencite{raffel2020exploring,longpre2023pretrainer}. Recent work also explores dynamic reweighting such as DoReMi, adapting domain weights during training using held-out signals \parencite{xie2023doremi}.
+
+\section{Domain Adaptation and Robustness}
+Domain-adaptive pretraining improves specialized tasks \parencite{gururangan2020don}, but continued training risks catastrophic forgetting of general knowledge \parencite{mccloskey1989catastrophic,french1999catastrophic,kirkpatrick2017overcoming}. Balanced mixtures can mitigate forgetting while maintaining specialization \parencite{raffel2020exploring,arivazhagan2019massively}. Distribution shift is multidimensional—vocabulary, discourse, and format all matter \parencite{quinonero2009dataset,aharoni2020unsupervised}. Our study quantifies robustness with cross-dataset coefficient of variation (CV) and shows that format alignment (long-form, instruction, short-form) is a key driver of transfer.

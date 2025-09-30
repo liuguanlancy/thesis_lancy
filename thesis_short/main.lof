@@ -8,27 +8,27 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Mixed Financial scaling.\relax }}{19}{figure.caption.7}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Mixed Financial scaling.\relax }}{11}{figure.caption.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Mixed Wiki+Financial scaling.\relax }}{19}{figure.caption.8}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Mixed Wiki+Financial scaling.\relax }}{11}{figure.caption.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces WikiText LR comparison.\relax }}{20}{figure.caption.9}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces WikiText LR comparison.\relax }}{12}{figure.caption.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Financial QA: LR adjustment resolves reverse scaling.\relax }}{20}{figure.caption.10}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Financial QA: LR adjustment resolves reverse scaling.\relax }}{12}{figure.caption.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Twitter: severe LR sensitivity at small data scales.\relax }}{21}{figure.caption.11}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Twitter: severe LR sensitivity at small data scales.\relax }}{13}{figure.caption.9}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.6}{\ignorespaces News Articles scaling.\relax }}{21}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces News Articles scaling.\relax }}{13}{figure.caption.10}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.7}{\ignorespaces SEC Reports scaling.\relax }}{22}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces SEC Reports scaling.\relax }}{14}{figure.caption.11}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.8}{\ignorespaces FinGPT instruction mixture scaling.\relax }}{22}{figure.caption.14}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces FinGPT instruction mixture scaling.\relax }}{14}{figure.caption.12}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Alpaca instruction mixture scaling.\relax }}{23}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Alpaca instruction mixture scaling.\relax }}{15}{figure.caption.13}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.10}{\ignorespaces FiQA short-form scaling.\relax }}{23}{figure.caption.16}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces FiQA short-form scaling.\relax }}{15}{figure.caption.14}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Comparison across training sources.\relax }}{23}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Comparison across training sources.\relax }}{15}{figure.caption.15}%
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

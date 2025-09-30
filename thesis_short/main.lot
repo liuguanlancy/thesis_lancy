@@ -6,53 +6,51 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {3.1}{\ignorespaces Learning rate recommendations by model size. Reduction factors follow approximate inverse square-root scaling relative to 0.6B baseline.\relax }}{15}{table.caption.4}%
-\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.1}{\ignorespaces Overview of 10 pretraining experiments. Per dataset, we pretrain at 0.6B/1.7B/4B and evaluate on 8 test sets. LR adjustments are applied where noted.\relax }}{18}{table.caption.6}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Overview of 10 pretraining experiments. Per dataset, we pretrain at 0.6B/1.7B/4B and evaluate on 8 test sets. LR adjustments are applied where noted.\relax }}{10}{table.caption.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.2}{\ignorespaces Mixed Financial Dataset: Evaluation Across Multiple Datasets\relax }}{24}{table.caption.18}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Mixed Financial Dataset: Evaluation Across Multiple Datasets\relax }}{16}{table.caption.16}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.3}{\ignorespaces Mixed Wiki+Financial Dataset: Evaluation Across Multiple Datasets\relax }}{24}{table.caption.19}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Mixed Wiki+Financial Dataset: Evaluation Across Multiple Datasets\relax }}{16}{table.caption.17}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.4}{\ignorespaces WikiText Dataset: Evaluation Across Multiple Datasets\relax }}{25}{table.caption.20}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces WikiText Dataset: Evaluation Across Multiple Datasets\relax }}{17}{table.caption.18}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.5}{\ignorespaces Financial News Dataset: Evaluation Across Multiple Datasets\relax }}{25}{table.caption.21}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Financial News Dataset: Evaluation Across Multiple Datasets\relax }}{17}{table.caption.19}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.6}{\ignorespaces SEC Reports Dataset: Evaluation Across Multiple Datasets\relax }}{26}{table.caption.22}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces SEC Reports Dataset: Evaluation Across Multiple Datasets\relax }}{18}{table.caption.20}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.7}{\ignorespaces FinGPT Sentiment Dataset: Evaluation Across Multiple Datasets\relax }}{26}{table.caption.23}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces FinGPT Sentiment Dataset: Evaluation Across Multiple Datasets\relax }}{18}{table.caption.21}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.8}{\ignorespaces Finance Alpaca Dataset: Evaluation Across Multiple Datasets\relax }}{27}{table.caption.24}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Finance Alpaca Dataset: Evaluation Across Multiple Datasets\relax }}{19}{table.caption.22}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.9}{\ignorespaces FiQA Dataset: Evaluation Across Multiple Datasets\relax }}{27}{table.caption.25}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces FiQA Dataset: Evaluation Across Multiple Datasets\relax }}{19}{table.caption.23}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.10}{\ignorespaces Twitter Financial Dataset: Evaluation Across Multiple Datasets\relax }}{28}{table.caption.26}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces Twitter Financial Dataset: Evaluation Across Multiple Datasets\relax }}{20}{table.caption.24}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.11}{\ignorespaces Financial QA 10K Dataset: Evaluation Across Multiple Datasets\relax }}{28}{table.caption.27}%
+\contentsline {table}{\numberline {4.11}{\ignorespaces Financial QA 10K Dataset: Evaluation Across Multiple Datasets\relax }}{20}{table.caption.25}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.12}{\ignorespaces WikiText Dataset: Impact of Learning Rate Adjustments\relax }}{29}{table.caption.28}%
+\contentsline {table}{\numberline {4.12}{\ignorespaces WikiText Dataset: Impact of Learning Rate Adjustments\relax }}{21}{table.caption.26}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.13}{\ignorespaces Twitter Financial Dataset: Impact of Learning Rate Adjustments\relax }}{29}{table.caption.29}%
+\contentsline {table}{\numberline {4.13}{\ignorespaces Twitter Financial Dataset: Impact of Learning Rate Adjustments\relax }}{21}{table.caption.27}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.14}{\ignorespaces Financial QA 10K Dataset: Impact of Learning Rate Adjustments\relax }}{29}{table.caption.30}%
+\contentsline {table}{\numberline {4.14}{\ignorespaces Financial QA 10K Dataset: Impact of Learning Rate Adjustments\relax }}{21}{table.caption.28}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.15}{\ignorespaces Financial News Evaluation: Performance Across Training Datasets\relax }}{30}{table.caption.31}%
+\contentsline {table}{\numberline {4.15}{\ignorespaces Financial News Evaluation: Performance Across Training Datasets\relax }}{22}{table.caption.29}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.16}{\ignorespaces SEC Reports Evaluation: Performance Across Training Datasets\relax }}{30}{table.caption.32}%
+\contentsline {table}{\numberline {4.16}{\ignorespaces SEC Reports Evaluation: Performance Across Training Datasets\relax }}{22}{table.caption.30}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.17}{\ignorespaces Alpaca Evaluation: Performance Across Training Datasets\relax }}{31}{table.caption.33}%
+\contentsline {table}{\numberline {4.17}{\ignorespaces Alpaca Evaluation: Performance Across Training Datasets\relax }}{23}{table.caption.31}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.18}{\ignorespaces FinGPT Evaluation: Performance Across Training Datasets\relax }}{31}{table.caption.34}%
+\contentsline {table}{\numberline {4.18}{\ignorespaces FinGPT Evaluation: Performance Across Training Datasets\relax }}{23}{table.caption.32}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.19}{\ignorespaces FiQA Evaluation: Performance Across Training Datasets\relax }}{32}{table.caption.35}%
+\contentsline {table}{\numberline {4.19}{\ignorespaces FiQA Evaluation: Performance Across Training Datasets\relax }}{24}{table.caption.33}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.20}{\ignorespaces Twitter Financial Evaluation: Performance Across Training Datasets\relax }}{32}{table.caption.36}%
+\contentsline {table}{\numberline {4.20}{\ignorespaces Twitter Financial Evaluation: Performance Across Training Datasets\relax }}{24}{table.caption.34}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.21}{\ignorespaces Financial QA Evaluation: Performance Across Training Datasets\relax }}{33}{table.caption.37}%
+\contentsline {table}{\numberline {4.21}{\ignorespaces Financial QA Evaluation: Performance Across Training Datasets\relax }}{25}{table.caption.35}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.22}{\ignorespaces WikiText Evaluation: Performance Across Training Datasets\relax }}{33}{table.caption.38}%
+\contentsline {table}{\numberline {4.22}{\ignorespaces WikiText Evaluation: Performance Across Training Datasets\relax }}{25}{table.caption.36}%
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

@@ -14,88 +14,40 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {2}Background and Related Work}{6}{chapter.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.1}Financial NLP}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.1}Financial NLP Landscape}{6}{section.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.1}The Financial NLP Landscape}{6}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Pretraining Objectives and Scaling}{6}{section.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.2}Existing Financial Language Models}{6}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.3}Mixture Strategies}{6}{section.2.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.3}Domain-Specific Challenges}{6}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.4}Domain Adaptation and Robustness}{7}{section.2.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Language Model Pretraining}{7}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Methodology}{8}{chapter.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.1}Pretraining Objectives and Architecture}{7}{subsection.2.2.1}%
+\contentsline {section}{\numberline {3.1}Experimental Design}{8}{section.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.2}Scaling Laws and Model Size Effects}{7}{subsection.2.2.2}%
+\contentsline {section}{\numberline {3.2}Models}{8}{section.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.3}Computational and Memory Considerations}{7}{subsection.2.2.3}%
+\contentsline {section}{\numberline {3.3}Datasets and Mixtures}{8}{section.3.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Data Mixture Strategies}{8}{section.2.3}%
+\contentsline {section}{\numberline {3.4}Training Setup}{8}{section.3.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.1}Curriculum Learning and Sequential Mixing}{8}{subsection.2.3.1}%
+\contentsline {section}{\numberline {3.5}Evaluation Protocol and Metrics}{9}{section.3.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.2}Simultaneous Mixture Approaches}{8}{subsection.2.3.2}%
+\contentsline {chapter}{\numberline {4}Results}{10}{chapter.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.3}Domain Proportions and Sampling Strategies}{8}{subsection.2.3.3}%
+\contentsline {section}{\numberline {4.1}Mixture Effects}{10}{section.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.4}Domain Adaptation and Transfer Learning}{9}{section.2.4}%
+\contentsline {section}{\numberline {4.2}Scaling and LR Sensitivity}{11}{section.4.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.1}Cross-Domain Transfer in Language Models}{9}{subsection.2.4.1}%
+\contentsline {section}{\numberline {4.3}Dataset Size and Format}{13}{section.4.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.2}Catastrophic Forgetting and Stability}{9}{subsection.2.4.2}%
+\contentsline {section}{\numberline {4.4}All Tables (Preserved)}{16}{section.4.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.3}Distribution Shift and Domain Mismatch}{9}{subsection.2.4.3}%
+\contentsline {chapter}{\numberline {5}Discussion}{26}{chapter.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.4}Related Empirical Studies}{9}{subsection.2.4.4}%
+\contentsline {section}{\numberline {5.1}Key Takeaways}{26}{section.5.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Methodology}{11}{chapter.3}%
+\contentsline {section}{\numberline {5.2}Practical Guidance}{26}{section.5.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Experimental Design Overview}{11}{section.3.1}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Model Architecture}{12}{section.3.2}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Datasets}{12}{section.3.3}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.1}Financial Datasets}{12}{subsection.3.3.1}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.2}WikiText}{13}{subsection.3.3.2}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.3}Mixture Strategies}{13}{subsection.3.3.3}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Training Setup and Hyperparameter Tuning}{14}{section.3.4}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.1}Initial Configuration}{14}{subsection.3.4.1}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.2}Discovery of Reverse Scaling}{14}{subsection.3.4.2}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.3}Systematic Learning Rate Adjustment}{15}{subsection.3.4.3}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.4}Final Learning Rate Recommendations}{15}{subsection.3.4.4}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.5}Other Hyperparameters}{15}{subsection.3.4.5}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.5}Evaluation Protocol}{16}{section.3.5}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.1}Multi-Dataset Evaluation}{16}{subsection.3.5.1}%
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.2}Metrics}{16}{subsection.3.5.2}%
-\defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{CV computation details}{16}{section*.5}%
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Results}{18}{chapter.4}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Mixture Effects}{18}{section.4.1}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Scaling and LR Sensitivity}{19}{section.4.2}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Dataset Size and Format}{21}{section.4.3}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}All Tables (Preserved)}{24}{section.4.4}%
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Discussion}{34}{chapter.5}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Key Takeaways}{34}{section.5.1}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Practical Guidance}{34}{section.5.2}%
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusion}{35}{chapter.6}%
+\contentsline {chapter}{\numberline {6}Conclusion}{27}{chapter.6}%

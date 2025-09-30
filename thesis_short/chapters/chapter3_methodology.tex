@@ -1,2 +1,25 @@
-% Reuse the full original Methodology for detail and CV definition
-\input{../thesis/chapters/chapter3_methodology}
+\chapter{Methodology}
+
+We describe the experimental design, models, datasets, training setup, and evaluation protocol used to study data mixture effects in financial LM pretraining.
+
+\section{Experimental Design}
+We run 10 pretraining configurations (mixtures and single sources) at three model sizes (0.6B, 1.7B, 4B), yielding 30 models and 240 evaluations over eight test sets. Experiments isolate impacts of (i) mixture composition, (ii) model size and learning rate scaling, and (iii) dataset size and format.
+
+\section{Models}
+We use the Qwen2 family of decoder-only transformers \parencite{yang2024qwen2}, chosen for architectural consistency across sizes and efficient inference. We train 0.6B, 1.7B, and 4B models with grouped-query attention and bfloat16 mixed precision.
+
+\section{Datasets and Mixtures}
+Financial sources include seven datasets covering long-form documents (News: 197M tokens; SEC: 80M), instruction formats (FinGPT: 19M; Alpaca: 17M), short-form Q\&A (FiQA: 4M; Financial QA: 3.5M), and micro-text (Twitter: 0.3M). General data is WikiText-103 (100M tokens) \parencite{merity2016pointer}. We build (i) Mixed Financial with 50\% capping to prevent dominance, (ii) Mixed Wiki+Financial, and (iii) the seven single-source runs.
+
+\section{Training Setup}
+We use causal LM pretraining with Adam-family optimizer, global batch size selected per model to process $\sim$100M tokens per run, gradient accumulation for memory fit, and activation checkpointing. Learning rate follows a cosine schedule with warmup; crucially, we reduce LR with model size (empirically close to $1/\sqrt{N}$), which resolves reverse scaling observed under a constant LR \parencite{mccandlish2018empirical}. Implementation uses ZeRO-style sharding or equivalent memory optimization \parencite{rajbhandari2020zero}.
+
+\section{Evaluation Protocol and Metrics}
+Each model is evaluated on eight held-out test sets (seven financial + WikiText). We report:
+\begin{itemize}
+  \item Cross-entropy loss: $\mathcal{L} = -\frac{1}{N}\sum_i \log P(w_i\mid w_{<i})$.
+  \item Perplexity: $\mathrm{PPL} = \exp(\mathcal{L})$.
+  \item Coefficient of Variation (CV): robustness across datasets. Let $\mathbf{p} = [\mathrm{PPL}_d]_{d\in\mathcal{D}}$ be perplexities on the eight test sets; with macro averaging across datasets,
+  $\mu = \frac{1}{|\mathcal{D}|}\sum_d \mathrm{PPL}_d$, $\sigma = \sqrt{\frac{1}{|\mathcal{D}|-1}\sum_d (\mathrm{PPL}_d - \mu)^2}$, and $\mathrm{CV}\% = 100\,\sigma/\mu$.
+\end{itemize}
+We exclude non-finite values from CV and flag such runs in tables. In-domain CV (within a dataset’s subdivisions) is computed analogously; cross-dataset CV aggregates the eight-set vector.
