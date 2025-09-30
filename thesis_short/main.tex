@@ -1,0 +1,30 @@
+\documentclass[11pt,a4paper,english,oneside]{book}
+\newcommand{\thesis}{Master}
+\input{preamble}
+\begin{document}
+\thispagestyle{empty}
+\titleShort
+
+% Keep TOC/LOF/LOT but these do not count toward the 40-page main limit
+\singlespacing
+\setcounter{page}{1}
+\pagenumbering{Roman}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\pagenumbering{arabic}
+
+% Chapters (shortened)
+\input{chapters/chapter1_introduction}
+\input{chapters/chapter2_background}
+\input{chapters/chapter3_methodology}
+\input{chapters/chapter4_results}
+\input{chapters/chapter5_discussion}
+\input{chapters/chapter6_conclusion}
+
+% Bibliography
+\printbibliography
+\end{document}
+

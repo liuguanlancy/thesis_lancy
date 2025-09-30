@@ -1,0 +1,88 @@
+% Preamble for shortened thesis
+\usepackage{etex}
+\usepackage[utf8]{inputenc}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{breqn}
+
+% Layout
+\usepackage[left=1in, right=1in]{geometry}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage[hang,bottom,stable,multiple]{footmisc}
+\usepackage{dsfont}
+\usepackage[svgnames]{xcolor}
+
+% Floats
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{hhline}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[margin=10pt, font=small, labelfont=bf, labelsep=endash]{caption}
+
+% Other
+\usepackage{textcomp}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{appendix}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{datetime}
+\usepackage{chngcntr}
+\usepackage{xparse}
+\usepackage{arydshln}
+
+% Bibliography
+\usepackage[
+  backend=biber,
+  style=apa,
+  bibstyle=authoryear,
+  citestyle=authoryear,
+  maxcitenames=2,
+  maxbibnames=99
+]{biblatex}
+\addbibresource{../thesis/references.bib}
+
+% Hyperref and cleveref
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=false,
+  linkcolor=blue,
+  citecolor=blue,
+  filecolor=magenta,
+  urlcolor=blue
+}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+% Setup
+\setlength{\textwidth}{6.6in}
+\setlength{\textheight}{8.8in}
+\setlength{\topmargin}{-0.1in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\parskip}{1mm}
+\setlength{\parindent}{0cm}
+\counterwithout{footnote}{chapter}
+\numberwithin{equation}{chapter}
+\allowdisplaybreaks[1]
+
+% Title helpers
+\newcommand*{\titleShort}{\begingroup
+\centering
+\vspace*{\baselineskip}
+{\LARGE Understanding Data Mixture Effects in Financial Language Model Pretraining\\[0.5\baselineskip]
+Short Version}\\[1.2\baselineskip]
+{\large Guanlan Liu}\\[0.5\baselineskip]
+{\small Department of Finance, University of Zurich}\\[0.5\baselineskip]
+{\small Date: \today}\\[2\baselineskip]
+\endgroup}
+

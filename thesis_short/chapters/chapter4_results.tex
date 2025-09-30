@@ -1,0 +1,108 @@
+\chapter{Results}
+
+We preserve all figures and tables while streamlining narrative. We report key findings with brief context.
+
+\section{Mixture Effects}
+Mixed financial datasets outperform WikiText for financial tasks. Adding WikiText to the mixture degrades financial performance while modestly improving general-domain performance.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_mixed_financial.png}
+  \caption{Mixed Financial scaling.}\label{fig:scaling_mixed_financial}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_mixed_wiki_financial.png}
+  \caption{Mixed Wiki+Financial scaling.}\label{fig:scaling_mixed_wiki_financial}
+\end{figure}
+
+\section{Scaling and LR Sensitivity}
+Larger models require lower learning rates to avoid reverse scaling; proper LR restores expected size-performance trends.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_wikitext.png}
+  \caption{WikiText LR comparison.}\label{fig:scaling_wikitext}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_financial_qa.png}
+  \caption{Financial QA: LR adjustment resolves reverse scaling.}\label{fig:scaling_financial_qa}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_twitter.png}
+  \caption{Twitter: severe LR sensitivity at small data scales.}\label{fig:scaling_twitter}
+\end{figure}
+
+\section{Dataset Size and Format}
+Large datasets (News, SEC) support standalone pretraining; small datasets (Financial QA, Twitter) overfit and exhibit high cross-dataset CV. Format alignment (long-form vs instruction vs short-form) is a primary driver of transfer.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_news_articles.png}
+  \caption{News Articles scaling.}\label{fig:scaling_news_articles}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_sec_reports.png}
+  \caption{SEC Reports scaling.}\label{fig:scaling_sec_reports}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_fingpt.png}
+  \caption{FinGPT instruction mixture scaling.}\label{fig:scaling_fingpt}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_alpaca.png}
+  \caption{Alpaca instruction mixture scaling.}\label{fig:scaling_alpaca}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_fiqa.png}
+  \caption{FiQA short-form scaling.}\label{fig:scaling_fiqa}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../thesis/figures/scaling_comparison_all.png}
+  \caption{Comparison across training sources.}\label{fig:scaling_comparison_all}
+\end{figure}
+
+\section{All Tables (Preserved)}
+We include all result tables from the original thesis for completeness.
+
+% Results by training dataset
+\input{../thesis/tables/table_mixed_financial_results}
+\input{../thesis/tables/table_mixed_wiki_financial_results}
+\input{../thesis/tables/table_wikitext_results}
+\input{../thesis/tables/table_news_articles_results}
+\input{../thesis/tables/table_sec_reports_results}
+\input{../thesis/tables/table_fingpt_results}
+\input{../thesis/tables/table_alpaca_results}
+\input{../thesis/tables/table_fiqa_results}
+\input{../thesis/tables/table_twitter_results}
+\input{../thesis/tables/table_financial_qa_results}
+
+% LR comparisons
+\input{../thesis/tables/table_wikitext_lr_comparison}
+\input{../thesis/tables/table_twitter_lr_comparison}
+\input{../thesis/tables/table_financial_qa_lr_comparison}
+
+% Cross-dataset comparisons
+\input{../thesis/tables/table_cross_financial_news}
+\input{../thesis/tables/table_cross_financial_repor}
+\input{../thesis/tables/table_cross_alpaca}
+\input{../thesis/tables/table_cross_fingpt}
+\input{../thesis/tables/table_cross_fiqa}
+\input{../thesis/tables/table_cross_twitter}
+\input{../thesis/tables/table_cross_financial_qa}
+\input{../thesis/tables/table_cross_wikitext}
