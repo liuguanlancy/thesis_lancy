@@ -6,24 +6,18 @@
 \centering
 \caption{FinGPT Sentiment Dataset: Evaluation Across Multiple Datasets}
 \label{tab:fingpt_results}
-\resizebox{\textwidth}{!}{
 \begin{tabular}{l|ccc|ccc}
-\toprule
-\multirow{2}{*}{\textbf{Eval Dataset}} &
-\multicolumn{3}{c|}{\textbf{Cross-Entropy Loss}} &
-\multicolumn{3}{c}{\textbf{Perplexity}} \\
-\cmidrule(lr){2-4} \cmidrule(lr){5-7}
- & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B}\\
-\midrule
-Alpaca & 3.57 & 2.55 & \textbf{2.11} & 35.55 & 12.78 & \textbf{8.27}\\
-Financial News & 3.36 & 2.45 & \textbf{2.07} & 28.72 & 11.58 & \textbf{7.92}\\
-Financial Qa & 3.66 & 2.38 & \textbf{1.83} & 38.96 & 10.85 & \textbf{6.24}\\
-Financial Repor & 3.53 & 2.31 & \textbf{1.82} & 33.97 & 10.12 & \textbf{6.20}\\
-Fiqa & 3.57 & 2.55 & \textbf{2.10} & 35.64 & 12.79 & \textbf{8.16}\\
-Twitter & 3.68 & 2.40 & \textbf{1.87} & 39.54 & 11.05 & \textbf{6.46}\\
-Wikitext & 3.66 & 2.44 & \textbf{1.99} & 38.70 & 11.46 & \textbf{7.29}\\
-\bottomrule
+\hline
+\textbf{Eval Dataset} & \multicolumn{3}{c|}{\textbf{Cross-Entropy Loss}} & \multicolumn{3}{c}{\textbf{Perplexity}} \\n\cline{2-4} \cline{5-7}
+  & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} \\
+Alpaca & 3.57 & 2.55 & \textbf{2.11} & 35.55 & \textbf{12.78} & \textbf{8.27} \
+ Financial News & 3.36 & 2.45 & \textbf{2.07} & 28.72 & \textbf{11.58} & \textbf{7.92} \
+ Financial Qa & 3.66 & 2.38 & \textbf{1.83} & 38.96 & \textbf{10.85} & \textbf{6.24} \
+ Financial Repor & 3.53 & 2.31 & \textbf{1.82} & 33.97 & \textbf{10.12} & \textbf{6.20} \
+ Fiqa & 3.57 & 2.55 & \textbf{2.10} & 35.64 & \textbf{12.79} & \textbf{8.16} \
+ Twitter & 3.68 & 2.40 & \textbf{1.87} & 39.54 & \textbf{11.05} & \textbf{6.46} \
+ Wikitext & 3.66 & 2.44 & \textbf{1.99} & 38.70 & \textbf{11.46} & \textbf{7.29} \
+\hline
 \end{tabular}
-}
 \end{table}
 

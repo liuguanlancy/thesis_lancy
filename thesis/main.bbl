@@ -319,6 +319,97 @@
       \field{pages}{1877\bibrangedash 1901}
       \range{pages}{25}
     \endentry
+    \entry{chen2021finqa}{article}{}
+      \name{author}{11}{}{%
+        {{un=1,uniquepart=given,hash=796310c8523099cbedfcb996618225aa}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Zhiyu},
+           giveni={Z\bibinitperiod},
+           givenun=1}}%
+        {{un=0,uniquepart=base,hash=63d99bafe6679fb5e11e960687f909b1}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Wenhu},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1455616dcdccad1191d12d53f22e7cfe}{%
+           family={Smiley},
+           familyi={S\bibinitperiod},
+           given={Charese},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=79f0934521b19b2dcd6f1d892ef7b3c1}{%
+           family={Shah},
+           familyi={S\bibinitperiod},
+           given={Sameena},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4c57ccfaa6dce398604cc2dc34ea5dc1}{%
+           family={Borova},
+           familyi={B\bibinitperiod},
+           given={Iana},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=44be05087c7f28faf01cd32a872e0397}{%
+           family={Langdon},
+           familyi={L\bibinitperiod},
+           given={Dylan},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=785711e9ffc639dbeda2590b5286e252}{%
+           family={Moussa},
+           familyi={M\bibinitperiod},
+           given={Reema},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=09bc39363d5471ae8dfa0fa3a694b6d2}{%
+           family={Beane},
+           familyi={B\bibinitperiod},
+           given={Matt},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=eece8614e42cb1a58da53620c795500b}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Ting-Hao},
+           giveni={T\bibinithyphendelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cb3fa1f785c9be5090b78b3a932f6eb7}{%
+           family={Routledge},
+           familyi={R\bibinitperiod},
+           given={Bryan},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3b9b2f81da3e41fbc72b81f1b7f2e722}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={William\bibnamedelima Yang},
+           giveni={W\bibinitperiod\bibinitdelim Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{7d885346dd654a3255417c6ed9fb9094}
+      \strng{fullhash}{0c9f3077e27dfba6f1a1b76f39e573f5}
+      \strng{bibnamehash}{0c9f3077e27dfba6f1a1b76f39e573f5}
+      \strng{authorbibnamehash}{0c9f3077e27dfba6f1a1b76f39e573f5}
+      \strng{authornamehash}{7d885346dd654a3255417c6ed9fb9094}
+      \strng{authorfullhash}{0c9f3077e27dfba6f1a1b76f39e573f5}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2109.00122}
+      \field{title}{FinQA: A Dataset of Numerical Reasoning over Financial Data}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2109.00122
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2109.00122
+      \endverb
+    \endentry
     \entry{devlin2019bert}{inproceedings}{}
       \name{author}{4}{}{%
         {{un=0,uniquepart=base,hash=13202969e372bc82318f9629cbdd199b}{%
@@ -810,12 +901,12 @@
            given={Caio\bibnamedelimb César\bibnamedelima Teodoro},
            giveni={C\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim T\bibinitperiod},
            givenun=0}}%
-        {{un=0,uniquepart=base,hash=05d71a9c5e7ac79222e01a55af0ccb93}{%
+        {{un=1,uniquepart=given,hash=05d71a9c5e7ac79222e01a55af0ccb93}{%
            family={Chen},
            familyi={C\bibinitperiod},
            given={Weizhu},
            giveni={W\bibinitperiod},
-           givenun=0}}%
+           givenun=1}}%
         {{un=0,uniquepart=base,hash=3c830f9c8da80108cd83c7158c138829}{%
            family={Del\bibnamedelima Giorno},
            familyi={D\bibinitperiod\bibinitdelim G\bibinitperiod},
@@ -2919,7 +3010,6 @@
       \endverb
     \endentry
   \enddatalist
-  \missing{yang2020finqa}
 \endrefsection
 \endinput
 

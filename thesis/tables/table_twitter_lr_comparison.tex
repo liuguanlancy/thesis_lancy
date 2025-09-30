@@ -6,30 +6,28 @@
 \centering
 \caption{Twitter Financial Dataset: Impact of Learning Rate Adjustments}
 \label{tab:twitter_lr_comparison}
-\resizebox{\textwidth}{!}{
 \begin{tabular}{l|c|cc|cc|c|cc|cc}
-\toprule
+\hline
 \multirow{3}{*}{\textbf{Eval Dataset}} &
 \multicolumn{5}{c|}{\textbf{Cross-Entropy Loss}} &
 \multicolumn{5}{c}{\textbf{Perplexity}} \\
-\cmidrule(lr){2-6} \cmidrule(lr){7-11}
+\cline{2-6} \cline{7-11}
 & \textbf{0.6B} & \multicolumn{2}{c|}{\textbf{1.7B}} & \multicolumn{2}{c|}{\textbf{4B}} &
-\textbf{0.6B} & \multicolumn{2}{c|}{\textbf{1.7B}} & \multicolumn{2}{c}{\textbf{4B}}\\
-\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+ \textbf{0.6B} & \multicolumn{2}{c|}{\textbf{1.7B}} & \multicolumn{2}{c}{\textbf{4B}} \
+\cline{3-4} \cline{5-6} \cline{8-9} \cline{10-11}
 & \textbf{2e-5} & \textbf{2e-5} & \textbf{1e-5} & \textbf{2e-5} & \textbf{5e-6} &
-\textbf{2e-5} & \textbf{2e-5} & \textbf{1e-5} & \textbf{2e-5} & \textbf{5e-6}\\
-\midrule
-Alpaca & 3.01 & 2.66 & \textbf{2.54} & 2.96 & \textbf{2.61} & 20.21 & 14.33 & \textbf{12.66} & 19.20 & \textbf{13.65}\\
-Financial News & 3.17 & 2.80 & \textbf{2.65} & 2.87 & \textbf{2.54} & 23.77 & 16.48 & \textbf{14.10} & 17.67 & \textbf{12.68}\\
-Financial Qa & 2.46 & 2.32 & \textbf{2.16} & 2.83 & \textbf{2.43} & 11.76 & 10.15 & \textbf{8.69} & 16.98 & \textbf{11.39}\\
-Financial Repor & 2.48 & 2.32 & \textbf{2.16} & 2.80 & \textbf{2.39} & 11.95 & 10.17 & \textbf{8.70} & 16.42 & \textbf{10.93}\\
-Fingpt & 2.74 & 2.50 & \textbf{2.34} & 2.91 & \textbf{2.54} & 15.53 & 12.23 & \textbf{10.41} & 18.34 & \textbf{12.69}\\
-Fiqa & 2.98 & 2.66 & \textbf{2.50} & 3.00 & \textbf{2.61} & 19.67 & 14.26 & \textbf{12.20} & 20.09 & \textbf{13.61}\\
-\rowcolor{gray!20} \textbf{Twitter (train)} & 2.53 & 2.40 & \textbf{2.22} & 2.88 & \textbf{2.47} & 12.60 & 11.02 & \textbf{9.21} & 17.83 & \textbf{11.81}\\
-Wikitext & 2.69 & 2.47 & \textbf{2.30} & 2.88 & \textbf{2.49} & 14.74 & 11.78 & \textbf{9.94} & 17.85 & \textbf{12.02}\\
-\rowcolor{blue!10} \textbf{Average} & \textbf{2.76} & \textbf{2.52} & \textbf{2.36} & \textbf{2.89} & \textbf{2.51} & \textbf{16.28} & \textbf{12.55} & \textbf{10.74} & \textbf{18.05} & \textbf{12.35} \\
-\bottomrule
+ \textbf{2e-5} & \textbf{2e-5} & \textbf{1e-5} & \textbf{2e-5} & \textbf{5e-6} \
+\hline
+ Alpaca & 3.01 & 2.66 & \textbf{2.54} & 2.96 & \textbf{2.61} & 20.21 & 14.33 & \textbf{12.66} & \textbf{19.20} & \textbf{13.65} \
+ Financial News & 3.17 & 2.80 & \textbf{2.65} & 2.87 & \textbf{2.54} & 23.77 & 16.48 & \textbf{14.10} & \textbf{17.67} & \textbf{12.68} \
+ Financial Qa & 2.46 & 2.32 & \textbf{2.16} & 2.83 & \textbf{2.43} & 11.76 & 10.15 & \textbf{8.69} & \textbf{16.98} & \textbf{11.39} \
+ Financial Repor & 2.48 & 2.32 & \textbf{2.16} & 2.80 & \textbf{2.39} & 11.95 & 10.17 & \textbf{8.70} & \textbf{16.42} & \textbf{10.93} \
+ Fingpt & 2.74 & 2.50 & \textbf{2.34} & 2.91 & \textbf{2.54} & 15.53 & 12.23 & \textbf{10.41} & \textbf{18.34} & \textbf{12.69} \
+ Fiqa & 2.98 & 2.66 & \textbf{2.50} & 3.00 & \textbf{2.61} & 19.67 & 14.26 & \textbf{12.20} & \textbf{20.09} & \textbf{13.61} \
+\rowcolor{gray!20} \textbf{Twitter (train)} & 2.53 & 2.40 & \textbf{2.22} & 2.88 & \textbf{2.47} & 12.60 & 11.02 & \textbf{9.21} & 17.83 & \textbf{11.81} \
+ Wikitext & 2.69 & 2.47 & \textbf{2.30} & 2.88 & \textbf{2.49} & 14.74 & 11.78 & \textbf{9.94} & \textbf{17.85} & \textbf{12.02} \
+\rowcolor{blue!10} \textbf{Average} & \textbf{2.76} & \textbf{2.52} & \textbf{2.36} & \textbf{2.89} & \textbf{2.51} & \textbf{16.28} & \textbf{12.55} & \textbf{10.74} & \textbf{18.05} & \textbf{12.35}  \
+\hline
 \end{tabular}
-}
 \end{table}
 
