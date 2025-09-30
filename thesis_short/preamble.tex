@@ -36,6 +36,8 @@
 \usepackage[margin=10pt, font=small, labelfont=bf, labelsep=endash]{caption}
 \usepackage{multirow}
 \usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{adjustbox}
 
 % OTHER ENVIRONMENTS
 \usepackage{textcomp}
@@ -177,3 +179,6 @@ Assistant\\
 \fancyfoot[C]{}
 \fancyfoot[R]{Data Mixture Effects in Financial LM Pretraining}
 \setlength{\headheight}{13.6pt}
+
+% Compact table helpers
+\newcommand{\tighttable}{\small\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}}

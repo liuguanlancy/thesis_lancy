@@ -2582,8 +2582,10 @@
     <bcf:citekey order="24">aharoni2020unsupervised</bcf:citekey>
     <bcf:citekey order="25">yang2024qwen2</bcf:citekey>
     <bcf:citekey order="26">merity2016pointer</bcf:citekey>
-    <bcf:citekey order="27">mccandlish2018empirical</bcf:citekey>
-    <bcf:citekey order="28">rajbhandari2020zero</bcf:citekey>
+    <bcf:citekey order="27">longpre2023pretrainer</bcf:citekey>
+    <bcf:citekey order="28">kaplan2020scaling</bcf:citekey>
+    <bcf:citekey order="29">kaplan2020scaling</bcf:citekey>
+    <bcf:citekey order="30">hoffmann2022training</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

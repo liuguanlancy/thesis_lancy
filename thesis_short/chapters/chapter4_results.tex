@@ -42,11 +42,13 @@ Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \
   \caption{Mixed Wiki+Financial scaling.}\label{fig:scaling_mixed_wiki_financial}
 \end{figure}
 
-\input{../thesis/tables/table_mixed_financial_results}
+{\tighttable
+\input{../thesis/tables/table_mixed_financial_results}}
 
 The Mixed Financial table reports per-evaluation dataset loss and perplexity at 0.6B/1.7B/4B. The dominant pattern is that 4B consistently wins (bolded minima), with the largest gap on long-form document sets (News, SEC), and smaller but persistent gains on instruction/short-form (FinGPT, Alpaca, FiQA). This confirms that in-domain diversity plus model capacity improves both specialization and robustness.
 
-\input{../thesis/tables/table_mixed_wiki_financial_results}
+{\tighttable
+\input{../thesis/tables/table_mixed_wiki_financial_results}}
 
 The Mixed Wiki+Financial table shows that mixing in general text helps on WikiText but hurts on all financial evaluations relative to Mixed Financial (previous table). The degradation is largest on long-form sets, indicating that the added general-domain mass reduces effective exposure to financial discourse structure.
 
@@ -61,7 +63,8 @@ The Mixed Wiki+Financial table shows that mixing in general text helps on WikiTe
   \caption{WikiText LR comparison.}\label{fig:scaling_wikitext}
 \end{figure}
 
-\input{../thesis/tables/table_wikitext_lr_comparison}
+{\tighttable
+\input{../thesis/tables/table_wikitext_lr_comparison}}
 
 \begin{figure}[H]
   \centering
@@ -69,7 +72,8 @@ The Mixed Wiki+Financial table shows that mixing in general text helps on WikiTe
   \caption{Financial QA: LR adjustment resolves reverse scaling.}\label{fig:scaling_financial_qa}
 \end{figure}
 
-\input{../thesis/tables/table_financial_qa_lr_comparison}
+{\tighttable
+\input{../thesis/tables/table_financial_qa_lr_comparison}}
 
 \begin{figure}[H]
   \centering
@@ -77,7 +81,8 @@ The Mixed Wiki+Financial table shows that mixing in general text helps on WikiTe
   \caption{Twitter: severe LR sensitivity at small data scales.}\label{fig:scaling_twitter}
 \end{figure}
 
-\input{../thesis/tables/table_twitter_lr_comparison}
+{\tighttable
+\input{../thesis/tables/table_twitter_lr_comparison}}
 
 Across all three LR studies, the tuned LR eliminates training collapse (e.g., $\infty$ perplexity at 1.7B on WikiText), and recovers the expected monotone trend with model size. The average row in each table highlights meaningful gains at 1.7B and 4B while keeping 0.6B intact.
 
@@ -92,7 +97,8 @@ Across all three LR studies, the tuned LR eliminates training collapse (e.g., $\
   \caption{News Articles scaling.}\label{fig:scaling_news_articles}
 \end{figure}
 
-\input{../thesis/tables/table_news_articles_results}
+{\tighttable
+\input{../thesis/tables/table_news_articles_results}}
 
 \begin{figure}[H]
   \centering
@@ -100,7 +106,8 @@ Across all three LR studies, the tuned LR eliminates training collapse (e.g., $\
   \caption{SEC Reports scaling.}\label{fig:scaling_sec_reports}
 \end{figure}
 
-\input{../thesis/tables/table_sec_reports_results}
+{\tighttable
+\input{../thesis/tables/table_sec_reports_results}}
 
 \begin{figure}[H]
   \centering
@@ -108,7 +115,8 @@ Across all three LR studies, the tuned LR eliminates training collapse (e.g., $\
   \caption{FinGPT instruction mixture scaling.}\label{fig:scaling_fingpt}
 \end{figure}
 
-\input{../thesis/tables/table_fingpt_results}
+{\tighttable
+\input{../thesis/tables/table_fingpt_results}}
 
 \begin{figure}[H]
   \centering
@@ -116,7 +124,8 @@ Across all three LR studies, the tuned LR eliminates training collapse (e.g., $\
   \caption{Alpaca instruction mixture scaling.}\label{fig:scaling_alpaca}
 \end{figure}
 
-\input{../thesis/tables/table_alpaca_results}
+{\tighttable
+\input{../thesis/tables/table_alpaca_results}}
 
 \begin{figure}[H]
   \centering
@@ -124,11 +133,15 @@ Across all three LR studies, the tuned LR eliminates training collapse (e.g., $\
   \caption{FiQA short-form scaling.}\label{fig:scaling_fiqa}
 \end{figure}
 
-\input{../thesis/tables/table_fiqa_results}
+{\tighttable
+\input{../thesis/tables/table_fiqa_results}}
 
-\input{../thesis/tables/table_financial_qa_results}
-\input{../thesis/tables/table_twitter_results}
-\input{../thesis/tables/table_wikitext_results}
+{\tighttable
+\input{../thesis/tables/table_financial_qa_results}}
+{\tighttable
+\input{../thesis/tables/table_twitter_results}}
+{\tighttable
+\input{../thesis/tables/table_wikitext_results}}
 
 Across these tables, 4B wins on the training dataset's own evaluation split (in-domain), but cross-dataset performance depends on format proximity. Short-form datasets (Twitter, Financial QA) show the highest CV and weakest transfer, while long-form (News, SEC) are most robust as standalone pretraining sources.
 
@@ -141,28 +154,38 @@ Across these tables, 4B wins on the training dataset's own evaluation split (in-
 
 We analyze transfer by fixing an evaluation dataset and comparing across training sources. Boldface indicates the best training source for each evaluation column.
 
-\input{../thesis/tables/table_cross_financial_news}
+\begin{landscape}
+{\tighttable
+\input{../thesis/tables/table_cross_financial_news}}
 
 On Financial News evaluation, long-form training sources dominate: News and SEC rows capture most boldface cells. Mixed Financial performs strongly across sizes, reflecting its diversity advantage.
 
-\input{../thesis/tables/table_cross_financial_repor}
+{\tighttable
+\input{../thesis/tables/table_cross_financial_repor}}
 
 On SEC Reports, the pattern mirrors News: long-form training excels. Mixed Financial remains competitive; Mixed Wiki+Financial improves WikiText but rarely wins here.
 
-\input{../thesis/tables/table_cross_alpaca}
-\input{../thesis/tables/table_cross_fingpt}
+{\tighttable
+\input{../thesis/tables/table_cross_alpaca}}
+{\tighttable
+\input{../thesis/tables/table_cross_fingpt}}
 
 Instruction-formatted evaluations (Alpaca, FinGPT) are best served by instruction-heavy training or diverse mixtures. Mixed Financial at 4B frequently captures boldface, suggesting diversity compensates for format mismatch.
 
-\input{../thesis/tables/table_cross_fiqa}
-\input{../thesis/tables/table_cross_financial_qa}
+{\tighttable
+\input{../thesis/tables/table_cross_fiqa}}
+{\tighttable
+\input{../thesis/tables/table_cross_financial_qa}}
 
 Short Q\&A evaluations (FiQA, Financial QA) show mixed results: specialized training wins in-distribution, but diverse mixtures perform robustly. Small single-dataset training is brittle (high CV) and underperforms off-format.
 
-\input{../thesis/tables/table_cross_twitter}
+{\tighttable
+\input{../thesis/tables/table_cross_twitter}}
 
 Twitter is an outlier: the Twitter-trained row wins on its own column but transfers poorly elsewhere, and other training sources perform weakly on Twitter. This underscores format isolation in micro-text.
 
-\input{../thesis/tables/table_cross_wikitext}
+{\tighttable
+\input{../thesis/tables/table_cross_wikitext}}
+\end{landscape}
 
 On WikiText, general-domain or Mixed Wiki+Financial training rows win, as expected. Mixed Financial trades a slight general-domain loss for significant financial gains, which is favorable for finance-centric applications.

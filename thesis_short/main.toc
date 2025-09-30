@@ -24,30 +24,72 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Methodology}{8}{chapter.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Experimental Design}{8}{section.3.1}%
+\contentsline {section}{\numberline {3.1}Experimental Design Overview}{8}{section.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Models}{8}{section.3.2}%
+\contentsline {section}{\numberline {3.2}Model Architecture}{9}{section.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Datasets and Mixtures}{8}{section.3.3}%
+\contentsline {section}{\numberline {3.3}Datasets}{9}{section.3.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Training Setup}{8}{section.3.4}%
+\contentsline {subsection}{\numberline {3.3.1}Financial Datasets}{9}{subsection.3.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.5}Evaluation Protocol and Metrics}{9}{section.3.5}%
+\contentsline {subsection}{\numberline {3.3.2}WikiText}{10}{subsection.3.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Results}{10}{chapter.4}%
+\contentsline {subsection}{\numberline {3.3.3}Mixture Strategies}{10}{subsection.3.3.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Mixture Effects}{10}{section.4.1}%
+\contentsline {section}{\numberline {3.4}Training Setup and Hyperparameter Tuning}{11}{section.3.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Scaling and LR Sensitivity}{11}{section.4.2}%
+\contentsline {subsection}{\numberline {3.4.1}Initial Configuration}{11}{subsection.3.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Dataset Size and Format}{13}{section.4.3}%
+\contentsline {subsection}{\numberline {3.4.2}Discovery of Reverse Scaling}{11}{subsection.3.4.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.4}All Tables (Preserved)}{16}{section.4.4}%
+\contentsline {subsection}{\numberline {3.4.3}Systematic Learning Rate Adjustment}{12}{subsection.3.4.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Discussion}{26}{chapter.5}%
+\contentsline {subsection}{\numberline {3.4.4}Final Learning Rate Recommendations}{12}{subsection.3.4.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Key Takeaways}{26}{section.5.1}%
+\contentsline {subsection}{\numberline {3.4.5}Other Hyperparameters}{12}{subsection.3.4.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Practical Guidance}{26}{section.5.2}%
+\contentsline {section}{\numberline {3.5}Evaluation Protocol}{13}{section.3.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusion}{27}{chapter.6}%
+\contentsline {subsection}{\numberline {3.5.1}Multi-Dataset Evaluation}{13}{subsection.3.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.5.2}Metrics}{13}{subsection.3.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{CV computation details}{13}{section*.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Results}{15}{chapter.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Mixture Effects}{15}{section.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Scaling and LR Sensitivity}{17}{section.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Dataset Size and Format}{19}{section.4.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}Cross-Dataset Transfer}{25}{section.4.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Discussion}{37}{chapter.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Key Empirical Findings}{37}{section.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Interpretation of Data Interaction Effects}{38}{section.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.1}Why WikiText Underperforms on Financial Tasks}{38}{subsection.5.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.2}Benefits of In-Domain Diversity}{39}{subsection.5.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.3}Domain Interference Patterns}{40}{subsection.5.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.4}Scale-Dependent Training Dynamics}{41}{subsection.5.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Practical Guidelines for Financial LM Pretraining}{41}{section.5.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3.1}Data Mixture Strategies by Use Case}{41}{subsection.5.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3.2}Model Size Selection}{42}{subsection.5.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3.3}Learning Rate Guidelines by Model Size}{43}{subsection.5.3.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3.4}Token Budget Allocation}{43}{subsection.5.3.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.4}Limitations and Threats to Validity}{43}{section.5.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Conclusion}{45}{chapter.6}%

@@ -1,12 +1,2 @@
-\chapter{Discussion}
-
-\section{Key Takeaways}
-\begin{itemize}
-  \item In-domain diversity beats general corpora for financial pretraining. Mixed Financial achieves lower mean perplexity and lower CV than WikiText and single-dataset alternatives.
-  \item Learning-rate scaling with model size is essential to avoid reverse scaling; proper LR restores expected ordering across 0.6B, 1.7B, 4B.
-  \item Dataset size and format strongly determine transfer. Long-form models transfer across long-form tasks better than across formats; short-form data (Twitter) is highly specialized.
-\end{itemize}
-
-\section{Practical Guidance}
-Use Mixed Financial with 50cap when seeking broad financial capabilities; specialize with News/SEC for document analysis; prefer 1.7B for efficiency, 4B for maximum quality (with LR tuning).
-
+% Use the original detailed Discussion chapter for deeper analysis
+\input{../thesis/chapters/chapter5_discussion}
