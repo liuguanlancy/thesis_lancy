@@ -1,0 +1,29 @@
+% FiQA Dataset: Evaluation Results
+% Training: FiQA (FiQA dataset, 4M tokens)
+% All models trained with LR=2e-5
+
+\begin{table}[h]
+\centering
+\caption{FiQA Dataset: Evaluation Across Multiple Datasets}
+\label{tab:fiqa_results}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|ccc|ccc}
+\toprule
+\multirow{2}{*}{\textbf{Eval Dataset}} &
+\multicolumn{3}{c|}{\textbf{Cross-Entropy Loss}} &
+\multicolumn{3}{c}{\textbf{Perplexity}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+& \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} \\
+\midrule
+Alpaca & 4.14 & 2.56 & 1.96 & 62.97 & 12.96 & 7.12 \\
+Financial News & 3.90 & 2.54 & 2.01 & 49.22 & 12.74 & 7.43 \\
+Financial Qa & 4.64 & 2.60 & 1.84 & 103.4 & 13.53 & 6.32 \\
+Financial Repor & 4.42 & 2.53 & 1.81 & 83.48 & 12.51 & 6.14 \\
+Fingpt & 4.67 & 2.71 & 1.95 & 107.2 & 15.08 & 7.01 \\
+Twitter & 4.66 & 2.65 & 1.88 & 105.3 & 14.10 & 6.58 \\
+Wikitext & 4.52 & 2.63 & 1.91 & 92.13 & 13.81 & 6.72 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+

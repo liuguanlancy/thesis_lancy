@@ -1,0 +1,29 @@
+% Financial QA 10K Dataset: Evaluation Results
+% Training: Financial QA 10K (virattt/financial-qa-10K, 3.5M tokens)
+% All models trained with LR=2e-5
+
+\begin{table}[h]
+\centering
+\caption{Financial QA 10K Dataset: Evaluation Across Multiple Datasets}
+\label{tab:financial_qa_results}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|ccc|ccc}
+\toprule
+\multirow{2}{*}{\textbf{Eval Dataset}} &
+\multicolumn{3}{c|}{\textbf{Cross-Entropy Loss}} &
+\multicolumn{3}{c}{\textbf{Perplexity}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+& \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} \\
+\midrule
+Alpaca & 2.38 & 2.23 & 2.29 & 10.82 & 9.31 & 9.91 \\
+Financial News & 2.36 & 2.17 & 2.13 & 10.60 & 8.78 & 8.41 \\
+Financial Repor & 2.11 & 2.00 & 2.11 & 8.21 & 7.40 & 8.25 \\
+Fingpt & 2.31 & 2.15 & 2.23 & 10.04 & 8.62 & 9.34 \\
+Fiqa & 2.40 & 2.25 & 2.31 & 11.02 & 9.45 & 10.05 \\
+Twitter & 2.21 & 2.10 & 2.20 & 9.14 & 8.18 & 8.99 \\
+Wikitext & 2.24 & 2.11 & 2.19 & 9.41 & 8.23 & 8.89 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+

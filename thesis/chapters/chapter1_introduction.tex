@@ -1,0 +1,95 @@
+\chapter{Introduction}
+
+\section{Motivation}
+
+The rapid advancement of large language models (LLMs) has transformed natural language processing, yet their application in specialized domains like finance faces critical challenges. Financial institutions and individuals handle highly sensitive data—including transactions, portfolios, and trading strategies—that cannot be sent to external APIs due to privacy regulations and competitive concerns. This creates a pressing need for lightweight, locally-runnable financial language models that maintain performance while ensuring data security.
+
+Current approaches to domain adaptation typically involve either training massive models from scratch or fine-tuning general-purpose models on domain-specific data. The former requires prohibitive computational resources, while the latter often fails to capture domain-specific knowledge adequately. Moreover, the conventional wisdom that high-quality general corpora (such as Wikipedia) universally benefit specialized applications remains largely untested empirically.
+
+This thesis addresses these challenges by investigating how different data sources—both in-domain financial data and out-of-domain high-quality corpora—interact during pretraining. We focus on models in the 0.6B to 4B parameter range, which are practical for edge deployment on laptops and mobile devices while maintaining acceptable performance. Through systematic experiments across 10 pretraining configurations and three model sizes, we provide empirical evidence on optimal data mixture strategies for specialized domains.
+
+Our investigation is particularly timely given the increasing demand for privacy-preserving AI systems in finance. Recent regulations such as GDPR and emerging financial data protection standards necessitate on-device processing capabilities. Additionally, the democratization of AI requires understanding how to train effective models with limited computational budgets, making insights on 0.6B-4B parameter models especially valuable for practitioners.
+
+Beyond practical applications, this work contributes to fundamental understanding of how models learn from different data distributions. We document surprising phenomena such as ``reverse scaling''—where smaller models outperform larger ones on specific data regimes—and demonstrate that these apparent failures stem from improper hyperparameter tuning rather than fundamental limitations. This finding has implications for the broader machine learning community's understanding of scaling laws and training dynamics.
+
+\section{Research Questions}
+
+This thesis investigates the following core research questions:
+
+\textbf{RQ1: Data Mixture Composition}
+How do different combinations of in-domain financial datasets and out-of-domain general corpora affect model performance and generalization? Specifically, does mixing multiple financial datasets improve robustness compared to single-dataset training, and does adding high-quality general text (WikiText) enhance or degrade financial task performance?
+
+\textbf{RQ2: Model Size and Training Dynamics}
+How do optimal training configurations vary across model sizes (0.6B, 1.7B, 4B parameters)? What is the relationship between model size and hyperparameter sensitivity, particularly learning rate, and can we establish empirical guidelines for scaling training procedures?
+
+\textbf{RQ3: Dataset Size Effects}
+What is the minimum dataset size required for effective standalone pretraining, and how does dataset size affect overtraining patterns and cross-dataset generalization? At what point do small datasets necessitate mixing with other sources?
+
+\textbf{RQ4: Domain Transfer Patterns}
+How effectively do models pretrained on financial data transfer to different financial task types (sentiment analysis, question answering, document understanding), and what role does document format and task structure play in this transfer?
+
+These questions are addressed through a comprehensive experimental framework involving 30 trained models and 240 evaluation results across eight held-out test sets, providing systematic evidence on data mixture effects in specialized domain pretraining.
+
+\section{Contributions}
+
+This thesis makes six primary contributions to the understanding of data mixture effects and training dynamics for language model pretraining:
+
+\textbf{1. Empirical Data Mixture Guidelines}
+We provide concrete, evidence-based recommendations for financial language model pretraining, demonstrating that in-domain diversity outweighs high-quality general corpora for specialized domains. Our experiments show that mixed financial datasets achieve 21.55 perplexity at 4B parameters compared to 31.54 perplexity for WikiText pretraining—a 45\% performance gap. These findings challenge the assumption that general high-quality text universally benefits domain adaptation.
+
+\textbf{2. Learning Rate Scaling Laws for 0.6B-4B Models}
+We discover an empirical relationship between model size and optimal learning rate, demonstrating that learning rate must scale down 50-85\% as model size increases from 0.6B to 4B parameters. Specifically:
+\begin{itemize}
+    \item 0.6B models: LR = 2e-5 (baseline)
+    \item 1.7B models: LR = 1e-5 (50\% reduction)
+    \item 4B models: LR = 5e-6 (75\% reduction)
+\end{itemize}
+This scaling relationship resolves ``reverse scaling'' phenomena observed in three experiments, where larger models initially appeared to perform worse than smaller ones. The finding that proper hyperparameter scaling can recover expected performance improvements has implications beyond financial NLP, providing generalizable insights for training 0.6B-4B parameter models in any domain.
+
+\textbf{3. Dataset Size Effects on Pretraining}
+We establish empirical relationships between dataset size and training viability:
+\begin{itemize}
+    \item Small datasets (< 20K samples): Extreme overtraining (67-249 epochs), high variance (70-97\% relative spread), require mixing
+    \item Medium datasets (20-100K samples): Moderate overtraining (6-30 epochs), acceptable for specific use cases
+    \item Large datasets (> 100K samples): Minimal overtraining (2-24 epochs), viable for standalone pretraining
+\end{itemize}
+These findings provide practical guidance on when dataset mixing is necessary versus when individual datasets suffice, with direct implications for practitioners allocating limited data collection and annotation budgets.
+
+\textbf{4. Cross-Domain Interaction Analysis}
+We conduct the first systematic study of how high-quality general corpora (WikiText) interact with domain-specific financial data during pretraining. Counter to conventional wisdom, we find that WikiText provides minimal benefit and sometimes degrades financial task performance. Mixed WikiText+Financial pretraining achieves 26.69 perplexity compared to 21.55 for pure financial mixing—a 24\% degradation. This challenges assumptions about the universal value of general pretraining and suggests domain-specific data strategies may be superior for specialized applications.
+
+\textbf{5. Lightweight Financial Model Feasibility}
+We demonstrate that 0.6B-4B parameter models can achieve practical financial NLP performance with appropriate data mixtures and hyperparameter tuning, enabling privacy-preserving edge deployment. Our 4B model achieves 21.55 perplexity on diverse financial tasks, competitive with much larger models while remaining deployable on consumer hardware. This addresses the critical need for locally-runnable financial AI systems.
+
+\textbf{6. Open-Source Training Pipeline}
+We provide a reproducible codebase for mixture-based pretraining with comprehensive evaluation framework across 10 experiments and 30 trained models. The pipeline supports automatic mixture composition, multi-dataset evaluation, and systematic hyperparameter tuning, enabling future research on domain-specific language model training.
+
+\section{Thesis Organization}
+
+The remainder of this thesis is organized as follows:
+
+\textbf{Chapter 2: Background and Related Work} reviews existing literature on financial NLP, language model pretraining objectives, data mixture strategies, and domain adaptation approaches. We position our work within the broader context of transfer learning and scaling laws research.
+
+\textbf{Chapter 3: Methodology} describes our experimental design in detail, including model architecture (Qwen3 family), dataset characteristics (7 financial datasets totaling 207M tokens, plus WikiText), mixture strategies (50cap algorithm), and training setup. We document the iterative process of discovering and resolving learning rate sensitivity issues, demonstrating the scientific rigor underlying our empirical findings.
+
+\textbf{Chapter 4: Results} presents experimental findings organized thematically rather than chronologically. We begin with data mixture effects (the core finding), proceed to individual dataset analysis (component effects), examine training dynamics and learning rate scaling (major discovery), and conclude with domain transfer patterns. This organization emphasizes scientific insights over experimental sequence.
+
+\textbf{Chapter 5: Discussion} interprets our findings in light of existing theory and practice. We explain why WikiText underperforms on financial tasks, analyze the benefits of in-domain diversity, develop theoretical explanations for learning rate scaling patterns, and provide concrete guidelines for practitioners training financial language models.
+
+\textbf{Chapter 6: Conclusion} summarizes contributions, discusses implications for research and practice, and outlines promising directions for future work, including extension to larger models, exploration of dynamic mixing strategies, and evaluation on downstream financial tasks.
+
+\section{Scope and Limitations}
+
+This thesis focuses specifically on pretraining dynamics for causal language models in the 0.6B-4B parameter range applied to financial text. Several important scope limitations should be noted:
+
+\textbf{Model Architecture:} All experiments use the Qwen3 model family. While we believe our findings on learning rate scaling and data mixture effects are generalizable, validation on other architectures (LLaMA, Gemma, Phi) would strengthen confidence in universality.
+
+\textbf{Data Mixture Strategy:} We employ a single mixture algorithm (50cap, which caps the largest dataset at 50\% of the mixture). Other mixing approaches—such as square-root sampling, temperature-based sampling, or dynamic curriculum learning—remain unexplored and may yield different results.
+
+\textbf{Evaluation Methodology:} We evaluate models based on perplexity on held-out test sets from the pretraining distribution. While perplexity strongly correlates with downstream task performance, we do not directly measure accuracy on specific financial NLP tasks (sentiment classification, named entity recognition, question answering). This choice reflects our focus on pretraining dynamics rather than application performance, but limits direct applicability claims.
+
+\textbf{Scale Range:} Our experiments cover 0.6B to 4B parameters due to hardware constraints. Larger models (7B+) may exhibit different training dynamics and data sensitivity patterns. However, the parameter range studied is particularly relevant for edge deployment scenarios.
+
+\textbf{Domain Specificity:} While we focus on financial text, many findings—particularly regarding learning rate scaling and dataset size effects—are likely domain-agnostic. The specific conclusion that WikiText provides minimal benefit is domain-specific and may not generalize to other specialized domains.
+
+Despite these limitations, our systematic experimental approach across 30 models and 240 evaluation results provides robust empirical evidence for the claims made, with clear delineation of what can be confidently concluded versus what requires further investigation.

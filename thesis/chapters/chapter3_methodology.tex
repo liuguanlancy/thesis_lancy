@@ -1,0 +1,197 @@
+\chapter{Methodology}
+
+This chapter describes our experimental methodology for studying data mixture effects in financial language model pretraining. We begin with an overview of the experimental design, then detail the model architecture, datasets, training setup with hyperparameter tuning, and evaluation protocol.
+
+\section{Experimental Design Overview}
+
+Our research investigates how different data sources interact during pretraining and their impact on model performance across financial and general-domain evaluation tasks. The experimental framework consists of \textbf{10 distinct experiments} spanning three categories:
+
+\textbf{1. Mixture Experiments} (3 experiments): Test different data combination strategies by pretraining on mixed datasets with controlled proportions. These experiments directly address our core research question about optimal mixture composition.
+
+\textbf{2. Individual Dataset Experiments} (7 experiments): Establish baselines by pretraining on single datasets to understand each dataset's individual contribution and identify when standalone training is viable versus when mixing is necessary.
+
+\textbf{3. Learning Rate Adjustment Experiments}: Systematic hyperparameter tuning to resolve training instabilities observed in initial experiments, particularly the ``reverse scaling'' phenomenon where larger models underperformed smaller ones.
+
+Each experiment trains models at three scales (0.6B, 1.7B, 4B parameters) to study scale-dependent effects, yielding \textbf{30 trained models}. All models are evaluated on \textbf{8 held-out test sets} covering financial sentiment, Q\&A, documents, and general text, producing \textbf{240 evaluation data points}.
+
+This comprehensive design enables us to answer our four research questions: (RQ1) optimal mixture composition, (RQ2) model size and training dynamics, (RQ3) dataset size effects, and (RQ4) domain transfer patterns.
+
+\section{Model Architecture}
+
+We use the \textbf{Qwen3 model family} \parencite{yang2024qwen3}, a series of open-source transformer-based decoder-only language models pretrained on 36 trillion tokens across 119 languages. Qwen3 employs grouped-query attention (GQA) for memory efficiency and supports both standard and flash attention mechanisms.
+
+We select three model sizes from the Qwen3-Base series (pretrained checkpoints without post-training alignment):
+
+\textbf{Qwen3-0.6B-Base}: 600 million parameters, 16 layers, 1024 hidden dimensions, 16 attention heads, 4 GQA groups. Training memory: $\sim$4GB (bfloat16). Fastest training, suitable for rapid prototyping.
+
+\textbf{Qwen3-1.7B-Base}: 1.7 billion parameters, 24 layers, 2048 hidden dimensions, 16 attention heads, 4 GQA groups. Training memory: $\sim$10GB. Balanced performance-efficiency trade-off.
+
+\textbf{Qwen3-4B-Base}: 4 billion parameters, 40 layers, 2560 hidden dimensions, 20 attention heads, 4 GQA groups. Training memory: $\sim$20GB. Best performance, requires careful hyperparameter tuning.
+
+All models use the same tokenizer (vocabulary size: 151,643 tokens) and maximum context length (32,768 tokens, though we use 2,048 for training efficiency). We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) strong baseline performance on general and domain-specific benchmarks, and (3) efficient inference suitable for edge deployment scenarios.
+
+\section{Datasets}
+
+\subsection{Financial Datasets}
+
+We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 207M tokens):
+
+\textbf{1. Lettria Financial News Articles} (\texttt{Lettria/financial\_news\_articles}): 300K news articles from financial media outlets. \textit{197M tokens}. Long-form analytical content covering market events, company earnings, economic policy. Represents financial journalism genre.
+
+\textbf{2. SEC Financial Reports} (\texttt{JanosAudran/financial-reports-sec}): 54.3K excerpts from SEC regulatory filings (10-K, 10-Q). \textit{80M tokens}. Formal financial disclosures with structured formatting, dense numerical content, legal language. Represents regulatory document genre.
+
+\textbf{3. FinGPT Sentiment Training} (\texttt{FinGPT/fingpt-sentiment-train}): 76.8K instruction-formatted examples for financial sentiment analysis. \textit{19.1M tokens}. Pairs headlines/snippets with sentiment labels (bullish/bearish/neutral) in conversational format. Tests instruction-following capability.
+
+\textbf{4. Finance Alpaca} (\texttt{gbharti/finance-alpaca}): 68.9K instruction-response pairs covering financial concepts, calculations, advice. \textit{17.2M tokens}. Question-answering format, educational content. Represents instructional genre.
+
+\textbf{5. FiQA} (\texttt{LLukas22/fiqa}): 17.4K question-answer pairs from financial forums and microblogs. \textit{4.3M tokens}. Conversational, user-generated content with informal language. Represents Q\&A genre.
+
+\textbf{6. Financial QA 10K} (\texttt{virattt/financial-qa-10K}): 7.1K questions on 10-K filings with detailed answers. \textit{3.5M tokens}. Requires document comprehension and reasoning over tabular data. Small dataset, tests necessity of mixing.
+
+\textbf{7. Twitter Financial Sentiment} (\texttt{zeroshot/twitter-financial-news-sentiment}): 1.1K labeled tweets on financial topics. \textit{0.3M tokens}. Extremely short-form text ($<$280 characters), social media vernacular, limited data. Tests lower bound of dataset viability.
+
+These datasets exhibit wide variance in size (0.3M--197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets), enabling comprehensive study of intra-domain diversity effects.
+
+\subsection{WikiText}
+
+We use \textbf{WikiText-103} \parencite{merity2017pointer}, a standard high-quality general-domain corpus. WikiText consists of verified Wikipedia articles (103K documents, $\sim$100M tokens) covering diverse topics with encyclopedic writing style. Text is well-formed, grammatically correct, and factually grounded.
+
+WikiText serves two purposes in our experiments: (1) as a baseline for evaluating domain transfer from general to financial text, and (2) as a potential complementary data source for mixed pretraining (testing whether high-quality general corpora improve financial performance).
+
+Key characteristics: formal register, broad topical coverage (no financial focus), clean preprocessing (no markup artifacts), comparable size to our largest individual financial datasets (News, SEC). This comparability enables fair comparison of domain-specific vs general pretraining.
+
+\subsection{Mixture Strategies}
+
+We employ a \textbf{50\% capping strategy} (``50cap'') for dataset mixing to balance diversity with data efficiency. The algorithm works as follows:
+
+\textbf{Step 1 - Cap dominant datasets}: Identify the largest dataset in the mixture. If its token count exceeds 50\% of the total mixture, cap it at exactly 50\%. This prevents any single dataset from dominating the mixture.
+
+\textbf{Step 2 - Proportional sampling}: For remaining datasets (below 50\% threshold), sample tokens proportionally to their original sizes. This preserves relative contributions while ensuring diversity.
+
+\textbf{Step 3 - Token-level interleaving}: During training, sample batches from the mixed distribution at the token level (not example level). This ensures fine-grained mixing throughout training rather than sequential block exposure.
+
+\textbf{Example}: For the 7-dataset financial mixture (News 197M, SEC 80M, FinGPT 19M, Alpaca 17M, FiQA 4M, Financial QA 3.5M, Twitter 0.3M; total 321M tokens):
+\begin{itemize}
+\item News exceeds 50\% (61.4\%), capped at 50\% (160.5M tokens)
+\item Remaining datasets sampled proportionally from 160.5M token budget
+\item Final mixture: $\sim$321M tokens with News contributing exactly 50\%
+\end{itemize}
+
+For the 8-dataset WikiText+Financial mixture, WikiText (100M) and News (197M) are both large; we apply 50cap to ensure neither dominates, then proportionally sample the other 6 financial datasets.
+
+This strategy contrasts with temperature sampling (which requires tuning hyperparameters) and equal mixing (which severely undersamples large datasets). The 50cap approach is deterministic, requires no tuning, and empirically performs well in production settings \parencite{longpre2023pretrainer}.
+
+\section{Training Setup and Hyperparameter Tuning}
+
+\subsection{Initial Configuration}
+
+All models were initially trained with uniform hyperparameters across scales to establish baseline performance. The configuration follows standard practices for causal language modeling:
+
+\textbf{Optimizer}: AdamW with $\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$, weight decay $0.01$
+
+\textbf{Learning Rate}: $2 \times 10^{-5}$ (uniform across all model sizes initially)
+
+\textbf{LR Schedule}: Cosine decay with 1,000 warmup steps, minimum LR $10^{-6}$
+
+\textbf{Batch Configuration}: Per-device batch size 4, gradient accumulation steps 8, effective global batch size 32 (4 devices $\times$ 4 $\times$ 8)
+
+\textbf{Sequence Length}: 2,048 tokens (trade-off between context and memory efficiency)
+
+\textbf{Precision}: bfloat16 mixed precision for memory efficiency
+
+\textbf{Training Duration}: Dataset-dependent. Small datasets ($<$20K samples) trained for maximum epochs to reach $\sim$100M token budget; large datasets trained for 2-5 epochs. All models exposed to approximately 100M training tokens for fair comparison.
+
+\textbf{Hardware}: NVIDIA RTX 4090 (24GB VRAM) and Apple M1 Max (32GB unified memory). Distributed data parallelism across 4 GPUs where available; single-device training for M1 Max with gradient accumulation.
+
+This uniform configuration enabled rapid experimentation but revealed significant training instabilities for larger models, motivating the systematic learning rate adjustments described next.
+
+\subsection{Discovery of Reverse Scaling}
+
+Initial experiments revealed a surprising ``reverse scaling'' phenomenon: in 3 out of 10 experiments, larger models performed \textit{worse} than smaller models, contradicting established scaling laws:
+
+\textbf{WikiText Pretraining}: Qwen3-0.6B achieved 9.68 perplexity, Qwen3-4B achieved 31.54 perplexity (3.3$\times$ worse), and Qwen3-1.7B suffered training collapse (infinite loss). This severe degradation signaled fundamental training instability.
+
+\textbf{Financial QA 10K}: Qwen3-1.7B (8.42 ppl) outperformed Qwen3-4B (9.02 ppl) and Qwen3-0.6B (9.69 ppl), suggesting hyperparameter mismatch rather than capacity limitation.
+
+\textbf{Twitter Sentiment}: Qwen3-1.7B (12.55 ppl) $<$ Qwen3-0.6B (16.28 ppl) $<$ Qwen3-4B (18.05 ppl). Clear monotonic degradation with increasing model size.
+
+Critically, reverse scaling occurred across different dataset types (general text, small financial datasets, short-form social media), suggesting a systematic issue rather than dataset-specific artifacts. Other experiments (FiQA, FinGPT, News, SEC, Alpaca) showed normal scaling (larger models better), indicating the instability was not universal but depended on dataset characteristics and/or model size.
+
+This pattern contradicted the literature's expectation that larger models are more sample-efficient \parencite{kaplan2020scaling}. We hypothesized that the uniform learning rate ($2 \times 10^{-5}$), appropriate for 0.6B models, was too large for 1.7B and 4B models, causing training instability.
+
+\subsection{Systematic Learning Rate Adjustment}
+
+To test our hypothesis, we conducted targeted retraining experiments on the three datasets exhibiting reverse scaling, systematically reducing learning rates for 1.7B and 4B models:
+
+\textbf{Learning Rate Candidates}:
+\begin{itemize}
+\item 0.6B: $2 \times 10^{-5}$ (unchanged, served as reference)
+\item 1.7B: tested $1 \times 10^{-5}$ (50\% reduction)
+\item 4B: tested $5 \times 10^{-6}$ (75\% reduction), $3 \times 10^{-6}$ (85\% reduction)
+\end{itemize}
+
+\textbf{Results - Financial QA 10K}: 4B model with LR $5 \times 10^{-6}$ achieved 8.09 ppl (down from 9.02 ppl, 10.3\% improvement), finally outperforming 1.7B (8.42 ppl) and 0.6B (9.69 ppl). Normal scaling restored.
+
+\textbf{Results - Twitter Sentiment}: 4B model with LR $5 \times 10^{-6}$ achieved 12.35 ppl (down from 18.05 ppl, 31.6\% improvement), matching 1.7B performance (12.55 ppl) and substantially outperforming 0.6B (16.28 ppl).
+
+\textbf{Results - WikiText}: 1.7B model with LR $1 \times 10^{-5}$ achieved stable training (down from collapse), though 0.6B still performed best on this general-domain task. 4B model showed improvement but remained suboptimal, suggesting WikiText benefits less from scale than financial data.
+
+These adjustments demonstrated that reverse scaling was a \textit{training artifact} rather than a fundamental model limitation. Proper learning rate scaling restored expected performance hierarchies.
+
+\subsection{Final Learning Rate Recommendations}
+
+Based on systematic experiments and validation across all 10 training regimes, we establish the following learning rate scaling guidelines for Qwen3 models:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model Size} & \textbf{Learning Rate} & \textbf{Reduction Factor} & \textbf{Scaling Ratio} \\
+\midrule
+0.6B & $2 \times 10^{-5}$ & 1.0$\times$ (baseline) & --- \\
+1.7B & $1 \times 10^{-5}$ & 0.5$\times$ & $\sqrt{1.7/0.6} \approx 1.68$ \\
+4B & $5 \times 10^{-6}$ & 0.25$\times$ & $\sqrt{4/0.6} \approx 2.58$ \\
+\bottomrule
+\end{tabular}
+\caption{Learning rate recommendations by model size. Reduction factors follow approximate inverse square-root scaling relative to 0.6B baseline.}
+\end{table}
+
+The empirical pattern suggests $LR \propto 1/\sqrt{\text{model\_size}}$, consistent with gradient magnitude scaling theory: larger models accumulate larger gradient norms, requiring smaller learning rates for stable optimization. This relationship holds across both financial and general domains in our experiments.
+
+\subsection{Other Hyperparameters}
+
+Beyond learning rate, we maintained consistent hyperparameters across experiments:
+
+\textbf{Batch Size and Accumulation}: Effective batch size 32 tokens across all runs, achieved through gradient accumulation. Larger batches ($>$64) showed minimal benefit while increasing memory requirements.
+
+\textbf{Warmup Steps}: 1,000 steps (3.1\% of training for 32K total steps) provided sufficient stabilization during initial training. Longer warmup did not improve final performance.
+
+\textbf{Training Epochs}: Varied by dataset size to normalize token exposure. Small datasets (Twitter, Financial QA) trained for 67-249 epochs to reach 100M token budget; medium datasets (FiQA, FinGPT, Alpaca) for 6-30 epochs; large datasets (SEC, News) for 2-24 epochs. This normalization ensures fair comparison across datasets of different sizes.
+
+\textbf{Maximum Sequence Length}: 2,048 tokens balanced context length with memory efficiency. Financial documents often exceed this length (SEC filings: 10K+ tokens), but longer sequences quadratically increase memory and slow training. We accept truncation as a practical trade-off.
+
+\textbf{Dropout}: 0.0 (no dropout) following common practice for large-scale pretraining where overfitting is rarely observed.
+
+\section{Evaluation Protocol}
+
+\subsection{Multi-Dataset Evaluation}
+
+Each trained model is evaluated on \textbf{8 held-out test sets} to measure both in-domain and out-of-domain generalization:
+
+\textbf{Financial Test Sets} (7 datasets): Test splits from all 7 financial training datasets (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter). This evaluates how well models generalize to unseen examples within each financial domain.
+
+\textbf{General Test Set} (1 dataset): WikiText test split. This measures retention of general language capabilities and tests cross-domain transfer (financial $\to$ general and general $\to$ financial).
+
+For models trained on dataset $D$, evaluation on $D$'s test set measures in-domain generalization; evaluation on other datasets measures cross-dataset transfer. For mixed models, all 8 test sets measure generalization across the mixture distribution.
+
+\subsection{Metrics}
+
+We report three complementary metrics:
+
+\textbf{Cross-Entropy Loss}: Primary metric. Average negative log-likelihood per token: $\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N} \log P(w_i | w_{<i})$ where $w_i$ is the $i$-th token. Lower is better. Reports raw optimization objective.
+
+\textbf{Perplexity}: Interpretable transformation of cross-entropy: $\text{PPL} = \exp(\mathcal{L})$. Represents effective vocabulary size the model considers at each prediction. PPL = 10 means the model is effectively choosing among 10 tokens on average. Lower is better. Primary metric for comparisons in this thesis.
+
+\textbf{Relative Spread (Coefficient of Variation)}: Measures cross-dataset variance: $\text{CV} = \sigma / \mu$ where $\sigma$ is standard deviation and $\mu$ is mean perplexity across the 8 test sets. Lower CV indicates more robust generalization (consistent performance across domains); higher CV indicates specialization or brittleness. Useful for comparing mixture strategies.
+
+All metrics are computed on full test sets (no subsampling) with the same sequence length (2,048 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).

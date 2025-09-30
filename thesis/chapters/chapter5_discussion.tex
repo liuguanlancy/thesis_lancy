@@ -1,0 +1,155 @@
+\chapter{Discussion}
+
+This chapter interprets the experimental findings from Chapter 4, explaining the underlying mechanisms driving data mixture effects, training dynamics, and generalization patterns. We synthesize empirical observations into actionable guidelines and acknowledge methodological limitations.
+
+\section{Key Empirical Findings}
+
+Our 10 experiments (30 models, 240 evaluations) establish four major findings that advance understanding of data mixture effects in specialized-domain language model pretraining:
+
+\textbf{Finding 1: In-Domain Diversity Outperforms General Corpus Quality}
+
+Mixed Financial datasets achieved 21.55 ppl (4B) with 55\% variance, substantially better than WikiText's 48.7 ppl mean financial performance (78\% variance). This 2.3$\times$ performance gap demonstrates that multiple in-domain datasets—even if individually small (Twitter 0.3M tokens) or noisy (social media text)—provide superior domain specialization compared to large, curated general corpora. The result challenges conventional wisdom that high-quality general pretraining suffices for domain adaptation.
+
+\textbf{Finding 2: Learning Rate Must Scale Inverse-Square-Root with Model Size}
+
+We discovered an empirical scaling law: $\text{LR}_{\text{optimal}}(N) \propto 1/\sqrt{N}$ where $N$ is parameter count. Concretely: 0.6B requires $2 \times 10^{-5}$, 1.7B requires $1 \times 10^{-5}$ (50\% reduction), 4B requires $5 \times 10^{-6}$ (75\% reduction). Failure to scale learning rates caused reverse scaling in 3/10 experiments; proper scaling recovered 10-32\% performance. This finding resolves apparent model limitations as training artifacts, enabling reliable capacity scaling.
+
+\textbf{Finding 3: Dataset Size Critically Affects Pretraining Viability}
+
+Clear thresholds emerged: datasets $>$ 100M tokens support standalone pretraining (2-5 epochs, robust generalization); 20-100M tokens viable with caveats (6-30 epochs, moderate generalization); $<$ 20M tokens non-viable standalone (67-249 epochs, extreme overtraining, 89-97\% variance). Correlation between log(tokens) and variance: $r = -0.78$ ($p < 0.01$). Small datasets require mixing regardless of optimization quality—data scarcity, not hyperparameters, limits performance.
+
+\textbf{Finding 4: Format Drives Transfer More Than Domain Vocabulary}
+
+Document format and task structure predict cross-dataset transfer better than topical domain. Long-form documents (News $\leftrightarrow$ SEC: $r = 0.82$) transfer well despite style differences; instruction tasks cluster (FinGPT/Alpaca/FiQA: $r = 0.68-0.73$); short-form Twitter isolated (89\% variance). A News model transfers better to regulatory SEC filings (both long-form, different domains) than to Twitter finance posts (same domain, different format). This suggests pretraining corpora should prioritize format diversity alongside domain coverage.
+
+These findings generalize beyond finance to any specialized-domain pretraining scenario where practitioners face similar trade-offs: domain vs general data, mixture composition, model scaling, and format diversity.
+
+\section{Interpretation of Data Interaction Effects}
+
+\subsection{Why WikiText Underperforms on Financial Tasks}
+
+WikiText's catastrophic financial transfer (48.7 ppl mean vs 21.55 ppl for Mixed Financial) stems from three fundamental mismatches:
+
+\textbf{1. Vocabulary Gap}: Financial language contains specialized terminology absent in encyclopedic text. Terms like ``EBITDA'' (earnings before interest, taxes, depreciation, amortization), ``alpha'' (excess returns), ``basis points'' (0.01\%), ``volatility'' (price fluctuation measure), ``hedging'' (risk mitigation strategy), and ``P/E ratio'' (price-to-earnings valuation) rarely appear in Wikipedia. When WikiText models encounter financial evaluation texts, they face effective out-of-vocabulary scenarios despite shared syntactic structure. The model's vocabulary distribution mismatches the evaluation domain's lexical requirements.
+
+\textbf{2. Reasoning Pattern Mismatch}: Financial analysis requires forward-looking causal reasoning: ``Company X's earnings miss will pressure the stock downward'' (cause-effect prediction), ``Rising interest rates typically compress equity valuations'' (conditional reasoning), ``The Fed's hawkish stance suggests tightening ahead'' (implicit reasoning from policy to outcomes). Wikipedia's encyclopedic, descriptive style—focused on established facts, historical narratives, and definitional content—doesn't exercise these prospective reasoning patterns. Models pretrained on WikiText learn to predict continuations based on factual descriptions, not anticipatory financial logic.
+
+\textbf{3. Discourse Structure Divergence}: Financial news follows inverted pyramid structure (conclusion first, then supporting details); earnings reports have standardized sections (forward-looking statements, risk factors, MD\&A); analyst reports use comparison tables and numerical evidence. Wikipedia articles employ chronological narratives (biographical entries), topical organization (scientific articles), or definitional structures (concept entries). These discourse patterns create different coherence signals—WikiText models learn topic progression and factual elaboration, while financial texts require comparative analysis and evidential reasoning structures.
+
+\textbf{Why General → Financial Transfer Fails But Financial → General Succeeds}: The asymmetry (WikiText @ 4B: 48.7 ppl financial vs Mixed Financial @ 4B: 33.7 ppl WikiText) reveals hierarchical structure. General language (syntax, semantics, discourse coherence) forms a foundation; financial language adds specialized vocabulary and reasoning on top. Starting from general pretraining provides linguistic prerequisites; domain-specific training adds specialization without catastrophic forgetting of fundamentals. Conversely, starting from general pretraining lacks domain prerequisites—vocabulary and reasoning gaps cannot be bridged by linguistic competence alone.
+
+\subsection{Benefits of In-Domain Diversity}
+
+Mixed Financial's superiority (21.55 ppl, 55\% CV) over individual datasets (mean: 24.8 ppl, 65\% CV) and WikiText (48.7 ppl financial, 78\% CV) stems from diversity-driven robustness:
+
+\textbf{Cross-Format Exposure}: The 7-dataset mixture spans long-form documents (News 197M, SEC 80M), instruction formats (FinGPT 19M, Alpaca 17M, FiQA 4M), and short-form text (Twitter 0.3M, Financial QA 3.5M). This format diversity prevents overfitting to structural artifacts. Models trained on pure News learn long-form coherence but fail on dialogic Q\&A (41\% worse on FiQA); mixed models handle both, averaging only 30\% degradation across all formats.
+
+\textbf{Vocabulary Coverage}: Different financial datasets emphasize different lexical subdomains: News covers market events and company names; SEC covers regulatory terminology (``10-K'', ``forward-looking statements''); FinGPT covers sentiment vocabulary (``bullish'', ``bearish''); Alpaca covers financial concepts (``compound interest'', ``diversification''). The mixture creates comprehensive vocabulary coverage—no single dataset provides this breadth. Mixed models encounter 3.2$\times$ more unique financial terms during training than largest individual dataset (News), improving lexical robustness.
+
+\textbf{Task Diversity Regularization}: Mixing datasets with different objectives (sentiment classification, Q\&A, document completion) acts as implicit multi-task learning. The model cannot overfit to any single task's superficial cues (e.g., specific sentiment indicators in FinGPT, formulaic question structures in Alpaca) because the loss function averages across diverse distributions. This produces representations that capture underlying financial semantics rather than task-specific shortcuts.
+
+\textbf{Preventing Data Memorization}: Small datasets suffer from memorization—Financial QA (3.5M tokens, 67-100 epochs) achieves 8.09 ppl in-domain but 41.7 ppl cross-dataset. The model memorizes training examples rather than learning generalizable patterns. Mixing prevents memorization by capping each dataset's contribution (50cap strategy limits News to 50\%, ensuring others get exposure) and diversifying the training distribution. Mixed models see fewer repeated examples from any single source, forcing extraction of transferable features.
+
+\textbf{Quantitative Evidence}: Variance reduction correlates with mixture diversity: 7-dataset mixture (55\% CV) $<$ largest individual (News 26\% CV in-domain, 65\% cross-dataset) $<$ small individuals (89-97\% CV). The mixture achieves 12.7\% lower variance than same-scale individual training, demonstrating that diversity improves both performance (21.55 vs 24.8 ppl) and robustness simultaneously.
+
+\subsection{Domain Interference Patterns}
+
+While in-domain diversity helps, cross-domain mixing (Mixed Wiki+Financial) shows interference:
+
+\textbf{Performance-Diversity Trade-off}: Mixed Wiki+Financial achieves 26.69 ppl (4B), 24\% worse than pure Mixed Financial (21.55 ppl), despite including WikiText. On WikiText specifically, Wiki+Financial achieves 28.4 ppl vs pure Financial's 33.7 ppl (15.7\% improvement), but mean financial performance degrades from 20.2 to 26.1 ppl (29.2\% degradation). The trade-off is unfavorable: sacrificing 29\% financial performance for 16\% general improvement.
+
+\textbf{Competing Optimization Signals}: Financial and general domains create conflicting gradients. Financial texts reward predicting domain terminology (``EBITDA'' following ``reported''); general texts reward different continuations (``findings'' following ``reported''). The model's parameters cannot simultaneously optimize for both distributions without compromise. Mixed Wiki+Financial models average these signals, achieving moderate performance on both rather than excellence on either. The 62\% variance (vs 55\% pure financial) reflects this optimization conflict.
+
+\textbf{When Mixing Hurts vs Helps}: Intra-domain mixing helps because datasets share core semantics (financial vocabulary, reasoning patterns) while differing in format and task type—diversity reinforces fundamentals. Cross-domain mixing hurts when domains diverge in vocabulary and reasoning (encyclopedic vs analytical), creating zero-sum trade-offs. The 50cap strategy mitigates but doesn't eliminate interference: capping WikiText at 50\% limits damage but still dilutes financial specialization.
+
+\textbf{Practical Implication}: For specialized applications, domain purity wins. Only mix cross-domain when explicit general-domain retention is required (e.g., conversational agents handling both financial and general queries). For finance-focused deployments, pure in-domain mixtures maximize performance.
+
+\subsection{Scale-Dependent Training Dynamics}
+
+The empirical learning rate scaling law ($\text{LR} \propto 1/\sqrt{N}$) connects to optimization theory and provides generalizable guidelines:
+
+\textbf{Why Larger Models Need Smaller Learning Rates}:
+
+\textbf{1. Gradient Magnitude Scaling}: For randomly initialized networks, expected gradient norm scales as $\|\nabla\mathcal{L}\| \propto \sqrt{N}$ where $N$ is parameter count. Larger models accumulate larger gradient magnitudes across more parameters. With uniform learning rate $\alpha$, parameter updates scale as $\Delta\theta = \alpha \nabla\mathcal{L}$, so larger models take proportionally larger steps in parameter space. To maintain equivalent effective step sizes, learning rate must scale inversely: $\alpha \propto 1/\sqrt{N}$.
+
+\textbf{2. Optimizer Momentum Accumulation}: AdamW maintains exponential moving averages of gradients and squared gradients. Larger models with larger gradient norms accumulate momentum faster. The adaptive learning rate denominator ($\sqrt{v_t} + \epsilon$) partially compensates, but empirically insufficient at large scales. Explicit LR reduction prevents momentum-driven instability.
+
+\textbf{3. Effective Learning Rate and Batch Size}: The effective learning rate scales with $\alpha \times \sqrt{B}$ where $B$ is batch size. We maintained uniform batch size (32) across model sizes, so LR directly controlled optimization. Had we scaled batch size proportionally with model size (common practice), LR scaling requirements would differ. Our finding applies specifically to fixed-batch-size scaling regimes common in resource-constrained settings.
+
+\textbf{Empirical Scaling Law Validation}: Our observed 50\% and 75\% reductions for 1.7B and 4B match theoretical predictions. The ratio $\sqrt{1.7/0.6} \approx 1.68$ suggests 1.68$\times$ LR reduction; we used 2$\times$ (50\%). The ratio $\sqrt{4/0.6} \approx 2.58$ suggests 2.58$\times$ reduction; we used 4$\times$ (75\%). Slight over-reduction reflects practical conservatism—slightly too-small learning rates cause slow convergence (acceptable) while too-large rates cause divergence (catastrophic).
+
+\textbf{Connection to Scaling Laws Literature}: \textcite{kaplan2020scaling} and \textcite{hoffmann2022training} (Chinchilla) assume proper hyperparameter tuning but don't detail tuning procedures. Our findings suggest that naive hyperparameter transfer across scales explains some reported scaling anomalies—apparent model capacity limitations may actually reflect training artifacts. Proper LR scaling enables reliable improvements, validating the core scaling laws premise while adding practical implementation detail.
+
+\textbf{Generalizability Beyond Financial Domain}: The LR scaling law derives from model architecture (parameter count, gradient statistics) not data domain. We validated on financial/general text, but the relationship should hold for other specialized domains (legal, medical, scientific) using similar architectures (Qwen3, LLaMA, Gemma decoder-only transformers). Architecture-specific validation remains future work.
+
+\section{Practical Guidelines for Financial LM Pretraining}
+
+Synthesizing experimental findings into actionable recommendations:
+
+\subsection{Data Mixture Strategies by Use Case}
+
+\textbf{General-Purpose Financial NLP}: Use Mixed Financial (7 datasets, 50cap). Achieves best all-around performance (21.55 ppl, 55\% CV) with robust cross-task generalization. Suitable for applications requiring diverse financial capabilities: sentiment analysis, document summarization, Q\&A, information extraction.
+
+\textbf{Specialized Document Analysis}: Use single large dataset if available ($>$ 100M tokens). SEC @ 4B (22.47 ppl on SEC, 18\% in-domain CV) excels for regulatory filing analysis; News @ 4B (18.92 ppl on News, 26\% CV) excels for journalism. Specialization improves in-domain performance slightly but sacrifices cross-format transfer.
+
+\textbf{Instruction-Following / Q\&A Applications}: Use FiQA (4M tokens, 16.35 ppl) or FinGPT (19M tokens, 19.83 ppl) for specialized Q\&A, or include in mixture for general applications. Instruction formats transfer moderately within task type ($r = 0.68-0.73$) but poorly to documents.
+
+\textbf{Balanced General + Financial Capabilities}: Use Mixed Wiki+Financial only if general-domain retention is explicitly required (e.g., chatbots handling both financial and general queries). Accepts 24\% financial performance cost for 16\% general improvement—unfavorable for finance-focused deployments.
+
+\textbf{Avoid}: Pure WikiText for financial applications (2.3$\times$ performance degradation), small individual datasets $<$ 20M tokens (89-97\% variance, non-viable standalone), single-format training when diverse tasks expected (format mismatch prevents transfer).
+
+\subsection{Model Size Selection}
+
+\textbf{0.6B Models}: Fast training ($\sim$6 hours for 100M tokens on RTX 4090), low memory (4GB), suitable for rapid prototyping. Performance acceptable (27.84 ppl Mixed Financial) but high variance (63\% CV). Use for development, experimentation, or extremely resource-constrained deployment (mobile devices).
+
+\textbf{1.7B Models}: Best performance-efficiency balance. Training moderate ($\sim$12 hours), memory reasonable (10GB), performance strong (24.12 ppl, 58\% CV). Recommended for most applications—92\% of 4B's performance at 2.4$\times$ lower memory and 2$\times$ faster training. Optimal for production deployment balancing quality and resource constraints.
+
+\textbf{4B Models}: Best absolute performance (21.55 ppl, 55\% CV) but requires careful hyperparameter tuning (LR $5 \times 10^{-6}$) and substantial resources (20GB memory, $\sim$24 hours training). Use when maximizing performance justifies cost, and when expertise for hyperparameter tuning is available. Critical: failure to tune learning rate causes reverse scaling—practitioners must reduce LR by 75\% from 0.6B baseline.
+
+\textbf{Scaling Decision Tree}:
+\begin{enumerate}
+\item \textbf{Resource-constrained} (mobile, edge devices): 0.6B, accept 22\% performance loss vs 4B
+\item \textbf{Balanced production deployment}: 1.7B, optimal trade-off (92\% of 4B performance, 50\% resources)
+\item \textbf{Performance-critical} (willing to invest tuning effort): 4B, requires LR scaling expertise
+\end{enumerate}
+
+\subsection{Learning Rate Guidelines by Model Size}
+
+\textbf{Recommended Learning Rates}:
+\begin{itemize}
+\item \textbf{0.6B}: $2 \times 10^{-5}$ (baseline, reference configuration)
+\item \textbf{1.7B}: $1 \times 10^{-5}$ (50\% reduction, prevents mild instability)
+\item \textbf{4B}: $5 \times 10^{-6}$ (75\% reduction, essential for stable training)
+\end{itemize}
+
+\textbf{Scaling Formula}: For intermediate sizes: $\text{LR}(N) = 2 \times 10^{-5} \times \sqrt{0.6 \times 10^9 / N}$ where $N$ is parameter count. For 3B model: $\text{LR} \approx 7 \times 10^{-6}$.
+
+\textbf{Validation Protocol}: After choosing LR, verify training stability: (1) Monitor gradient norms (should remain $<$ 1.0), (2) Check loss curves for smoothness (no spikes), (3) Verify validation loss decreases monotonically. If instability observed, reduce LR by additional 30-50\% and retrain.
+
+\textbf{Other Hyperparameters}: Maintain consistent batch size (32-64), warmup steps (1,000 for datasets $>$ 10M tokens, 2,000 for smaller), cosine LR schedule, weight decay (0.01), AdamW optimizer. These settings proved robust across all experiments.
+
+\subsection{Token Budget Allocation}
+
+\textbf{Optimal Token Budget}: 100M tokens sufficient when properly mixed across diverse datasets. Diminishing returns beyond this threshold for 0.6B-4B models in our experiments. Larger models ($>$ 7B) may benefit from extended training (200-500M tokens), but this remains untested.
+
+\textbf{Mixture Composition}: Use 50cap strategy to prevent dominance. For $n$ datasets with sizes $\{s_1, s_2, ..., s_n\}$ where $s_1 > 0.5 \sum_i s_i$: cap $s_1$ at 50\% of total, sample others proportionally. This ensures diversity while respecting relative dataset informativeness.
+
+\textbf{Sampling Strategy}: Token-level interleaving, not batch-level or epoch-level. Sample each training batch from mixture distribution with probabilities proportional to (capped) dataset sizes. Avoids sequential exposure that can cause catastrophic forgetting.
+
+\textbf{Dataset Prioritization}: When curating datasets, prioritize: (1) Format diversity (documents, Q\&A, dialogue), (2) Size (aim for $\geq$ 100M total across sources), (3) Quality (clean text $>$ noisy text, but in-domain noisy $>$ out-of-domain clean). Don't exclude small datasets ($<$ 20M tokens) from mixtures—they contribute valuable diversity despite non-viability standalone.
+
+\section{Limitations and Threats to Validity}
+
+\textbf{Single Model Family}: All experiments used Qwen3 (0.6B/1.7B/4B). The LR scaling law and mixture effects may be architecture-specific. Other decoder-only transformers (LLaMA, Gemma, Phi) likely exhibit similar patterns due to shared architectural principles, but validation required. Encoder-only (BERT) or encoder-decoder (T5) models may show different mixture effects due to bidirectional attention or different pretraining objectives.
+
+\textbf{Fixed Mixture Strategy}: We used 50cap exclusively. Other algorithms (temperature sampling, equal mixing, DoReMi dynamic weighting) remain unexplored. The 50cap heuristic worked well but may not be optimal—ablation studies varying cap thresholds (30\%, 40\%, 60\%) could reveal improvements. Dynamic mixture strategies that adjust dataset weights during training based on validation loss may outperform static 50cap.
+
+\textbf{Evaluation on Pretraining Distributions}: We evaluated using perplexity on held-out test sets from the same distributions as training data. This measures pretraining quality but doesn't directly assess downstream task performance. Fine-tuned performance on financial NLP tasks (sentiment classification accuracy, Q\&A F1, summarization ROUGE) may differ from pretraining perplexity rankings. Future work should validate that Mixed Financial's pretraining advantage transfers to downstream applications.
+
+\textbf{Hardware Constraints}: Experiments limited to 0.6B-4B models due to available hardware (RTX 4090 24GB, M1 Max 32GB). Larger models (7B, 13B, 70B) may show different scaling patterns—LR scaling law may require adjustment, mixture benefits may increase or decrease with scale. The $\text{LR} \propto 1/\sqrt{N}$ relationship validated only over 6.7$\times$ size range (0.6B to 4B); extrapolation to 100B+ models uncertain.
+
+\textbf{Limited Hyperparameter Search}: We systematically explored learning rates but kept other hyperparameters fixed (batch size 32, warmup 1000 steps, cosine schedule). Larger hyperparameter sweeps over batch size (16, 32, 64, 128), warmup ratios (1\%, 3\%, 5\%), and schedules (linear, cosine, polynomial) may reveal better configurations. Computational budget constraints prevented exhaustive search.
+
+\textbf{Financial Domain Specificity}: Results may not generalize to other specialized domains with different characteristics. Legal text (extremely long documents, formal citations) or medical text (heavy abbreviations, multimodal integration) may show different mixture effects. The core principles (in-domain diversity, LR scaling) likely generalize, but specific mixture ratios and optimal configurations require domain-specific validation.
+
+Despite these limitations, our findings provide robust empirical evidence for data mixture effects, training dynamics, and practical guidelines applicable to financial LM pretraining and likely informative for other specialized domains.

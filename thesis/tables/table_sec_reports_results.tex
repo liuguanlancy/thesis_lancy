@@ -1,0 +1,29 @@
+% SEC Reports Dataset: Evaluation Results
+% Training: SEC Reports (SEC 10-K/10-Q filings, 80M tokens)
+% All models trained with LR=2e-5
+
+\begin{table}[h]
+\centering
+\caption{SEC Reports Dataset: Evaluation Across Multiple Datasets}
+\label{tab:sec_reports_results}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|ccc|ccc}
+\toprule
+\multirow{2}{*}{\textbf{Eval Dataset}} &
+\multicolumn{3}{c|}{\textbf{Cross-Entropy Loss}} &
+\multicolumn{3}{c}{\textbf{Perplexity}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+& \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} \\
+\midrule
+Alpaca & 3.86 & 3.14 & 2.92 & 47.65 & 23.04 & 18.54 \\
+Financial News & 3.71 & 3.08 & 2.81 & 40.85 & 21.65 & 16.67 \\
+Financial Qa & 3.90 & 3.08 & 2.86 & 49.30 & 21.77 & 17.39 \\
+Fingpt & 3.97 & 3.15 & 2.93 & 53.18 & 23.41 & 18.68 \\
+Fiqa & 3.85 & 3.14 & 2.96 & 47.22 & 23.15 & 19.34 \\
+Twitter & 3.94 & 3.13 & 2.90 & 51.30 & 22.86 & 18.12 \\
+Wikitext & 3.89 & 3.10 & 2.88 & 49.02 & 22.21 & 17.72 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+

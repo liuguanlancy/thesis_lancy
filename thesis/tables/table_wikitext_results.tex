@@ -1,0 +1,28 @@
+% WikiText Dataset: Evaluation Results
+% Training: WikiText (WikiText-103, 100M tokens)
+% All models trained with LR=2e-5
+
+\begin{table}[h]
+\centering
+\caption{WikiText Dataset: Evaluation Across Multiple Datasets}
+\label{tab:wikitext_results}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|ccc|ccc}
+\toprule
+\multirow{2}{*}{\textbf{Eval Dataset}} &
+\multicolumn{3}{c|}{\textbf{Cross-Entropy Loss}} &
+\multicolumn{3}{c}{\textbf{Perplexity}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+& \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} \\
+\midrule
+Alpaca & 2.22 & 3.24 & 3.48 & 9.23 & 25.51 & 32.38 \\
+Financial News & 2.62 & 2.93 & 3.37 & 13.70 & 18.78 & 29.19 \\
+Financial Repor & 1.39 & 3.27 & 3.44 & 3.99 & 26.46 & 31.23 \\
+Fingpt & 1.30 & 2.11 & 3.57 & 3.67 & 8.27 & 35.50 \\
+Fiqa & 2.07 & 3.14 & 3.53 & 7.89 & 23.15 & 34.03 \\
+Twitter & 1.45 & 2.78 & 3.52 & 4.26 & 16.06 & 33.71 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+

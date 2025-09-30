@@ -1,0 +1,35 @@
+% Financial QA 10K Dataset: Evaluation Results with LR Adjustments
+% Training: Financial QA 10K (virattt/financial-qa-10K, 3.5M tokens)
+% LR Adjustments: 1.7B (2e-5 → 1e-5), 4B (2e-5 → 5e-6)
+
+\begin{table}[h]
+\centering
+\caption{Financial QA 10K Dataset: Impact of Learning Rate Adjustments}
+\label{tab:financial_qa_lr_comparison}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|c|cc|cc|c|cc|cc}
+\toprule
+\multirow{3}{*}{\textbf{Eval Dataset}} &
+\multicolumn{5}{c|}{\textbf{Cross-Entropy Loss}} &
+\multicolumn{5}{c}{\textbf{Perplexity}} \\
+\cmidrule(lr){2-6} \cmidrule(lr){7-11}
+& \textbf{0.6B} & \multicolumn{2}{c|}{\textbf{1.7B}} & \multicolumn{2}{c|}{\textbf{4B}} &
+\textbf{0.6B} & \multicolumn{2}{c|}{\textbf{1.7B}} & \multicolumn{2}{c}{\textbf{4B}} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+& \textbf{2e-5} & \textbf{2e-5} & \textbf{1e-5} & \textbf{2e-5} & \textbf{5e-6} &
+\textbf{2e-5} & \textbf{2e-5} & \textbf{1e-5} & \textbf{2e-5} & \textbf{5e-6} \\
+\midrule
+Alpaca & 2.38 & 2.23 & 2.29 & 2.29 & 2.18 & 10.82 & 9.31 & 9.92 & 9.91 & 8.88 \\
+Financial News & 2.36 & 2.17 & 2.23 & 2.13 & 2.04 & 10.60 & 8.78 & 9.25 & 8.41 & 7.71 \\
+\rowcolor{gray!20} \textbf{Financial Qa (train)} & 2.12 & 2.01 & 2.12 & 2.12 & 2.01 & 8.29 & 7.44 & 8.29 & 8.29 & 7.43 \\
+Financial Repor & 2.11 & 2.00 & 2.10 & 2.11 & 2.01 & 8.21 & 7.40 & 8.19 & 8.25 & 7.43 \\
+Fingpt & 2.31 & 2.15 & 2.25 & 2.23 & 2.11 & 10.04 & 8.62 & 9.51 & 9.34 & 8.24 \\
+Fiqa & 2.40 & 2.25 & 2.31 & 2.31 & 2.19 & 11.02 & 9.45 & 10.10 & 10.05 & 8.93 \\
+Twitter & 2.21 & 2.10 & 2.21 & 2.20 & 2.09 & 9.14 & 8.18 & 9.10 & 8.99 & 8.05 \\
+Wikitext & 2.24 & 2.11 & 2.21 & 2.19 & 2.08 & 9.41 & 8.23 & 9.08 & 8.89 & 8.00 \\
+\rowcolor{blue!10} \textbf{Average} & \textbf{2.27} & \textbf{2.13} & \textbf{2.21} & \textbf{2.20} & \textbf{2.09} & \textbf{9.69} & \textbf{8.42} & \textbf{9.18} & \textbf{9.02} & \textbf{8.09} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
