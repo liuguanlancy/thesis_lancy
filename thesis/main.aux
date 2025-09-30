@@ -259,225 +259,226 @@
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3.5}Evaluation Protocol}{22}{section.3.5}\protected@file@percent }
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Multi-Dataset Evaluation}{22}{subsection.3.5.1}\protected@file@percent }
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Metrics}{23}{subsection.3.5.2}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {4}Results}{24}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{CV computation details}{23}{section*.7}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {4}Results}{25}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.1}Overview of Experimental Results}{24}{section.4.1}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Overview of 10 pretraining experiments. Perplexity reported for best-performing model size on the corresponding training dataset's test set. Epochs vary by model size to normalize token exposure ($\sim $100M tokens per model).\relax }}{24}{table.caption.7}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.1}Overview of Experimental Results}{25}{section.4.1}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Overview of 10 pretraining experiments. Perplexity reported for best-performing model size on the corresponding training dataset's test set. Epochs vary by model size to normalize token exposure ($\sim $100M tokens per model).\relax }}{25}{table.caption.8}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{tab:experiments_overview}{{4.1}{24}{Overview of 10 pretraining experiments. Perplexity reported for best-performing model size on the corresponding training dataset's test set. Epochs vary by model size to normalize token exposure ($\sim $100M tokens per model).\relax }{table.caption.7}{}}
-\newlabel{tab:experiments_overview@cref}{{[table][1][4]4.1}{[1][24][]24}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.2}Data Mixture Effects: The Core Finding}{25}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Mixed Financial Datasets}{25}{subsection.4.2.1}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Mixed Financial Dataset: Model scaling behavior across 0.6B, 1.7B, and 4B parameters. Left panel shows perplexity (log scale) decreasing consistently with model size. Right panel shows cross-entropy loss following expected scaling pattern. Both metrics demonstrate normal scaling with 22.6\% total improvement from 0.6B to 4B.\relax }}{26}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:scaling_mixed_financial}{{4.1}{26}{Mixed Financial Dataset: Model scaling behavior across 0.6B, 1.7B, and 4B parameters. Left panel shows perplexity (log scale) decreasing consistently with model size. Right panel shows cross-entropy loss following expected scaling pattern. Both metrics demonstrate normal scaling with 22.6\% total improvement from 0.6B to 4B.\relax }{figure.caption.8}{}}
-\newlabel{fig:scaling_mixed_financial@cref}{{[figure][1][4]4.1}{[1][26][]26}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Mixed Wiki+Financial}{26}{subsection.4.2.2}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Mixed Financial Dataset: Evaluation Across Multiple Datasets\relax }}{27}{table.caption.9}\protected@file@percent }
-\newlabel{tab:mixed_financial_results}{{4.2}{27}{Mixed Financial Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.9}{}}
-\newlabel{tab:mixed_financial_results@cref}{{[table][2][4]4.2}{[1][26][]27}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Mixed Wiki+Financial Dataset: Scaling behavior shows normal pattern but with higher perplexity than pure financial mixture. The 15.1\% total improvement (0.6B to 4B) is smaller than pure financial (22.6\%), suggesting domain mixture creates competing optimization pressures that limit scaling benefits.\relax }}{28}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:scaling_mixed_wiki_financial}{{4.2}{28}{Mixed Wiki+Financial Dataset: Scaling behavior shows normal pattern but with higher perplexity than pure financial mixture. The 15.1\% total improvement (0.6B to 4B) is smaller than pure financial (22.6\%), suggesting domain mixture creates competing optimization pressures that limit scaling benefits.\relax }{figure.caption.10}{}}
-\newlabel{fig:scaling_mixed_wiki_financial@cref}{{[figure][2][4]4.2}{[1][27][]28}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Pure WikiText Baseline}{28}{subsection.4.2.3}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Mixed Wiki+Financial Dataset: Evaluation Across Multiple Datasets\relax }}{29}{table.caption.11}\protected@file@percent }
-\newlabel{tab:mixed_wiki_financial_results}{{4.3}{29}{Mixed Wiki+Financial Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.11}{}}
-\newlabel{tab:mixed_wiki_financial_results@cref}{{[table][3][4]4.3}{[1][27][]29}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Key Takeaway}{29}{subsection.4.2.4}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces WikiText Dataset: Severe reverse scaling phenomenon. The 1.7B model shows adjusted learning rate results (dashed line, squares) after fixing training collapse. The 4B model required 75\% LR reduction to stabilize. Clean, structured data amplifies learning rate sensitivity at larger scales.\relax }}{30}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:scaling_wikitext}{{4.3}{30}{WikiText Dataset: Severe reverse scaling phenomenon. The 1.7B model shows adjusted learning rate results (dashed line, squares) after fixing training collapse. The 4B model required 75\% LR reduction to stabilize. Clean, structured data amplifies learning rate sensitivity at larger scales.\relax }{figure.caption.12}{}}
-\newlabel{fig:scaling_wikitext@cref}{{[figure][3][4]4.3}{[1][29][]30}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces WikiText Dataset: Impact of Learning Rate Adjustments\relax }}{30}{table.caption.13}\protected@file@percent }
-\newlabel{tab:wikitext_lr_comparison}{{4.4}{30}{WikiText Dataset: Impact of Learning Rate Adjustments\relax }{table.caption.13}{}}
-\newlabel{tab:wikitext_lr_comparison@cref}{{[table][4][4]4.4}{[1][29][]30}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Comparison of all three mixture strategies across model sizes. Mixed Financial (blue) consistently outperforms Mixed Wiki+Financial (orange) and WikiText (green) on financial evaluation metrics. The divergence increases with model size, demonstrating that in-domain diversity scales better than general-domain quality.\relax }}{31}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:scaling_comparison_all}{{4.4}{31}{Comparison of all three mixture strategies across model sizes. Mixed Financial (blue) consistently outperforms Mixed Wiki+Financial (orange) and WikiText (green) on financial evaluation metrics. The divergence increases with model size, demonstrating that in-domain diversity scales better than general-domain quality.\relax }{figure.caption.14}{}}
-\newlabel{fig:scaling_comparison_all@cref}{{[figure][4][4]4.4}{[1][31][]31}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.3}Individual Dataset Analysis: Component Effects}{31}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Large Datasets}{31}{subsection.4.3.1}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Financial News Articles Dataset: Excellent normal scaling with 21.7\% total improvement (0.6B to 4B). Large dataset size (197M tokens) provides sufficient diversity for stable training across all model sizes with minimal overtraining (2-3 epochs).\relax }}{33}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:scaling_news_articles}{{4.5}{33}{Financial News Articles Dataset: Excellent normal scaling with 21.7\% total improvement (0.6B to 4B). Large dataset size (197M tokens) provides sufficient diversity for stable training across all model sizes with minimal overtraining (2-3 epochs).\relax }{figure.caption.15}{}}
-\newlabel{fig:scaling_news_articles@cref}{{[figure][5][4]4.5}{[1][32][]33}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces SEC Reports Dataset: Consistent normal scaling with 22.4\% total improvement. The 80M token corpus supports standalone pretraining with moderate overtraining (6-24 epochs). Strong transfer to similar long-form documents.\relax }}{33}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:scaling_sec_reports}{{4.6}{33}{SEC Reports Dataset: Consistent normal scaling with 22.4\% total improvement. The 80M token corpus supports standalone pretraining with moderate overtraining (6-24 epochs). Strong transfer to similar long-form documents.\relax }{figure.caption.16}{}}
-\newlabel{fig:scaling_sec_reports@cref}{{[figure][6][4]4.6}{[1][32][]33}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Medium Datasets}{33}{subsection.4.3.2}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Financial News Dataset: Evaluation Across Multiple Datasets\relax }}{34}{table.caption.17}\protected@file@percent }
-\newlabel{tab:news_articles_results}{{4.5}{34}{Financial News Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.17}{}}
-\newlabel{tab:news_articles_results@cref}{{[table][5][4]4.5}{[1][32][]34}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces SEC Reports Dataset: Evaluation Across Multiple Datasets\relax }}{35}{table.caption.18}\protected@file@percent }
-\newlabel{tab:sec_reports_results}{{4.6}{35}{SEC Reports Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.18}{}}
-\newlabel{tab:sec_reports_results@cref}{{[table][6][4]4.6}{[1][32][]35}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Small Datasets}{35}{subsection.4.3.3}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces FinGPT Sentiment Dataset: Normal scaling with 22.1\% improvement despite moderate overtraining (12-30 epochs). Instruction-following format benefits from increased model capacity, showing strong transfer to similar task types.\relax }}{36}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:scaling_fingpt}{{4.7}{36}{FinGPT Sentiment Dataset: Normal scaling with 22.1\% improvement despite moderate overtraining (12-30 epochs). Instruction-following format benefits from increased model capacity, showing strong transfer to similar task types.\relax }{figure.caption.19}{}}
-\newlabel{fig:scaling_fingpt@cref}{{[figure][7][4]4.7}{[1][35][]36}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Finance Alpaca Dataset: Consistent 21.8\% improvement across model sizes. Educational Q\&A format shows reliable scaling despite 13-25 epochs of training, but exhibits narrow task focus with 48\% cross-dataset variance.\relax }}{36}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:scaling_alpaca}{{4.8}{36}{Finance Alpaca Dataset: Consistent 21.8\% improvement across model sizes. Educational Q\&A format shows reliable scaling despite 13-25 epochs of training, but exhibits narrow task focus with 48\% cross-dataset variance.\relax }{figure.caption.20}{}}
-\newlabel{fig:scaling_alpaca@cref}{{[figure][8][4]4.8}{[1][35][]36}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces FiQA Dataset: Strong normal scaling with 25.2\% total improvement. Despite small size (4M tokens), conversational Q\&A format produces stable training and excellent in-domain performance, though with high variance (52\%) on out-of-format tasks.\relax }}{37}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:scaling_fiqa}{{4.9}{37}{FiQA Dataset: Strong normal scaling with 25.2\% total improvement. Despite small size (4M tokens), conversational Q\&A format produces stable training and excellent in-domain performance, though with high variance (52\%) on out-of-format tasks.\relax }{figure.caption.21}{}}
-\newlabel{fig:scaling_fiqa@cref}{{[figure][9][4]4.9}{[1][35][]37}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces FinGPT Sentiment Dataset: Evaluation Across Multiple Datasets\relax }}{38}{table.caption.22}\protected@file@percent }
-\newlabel{tab:fingpt_results}{{4.7}{38}{FinGPT Sentiment Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.22}{}}
-\newlabel{tab:fingpt_results@cref}{{[table][7][4]4.7}{[1][35][]38}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Financial QA 10K Dataset: Moderate reverse scaling resolved via learning rate adjustment. The 4B model (dashed line, squares) shows adjusted LR results with 10.3\% improvement, recovering expected scaling order. Extreme overtraining (67-100 epochs) causes 89\% cross-dataset variance.\relax }}{38}{figure.caption.25}\protected@file@percent }
-\newlabel{fig:scaling_financial_qa}{{4.10}{38}{Financial QA 10K Dataset: Moderate reverse scaling resolved via learning rate adjustment. The 4B model (dashed line, squares) shows adjusted LR results with 10.3\% improvement, recovering expected scaling order. Extreme overtraining (67-100 epochs) causes 89\% cross-dataset variance.\relax }{figure.caption.25}{}}
-\newlabel{fig:scaling_financial_qa@cref}{{[figure][10][4]4.10}{[1][38][]38}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Dataset Size vs Generalization}{38}{subsection.4.3.4}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.8}{\ignorespaces Finance Alpaca Dataset: Evaluation Across Multiple Datasets\relax }}{39}{table.caption.23}\protected@file@percent }
-\newlabel{tab:alpaca_results}{{4.8}{39}{Finance Alpaca Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.23}{}}
-\newlabel{tab:alpaca_results@cref}{{[table][8][4]4.8}{[1][35][]39}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.9}{\ignorespaces FiQA Dataset: Evaluation Across Multiple Datasets\relax }}{40}{table.caption.24}\protected@file@percent }
-\newlabel{tab:fiqa_results}{{4.9}{40}{FiQA Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.24}{}}
-\newlabel{tab:fiqa_results@cref}{{[table][9][4]4.9}{[1][35][]40}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.4}Training Dynamics and Scaling Behavior}{40}{section.4.4}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Normal Scaling Pattern}{40}{subsection.4.4.1}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Twitter Financial Sentiment Dataset: Severe reverse scaling phenomenon. The 4B model (dashed line, squares) required 75\% LR reduction to recover performance, achieving 31.6\% improvement. Extremely small dataset (0.3M tokens, 150-249 epochs) creates brittle optimization landscape with 89\% variance.\relax }}{41}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:scaling_twitter}{{4.11}{41}{Twitter Financial Sentiment Dataset: Severe reverse scaling phenomenon. The 4B model (dashed line, squares) required 75\% LR reduction to recover performance, achieving 31.6\% improvement. Extremely small dataset (0.3M tokens, 150-249 epochs) creates brittle optimization landscape with 89\% variance.\relax }{figure.caption.26}{}}
-\newlabel{fig:scaling_twitter@cref}{{[figure][11][4]4.11}{[1][38][]41}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.10}{\ignorespaces Financial QA 10K Dataset: Impact of Learning Rate Adjustments\relax }}{41}{table.caption.27}\protected@file@percent }
-\newlabel{tab:financial_qa_lr_comparison}{{4.10}{41}{Financial QA 10K Dataset: Impact of Learning Rate Adjustments\relax }{table.caption.27}{}}
-\newlabel{tab:financial_qa_lr_comparison@cref}{{[table][10][4]4.10}{[1][38][]41}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.11}{\ignorespaces Twitter Financial Dataset: Impact of Learning Rate Adjustments\relax }}{42}{table.caption.28}\protected@file@percent }
-\newlabel{tab:twitter_lr_comparison}{{4.11}{42}{Twitter Financial Dataset: Impact of Learning Rate Adjustments\relax }{table.caption.28}{}}
-\newlabel{tab:twitter_lr_comparison@cref}{{[table][11][4]4.11}{[1][38][]42}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Reverse Scaling Phenomenon}{43}{subsection.4.4.2}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Learning Rate Sensitivity by Model Size}{44}{subsection.4.4.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}Fixing Reverse Scaling}{46}{subsection.4.4.4}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}Model Stability Analysis}{47}{subsection.4.4.5}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.5}Domain Transfer and Generalization Patterns}{48}{section.4.5}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Cross-Dataset Evaluation}{48}{subsection.4.5.1}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Document Format and Task Type Effects}{50}{subsection.4.5.2}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.12}{\ignorespaces Financial News Evaluation: Performance Across Training Datasets\relax }}{51}{table.caption.29}\protected@file@percent }
-\newlabel{tab:cross_financial_news}{{4.12}{51}{Financial News Evaluation: Performance Across Training Datasets\relax }{table.caption.29}{}}
-\newlabel{tab:cross_financial_news@cref}{{[table][12][4]4.12}{[1][50][]51}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.13}{\ignorespaces SEC Reports Evaluation: Performance Across Training Datasets\relax }}{52}{table.caption.30}\protected@file@percent }
-\newlabel{tab:cross_financial_repor}{{4.13}{52}{SEC Reports Evaluation: Performance Across Training Datasets\relax }{table.caption.30}{}}
-\newlabel{tab:cross_financial_repor@cref}{{[table][13][4]4.13}{[1][50][]52}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Variance Comparison}{52}{subsection.4.5.3}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.14}{\ignorespaces Alpaca Evaluation: Performance Across Training Datasets\relax }}{53}{table.caption.31}\protected@file@percent }
-\newlabel{tab:cross_alpaca}{{4.14}{53}{Alpaca Evaluation: Performance Across Training Datasets\relax }{table.caption.31}{}}
-\newlabel{tab:cross_alpaca@cref}{{[table][14][4]4.14}{[1][51][]53}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.15}{\ignorespaces FinGPT Evaluation: Performance Across Training Datasets\relax }}{54}{table.caption.32}\protected@file@percent }
-\newlabel{tab:cross_fingpt}{{4.15}{54}{FinGPT Evaluation: Performance Across Training Datasets\relax }{table.caption.32}{}}
-\newlabel{tab:cross_fingpt@cref}{{[table][15][4]4.15}{[1][51][]54}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.16}{\ignorespaces FiQA Evaluation: Performance Across Training Datasets\relax }}{55}{table.caption.33}\protected@file@percent }
-\newlabel{tab:cross_fiqa}{{4.16}{55}{FiQA Evaluation: Performance Across Training Datasets\relax }{table.caption.33}{}}
-\newlabel{tab:cross_fiqa@cref}{{[table][16][4]4.16}{[1][51][]55}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.4}Domain-Specific vs General Knowledge Transfer}{55}{subsection.4.5.4}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.17}{\ignorespaces Twitter Financial Evaluation: Performance Across Training Datasets\relax }}{56}{table.caption.34}\protected@file@percent }
-\newlabel{tab:cross_twitter}{{4.17}{56}{Twitter Financial Evaluation: Performance Across Training Datasets\relax }{table.caption.34}{}}
-\newlabel{tab:cross_twitter@cref}{{[table][17][4]4.17}{[1][52][]56}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.18}{\ignorespaces Financial QA Evaluation: Performance Across Training Datasets\relax }}{57}{table.caption.35}\protected@file@percent }
-\newlabel{tab:cross_financial_qa}{{4.18}{57}{Financial QA Evaluation: Performance Across Training Datasets\relax }{table.caption.35}{}}
-\newlabel{tab:cross_financial_qa@cref}{{[table][18][4]4.18}{[1][55][]57}}
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.19}{\ignorespaces WikiText Evaluation: Performance Across Training Datasets\relax }}{58}{table.caption.36}\protected@file@percent }
-\newlabel{tab:cross_wikitext}{{4.19}{58}{WikiText Evaluation: Performance Across Training Datasets\relax }{table.caption.36}{}}
-\newlabel{tab:cross_wikitext@cref}{{[table][19][4]4.19}{[1][58][]58}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.6}Summary and Key Results}{59}{section.4.6}\protected@file@percent }
-\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.20}{\ignorespaces Best configurations by application. *SEC's 18\% CV is in-domain only; cross-dataset CV is 32\%.\relax }}{60}{table.caption.37}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussion}{62}{chapter.5}\protected@file@percent }
+\newlabel{tab:experiments_overview}{{4.1}{25}{Overview of 10 pretraining experiments. Perplexity reported for best-performing model size on the corresponding training dataset's test set. Epochs vary by model size to normalize token exposure ($\sim $100M tokens per model).\relax }{table.caption.8}{}}
+\newlabel{tab:experiments_overview@cref}{{[table][1][4]4.1}{[1][25][]25}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.2}Data Mixture Effects: The Core Finding}{26}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Mixed Financial Datasets}{26}{subsection.4.2.1}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Mixed Financial Dataset: Model scaling behavior across 0.6B, 1.7B, and 4B parameters. Left panel shows perplexity (log scale) decreasing consistently with model size. Right panel shows cross-entropy loss following expected scaling pattern. Both metrics demonstrate normal scaling with 22.6\% total improvement from 0.6B to 4B.\relax }}{27}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:scaling_mixed_financial}{{4.1}{27}{Mixed Financial Dataset: Model scaling behavior across 0.6B, 1.7B, and 4B parameters. Left panel shows perplexity (log scale) decreasing consistently with model size. Right panel shows cross-entropy loss following expected scaling pattern. Both metrics demonstrate normal scaling with 22.6\% total improvement from 0.6B to 4B.\relax }{figure.caption.9}{}}
+\newlabel{fig:scaling_mixed_financial@cref}{{[figure][1][4]4.1}{[1][27][]27}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Mixed Wiki+Financial}{27}{subsection.4.2.2}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Mixed Financial Dataset: Evaluation Across Multiple Datasets\relax }}{28}{table.caption.10}\protected@file@percent }
+\newlabel{tab:mixed_financial_results}{{4.2}{28}{Mixed Financial Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.10}{}}
+\newlabel{tab:mixed_financial_results@cref}{{[table][2][4]4.2}{[1][27][]28}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Mixed Wiki+Financial Dataset: Scaling behavior shows normal pattern but with higher perplexity than pure financial mixture. The 15.1\% total improvement (0.6B to 4B) is smaller than pure financial (22.6\%), suggesting domain mixture creates competing optimization pressures that limit scaling benefits.\relax }}{29}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:scaling_mixed_wiki_financial}{{4.2}{29}{Mixed Wiki+Financial Dataset: Scaling behavior shows normal pattern but with higher perplexity than pure financial mixture. The 15.1\% total improvement (0.6B to 4B) is smaller than pure financial (22.6\%), suggesting domain mixture creates competing optimization pressures that limit scaling benefits.\relax }{figure.caption.11}{}}
+\newlabel{fig:scaling_mixed_wiki_financial@cref}{{[figure][2][4]4.2}{[1][28][]29}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Pure WikiText Baseline}{29}{subsection.4.2.3}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Mixed Wiki+Financial Dataset: Evaluation Across Multiple Datasets\relax }}{30}{table.caption.12}\protected@file@percent }
+\newlabel{tab:mixed_wiki_financial_results}{{4.3}{30}{Mixed Wiki+Financial Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.12}{}}
+\newlabel{tab:mixed_wiki_financial_results@cref}{{[table][3][4]4.3}{[1][28][]30}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Key Takeaway}{30}{subsection.4.2.4}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces WikiText Dataset: Severe reverse scaling phenomenon. The 1.7B model shows adjusted learning rate results (dashed line, squares) after fixing training collapse. The 4B model required 75\% LR reduction to stabilize. Clean, structured data amplifies learning rate sensitivity at larger scales.\relax }}{31}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:scaling_wikitext}{{4.3}{31}{WikiText Dataset: Severe reverse scaling phenomenon. The 1.7B model shows adjusted learning rate results (dashed line, squares) after fixing training collapse. The 4B model required 75\% LR reduction to stabilize. Clean, structured data amplifies learning rate sensitivity at larger scales.\relax }{figure.caption.13}{}}
+\newlabel{fig:scaling_wikitext@cref}{{[figure][3][4]4.3}{[1][30][]31}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces WikiText Dataset: Impact of Learning Rate Adjustments\relax }}{31}{table.caption.14}\protected@file@percent }
+\newlabel{tab:wikitext_lr_comparison}{{4.4}{31}{WikiText Dataset: Impact of Learning Rate Adjustments\relax }{table.caption.14}{}}
+\newlabel{tab:wikitext_lr_comparison@cref}{{[table][4][4]4.4}{[1][30][]31}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Comparison of all three mixture strategies across model sizes. Mixed Financial (blue) consistently outperforms Mixed Wiki+Financial (orange) and WikiText (green) on financial evaluation metrics. The divergence increases with model size, demonstrating that in-domain diversity scales better than general-domain quality.\relax }}{32}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:scaling_comparison_all}{{4.4}{32}{Comparison of all three mixture strategies across model sizes. Mixed Financial (blue) consistently outperforms Mixed Wiki+Financial (orange) and WikiText (green) on financial evaluation metrics. The divergence increases with model size, demonstrating that in-domain diversity scales better than general-domain quality.\relax }{figure.caption.15}{}}
+\newlabel{fig:scaling_comparison_all@cref}{{[figure][4][4]4.4}{[1][32][]32}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.3}Individual Dataset Analysis: Component Effects}{32}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Large Datasets}{32}{subsection.4.3.1}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Financial News Articles Dataset: Excellent normal scaling with 21.7\% total improvement (0.6B to 4B). Large dataset size (197M tokens) provides sufficient diversity for stable training across all model sizes with minimal overtraining (2-3 epochs).\relax }}{34}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:scaling_news_articles}{{4.5}{34}{Financial News Articles Dataset: Excellent normal scaling with 21.7\% total improvement (0.6B to 4B). Large dataset size (197M tokens) provides sufficient diversity for stable training across all model sizes with minimal overtraining (2-3 epochs).\relax }{figure.caption.16}{}}
+\newlabel{fig:scaling_news_articles@cref}{{[figure][5][4]4.5}{[1][33][]34}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces SEC Reports Dataset: Consistent normal scaling with 22.4\% total improvement. The 80M token corpus supports standalone pretraining with moderate overtraining (6-24 epochs). Strong transfer to similar long-form documents.\relax }}{34}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:scaling_sec_reports}{{4.6}{34}{SEC Reports Dataset: Consistent normal scaling with 22.4\% total improvement. The 80M token corpus supports standalone pretraining with moderate overtraining (6-24 epochs). Strong transfer to similar long-form documents.\relax }{figure.caption.17}{}}
+\newlabel{fig:scaling_sec_reports@cref}{{[figure][6][4]4.6}{[1][33][]34}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Medium Datasets}{34}{subsection.4.3.2}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Financial News Dataset: Evaluation Across Multiple Datasets\relax }}{35}{table.caption.18}\protected@file@percent }
+\newlabel{tab:news_articles_results}{{4.5}{35}{Financial News Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.18}{}}
+\newlabel{tab:news_articles_results@cref}{{[table][5][4]4.5}{[1][33][]35}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces SEC Reports Dataset: Evaluation Across Multiple Datasets\relax }}{36}{table.caption.19}\protected@file@percent }
+\newlabel{tab:sec_reports_results}{{4.6}{36}{SEC Reports Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.19}{}}
+\newlabel{tab:sec_reports_results@cref}{{[table][6][4]4.6}{[1][33][]36}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Small Datasets}{36}{subsection.4.3.3}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces FinGPT Sentiment Dataset: Normal scaling with 22.1\% improvement despite moderate overtraining (12-30 epochs). Instruction-following format benefits from increased model capacity, showing strong transfer to similar task types.\relax }}{37}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:scaling_fingpt}{{4.7}{37}{FinGPT Sentiment Dataset: Normal scaling with 22.1\% improvement despite moderate overtraining (12-30 epochs). Instruction-following format benefits from increased model capacity, showing strong transfer to similar task types.\relax }{figure.caption.20}{}}
+\newlabel{fig:scaling_fingpt@cref}{{[figure][7][4]4.7}{[1][36][]37}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Finance Alpaca Dataset: Consistent 21.8\% improvement across model sizes. Educational Q\&A format shows reliable scaling despite 13-25 epochs of training, but exhibits narrow task focus with 48\% cross-dataset variance.\relax }}{37}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:scaling_alpaca}{{4.8}{37}{Finance Alpaca Dataset: Consistent 21.8\% improvement across model sizes. Educational Q\&A format shows reliable scaling despite 13-25 epochs of training, but exhibits narrow task focus with 48\% cross-dataset variance.\relax }{figure.caption.21}{}}
+\newlabel{fig:scaling_alpaca@cref}{{[figure][8][4]4.8}{[1][36][]37}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces FiQA Dataset: Strong normal scaling with 25.2\% total improvement. Despite small size (4M tokens), conversational Q\&A format produces stable training and excellent in-domain performance, though with high variance (52\%) on out-of-format tasks.\relax }}{38}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:scaling_fiqa}{{4.9}{38}{FiQA Dataset: Strong normal scaling with 25.2\% total improvement. Despite small size (4M tokens), conversational Q\&A format produces stable training and excellent in-domain performance, though with high variance (52\%) on out-of-format tasks.\relax }{figure.caption.22}{}}
+\newlabel{fig:scaling_fiqa@cref}{{[figure][9][4]4.9}{[1][36][]38}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces FinGPT Sentiment Dataset: Evaluation Across Multiple Datasets\relax }}{39}{table.caption.23}\protected@file@percent }
+\newlabel{tab:fingpt_results}{{4.7}{39}{FinGPT Sentiment Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.23}{}}
+\newlabel{tab:fingpt_results@cref}{{[table][7][4]4.7}{[1][36][]39}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Financial QA 10K Dataset: Moderate reverse scaling resolved via learning rate adjustment. The 4B model (dashed line, squares) shows adjusted LR results with 10.3\% improvement, recovering expected scaling order. Extreme overtraining (67-100 epochs) causes 89\% cross-dataset variance.\relax }}{39}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:scaling_financial_qa}{{4.10}{39}{Financial QA 10K Dataset: Moderate reverse scaling resolved via learning rate adjustment. The 4B model (dashed line, squares) shows adjusted LR results with 10.3\% improvement, recovering expected scaling order. Extreme overtraining (67-100 epochs) causes 89\% cross-dataset variance.\relax }{figure.caption.26}{}}
+\newlabel{fig:scaling_financial_qa@cref}{{[figure][10][4]4.10}{[1][39][]39}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Dataset Size vs Generalization}{39}{subsection.4.3.4}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.8}{\ignorespaces Finance Alpaca Dataset: Evaluation Across Multiple Datasets\relax }}{40}{table.caption.24}\protected@file@percent }
+\newlabel{tab:alpaca_results}{{4.8}{40}{Finance Alpaca Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.24}{}}
+\newlabel{tab:alpaca_results@cref}{{[table][8][4]4.8}{[1][36][]40}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.9}{\ignorespaces FiQA Dataset: Evaluation Across Multiple Datasets\relax }}{41}{table.caption.25}\protected@file@percent }
+\newlabel{tab:fiqa_results}{{4.9}{41}{FiQA Dataset: Evaluation Across Multiple Datasets\relax }{table.caption.25}{}}
+\newlabel{tab:fiqa_results@cref}{{[table][9][4]4.9}{[1][36][]41}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.4}Training Dynamics and Scaling Behavior}{41}{section.4.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Normal Scaling Pattern}{41}{subsection.4.4.1}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Twitter Financial Sentiment Dataset: Severe reverse scaling phenomenon. The 4B model (dashed line, squares) required 75\% LR reduction to recover performance, achieving 31.6\% improvement. Extremely small dataset (0.3M tokens, 150-249 epochs) creates brittle optimization landscape with 89\% variance.\relax }}{42}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:scaling_twitter}{{4.11}{42}{Twitter Financial Sentiment Dataset: Severe reverse scaling phenomenon. The 4B model (dashed line, squares) required 75\% LR reduction to recover performance, achieving 31.6\% improvement. Extremely small dataset (0.3M tokens, 150-249 epochs) creates brittle optimization landscape with 89\% variance.\relax }{figure.caption.27}{}}
+\newlabel{fig:scaling_twitter@cref}{{[figure][11][4]4.11}{[1][39][]42}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.10}{\ignorespaces Financial QA 10K Dataset: Impact of Learning Rate Adjustments\relax }}{42}{table.caption.28}\protected@file@percent }
+\newlabel{tab:financial_qa_lr_comparison}{{4.10}{42}{Financial QA 10K Dataset: Impact of Learning Rate Adjustments\relax }{table.caption.28}{}}
+\newlabel{tab:financial_qa_lr_comparison@cref}{{[table][10][4]4.10}{[1][39][]42}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.11}{\ignorespaces Twitter Financial Dataset: Impact of Learning Rate Adjustments\relax }}{43}{table.caption.29}\protected@file@percent }
+\newlabel{tab:twitter_lr_comparison}{{4.11}{43}{Twitter Financial Dataset: Impact of Learning Rate Adjustments\relax }{table.caption.29}{}}
+\newlabel{tab:twitter_lr_comparison@cref}{{[table][11][4]4.11}{[1][39][]43}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Reverse Scaling Phenomenon}{44}{subsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Learning Rate Sensitivity by Model Size}{45}{subsection.4.4.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}Fixing Reverse Scaling}{47}{subsection.4.4.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}Model Stability Analysis}{48}{subsection.4.4.5}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.5}Domain Transfer and Generalization Patterns}{49}{section.4.5}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Cross-Dataset Evaluation}{49}{subsection.4.5.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Document Format and Task Type Effects}{51}{subsection.4.5.2}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.12}{\ignorespaces Financial News Evaluation: Performance Across Training Datasets\relax }}{52}{table.caption.30}\protected@file@percent }
+\newlabel{tab:cross_financial_news}{{4.12}{52}{Financial News Evaluation: Performance Across Training Datasets\relax }{table.caption.30}{}}
+\newlabel{tab:cross_financial_news@cref}{{[table][12][4]4.12}{[1][51][]52}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.13}{\ignorespaces SEC Reports Evaluation: Performance Across Training Datasets\relax }}{53}{table.caption.31}\protected@file@percent }
+\newlabel{tab:cross_financial_repor}{{4.13}{53}{SEC Reports Evaluation: Performance Across Training Datasets\relax }{table.caption.31}{}}
+\newlabel{tab:cross_financial_repor@cref}{{[table][13][4]4.13}{[1][51][]53}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Variance Comparison}{53}{subsection.4.5.3}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.14}{\ignorespaces Alpaca Evaluation: Performance Across Training Datasets\relax }}{54}{table.caption.32}\protected@file@percent }
+\newlabel{tab:cross_alpaca}{{4.14}{54}{Alpaca Evaluation: Performance Across Training Datasets\relax }{table.caption.32}{}}
+\newlabel{tab:cross_alpaca@cref}{{[table][14][4]4.14}{[1][52][]54}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.15}{\ignorespaces FinGPT Evaluation: Performance Across Training Datasets\relax }}{55}{table.caption.33}\protected@file@percent }
+\newlabel{tab:cross_fingpt}{{4.15}{55}{FinGPT Evaluation: Performance Across Training Datasets\relax }{table.caption.33}{}}
+\newlabel{tab:cross_fingpt@cref}{{[table][15][4]4.15}{[1][52][]55}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.16}{\ignorespaces FiQA Evaluation: Performance Across Training Datasets\relax }}{56}{table.caption.34}\protected@file@percent }
+\newlabel{tab:cross_fiqa}{{4.16}{56}{FiQA Evaluation: Performance Across Training Datasets\relax }{table.caption.34}{}}
+\newlabel{tab:cross_fiqa@cref}{{[table][16][4]4.16}{[1][52][]56}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.4}Domain-Specific vs General Knowledge Transfer}{56}{subsection.4.5.4}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.17}{\ignorespaces Twitter Financial Evaluation: Performance Across Training Datasets\relax }}{57}{table.caption.35}\protected@file@percent }
+\newlabel{tab:cross_twitter}{{4.17}{57}{Twitter Financial Evaluation: Performance Across Training Datasets\relax }{table.caption.35}{}}
+\newlabel{tab:cross_twitter@cref}{{[table][17][4]4.17}{[1][53][]57}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.18}{\ignorespaces Financial QA Evaluation: Performance Across Training Datasets\relax }}{58}{table.caption.36}\protected@file@percent }
+\newlabel{tab:cross_financial_qa}{{4.18}{58}{Financial QA Evaluation: Performance Across Training Datasets\relax }{table.caption.36}{}}
+\newlabel{tab:cross_financial_qa@cref}{{[table][18][4]4.18}{[1][56][]58}}
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.19}{\ignorespaces WikiText Evaluation: Performance Across Training Datasets\relax }}{59}{table.caption.37}\protected@file@percent }
+\newlabel{tab:cross_wikitext}{{4.19}{59}{WikiText Evaluation: Performance Across Training Datasets\relax }{table.caption.37}{}}
+\newlabel{tab:cross_wikitext@cref}{{[table][19][4]4.19}{[1][59][]59}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4.6}Summary and Key Results}{60}{section.4.6}\protected@file@percent }
+\@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\contentsline {table}{\numberline {4.20}{\ignorespaces Best configurations by application. *SEC's 18\% CV is in-domain only; cross-dataset CV is 32\%.\relax }}{61}{table.caption.38}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussion}{63}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.1}Key Empirical Findings}{62}{section.5.1}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.2}Interpretation of Data Interaction Effects}{64}{section.5.2}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Why WikiText Underperforms on Financial Tasks}{64}{subsection.5.2.1}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Benefits of In-Domain Diversity}{65}{subsection.5.2.2}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Domain Interference Patterns}{67}{subsection.5.2.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Scale-Dependent Training Dynamics}{68}{subsection.5.2.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.1}Key Empirical Findings}{63}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.2}Interpretation of Data Interaction Effects}{65}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Why WikiText Underperforms on Financial Tasks}{65}{subsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Benefits of In-Domain Diversity}{66}{subsection.5.2.2}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Domain Interference Patterns}{68}{subsection.5.2.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Scale-Dependent Training Dynamics}{69}{subsection.5.2.4}\protected@file@percent }
 \abx@aux@cite{kaplan2020scaling}
 \abx@aux@segm{0}{0}{kaplan2020scaling}
 \abx@aux@cite{hoffmann2022training}
 \abx@aux@segm{0}{0}{hoffmann2022training}
-\abx@aux@page{65}{69}
-\abx@aux@page{66}{69}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.3}Practical Guidelines for Financial LM Pretraining}{69}{section.5.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Data Mixture Strategies by Use Case}{69}{subsection.5.3.1}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Model Size Selection}{70}{subsection.5.3.2}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Learning Rate Guidelines by Model Size}{71}{subsection.5.3.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Token Budget Allocation}{72}{subsection.5.3.4}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.4}Limitations and Threats to Validity}{72}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{74}{chapter.6}\protected@file@percent }
+\abx@aux@page{65}{70}
+\abx@aux@page{66}{70}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.3}Practical Guidelines for Financial LM Pretraining}{70}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Data Mixture Strategies by Use Case}{70}{subsection.5.3.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Model Size Selection}{71}{subsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Learning Rate Guidelines by Model Size}{72}{subsection.5.3.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Token Budget Allocation}{73}{subsection.5.3.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5.4}Limitations and Threats to Validity}{73}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{75}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary of Contributions}{74}{section.6.1}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Data Mixture Guidelines for Financial NLP}{74}{subsection.6.1.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary of Contributions}{75}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Data Mixture Guidelines for Financial NLP}{75}{subsection.6.1.1}\protected@file@percent }
 \abx@aux@cite{kaplan2020scaling}
 \abx@aux@segm{0}{0}{kaplan2020scaling}
 \abx@aux@cite{hoffmann2022training}
 \abx@aux@segm{0}{0}{hoffmann2022training}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Learning Rate Scaling Laws for Decoder-Only Transformers}{75}{subsection.6.1.2}\protected@file@percent }
-\abx@aux@page{67}{75}
-\abx@aux@page{68}{75}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Dataset Size Effects and Generalization}{76}{subsection.6.1.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.4}Domain Transfer and Format Effects}{76}{subsection.6.1.4}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.5}Model Size Selection for Resource-Constrained Settings}{77}{subsection.6.1.5}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.6}Open-Source Reproducible Pipeline}{78}{subsection.6.1.6}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {6.2}Implications for Practice and Research}{78}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}For Practitioners: Actionable Deployment Guidelines}{78}{subsection.6.2.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Learning Rate Scaling Laws for Decoder-Only Transformers}{76}{subsection.6.1.2}\protected@file@percent }
+\abx@aux@page{67}{76}
+\abx@aux@page{68}{76}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Dataset Size Effects and Generalization}{77}{subsection.6.1.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.4}Domain Transfer and Format Effects}{77}{subsection.6.1.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.5}Model Size Selection for Resource-Constrained Settings}{78}{subsection.6.1.5}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.6}Open-Source Reproducible Pipeline}{79}{subsection.6.1.6}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {6.2}Implications for Practice and Research}{79}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}For Practitioners: Actionable Deployment Guidelines}{79}{subsection.6.2.1}\protected@file@percent }
 \abx@aux@cite{kaplan2020scaling}
 \abx@aux@segm{0}{0}{kaplan2020scaling}
 \abx@aux@cite{hoffmann2022training}
 \abx@aux@segm{0}{0}{hoffmann2022training}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}For Researchers: Open Questions and Methodological Lessons}{79}{subsection.6.2.2}\protected@file@percent }
-\abx@aux@page{69}{79}
-\abx@aux@page{70}{79}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}For Industry: Privacy-Preserving Financial AI}{80}{subsection.6.2.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {6.3}Future Research Directions}{80}{section.6.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Scaling to Larger Models and Architectures}{80}{subsection.6.3.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}For Researchers: Open Questions and Methodological Lessons}{80}{subsection.6.2.2}\protected@file@percent }
+\abx@aux@page{69}{80}
+\abx@aux@page{70}{80}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}For Industry: Privacy-Preserving Financial AI}{81}{subsection.6.2.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {6.3}Future Research Directions}{81}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Scaling to Larger Models and Architectures}{81}{subsection.6.3.1}\protected@file@percent }
 \abx@aux@cite{xie2023doremi}
 \abx@aux@segm{0}{0}{xie2023doremi}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Advanced Mixture Optimization}{81}{subsection.6.3.2}\protected@file@percent }
-\abx@aux@page{71}{81}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Comprehensive Downstream Evaluation}{82}{subsection.6.3.3}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.4}Multi-Stage Pretraining Strategies}{82}{subsection.6.3.4}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.5}Theoretical Understanding of Learning Rate Scaling}{83}{subsection.6.3.5}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {6.4}Closing Remarks}{84}{section.6.4}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{Appendices}{}{section*.38}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {A}Experimental Details}{86}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Advanced Mixture Optimization}{82}{subsection.6.3.2}\protected@file@percent }
+\abx@aux@page{71}{82}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Comprehensive Downstream Evaluation}{83}{subsection.6.3.3}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.4}Multi-Stage Pretraining Strategies}{83}{subsection.6.3.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.5}Theoretical Understanding of Learning Rate Scaling}{84}{subsection.6.3.5}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {6.4}Closing Remarks}{85}{section.6.4}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{Appendices}{}{section*.39}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {chapter}{\numberline {A}Experimental Details}{87}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\defcounter {refsection}{0}\relax }\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chp:experimental_details}{{A}{86}{Experimental Details}{appendix.A}{}}
-\newlabel{chp:experimental_details@cref}{{[appendix][1][2147483647]A}{[1][86][]86}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {A.1}Complete Hyperparameter Tables}{86}{section.A.1}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {A.2}Additional Results Tables}{86}{section.A.2}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {A.3}Dataset Preprocessing Details}{86}{section.A.3}\protected@file@percent }
-\abx@aux@page{72}{87}
-\abx@aux@page{73}{87}
-\abx@aux@page{74}{87}
-\abx@aux@page{75}{87}
-\abx@aux@page{76}{87}
-\abx@aux@page{77}{87}
-\abx@aux@page{78}{88}
-\abx@aux@page{79}{88}
-\abx@aux@page{80}{88}
-\abx@aux@page{81}{88}
-\abx@aux@page{82}{88}
-\abx@aux@page{83}{88}
-\abx@aux@page{84}{88}
-\abx@aux@page{85}{88}
-\abx@aux@page{86}{89}
-\abx@aux@page{87}{89}
-\abx@aux@page{88}{89}
-\abx@aux@page{89}{89}
-\abx@aux@page{90}{89}
-\abx@aux@page{91}{89}
-\abx@aux@page{92}{89}
-\abx@aux@page{93}{89}
-\abx@aux@page{94}{90}
-\abx@aux@page{95}{90}
-\abx@aux@page{96}{90}
-\abx@aux@page{97}{90}
-\abx@aux@page{98}{90}
-\abx@aux@page{99}{90}
-\abx@aux@page{100}{90}
-\abx@aux@page{101}{91}
-\abx@aux@page{102}{91}
-\abx@aux@page{103}{91}
-\abx@aux@page{104}{91}
-\abx@aux@page{105}{91}
-\abx@aux@page{106}{91}
+\newlabel{chp:experimental_details}{{A}{87}{Experimental Details}{appendix.A}{}}
+\newlabel{chp:experimental_details@cref}{{[appendix][1][2147483647]A}{[1][87][]87}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {A.1}Complete Hyperparameter Tables}{87}{section.A.1}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {A.2}Additional Results Tables}{87}{section.A.2}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {A.3}Dataset Preprocessing Details}{87}{section.A.3}\protected@file@percent }
+\abx@aux@page{72}{88}
+\abx@aux@page{73}{88}
+\abx@aux@page{74}{88}
+\abx@aux@page{75}{88}
+\abx@aux@page{76}{88}
+\abx@aux@page{77}{88}
+\abx@aux@page{78}{89}
+\abx@aux@page{79}{89}
+\abx@aux@page{80}{89}
+\abx@aux@page{81}{89}
+\abx@aux@page{82}{89}
+\abx@aux@page{83}{89}
+\abx@aux@page{84}{89}
+\abx@aux@page{85}{89}
+\abx@aux@page{86}{90}
+\abx@aux@page{87}{90}
+\abx@aux@page{88}{90}
+\abx@aux@page{89}{90}
+\abx@aux@page{90}{90}
+\abx@aux@page{91}{90}
+\abx@aux@page{92}{90}
+\abx@aux@page{93}{90}
+\abx@aux@page{94}{91}
+\abx@aux@page{95}{91}
+\abx@aux@page{96}{91}
+\abx@aux@page{97}{91}
+\abx@aux@page{98}{91}
+\abx@aux@page{99}{91}
+\abx@aux@page{100}{91}
+\abx@aux@page{101}{92}
+\abx@aux@page{102}{92}
+\abx@aux@page{103}{92}
+\abx@aux@page{104}{92}
+\abx@aux@page{105}{92}
+\abx@aux@page{106}{92}
 \abx@aux@read@bbl@mdfivesum{F37B3304050D406071A29CC122DBA493}
 \abx@aux@refcontextdefaultsdone
 \abx@aux@defaultrefcontext{0}{aharoni2020unsupervised}{nyt/global//global/global}
@@ -515,4 +516,4 @@
 \abx@aux@defaultrefcontext{0}{yang2023fingpt}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{yang2020finbert}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{wu2022opt}{nyt/global//global/global}
-\gdef \@abspage@last{104}
+\gdef \@abspage@last{105}
