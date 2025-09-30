@@ -6,7 +6,7 @@ This chapter reviews the key areas of research that inform our study of data mix
 
 \subsection{The Financial NLP Landscape}
 
-Financial natural language processing encompasses a diverse range of tasks, from sentiment analysis of news articles and social media to question answering on regulatory documents, from numerical reasoning in financial reports to information extraction from SEC filings \parencite{araci2019finbert, yang2020finqa}. The financial domain presents unique challenges that distinguish it from general-domain NLP: specialized vocabulary (e.g., ``alpha'', ``beta'', ``EBITDA''), domain-specific reasoning patterns (e.g., causal chains in market analysis), numerical grounding (understanding financial statements), and temporal dynamics (market events, earnings releases) \parencite{wu2023bloomberggpt, araci2019finbert}.
+Financial natural language processing encompasses a diverse range of tasks, from sentiment analysis of news articles and social media to question answering on regulatory documents, from numerical reasoning in financial reports to information extraction from SEC filings \parencite{araci2019finbert, chen2021finqa}. The financial domain presents unique challenges that distinguish it from general-domain NLP: specialized vocabulary (e.g., ``alpha'', ``beta'', ``EBITDA''), domain-specific reasoning patterns (e.g., causal chains in market analysis), numerical grounding (understanding financial statements), and temporal dynamics (market events, earnings releases) \parencite{wu2023bloomberggpt, araci2019finbert}.
 
 \subsection{Existing Financial Language Models}
 
@@ -30,7 +30,7 @@ Critically, \textbf{hyperparameter scaling} has received less attention in the l
 
 \subsection{Computational and Memory Considerations}
 
-Training large language models requires substantial computational resources. A 1-billion-parameter model with 32-bit precision consumes approximately 4GB of memory for parameters alone, with optimizer states (e.g., Adam's momentum terms) doubling or tripling this requirement \parencite{rajbhandari2020zero}. For models in the 0.6B-4B range targeted in this thesis, memory-efficient techniques like mixed-precision training (bfloat16), gradient accumulation, and activation checkpointing enable training on consumer-grade GPUs (NVIDIA RTX 4090, 24GB VRAM) and Apple Silicon (M1 Max, 32GB unified memory) \parencite{narayanan2021efficient}.
+Training large language models requires substantial computational resources. A 1-billion-parameter model with 32-bit precision consumes approximately 4GB of memory for parameters alone, with optimizer states (e.g., Adam's momentum terms) doubling or tripling this requirement \parencite{rajbhandari2020zero,kingma2014adam}. For models in the 0.6B-4B range targeted in this thesis, memory-efficient techniques like mixed-precision training (bfloat16), gradient accumulation, activation checkpointing, and parameter-efficient fine-tuning methods such as LoRA enable training on consumer-grade GPUs (NVIDIA RTX 4090, 24GB VRAM) and Apple Silicon (M1 Max, 32GB unified memory) \parencite{narayanan2021efficient,hu2021lora}.
 
 \section{Data Mixture Strategies}
 
@@ -60,9 +60,9 @@ This thesis employs a \textbf{50\% capping strategy} (``50cap'') for financial d
 
 \subsection{Cross-Domain Transfer in Language Models}
 
-\textbf{Transfer learning}---pretraining on broad data then fine-tuning on specialized tasks---has been the dominant paradigm since BERT \parencite{devlin2019bert}. The underlying assumption is that general linguistic knowledge transfers to domain-specific applications. However, recent work reveals nuances: \textcite{gururangan2020don} showed that \textbf{domain-adaptive pretraining} (continued pretraining on domain-specific corpora) significantly improves performance on biomedical, computer science, news, and reviews domains, suggesting that general pretraining alone is insufficient for specialized applications.
+\textbf{Transfer learning}---pretraining on broad data then fine-tuning on specialized tasks---has been the dominant paradigm since BERT \parencite{devlin2019bert,pan2010transfer,zhuang2020comprehensive}. The underlying assumption is that general linguistic knowledge transfers to domain-specific applications. However, recent work reveals nuances: \textcite{gururangan2020don} showed that \textbf{domain-adaptive pretraining} (continued pretraining on domain-specific corpora) significantly improves performance on biomedical, computer science, news, and reviews domains, suggesting that general pretraining alone is insufficient for specialized applications.
 
-In finance, \textcite{araci2019finbert} demonstrated improvements from continued pretraining on financial news; \textcite{yang2020finbert} achieved further gains with task-adaptive pretraining. However, these studies focused on BERT-style masked language models and downstream classification tasks---the effectiveness of domain adaptation for \textit{generative causal language models} in financial pretraining remains less studied.
+In finance, \textcite{araci2019finbert} demonstrated improvements from continued pretraining on financial news; \textcite{yang2020finbert} achieved further gains with task-adaptive pretraining. More recently, \textcite{huang2023finbert} showed that domain-specific pretraining substantially outperforms general models on financial information extraction tasks. However, these studies focused on BERT-style masked language models and downstream classification tasks---the effectiveness of domain adaptation for \textit{generative causal language models} in financial pretraining remains less studied. Recent advances in parameter-efficient fine-tuning, such as surgical fine-tuning \parencite{lee2022surgical}, suggest that selective adaptation strategies may further improve domain transfer while mitigating catastrophic forgetting.
 
 \subsection{Catastrophic Forgetting and Stability}
 

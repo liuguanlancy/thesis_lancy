@@ -319,61 +319,6 @@
       \field{pages}{1877\bibrangedash 1901}
       \range{pages}{25}
     \endentry
-    \entry{yang2020finqa}{article}{}
-      \name{author}{5}{}{%
-        {{un=0,uniquepart=base,hash=796310c8523099cbedfcb996618225aa}{%
-           family={Chen},
-           familyi={C\bibinitperiod},
-           given={Zhiyu},
-           giveni={Z\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=63d99bafe6679fb5e11e960687f909b1}{%
-           family={Chen},
-           familyi={C\bibinitperiod},
-           given={Wenhu},
-           giveni={W\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=4dda9fbb09795753323e8900dcefbe90}{%
-           family={Fan},
-           familyi={F\bibinitperiod},
-           given={Ziyu},
-           giveni={Z\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=799b011f0b3b53668859ba657f7bb7a9}{%
-           family={Chang},
-           familyi={C\bibinitperiod},
-           given={Shiyang},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=3b9b2f81da3e41fbc72b81f1b7f2e722}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={William\bibnamedelima Yang},
-           giveni={W\bibinitperiod\bibinitdelim Y\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{7d885346dd654a3255417c6ed9fb9094}
-      \strng{fullhash}{c5c36ef6f01437a0be3c10c46f803fc9}
-      \strng{bibnamehash}{c5c36ef6f01437a0be3c10c46f803fc9}
-      \strng{authorbibnamehash}{c5c36ef6f01437a0be3c10c46f803fc9}
-      \strng{authornamehash}{7d885346dd654a3255417c6ed9fb9094}
-      \strng{authorfullhash}{c5c36ef6f01437a0be3c10c46f803fc9}
-      \field{sortinit}{C}
-      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:2109.00122}
-      \field{title}{FinQA: A Dataset of Numerical Reasoning over Financial Data}
-      \field{year}{2021}
-      \verb{urlraw}
-      \verb https://arxiv.org/abs/2109.00122
-      \endverb
-      \verb{url}
-      \verb https://arxiv.org/abs/2109.00122
-      \endverb
-    \endentry
     \entry{devlin2019bert}{inproceedings}{}
       \name{author}{4}{}{%
         {{un=0,uniquepart=base,hash=13202969e372bc82318f9629cbdd199b}{%
@@ -708,6 +653,210 @@
       \field{title}{Training compute-optimal large language models}
       \field{year}{2022}
     \endentry
+    \entry{hu2021lora}{article}{}
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=e6a95d07b8ae7f14e4eb777c6980a059}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Edward\bibnamedelima J.},
+           giveni={E\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1701c0f05662e92cf52cfc8c16437496}{%
+           family={Shen},
+           familyi={S\bibinitperiod},
+           given={Yelong},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ab0fdbc1586103dda7ac5e0852e5b2c3}{%
+           family={Wallis},
+           familyi={W\bibinitperiod},
+           given={Phillip},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=eaa5cc98b7f19b4ce07c832213a13b9d}{%
+           family={Allen-Zhu},
+           familyi={A\bibinithyphendelim Z\bibinitperiod},
+           given={Zeyuan},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0d2c91b24f885b22d373a892a768abc8}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Yuanzhi},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b654b88ecd4c3ff1ea29da275bce701c}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Shean},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=55f210233ac686af68eba11a97bd84e2}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Lu},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=05d71a9c5e7ac79222e01a55af0ccb93}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Weizhu},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d775178c34083951ab1e07df578582c3}
+      \strng{fullhash}{08f4b49735d5d145be00bc9c07f38975}
+      \strng{bibnamehash}{08f4b49735d5d145be00bc9c07f38975}
+      \strng{authorbibnamehash}{08f4b49735d5d145be00bc9c07f38975}
+      \strng{authornamehash}{d775178c34083951ab1e07df578582c3}
+      \strng{authorfullhash}{08f4b49735d5d145be00bc9c07f38975}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2106.09685}
+      \field{title}{LoRA: Low-Rank Adaptation of Large Language Models}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2106.09685
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2106.09685
+      \endverb
+    \endentry
+    \entry{huang2023finbert}{article}{}
+      \name{author}{3}{}{%
+        {{un=1,uniquepart=given,hash=cde8a722ce6f31ec6daa3ccf50b91363}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Allen\bibnamedelima H.},
+           giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=1}}%
+        {{un=0,uniquepart=base,hash=a753993c6afc6bfea114ea4114b2e619}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Hui},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=446e84a6f09f26fc6cf5730853e551ba}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Yi},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{7e30409973c7c6eecaf8168abba9d49b}
+      \strng{fullhash}{60d57e8131e909daacc9ea7959596e80}
+      \strng{bibnamehash}{60d57e8131e909daacc9ea7959596e80}
+      \strng{authorbibnamehash}{60d57e8131e909daacc9ea7959596e80}
+      \strng{authornamehash}{7e30409973c7c6eecaf8168abba9d49b}
+      \strng{authorfullhash}{60d57e8131e909daacc9ea7959596e80}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Contemporary Accounting Research}
+      \field{number}{2}
+      \field{title}{FinBERT: A Large Language Model for Extracting Information from Financial Text}
+      \field{volume}{40}
+      \field{year}{2023}
+      \field{pages}{806\bibrangedash 841}
+      \range{pages}{36}
+      \verb{doi}
+      \verb 10.1111/1911-3846.12832
+      \endverb
+    \endentry
+    \entry{javaheripi2023phi}{misc}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{10}{}{%
+        {{un=0,uniquepart=base,hash=4e6b68aa54ff23dd3a53bd2d3d0df738}{%
+           family={Javaheripi},
+           familyi={J\bibinitperiod},
+           given={Mojan},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=2,uniquepart=given,hash=3d51ee91b7d20d2f26b221a8a3b8b72c}{%
+           family={Bubeck},
+           familyi={B\bibinitperiod},
+           given={Sébastien},
+           giveni={S\bibinitperiod},
+           givenun=2}}%
+        {{un=0,uniquepart=base,hash=4e293426babbd6b794e1b97151db7874}{%
+           family={Abdin},
+           familyi={A\bibinitperiod},
+           given={Marah},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b3b03f056a2600d2020485e36e5265d1}{%
+           family={Aneja},
+           familyi={A\bibinitperiod},
+           given={Jyoti},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=2,uniquepart=given,hash=54fdec6da88ea6f8ac33ca7d8ba4651a}{%
+           family={Bubeck},
+           familyi={B\bibinitperiod},
+           given={Sebastien},
+           giveni={S\bibinitperiod},
+           givenun=2}}%
+        {{un=0,uniquepart=base,hash=a321a85b25f1c3d1843328acdf41b0f8}{%
+           family={Mendes},
+           familyi={M\bibinitperiod},
+           given={Caio\bibnamedelimb César\bibnamedelima Teodoro},
+           giveni={C\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=05d71a9c5e7ac79222e01a55af0ccb93}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Weizhu},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3c830f9c8da80108cd83c7158c138829}{%
+           family={Del\bibnamedelima Giorno},
+           familyi={D\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Allie},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=27421e7dfe018659c3d41261cfb55892}{%
+           family={Eldan},
+           familyi={E\bibinitperiod},
+           given={Ronen},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=25b8786251e50b415c1e5aa17bc1ec8b}{%
+           family={Gopi},
+           familyi={G\bibinitperiod},
+           given={Sivakanth},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{673d599dad0133551444c66292a93f8e}
+      \strng{fullhash}{e034d97dcfcd088c30595f2ff3d0e163}
+      \strng{bibnamehash}{e034d97dcfcd088c30595f2ff3d0e163}
+      \strng{authorbibnamehash}{e034d97dcfcd088c30595f2ff3d0e163}
+      \strng{authornamehash}{673d599dad0133551444c66292a93f8e}
+      \strng{authorfullhash}{e034d97dcfcd088c30595f2ff3d0e163}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Microsoft Research Blog}
+      \field{title}{Phi-2: The surprising power of small language models}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/
+      \endverb
+      \verb{url}
+      \verb https://www.microsoft.com/en-us/research/blog/phi-2-the-surprising-power-of-small-language-models/
+      \endverb
+    \endentry
     \entry{kaplan2020scaling}{article}{}
       \name{author}{10}{}{%
         {{un=1,uniquepart=given,hash=9e85370e215d552f72c95a2b63a37802}{%
@@ -786,6 +935,43 @@
       \field{journaltitle}{arXiv preprint arXiv:2001.08361}
       \field{title}{Scaling laws for neural language models}
       \field{year}{2020}
+    \endentry
+    \entry{kingma2014adam}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=b6fbd171848aad4edf3925543f1f1522}{%
+           family={Kingma},
+           familyi={K\bibinitperiod},
+           given={Diederik\bibnamedelima P.},
+           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8aa66e8231cc2fdbe67aa4f18ca970c6}{%
+           family={Ba},
+           familyi={B\bibinitperiod},
+           given={Jimmy},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{fullhash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{bibnamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authorbibnamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authornamehash}{a09df9f123146b8e2c7f1134c9496932}
+      \strng{authorfullhash}{a09df9f123146b8e2c7f1134c9496932}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1412.6980}
+      \field{title}{Adam: A Method for Stochastic Optimization}
+      \field{year}{2014}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1412.6980
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1412.6980
+      \endverb
     \endentry
     \entry{kirkpatrick2017overcoming}{article}{}
       \name{author}{14}{}{%
@@ -895,6 +1081,73 @@
       \range{pages}{6}
       \verb{doi}
       \verb 10.1073/pnas.1611835114
+      \endverb
+    \endentry
+    \entry{lee2022surgical}{article}{}
+      \name{author}{7}{}{%
+        {{un=0,uniquepart=base,hash=b8513bf69f4e67a914a8fa28e3888b47}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Yoonho},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1f4c7ed9319aa4e7894f5a78ae50c4f1}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Annie\bibnamedelima S.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=dbf30baa5ecb1f05427bffc4bfbe99e4}{%
+           family={Tajwar},
+           familyi={T\bibinitperiod},
+           given={Fahim},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1047181628ae2fc1a1cf6271af00ce82}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Ananya},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3b115344acb9ff313d507977648f7ece}{%
+           family={Yao},
+           familyi={Y\bibinitperiod},
+           given={Huaxiu},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=86c032bbc45c3b616f0a1170befc0e82}{%
+           family={Liang},
+           familyi={L\bibinitperiod},
+           given={Percy},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=058e82495825ae376c6a96a12169e6ee}{%
+           family={Finn},
+           familyi={F\bibinitperiod},
+           given={Chelsea},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{8c378af3909c10776a40912d16a35db3}
+      \strng{fullhash}{2502ade570dcb55840400f35884a7997}
+      \strng{bibnamehash}{2502ade570dcb55840400f35884a7997}
+      \strng{authorbibnamehash}{2502ade570dcb55840400f35884a7997}
+      \strng{authornamehash}{8c378af3909c10776a40912d16a35db3}
+      \strng{authorfullhash}{2502ade570dcb55840400f35884a7997}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2210.11466}
+      \field{title}{Surgical Fine-Tuning Improves Adaptation to Distribution Shifts}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2210.11466
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2210.11466
       \endverb
     \endentry
     \entry{longpre2023pretrainer}{article}{}
@@ -1331,6 +1584,43 @@
       \endverb
       \verb{url}
       \verb https://arxiv.org/abs/2104.04473
+      \endverb
+    \endentry
+    \entry{pan2010transfer}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=224c02b5d289fefd08d4f9f1a83c5d0c}{%
+           family={Pan},
+           familyi={P\bibinitperiod},
+           given={Sinno\bibnamedelima Jialin},
+           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=1,uniquepart=given,hash=55242d2a60270145342841e4d4238da0}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Qiang},
+           giveni={Q\bibinitperiod},
+           givenun=1}}%
+      }
+      \strng{namehash}{770fc1d95710074c9506ab4f7d386573}
+      \strng{fullhash}{770fc1d95710074c9506ab4f7d386573}
+      \strng{bibnamehash}{770fc1d95710074c9506ab4f7d386573}
+      \strng{authorbibnamehash}{770fc1d95710074c9506ab4f7d386573}
+      \strng{authornamehash}{770fc1d95710074c9506ab4f7d386573}
+      \strng{authorfullhash}{770fc1d95710074c9506ab4f7d386573}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{IEEE Transactions on Knowledge and Data Engineering}
+      \field{title}{A Survey on Transfer Learning}
+      \field{volume}{22}
+      \field{year}{2010}
+      \field{pages}{1345\bibrangedash 1359}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1109/TKDE.2009.191
       \endverb
     \endentry
     \entry{quinonero2009dataset}{book}{}
@@ -1799,6 +2089,93 @@
       \verb https://arxiv.org/abs/2205.05131
       \endverb
     \endentry
+    \entry{team2024gemma}{misc}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{10}{}{%
+        {{un=0,uniquepart=base,hash=1611de77880ff07ff77da97983a18e91}{%
+           family={Team},
+           familyi={T\bibinitperiod},
+           given={Gemma},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=249b63db1d4d33d1e4b35f82a34b271c}{%
+           family={Mesnard},
+           familyi={M\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=386573d316ce52455cf7b344ab739bf1}{%
+           family={Hardin},
+           familyi={H\bibinitperiod},
+           given={Cassidy},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=70251f1a8626e6ba8e56adb56f776c15}{%
+           family={Dadashi},
+           familyi={D\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7341c72c27e12a41f380b94dc70fc957}{%
+           family={Bhupatiraju},
+           familyi={B\bibinitperiod},
+           given={Surya},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=59bdad1e3012c3dc6712f0a4aab70022}{%
+           family={Pathak},
+           familyi={P\bibinitperiod},
+           given={Shreya},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=50d24de916599d306c5cb1a77156e4b9}{%
+           family={Sifre},
+           familyi={S\bibinitperiod},
+           given={Laurent},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f64245b7346898a35ec221fb91f54482}{%
+           family={Rivière},
+           familyi={R\bibinitperiod},
+           given={Morgane},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0333d309a1df78d9a9d76c35bda4f7ad}{%
+           family={Kale},
+           familyi={K\bibinitperiod},
+           given={Mihir\bibnamedelima Sanjay},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f8cb684aea23854b387b5c397c553439}{%
+           family={Love},
+           familyi={L\bibinitperiod},
+           given={Juliette},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9f9e227b450d5e6e2983ecfc59e4d056}
+      \strng{fullhash}{900a44f6ec0bdd763a0c4da5365b21b6}
+      \strng{bibnamehash}{900a44f6ec0bdd763a0c4da5365b21b6}
+      \strng{authorbibnamehash}{900a44f6ec0bdd763a0c4da5365b21b6}
+      \strng{authornamehash}{9f9e227b450d5e6e2983ecfc59e4d056}
+      \strng{authorfullhash}{900a44f6ec0bdd763a0c4da5365b21b6}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2403.08295}
+      \field{title}{Gemma: Open Models Based on Gemini Research and Technology}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2403.08295
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2403.08295
+      \endverb
+    \endentry
     \entry{touvron2023llama}{article}{}
       \true{moreauthor}
       \true{morelabelname}
@@ -2220,12 +2597,12 @@
            given={Dayiheng},
            giveni={D\bibinitperiod},
            givenun=0}}%
-        {{un=0,uniquepart=base,hash=10a0d3aa004649de7a7ab2ffecb35bce}{%
+        {{un=1,uniquepart=given,hash=10a0d3aa004649de7a7ab2ffecb35bce}{%
            family={Huang},
            familyi={H\bibinitperiod},
            given={Fei},
            giveni={F\bibinitperiod},
-           givenun=0}}%
+           givenun=1}}%
       }
       \strng{namehash}{8684a651eacf02f8f8bba29db106559c}
       \strng{fullhash}{6215f9fd30ed4767a81494511e1057d7}
@@ -2468,7 +2845,81 @@
       \verb https://arxiv.org/abs/2205.01068
       \endverb
     \endentry
+    \entry{zhuang2020comprehensive}{article}{}
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=f80c633bdaeb37dfe8ee7a8562a118b0}{%
+           family={Zhuang},
+           familyi={Z\bibinitperiod},
+           given={Fuzhen},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1170a654922724ea47c36d0961bcdba3}{%
+           family={Qi},
+           familyi={Q\bibinitperiod},
+           given={Zhiyuan},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ccc5fede6d425151794d6eabaefb1f08}{%
+           family={Duan},
+           familyi={D\bibinitperiod},
+           given={Keyu},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=65b14154afccb41d2c3d56f51927c049}{%
+           family={Xi},
+           familyi={X\bibinitperiod},
+           given={Dongbo},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b76935a05c886aa24f9e3861344c420c}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Yongchun},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9b711e1aff9a8c67d1eb39bca853aa41}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Hengshu},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=aa0c7ab0b9dad5902ab8fc501f57cd77}{%
+           family={Xiong},
+           familyi={X\bibinitperiod},
+           given={Hui},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7c27f1b2b48feefb0593a05e9c6a8b12}{%
+           family={He},
+           familyi={H\bibinitperiod},
+           given={Qing},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{280ac335acbe982cf6197f52ba0caff1}
+      \strng{fullhash}{1bdcca6dad1bcac9c936c6829c869185}
+      \strng{bibnamehash}{1bdcca6dad1bcac9c936c6829c869185}
+      \strng{authorbibnamehash}{1bdcca6dad1bcac9c936c6829c869185}
+      \strng{authornamehash}{280ac335acbe982cf6197f52ba0caff1}
+      \strng{authorfullhash}{1bdcca6dad1bcac9c936c6829c869185}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the IEEE}
+      \field{title}{A Comprehensive Survey on Transfer Learning}
+      \field{volume}{109}
+      \field{year}{2021}
+      \field{pages}{43\bibrangedash 76}
+      \range{pages}{34}
+      \verb{doi}
+      \verb 10.1109/JPROC.2020.3004555
+      \endverb
+    \endentry
   \enddatalist
+  \missing{yang2020finqa}
 \endrefsection
 \endinput
 

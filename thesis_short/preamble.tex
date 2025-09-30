@@ -180,5 +180,10 @@ Assistant\\
 \fancyfoot[R]{Data Mixture Effects in Financial LM Pretraining}
 \setlength{\headheight}{13.6pt}
 
-% Compact table helpers
-\newcommand{\tighttable}{\small\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}}
+% Compact table helpers (keep main font size; only tweak spacing)
+\newcommand{\tighttable}{\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}}
+
+% Avoid font scaling inside tables that use \resizebox in included files
+% Keep original font size; ignore requested scaling arguments
+\let\origresizebox\resizebox
+\renewcommand{\resizebox}[3]{#3}

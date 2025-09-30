@@ -2548,6 +2548,8 @@
     <bcf:citekey order="4">longpre2023pretrainer</bcf:citekey>
     <bcf:citekey order="5">yang2024qwen2</bcf:citekey>
     <bcf:citekey order="5">xia2023sheared</bcf:citekey>
+    <bcf:citekey order="5">team2024gemma</bcf:citekey>
+    <bcf:citekey order="5">javaheripi2023phi</bcf:citekey>
     <bcf:citekey order="6">wu2023bloomberggpt</bcf:citekey>
     <bcf:citekey order="7">eu2016gdpr</bcf:citekey>
     <bcf:citekey order="8">kaplan2020scaling</bcf:citekey>

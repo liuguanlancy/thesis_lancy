@@ -1,15 +1,17 @@
 [0] Config.pm:311> INFO - This is Biber 2.16
 [0] Config.pm:314> INFO - Logfile is 'main.blg'
-[65] biber-darwin:340> INFO - === Tue Sep 30, 2025, 14:09:31
-[79] Biber.pm:415> INFO - Reading 'main.bcf'
-[175] Biber.pm:952> INFO - Found 35 citekeys in bib section 0
-[189] Biber.pm:4340> INFO - Processing section 0
-[198] Biber.pm:4531> INFO - Looking for bibtex format file 'references.bib' for section 0
-[200] bibtex.pm:1689> INFO - LaTeX decoding ...
-[226] bibtex.pm:1494> INFO - Found BibTeX data source 'references.bib'
-[579] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[579] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[579] Biber.pm:4168> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[579] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
-[640] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[695] bbl.pm:757> INFO - Output to main.bbl
+[67] biber-darwin:340> INFO - === Tue Sep 30, 2025, 16:06:49
+[81] Biber.pm:415> INFO - Reading 'main.bcf'
+[183] Biber.pm:952> INFO - Found 43 citekeys in bib section 0
+[197] Biber.pm:4340> INFO - Processing section 0
+[206] Biber.pm:4531> INFO - Looking for bibtex format file 'references.bib' for section 0
+[208] bibtex.pm:1689> INFO - LaTeX decoding ...
+[239] bibtex.pm:1494> INFO - Found BibTeX data source 'references.bib'
+[572] Utils.pm:395> WARN - I didn't find a database entry for 'yang2020finqa' (section 0)
+[662] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[662] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[662] Biber.pm:4168> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[662] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
+[729] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[794] bbl.pm:757> INFO - Output to main.bbl
+[794] Biber.pm:128> INFO - WARNINGS: 1
