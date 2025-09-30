@@ -28,7 +28,7 @@ Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \
 \section{Mixture Effects}
 \textbf{Summary.} Mixed financial datasets outperform pure WikiText on all financial evaluations, and outperform Mixed Wiki+Financial when the objective is finance. Adding WikiText marginally improves general-domain performance but dilutes financial specialization.
 
-\textbf{Evidence.} \Cref{fig:scaling_mixed_financial,fig:scaling_mixed_wiki_financial} visualize scaling across sizes; 4B Mixed Financial achieves 21.55 ppl (mean across financial sets), whereas Mixed Wiki+Financial degrades to 26.69 ppl despite gains on WikiText. \Cref{tab:mixed_financial_results,tab:mixed_wiki_financial_results} quantify per-dataset outcomes and highlight best-performing cells.
+\textbf{Evidence.} \Cref{fig:scaling_mixed_financial,fig:scaling_mixed_wiki_financial} visualize scaling across sizes; 4B Mixed Financial achieves 21.55 ppl (mean across financial sets), whereas Mixed Wiki+Financial degrades to 26.69 ppl despite gains on WikiText.
 
 \begin{figure}[H]
   \centering
@@ -42,10 +42,18 @@ Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \
   \caption{Mixed Wiki+Financial scaling.}\label{fig:scaling_mixed_wiki_financial}
 \end{figure}
 
+\input{../thesis/tables/table_mixed_financial_results}
+
+The Mixed Financial table reports per-evaluation dataset loss and perplexity at 0.6B/1.7B/4B. The dominant pattern is that 4B consistently wins (bolded minima), with the largest gap on long-form document sets (News, SEC), and smaller but persistent gains on instruction/short-form (FinGPT, Alpaca, FiQA). This confirms that in-domain diversity plus model capacity improves both specialization and robustness.
+
+\input{../thesis/tables/table_mixed_wiki_financial_results}
+
+The Mixed Wiki+Financial table shows that mixing in general text helps on WikiText but hurts on all financial evaluations relative to Mixed Financial (previous table). The degradation is largest on long-form sets, indicating that the added general-domain mass reduces effective exposure to financial discourse structure.
+
 \section{Scaling and LR Sensitivity}
 \textbf{Reverse scaling and fix.} With a constant LR, 1.7B/4B sometimes underperform 0.6B (``reverse scaling''). Adjusting LR by size resolves this. Empirically, reducing LR roughly with $1/\sqrt{N}$ restores expected ordering and improves 10--32\%.
 
-\textbf{Evidence.} \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} compare original vs adjusted LRs (solid vs dashed). Tables \Cref{tab:wikitext_lr_comparison,tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} show per-dataset improvements under the tuned LR.
+\textbf{Evidence.} \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} compare original vs adjusted LRs (solid vs dashed). The next three tables report the corresponding per-dataset improvements and average recovery.
 
 \begin{figure}[H]
   \centering
@@ -53,11 +61,15 @@ Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \
   \caption{WikiText LR comparison.}\label{fig:scaling_wikitext}
 \end{figure}
 
+\input{../thesis/tables/table_wikitext_lr_comparison}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{../thesis/figures/scaling_financial_qa.png}
   \caption{Financial QA: LR adjustment resolves reverse scaling.}\label{fig:scaling_financial_qa}
 \end{figure}
+
+\input{../thesis/tables/table_financial_qa_lr_comparison}
 
 \begin{figure}[H]
   \centering
@@ -65,10 +77,14 @@ Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \
   \caption{Twitter: severe LR sensitivity at small data scales.}\label{fig:scaling_twitter}
 \end{figure}
 
+\input{../thesis/tables/table_twitter_lr_comparison}
+
+Across all three LR studies, the tuned LR eliminates training collapse (e.g., $\infty$ perplexity at 1.7B on WikiText), and recovers the expected monotone trend with model size. The average row in each table highlights meaningful gains at 1.7B and 4B while keeping 0.6B intact.
+
 \section{Dataset Size and Format}
 \textbf{Size thresholds.} Large datasets (News: 197M tokens; SEC: 80M) sustain standalone pretraining with low variance (26--32\% CV). Small datasets (Financial QA: 3.5M; Twitter: 0.3M) severely overtrain (tens to hundreds of epochs) and exhibit high variance (up to 89\% CV), motivating mixtures.
 
-\textbf{Format matters.} Transfer depends strongly on format: long-form document models (News, SEC) transfer across each other better than to short-form (Twitter) or instruction formats (FinGPT/Alpaca); instruction-tuned sources cluster; short-form Twitter remains an outlier. Figures \Cref{fig:scaling_news_articles,fig:scaling_sec_reports,fig:scaling_fingpt,fig:scaling_alpaca,fig:scaling_fiqa} illustrate scaling within format families.
+\textbf{Format matters.} Transfer depends strongly on format: long-form document models (News, SEC) transfer across each other better than to short-form (Twitter) or instruction formats (FinGPT/Alpaca); instruction-tuned sources cluster; short-form Twitter remains an outlier. Figures \Cref{fig:scaling_news_articles,fig:scaling_sec_reports,fig:scaling_fingpt,fig:scaling_alpaca,fig:scaling_fiqa} illustrate scaling within format families. The following single-source result tables quantify these trends.
 
 \begin{figure}[H]
   \centering
@@ -76,11 +92,15 @@ Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \
   \caption{News Articles scaling.}\label{fig:scaling_news_articles}
 \end{figure}
 
+\input{../thesis/tables/table_news_articles_results}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{../thesis/figures/scaling_sec_reports.png}
   \caption{SEC Reports scaling.}\label{fig:scaling_sec_reports}
 \end{figure}
+
+\input{../thesis/tables/table_sec_reports_results}
 
 \begin{figure}[H]
   \centering
@@ -88,11 +108,15 @@ Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \
   \caption{FinGPT instruction mixture scaling.}\label{fig:scaling_fingpt}
 \end{figure}
 
+\input{../thesis/tables/table_fingpt_results}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{../thesis/figures/scaling_alpaca.png}
   \caption{Alpaca instruction mixture scaling.}\label{fig:scaling_alpaca}
 \end{figure}
+
+\input{../thesis/tables/table_alpaca_results}
 
 \begin{figure}[H]
   \centering
@@ -100,38 +124,45 @@ Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \
   \caption{FiQA short-form scaling.}\label{fig:scaling_fiqa}
 \end{figure}
 
+\input{../thesis/tables/table_fiqa_results}
+
+\input{../thesis/tables/table_financial_qa_results}
+\input{../thesis/tables/table_twitter_results}
+\input{../thesis/tables/table_wikitext_results}
+
+Across these tables, 4B wins on the training dataset's own evaluation split (in-domain), but cross-dataset performance depends on format proximity. Short-form datasets (Twitter, Financial QA) show the highest CV and weakest transfer, while long-form (News, SEC) are most robust as standalone pretraining sources.
+
+\section{Cross-Dataset Transfer}
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{../thesis/figures/scaling_comparison_all.png}
   \caption{Comparison across training sources.}\label{fig:scaling_comparison_all}
 \end{figure}
 
-\section{All Tables (Preserved)}
-We include all result tables for completeness; boldface indicates best values along the specified axis (row-wise minima for results tables, pair-wise minima for LR comparisons, and column-wise best for cross-dataset tables).
+We analyze transfer by fixing an evaluation dataset and comparing across training sources. Boldface indicates the best training source for each evaluation column.
 
-% Results by training dataset
-\input{../thesis/tables/table_mixed_financial_results}
-\input{../thesis/tables/table_mixed_wiki_financial_results}
-\input{../thesis/tables/table_wikitext_results}
-\input{../thesis/tables/table_news_articles_results}
-\input{../thesis/tables/table_sec_reports_results}
-\input{../thesis/tables/table_fingpt_results}
-\input{../thesis/tables/table_alpaca_results}
-\input{../thesis/tables/table_fiqa_results}
-\input{../thesis/tables/table_twitter_results}
-\input{../thesis/tables/table_financial_qa_results}
-
-% LR comparisons
-\input{../thesis/tables/table_wikitext_lr_comparison}
-\input{../thesis/tables/table_twitter_lr_comparison}
-\input{../thesis/tables/table_financial_qa_lr_comparison}
-
-% Cross-dataset comparisons
 \input{../thesis/tables/table_cross_financial_news}
+
+On Financial News evaluation, long-form training sources dominate: News and SEC rows capture most boldface cells. Mixed Financial performs strongly across sizes, reflecting its diversity advantage.
+
 \input{../thesis/tables/table_cross_financial_repor}
+
+On SEC Reports, the pattern mirrors News: long-form training excels. Mixed Financial remains competitive; Mixed Wiki+Financial improves WikiText but rarely wins here.
+
 \input{../thesis/tables/table_cross_alpaca}
 \input{../thesis/tables/table_cross_fingpt}
+
+Instruction-formatted evaluations (Alpaca, FinGPT) are best served by instruction-heavy training or diverse mixtures. Mixed Financial at 4B frequently captures boldface, suggesting diversity compensates for format mismatch.
+
 \input{../thesis/tables/table_cross_fiqa}
-\input{../thesis/tables/table_cross_twitter}
 \input{../thesis/tables/table_cross_financial_qa}
+
+Short Q\&A evaluations (FiQA, Financial QA) show mixed results: specialized training wins in-distribution, but diverse mixtures perform robustly. Small single-dataset training is brittle (high CV) and underperforms off-format.
+
+\input{../thesis/tables/table_cross_twitter}
+
+Twitter is an outlier: the Twitter-trained row wins on its own column but transfers poorly elsewhere, and other training sources perform weakly on Twitter. This underscores format isolation in micro-text.
+
 \input{../thesis/tables/table_cross_wikitext}
+
+On WikiText, general-domain or Mixed Wiki+Financial training rows win, as expected. Mixed Financial trades a slight general-domain loss for significant financial gains, which is favorable for finance-centric applications.
