@@ -18,39 +18,56 @@ This comprehensive design enables us to answer our four research questions: (RQ1
 
 \section{Model Architecture}
 
-We use the \textbf{Qwen2 model family} \parencite{yang2024qwen2}, a series of open-source transformer-based decoder-only language models pretrained on diverse multilingual corpora. Qwen2 employs grouped-query attention (GQA) for memory efficiency and supports both standard and flash attention mechanisms.
+We use the \textbf{Qwen2 model family} \parencite{yang2024qwen2}, a series of open-source transformer-based decoder-only language models pretrained on diverse multilingual corpora. Qwen2 employs grouped-query attention (GQA) for memory efficiency and supports both standard and flash attention mechanisms. We select three model sizes from the Qwen2-Base series (pretrained checkpoints without post-training alignment), detailed in \Cref{tab:model_specs}.
 
-We select three model sizes from the Qwen2-Base series (pretrained checkpoints without post-training alignment):
+\begin{table}[h]
+\centering
+\caption{Qwen3 model specifications across three scales. All models use the same tokenizer (151,643 tokens) and support 32K context length. Training memory shown for bfloat16 precision.}
+\label{tab:model_specs}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{Parameters} & \textbf{Layers} & \textbf{Hidden} & \textbf{Heads} & \textbf{GQA} & \textbf{Memory} \\
+\midrule
+Qwen3-0.6B & 600M & 16 & 1024 & 16 & 4 & $\sim$4GB \\
+Qwen3-1.7B & 1.7B & 24 & 2048 & 16 & 4 & $\sim$10GB \\
+Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\textbf{Qwen3-0.6B-Base}: 600 million parameters, 16 layers, 1024 hidden dimensions, 16 attention heads, 4 GQA groups. Training memory: $\sim$4GB (bfloat16). Fastest training, suitable for rapid prototyping.
-
-\textbf{Qwen3-1.7B-Base}: 1.7 billion parameters, 24 layers, 2048 hidden dimensions, 16 attention heads, 4 GQA groups. Training memory: $\sim$10GB. Balanced performance-efficiency trade-off.
-
-\textbf{Qwen3-4B-Base}: 4 billion parameters, 40 layers, 2560 hidden dimensions, 20 attention heads, 4 GQA groups. Training memory: $\sim$20GB. Best performance, requires careful hyperparameter tuning.
-
-All models use the same tokenizer (vocabulary size: 151,643 tokens) and maximum context length (32,768 tokens, though we use 2,048 for training efficiency). We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) strong baseline performance on general and domain-specific benchmarks, and (3) efficient inference suitable for edge deployment scenarios.
+We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) strong baseline performance on general and domain-specific benchmarks, and (3) efficient inference suitable for edge deployment scenarios (all models fit on consumer hardware).
 
 \section{Datasets}
 
 \subsection{Financial Datasets}
 
-We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 207M tokens):
+We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 207M tokens), summarized in \Cref{tab:financial_datasets}. These datasets exhibit wide variance in size (0.3M--197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets), enabling comprehensive study of intra-domain diversity effects.
 
-\textbf{1. Lettria Financial News Articles} (\texttt{Lettria/financial\_news\_articles}): 300K news articles from financial media outlets. \textit{197M tokens}. Long-form analytical content covering market events, company earnings, economic policy. Represents financial journalism genre.
-
-\textbf{2. SEC Financial Reports} (\texttt{JanosAudran/financial-reports-sec}): 54.3K excerpts from SEC regulatory filings (10-K, 10-Q). \textit{80M tokens}. Formal financial disclosures with structured formatting, dense numerical content, legal language. Represents regulatory document genre.
-
-\textbf{3. FinGPT Sentiment Training} (\texttt{FinGPT/fingpt-sentiment-train}): 76.8K instruction-formatted examples for financial sentiment analysis. \textit{19.1M tokens}. Pairs headlines/snippets with sentiment labels (bullish/bearish/neutral) in conversational format. Tests instruction-following capability.
-
-\textbf{4. Finance Alpaca} (\texttt{gbharti/finance-alpaca}): 68.9K instruction-response pairs covering financial concepts, calculations, advice. \textit{17.2M tokens}. Question-answering format, educational content. Represents instructional genre.
-
-\textbf{5. FiQA} (\texttt{LLukas22/fiqa}): 17.4K question-answer pairs from financial forums and microblogs. \textit{4.3M tokens}. Conversational, user-generated content with informal language. Represents Q\&A genre.
-
-\textbf{6. Financial QA 10K} (\texttt{virattt/financial-qa-10K}): 7.1K questions on 10-K filings with detailed answers. \textit{3.5M tokens}. Requires document comprehension and reasoning over tabular data. Small dataset, tests necessity of mixing.
-
-\textbf{7. Twitter Financial Sentiment} (\texttt{zeroshot/twitter-financial-news-sentiment}): 1.1K labeled tweets on financial topics. \textit{0.3M tokens}. Extremely short-form text ($<$280 characters), social media vernacular, limited data. Tests lower bound of dataset viability.
-
-These datasets exhibit wide variance in size (0.3M--197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets), enabling comprehensive study of intra-domain diversity effects.
+\begin{table}[h]
+\centering
+\caption{Financial dataset characteristics. Total: 207M tokens across 7 datasets with diverse genres and scales.}
+\label{tab:financial_datasets}
+\small
+\begin{tabular}{p{3cm}cccp{5.5cm}}
+\toprule
+\textbf{Dataset} & \textbf{Examples} & \textbf{Tokens} & \textbf{Genre} & \textbf{Description} \\
+\midrule
+Lettria Financial News & 300K & 197M & Journalism & Long-form articles on markets, earnings, policy \\
+\midrule
+SEC Financial Reports & 54.3K & 80M & Regulatory & 10-K/10-Q excerpts with formal disclosures, legal language \\
+\midrule
+FinGPT Sentiment & 76.8K & 19.1M & Instruction & Headlines + sentiment labels in conversational format \\
+\midrule
+Finance Alpaca & 68.9K & 17.2M & Q\&A & Instruction-response pairs on financial concepts \\
+\midrule
+FiQA & 17.4K & 4.3M & Forum & User-generated Q\&A from forums and microblogs \\
+\midrule
+Financial QA 10K & 7.1K & 3.5M & Document & Questions on 10-K filings requiring tabular reasoning \\
+\midrule
+Twitter Sentiment & 1.1K & 0.3M & Social Media & Labeled tweets ($<$280 chars) with informal language \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{WikiText}
 
