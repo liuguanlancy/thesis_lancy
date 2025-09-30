@@ -1,46 +1,46 @@
 [0] Config.pm:311> INFO - This is Biber 2.16
 [0] Config.pm:314> INFO - Logfile is 'main.blg'
-[68] biber-darwin:340> INFO - === Tue Sep 30, 2025, 10:32:22
-[83] Biber.pm:415> INFO - Reading 'main.bcf'
-[180] Biber.pm:952> INFO - Found 37 citekeys in bib section 0
-[196] Biber.pm:4340> INFO - Processing section 0
-[207] Biber.pm:4531> INFO - Looking for bibtex format file 'references.bib' for section 0
-[208] bibtex.pm:1689> INFO - LaTeX decoding ...
-[220] bibtex.pm:1494> INFO - Found BibTeX data source 'references.bib'
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'chen2023finbert' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'yang2020finqa' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'wu2023bloomberggpt' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'yang2020finbert' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'yang2023fingpt' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'vaswani2017attention' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'tay2022ul2' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'mccandlish2018empirical' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'rajbhandari2020zero' (section 0)
-[318] Utils.pm:395> WARN - I didn't find a database entry for 'narayanan2021efficient' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'bengio2009curriculum' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'wu2022opt' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'washington2020curriculum' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'xu2020curriculum' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'raffel2020exploring' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'xie2023doremi' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'arivazhagan2019massively' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'longpre2023pretrainer' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'sanh2022multitask' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'devlin2019bert' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'mccloskey1989catastrophic' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'french1999catastrophic' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'kirkpatrick2017overcoming' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'lee2022surgical' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'quinonero2009dataset' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'aharoni2020unsupervised' (section 0)
-[319] Utils.pm:395> WARN - I didn't find a database entry for 'hoffman2024training' (section 0)
-[320] Utils.pm:395> WARN - I didn't find a database entry for 'yang2024qwen3' (section 0)
-[320] Utils.pm:395> WARN - I didn't find a database entry for 'merity2017pointer' (section 0)
-[320] Utils.pm:395> WARN - I didn't find a database entry for 'doremi2023' (section 0)
-[340] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[341] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[341] Biber.pm:4168> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[341] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
-[351] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[363] bbl.pm:757> INFO - Output to main.bbl
-[364] Biber.pm:128> INFO - WARNINGS: 30
+[70] biber-darwin:340> INFO - === Tue Sep 30, 2025, 11:52:33
+[87] Biber.pm:415> INFO - Reading 'main.bcf'
+[181] Biber.pm:952> INFO - Found 37 citekeys in bib section 0
+[195] Biber.pm:4340> INFO - Processing section 0
+[205] Biber.pm:4531> INFO - Looking for bibtex format file 'references.bib' for section 0
+[207] bibtex.pm:1689> INFO - LaTeX decoding ...
+[217] bibtex.pm:1494> INFO - Found BibTeX data source 'references.bib'
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'chen2023finbert' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'yang2020finqa' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'wu2023bloomberggpt' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'yang2020finbert' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'yang2023fingpt' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'vaswani2017attention' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'tay2022ul2' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'mccandlish2018empirical' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'rajbhandari2020zero' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'narayanan2021efficient' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'bengio2009curriculum' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'wu2022opt' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'washington2020curriculum' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'xu2020curriculum' (section 0)
+[291] Utils.pm:395> WARN - I didn't find a database entry for 'raffel2020exploring' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'xie2023doremi' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'arivazhagan2019massively' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'longpre2023pretrainer' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'sanh2022multitask' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'devlin2019bert' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'mccloskey1989catastrophic' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'french1999catastrophic' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'kirkpatrick2017overcoming' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'lee2022surgical' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'quinonero2009dataset' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'aharoni2020unsupervised' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'hoffman2024training' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'yang2024qwen3' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'merity2017pointer' (section 0)
+[292] Utils.pm:395> WARN - I didn't find a database entry for 'doremi2023' (section 0)
+[312] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[312] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[312] Biber.pm:4168> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[312] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
+[323] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[334] bbl.pm:757> INFO - Output to main.bbl
+[335] Biber.pm:128> INFO - WARNINGS: 30
