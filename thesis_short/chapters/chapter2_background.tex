@@ -1,13 +1,2 @@
-\chapter{Background and Related Work}
-
-This chapter condenses prior work most relevant to our study, focusing on: (i) financial NLP models and datasets, (ii) pretraining objectives and scaling laws, (iii) mixture strategies and domain adaptation.
-
-\section{Financial NLP in Brief}
-Domain-specialized models such as BloombergGPT, FinBERT, and FinGPT demonstrate the value of finance-focused pretraining \parencite{wu2023bloomberggpt, araci2019finbert, yang2020finbert, yang2023fingpt}. Tasks span sentiment, Q\&A, document understanding, and numerical reasoning \parencite{yang2020finqa}. Key challenges include privacy, data scarcity, and rapidly evolving terminology.
-
-\section{Pretraining and Scaling}
-Decoder-only transformers trained with the causal LM objective underpin modern LLMs \parencite{radford2019language, brown2020language, touvron2023llama}. Scaling laws connect performance to model/data/compute \parencite{kaplan2020scaling, hoffmann2022training}. We also observe a practical learning-rate scaling trend in 0.6B--4B models, consistent with large-batch stability insights \parencite{mccandlish2018empirical}.
-
-\section{Mixtures and Domain Adaptation}
-Mixture strategies range from static capping/temperature sampling to dynamic reweighting \parencite{longpre2023pretrainer, arivazhagan2019massively, raffel2020exploring, xie2023doremi}. Continued pretraining (domain-adaptive pretraining) benefits specialized applications \parencite{gururangan2020don}. Our results compare pure financial mixing vs. adding general corpora (WikiText) \parencite{gao2020pile}, and quantify robustness using cross-dataset CV.
-
+% Use original background for more detail
+\input{../thesis/chapters/chapter2_background}

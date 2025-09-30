@@ -1,9 +1,34 @@
 \chapter{Results}
 
-We preserve all figures and tables while streamlining narrative. We report key findings with brief context.
+This chapter presents detailed findings while preserving all figures and tables. We expand on mixture effects, learning-rate sensitivity, dataset size and format, and cross-dataset transfer patterns, aligning with the full thesis but tightened to fit the short format.
+
+\begin{table}[h]
+\centering
+\caption{Overview of 10 pretraining experiments. Per dataset, we pretrain at 0.6B/1.7B/4B and evaluate on 8 test sets. LR adjustments are applied where noted.}
+\label{tab:experiments_overview}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l l l l}
+\toprule
+\textbf{Experiment} & \textbf{Training source} & \textbf{Tokens} & \textbf{Notes} \\
+\midrule
+Mixed Financial & 7 financial datasets & 207M & 50\% capping (50cap) \;\; strong financial performance \\
+Mixed Wiki+Financial & WikiText + 7 financial & $\sim$400M & Improves WikiText; degrades financial vs Mixed Financial \\
+WikiText & WikiText-103 & 100M & General-domain baseline; LR sensitive at scale \\
+Financial News & News articles & 197M & Long-form; low CV; good standalone \\
+SEC Reports & Regulatory filings & 80M & Long-form; low CV; good standalone \\
+FinGPT & Instruction mixture & 19M & Instruction format cluster \\
+Alpaca (Finance) & Instruction mixture & 17M & Instruction format cluster \\
+FiQA & Short Q\&A & 4M & Short-form; moderate CV \\
+Financial QA 10K & Q\&A (10K examples) & 3.5M & Very small; high CV; LR tuning needed \\
+Twitter Financial & Tweets & 0.3M & Very small; short-form outlier; highest CV \\
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \section{Mixture Effects}
-Mixed financial datasets outperform WikiText for financial tasks. Adding WikiText to the mixture degrades financial performance while modestly improving general-domain performance.
+\textbf{Summary.} Mixed financial datasets outperform pure WikiText on all financial evaluations, and outperform Mixed Wiki+Financial when the objective is finance. Adding WikiText marginally improves general-domain performance but dilutes financial specialization.
+
+\textbf{Evidence.} \Cref{fig:scaling_mixed_financial,fig:scaling_mixed_wiki_financial} visualize scaling across sizes; 4B Mixed Financial achieves 21.55 ppl (mean across financial sets), whereas Mixed Wiki+Financial degrades to 26.69 ppl despite gains on WikiText. \Cref{tab:mixed_financial_results,tab:mixed_wiki_financial_results} quantify per-dataset outcomes and highlight best-performing cells.
 
 \begin{figure}[H]
   \centering
@@ -18,7 +43,9 @@ Mixed financial datasets outperform WikiText for financial tasks. Adding WikiTex
 \end{figure}
 
 \section{Scaling and LR Sensitivity}
-Larger models require lower learning rates to avoid reverse scaling; proper LR restores expected size-performance trends.
+\textbf{Reverse scaling and fix.} With a constant LR, 1.7B/4B sometimes underperform 0.6B (``reverse scaling''). Adjusting LR by size resolves this. Empirically, reducing LR roughly with $1/\sqrt{N}$ restores expected ordering and improves 10--32\%.
+
+\textbf{Evidence.} \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} compare original vs adjusted LRs (solid vs dashed). Tables \Cref{tab:wikitext_lr_comparison,tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} show per-dataset improvements under the tuned LR.
 
 \begin{figure}[H]
   \centering
@@ -39,7 +66,9 @@ Larger models require lower learning rates to avoid reverse scaling; proper LR r
 \end{figure}
 
 \section{Dataset Size and Format}
-Large datasets (News, SEC) support standalone pretraining; small datasets (Financial QA, Twitter) overfit and exhibit high cross-dataset CV. Format alignment (long-form vs instruction vs short-form) is a primary driver of transfer.
+\textbf{Size thresholds.} Large datasets (News: 197M tokens; SEC: 80M) sustain standalone pretraining with low variance (26--32\% CV). Small datasets (Financial QA: 3.5M; Twitter: 0.3M) severely overtrain (tens to hundreds of epochs) and exhibit high variance (up to 89\% CV), motivating mixtures.
+
+\textbf{Format matters.} Transfer depends strongly on format: long-form document models (News, SEC) transfer across each other better than to short-form (Twitter) or instruction formats (FinGPT/Alpaca); instruction-tuned sources cluster; short-form Twitter remains an outlier. Figures \Cref{fig:scaling_news_articles,fig:scaling_sec_reports,fig:scaling_fingpt,fig:scaling_alpaca,fig:scaling_fiqa} illustrate scaling within format families.
 
 \begin{figure}[H]
   \centering
@@ -78,7 +107,7 @@ Large datasets (News, SEC) support standalone pretraining; small datasets (Finan
 \end{figure}
 
 \section{All Tables (Preserved)}
-We include all result tables from the original thesis for completeness.
+We include all result tables for completeness; boldface indicates best values along the specified axis (row-wise minima for results tables, pair-wise minima for LR comparisons, and column-wise best for cross-dataset tables).
 
 % Results by training dataset
 \input{../thesis/tables/table_mixed_financial_results}

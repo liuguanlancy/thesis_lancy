@@ -1,13 +1,2 @@
-\chapter{Methodology}
-
-We retain the original experimental design but summarize for brevity.
-
-\section{Design Overview}
-We train 30 models across three sizes (0.6B, 1.7B, 4B) under 10 pretraining setups, then evaluate on eight held-out test sets spanning financial and general domains. This isolates effects of: (i) mixture composition, (ii) model size/hyperparameters, (iii) dataset size \& format.
-
-\section{Models and Data}
-We use the Qwen2 family \parencite{yang2024qwen2}. Financial data cover seven datasets (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 207M tokens total). General data is WikiText-103 \parencite{merity2016pointer}. Mixtures follow 50\% capping (``50cap'') to avoid single-dataset dominance.
-
-\section{Training and Evaluation}
-We adopt standard causal-LM pretraining with mixed-precision and gradient accumulation. We evaluate with cross-entropy, perplexity, and the coefficient of variation (CV) across the eight test sets; see the original for full configurations and Appendix A for definitions.
-
+% Reuse the full original Methodology for detail and CV definition
+\input{../thesis/chapters/chapter3_methodology}
