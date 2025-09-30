@@ -18,9 +18,9 @@ This comprehensive design enables us to answer our four research questions: (RQ1
 
 \section{Model Architecture}
 
-We use the \textbf{Qwen3 model family} \parencite{yang2024qwen3}, a series of open-source transformer-based decoder-only language models pretrained on 36 trillion tokens across 119 languages. Qwen3 employs grouped-query attention (GQA) for memory efficiency and supports both standard and flash attention mechanisms.
+We use the \textbf{Qwen2 model family} \parencite{yang2024qwen2}, a series of open-source transformer-based decoder-only language models pretrained on diverse multilingual corpora. Qwen2 employs grouped-query attention (GQA) for memory efficiency and supports both standard and flash attention mechanisms.
 
-We select three model sizes from the Qwen3-Base series (pretrained checkpoints without post-training alignment):
+We select three model sizes from the Qwen2-Base series (pretrained checkpoints without post-training alignment):
 
 \textbf{Qwen3-0.6B-Base}: 600 million parameters, 16 layers, 1024 hidden dimensions, 16 attention heads, 4 GQA groups. Training memory: $\sim$4GB (bfloat16). Fastest training, suitable for rapid prototyping.
 
@@ -54,7 +54,7 @@ These datasets exhibit wide variance in size (0.3M--197M tokens), format (news, 
 
 \subsection{WikiText}
 
-We use \textbf{WikiText-103} \parencite{merity2017pointer}, a standard high-quality general-domain corpus. WikiText consists of verified Wikipedia articles (103K documents, $\sim$100M tokens) covering diverse topics with encyclopedic writing style. Text is well-formed, grammatically correct, and factually grounded.
+We use \textbf{WikiText-103} \parencite{merity2016pointer}, a standard high-quality general-domain corpus. WikiText consists of verified Wikipedia articles (103K documents, $\sim$100M tokens) covering diverse topics with encyclopedic writing style. Text is well-formed, grammatically correct, and factually grounded.
 
 WikiText serves two purposes in our experiments: (1) as a baseline for evaluating domain transfer from general to financial text, and (2) as a potential complementary data source for mixed pretraining (testing whether high-quality general corpora improve financial performance).
 

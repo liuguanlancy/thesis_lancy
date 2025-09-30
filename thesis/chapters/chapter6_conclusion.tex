@@ -104,7 +104,7 @@ Our 50cap strategy worked well but wasn't rigorously optimized. Future work shou
 
 \textbf{Dynamic Mixture Schedules}: Curriculum learning approaches that shift mixture composition during training—start with general data for basic capabilities, transition to specialized data for domain expertise. Or reverse: start specialized to establish domain vocabulary, add general data to improve robustness.
 
-\textbf{Adaptive Weighting}: Use validation loss gradients or uncertainty estimates to identify which datasets currently contribute most to learning. Upweight informative datasets, downweight exhausted sources. DoReMi \parencite{doremi2023} provides reference implementation; adaptation to specialized domains requires experimentation.
+\textbf{Adaptive Weighting}: Use validation loss gradients or uncertainty estimates to identify which datasets currently contribute most to learning. Upweight informative datasets, downweight exhausted sources. DoReMi \parencite{xie2023doremi} provides reference implementation; adaptation to specialized domains requires experimentation.
 
 \textbf{Mixture Ablations}: Systematically vary cap threshold (30\%, 40\%, 50\%, 60\%, 70\%) and measure sensitivity. Optimal threshold may depend on dataset size distribution—highly imbalanced mixtures (one dataset 90\% of total) may require aggressive capping, while balanced mixtures may prefer minimal intervention.
 
