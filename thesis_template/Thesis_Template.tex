@@ -1,0 +1,316 @@
+\documentclass[11pt,a4paper,english,oneside]{book}
+
+%----------------------------------------------------------------------------------------
+% THESIS SETTINGS - ADAPT
+%----------------------------------------------------------------------------------------
+% Depending on your program, (un)comment the following lines
+
+% Are you in the Quant finance program?
+\newif\ifQF % default behaviour is false, so NOT in QF - always leave uncommented!
+% \QFtrue % Uncomment if you are in the QF program, if not leave it out
+
+% Pick One option
+\newcommand{\thesis}{Bachelor}
+% \newcommand{\thesis}{Master}
+
+
+\input{preamble} % CHECK OUT the preamble.tex file and adapt the necessary parts (use CTRL+f and look for "ADAPT"))
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+% TITLE PAGE
+%----------------------------------------------------------------------------------------
+\thispagestyle{empty}
+\titleGP\
+
+\newpage
+
+\doublespacing\
+\setcounter{page}{1}
+\pagenumbering{Roman}
+
+%----------------------------------------------------------------------------------------
+% TASK ASSIGNMENT
+%----------------------------------------------------------------------------------------
+\section*{Task Assignment}
+\thispagestyle{firststyle}
+\newpage
+
+%----------------------------------------------------------------------------------------
+% EXECUTIVE SUMMARY
+%----------------------------------------------------------------------------------------
+\section*{Executive Summary}
+\thispagestyle{firststyle}
+
+%----------------------------------------------------------------------------------------
+% 
+%----------------------------------------------------------------------------------------
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\pagenumbering{arabic}
+
+
+%----------------------------------------------------------------------------------------
+% MAIN CHAPTERS
+%----------------------------------------------------------------------------------------
+
+
+%--------------------
+% CHAPTER 1
+%--------------------
+
+
+\chapter{[ Chapter Title ]}
+
+\section{[ Section Title ]}
+
+[\dots] Between sections and subsections, you may want to add at least three or four sentences (or more), instead of leaving it blank.
+
+\subsection{[ Subsection Title ]}
+
+The same principle obviously holds for subsequent levels.
+
+\section{\LaTeX\ Basics}
+
+[\dots] In the next subsections, there is the basic information you will need to know and/or is useful to get started with your thesis in \LaTeX. All the packages that are mentioned are already included in the `preamble.tex' file, so you are all set to go to use the presented commands. First, make sure to choose the correct setting on top of this tex file w.r.g. to your program and level (bachelor/master). These settings will automatically lead to the correct title page for your \thesis\ thesis. Next, adapt all the necessary parts (e.g. Author, title, running title, Bachelor/Master, \ldots) in the preamble file.
+
+\subsection{Useful sources}
+
+\begin{itemize} % (see Basics.lists section)
+    \item TeX distribution: \href{https://miktex.org/}{MiKTeX} % example for including url's (hyperref and url package)
+    \item Editor: \href{https://code.visualstudio.com/}{VSCode}, \href{https://www.xm1math.net/texmaker/}{TeXMaker}, \href{https://www.overleaf.com/}{OverLeaf} (online)
+    \item Other resources \href{https://en.wikibooks.org/wiki/LaTeX}{wikibooks}, \href{https://tex.stackexchange.com/}{stackexchange} and \href{http://www.tug.org/interest.html#free}{other}
+\end{itemize}
+
+\subsection{Plain text}
+
+You can write simple text in \textbf{bold},  \textit{Italic}, \underline{underlined} or \emph{emphasized}. In different font sizes from {\tiny tiny} to {\Huge Huge}. Also in different colors {\color{Red} red text}, {\color{Green} green text},  {\color{MyColor1} own defined color} \ldots. Obviously, you can also mix things up {\color{Green} \Large \textbf{\textit{test}}}
+
+Be careful with special characters like  \%, \}, \{, \& and \(\backslash\). Indentation is `fixed' with  the  package \emph{setspace}.\footnote{Also for footnotes, thanks to \emph{footmisc}\label{ft:randomfootnote}}. Do not use the simple quotation marks "quote", instead use ``quote''.
+
+\subsection{Lists}
+There are different types of so-called list environments: Unordered, Ordered and Description. They can be nested, up to a depth of 4:
+
+\begin{description}
+    \item[Description] This type of list (description)
+    \item[Unordered] Simple bullet points (itemize)
+    \begin{itemize}
+        \item Item 1
+        \item Item 2
+        \item \ldots
+    \end{itemize} 
+    \item[Ordered] List with order in bullet points (enumerate)
+    \begin{enumerate}
+        \item Item 1
+        \item Item 2
+        \item \ldots
+    \end{enumerate} 
+\end{description}
+
+
+\subsection{Math and Equations}
+You have in-line math environments, for example good for the use of a subscript \(\alpha_1\) or a superscript \(\alpha^2\) (or both at the same time \(\alpha_{sub}^{super}\)), but also dedicated and centred environments. The most basic one is:
+
+\[ x_i \]
+
+\subsubsection{The `equation' environment}
+\begin{equation}
+    \mathbb{E}^{\mathbb{Q}}_t\left[\frac{X_{t+1}}{B_{t+1}}\right]
+\end{equation}
+
+\subsubsection{The `align' environment}
+Perfect for having multiple equations in one environment so they can be aligned using the \& symbol.
+
+\begin{align}
+    R_{i, t} &= \alpha_i + \beta_i R^{mkt}_t \label{eq:CAPM}\\
+    R_{i, t} &= \alpha_i + \beta_i R^{mkt}_t + \gamma SMB_t + \theta HML_t \label{eq:FF3}
+\end{align}
+
+If you do not want equation numbers you can either use `\(\backslash\)nonumber' within the environment or use * in environment name.
+
+\begin{align}
+    \nonumber R_{i, t} &= \alpha_i + \beta_i R^{mkt}_t \\
+    R_{i, t} &= \alpha_i + \beta_i R^{mkt}_t + \gamma SMB_t + \theta HML_t
+\end{align}
+
+\begin{align*}
+    R_{i, t} &= \alpha_i + \beta_i R^{mkt}_t \\
+    R_{i, t} &= \alpha_i + \beta_i R^{mkt}_t + \gamma SMB_t + \theta HML_t \quad\quad\quad \forall i
+\end{align*}
+
+The proof in \cref{sec:proof_prop1} provides even another example of a math environment.
+
+
+\subsection{Floats}
+Float environments have everything to do with tables and figures.
+
+\subsubsection{Tables}
+The actual table content is wrapped in a \emph{tabular} environment, while making a proper table from it, including caption, description, \ldots is done by the \emph{table} environment.
+
+\begin{table}[H] %the 'H' argument specifies a hard 'Here' locator
+    \caption{Table title\label{tbl:try_table}}
+    \caption*{This is a description}
+    \center% centers the table
+    \begin{tabular}{lcr}
+        \toprule
+        \textbf{Column 1}  & \textbf{Column 2} & \textbf{Column 3} \\
+        \midrule
+        left  & center & right \\
+        left  & center & right \\
+        \midrule
+        1 & 2.547 & 1000.5  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\subsubsection{Figures}
+Figures are wrapped in the \emph{figure} environment. To keep things organised, you can put all your graphics into a dedicated folder and input them via the \emph{includegraphics} command within the \emph{figure} environment.
+
+\begin{figure}[h!tbp] %soft locators: here, top, bottom, page (will  be tried in this order)
+    \caption{This is a figure\label{fig:a_fig}}
+    \caption*{\tiny description again}
+    \center% centering again, especially when only 1 figure
+    \includegraphics[width=0.5\linewidth]{Graphics/RMSE_ivcapsjoint.pdf} % 'width' argument says max width of this figure must be 0.5* width of  line
+\end{figure}
+
+The following subsection presents an example where tables and figures are imported from separate tex files via the \emph{input} command and are referenced to in the text using their labels.
+
+\subsection{Pricing Errors}
+
+[\dots] we present the root mean squared pricing errors (RMSEs) and the mean pricing errors (MPEs) on caps and swaptions implied volatilities, defined as the difference in percentage points between the model-implied values and the market-implied volatility quotes. Overall, we find that, for intermediate and long maturities, our model performs remarkably well. The cap pricing errors in \cref{tbl:Table1} indicate that the model's performance suffers mostly at the short end of option maturities, especially for the one-year maturity. Short maturity contracts are underpriced by the model. However, the pricing performance considerably improves with increasing maturity. For longer maturities, a tendency exists to underprice out-of-the money and overprice in-the-money contracts.
+
+% INPUT TABLE/FIGURE FROM EXTERNAL FILE
+\input{Tables/table1.tex}
+
+For the ATM swaptions implied volatilities in \cref{tbl:Table2}, we observe a similar pattern. The model struggles mostly for short option maturities and short swaption tenors, an observation that also holds true for the non-ATM swaptions. However, across moneyness no clear pattern emerges in terms of over- and underpricing as is the case for in-the-money and out-of-the-money caps.
+
+
+% INPUT TABLE/FIGURE FROM EXTERNAL FILE
+\input{Tables/table2.tex}
+
+The substantially higher pricing errors for the caps and swaptions market at shorter maturities call for further investigation. Ultimately, the caps and swaptions markets must be closely connected, as they both originate from derivatives written on the forward LIBOR. However, during periods of extreme market turmoil, the two markets might exhibit different behaviors due to differences in how the uncertainty regarding the intensified liquidity situation in the interbank market propagates through the caps and swaptions markets. Therefore, we next analyze the behavior of the pricing errors across time to see whether the caps and swaptions market become disintegrated or whether they suffer from the same deficiencies.
+
+In \cref{fig:fig2}, we plot the time series of RMSE (Panel A) and the MPE (Panel B) for caps implied volatilities. We split the time series into long maturities and short maturities. For the first period of our data sample with the financial crisis already in full swing, the pricing errors in terms of RMSE remain remarkably low. In addition, until October 2008, we do not observe a bias in the model's pricing performance with the MPE close to zero. However, the pricing performance deteriorates considerably around April 2009 with substantial underpricing of short maturity contracts. This mispricing remains high until the end of our sample. Interestingly, this period of persistent mispricing of short maturity contracts coincides with the period of high implied volatilities at these maturities. Hence, our model suffers when the volatility term structure is unusually steep.
+
+\input{Figures/figure2.tex}
+
+\subsection{Other environments}
+\subsubsection{listings}
+The package \emph{listings} is used to present code in your document. But it seems there is a better \href{https://github.com/olivierverdier/python-latex-highlighting}{alternative} for python specific color highlighting.
+
+\begin{lstlisting}[language=Python]
+    input numpy as np
+
+    def square_root(x):
+        return x**(1/2)
+    
+    x=4
+    assert np.sqrt(x) == square_root(x)
+\end{lstlisting}
+
+or Matlab code
+
+\begin{lstlisting}[language=matlab]
+figure(1)
+set(gca,'Box', 'on', 'LineWidth',1.5 ,'FontSize',14)
+plot(x,cumprod(1+R(:,2)),x,cumprod(1+R(:,3)),'--',x,cumprod(1+R(:,4)),'-.','LineWidth',1.5)
+grid on
+datetick('x','mmmyy')
+axis([x(1)-10 x(end) 0.5 3.0])
+title('Panel A: Equity and commodity indices')
+ylabel('Cumulative return')
+grid on
+legend('MSCI World Total Return', 'MSCI Emerging Market Total Return','DJ UBS Commodity Index')
+print('-depsc2', 'cumReturnA.eps' )
+\end{lstlisting}
+
+
+
+\subsection{A Note on Referencing}
+\subsubsection{Bibliography}
+There are basically two options to include citations and references to your document: Bibtex or BibLatex. This doc is constructed using the latter, because it's newer and more flexible (e.g.\ allows use in \emph{beamer} documentclass). There are different citing commands, each with a slightly different outcome:~\cite{BA1996}, \textcite{CW2004} and \parencite{SH1993,BA1996}. You can also combine citations, \textcite{petkova2006fama,CW2004}. \emph{textcite} is the one most commonly used, though \emph{parencite} is useful too.
+
+\subsubsection{Other\label{sec:this_section}}
+There is also the option to refer to many other things (floats, footnotes, (sub)sections,\ldots).  With the \emph{cleverref} package, you can easily refer to these object by using the `cref' command.  \cref{eq:CAPM}, \cref{fig:a_fig}, \cref{ft:randomfootnote}, \cref{sec:this_section}, \cref{tbl:try_table}. You can also combine references of the same type of objects, just like citations, \cref{eq:CAPM,eq:FF3}.
+
+[Here are some examples of citations\dots] Lévy processes cannot capture stochastic volatility, stochastic risk reversal (skewness) and stochastic correlation. These drawbacks can be resolved, at least to some extent, by considering time-changed Lévy processes for which it is possible to generate distributions which vary over time. If the return innovation is modeled by a Brownian motion, we can let the instantaneous variance be stochastic (see, e.g., \textcite{SH1993,BA1996}) to create dependence of the return increments.\footnote{\textcite{CW2004}, for instance, introduced a time-changed Lévy model to capture the leverage effect.} 
+
+
+%--------------------
+% CHAPTER 2
+%--------------------
+
+\chapter{ [ Chapter Title ]}
+
+\section{ [ Section Title ] }
+
+\subsection{ [  Subsection Title ] }
+
+%----------------------------------------------------------------------------------------
+% APPENDIX
+%----------------------------------------------------------------------------------------
+
+\appendix
+\begingroup
+\makeatletter
+\let\ps@plain\ps@empty
+\appendixpage
+\makeatother
+\endgroup
+\noappendicestocpagenum
+\addappheadtotoc
+
+
+\renewcommand{\theequation}{A.\arabic{equation}}
+
+\chapter{Proofs\label{chp:proofs}}
+
+[ You may also want to add an appendix, if it makes sense. You delegate proofs to the appendix or other material that is essential for the understanding of your work, but would distract the reader if placed in the main text\dots ]
+
+\section{Proof of Proposition [\dots]\label{sec:proof_prop1}}
+[\dots.], we can apply Ito's formula for Lévy processes   to obtain the
+dynamics of the forward LIBOR \(L(t,T_j)\) to obtain the
+dynamics of the forward LIBOR \(L(t,T_j)\) under the \(T_{j+1}\)-forward measure
+as follows:
+\begin{eqnarray}
+\frac{dL(t,T_j)}{L(t,T_j)} &=& b (t,T_{j},T_{j+1}) dt +
+\frac{1}{2} \lambda ^2(t,T_j) dt +
+\frac{1}{2} V _t^W dt\nonumber \\
+&+& \int_{-\infty}^{0}  \left[ e^{x}-1-x \right]
+\pi_{J^-}^{\mathbb Q_{j+1}}(dx)\nu _t^J dt + \int_{0}^{\infty} \left[
+e^{x}-1-x \right] \pi_{J^+}^{\mathbb Q_{j+1}}(dx)\nu _t^J dt \nonumber \\
+&+& \lambda (t,T_j) dB_{t}^{Q_{j+1}}+ \sqrt{ V _t^W}
+dW_{t}^{Q_{j+1}}+ \int_{-\infty}^{0} \left[ e^{ x}-1 \right]
+\left[ \mu^- (dt,dx) -
+\pi_{J^-}^{Q_{j+1}}(x) dx \nu _t^J dt \right]\nonumber \\
+&+& \int_{0}^{\infty} \left[ e^{ x}-1 \right] \left[ \mu ^+ (dt,dx)
+- \pi_{J^+}^{Q_{j+1}}(x) dx \nu _t^J dt \right].\label{eq:app_eq}
+\end{eqnarray}
+To ensure that \(L(t,T_j)\) is a martingale under the
+\(T_{j+1}\)-forward measure, the drift must equal zero, which gives the
+drift condition in the proposition. \(\blacksquare\)
+
+%----------------------------------------------------------------------------------------
+% BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\printbibliography\
+
+\newpage
+
+
+%----------------------------------------------------------------------------------------
+%
+%----------------------------------------------------------------------------------------
+\thispagestyle{firststyle}
+
+\section*{Eidesstattliche Erklärung}
+Der/Die Verfasser/in erklärt an Eides statt, dass er/sie die vorliegende Arbeit selbständig, ohne fremde Hilfe und ohne Benutzung anderer als die angegebenen Hilfsmittel angefertigt hat. Die aus fremden Quellen (einschliesslich elektronischer Quellen) direkt oder indirekt übernommenen Gedanken sind ausnahmslos als solche kenntlich gemacht. Die Arbeit ist in gleicher oder ähnlicher Form oder auszugsweise im Rahmen einer anderen Prüfung noch nicht vorgelegt worden.\\[2cm]
+\dotbox{Ort, Datum} \hfill \dotbox{Unterschrift des/der Verfassers/in}
+
+
+\end{document}

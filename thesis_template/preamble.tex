@@ -1,0 +1,241 @@
+% ==========================================================================================
+% PREAMBLE
+% ==========================================================================================
+%----------------------------------------------------------------------------------------
+% GENERAL  - PACKAGES
+%----------------------------------------------------------------------------------------
+% GENERAL
+\usepackage{etex} %Because of many packages --> Extended TeX.
+\usepackage[utf8]{inputenc} %Due to vowels.
+% \usepackage[british]{babel} %Define the language style.
+
+%Load some mathematical packages.
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{breqn} % breaking of equations (be careful with using ENDFLOAT  with this)
+
+%  LAYOUT/PAGE/TEXT FORMATTING
+\usepackage[left=1in, right=1in]{geometry} %Helps to structure the paper layout.
+\usepackage{setspace} %Use double spacing.
+
+\usepackage[Lenny]{styles/fncychap} %Design of the thesis. = Fancy chapter
+
+\usepackage{fancyhdr} %To customize the headers and footers.
+\usepackage[hang,bottom,stable,multiple]{footmisc} %Style of footnotes.
+\usepackage{dsfont} %Nice style for the indicator function.
+
+\usepackage[svgnames]{xcolor} % Enabling mixing colors and color's call by 'svgnames'
+% define new colors (not limited to text obviously)
+\definecolor{MyColor1}{rgb}{0.2,0.4,0.6} % mix personal color
+
+
+% FLOATS
+\usepackage{booktabs} %In case you need \cmidrule or \addlinespace in tables.
+\usepackage{array} %To create tables and matrices.
+\usepackage{hhline}
+\usepackage{rotating} %To rotate a table/figure. e.g. \sidewaystable
+\usepackage{tabularx} %An extended version of tabular.
+\usepackage{float} %Allows for the 'H' option
+
+\usepackage{graphicx} %For the graphics
+
+
+\usepackage[margin=10pt, font=small, labelfont=bf, labelsep=endash]{caption} %Customize the captions.
+
+
+% OTHER ENVIRONMENTS
+
+
+\usepackage{textcomp}
+
+\usepackage{amsthm} %For theorems, definitions etc.
+\usepackage{thmtools} %For theorems, definitions etc.
+
+\usepackage{appendix} %For the \appendixpage command.
+\usepackage{etoolbox} %To remove the page number on \appendixpage.
+\makeatletter %Remove page number on \appendixpage.
+\patchcmd{\@chap@pppage}{\thispagestyle{plain}}{\thispagestyle{empty}}{}{}
+\makeatother
+
+
+\usepackage{styles/mcode} %To implement Matlab code.
+\usepackage{listings} % For including code in your pdf
+
+% VARIA  - does not mean useless
+\usepackage{epstopdf} %For inserting .eps files into the document.
+\usepackage{lipsum} %For the \lipsum command to generate a text.
+\usepackage{datetime} %For the specification of the date.
+\usepackage{chngcntr} %To use counterwithout.
+\usepackage{xparse} %Load for \NewDocumentCommand command.
+\usepackage{arydshln} %Due to the capability to draw horizontal/vertical dash-lines.
+
+%  REFERENCING
+% % BIBLIOGRAPHY - BIBTEX
+% \usepackage[sort,round]{natbib} %For the bibliography.
+% \bibliographystyle{abbrvnat} %Reference style.
+
+% BIBLIOGRAPHY - BIBLATEX
+\usepackage[
+backend=biber,
+style=apa,
+bibstyle=authoryear,
+citestyle=authoryear,
+maxcitenames=2,
+maxbibnames=99
+]{biblatex}
+
+\setlength\bibitemsep{1\itemsep} % spacing between entries in references
+\addbibresource{references.bib} % .bib file
+
+
+\usepackage{hyperref} %Must be loaded at the end.
+\hypersetup{ %Setup of the reference links.
+     colorlinks=false,
+     linkcolor=blue,
+     citecolor=blue,
+     filecolor=magenta,
+     urlcolor=blue
+}
+
+\usepackage[nameinlink,capitalize]{cleveref} %For the command \cref, load after hyperref.
+
+%----------------------------------------------------------------------------------------
+% GENERAL  - SETUP
+%----------------------------------------------------------------------------------------
+%Define some reasonable margins.
+\setlength{\textwidth}{6.6in}
+\setlength{\textheight}{8.8in}
+\setlength{\topmargin}{-0.1in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\parskip}{1mm}
+
+\setlength{\parindent}{0cm} %Uncomment this if you don't want to have indents.
+
+%Read just the numbering.
+\counterwithout{footnote}{chapter}
+\numberwithin{equation}{chapter}
+
+\allowdisplaybreaks[1] %Page breaks of equations are allowed, but avoided if possible. 2-4 more relaxed.
+
+%----------------------------------------------------------------------------------------
+% CUSTOM COMMANDS/ENVIRONMENTS
+%----------------------------------------------------------------------------------------
+%New command for the differential d to have an ordinary d.
+\makeatletter
+  \newcommand{\ud}{\mathrm{d}}
+\makeatother
+
+%Declare Definitions, Theorems etc.(ENVIRONMENTS)
+\declaretheorem[style=definition,qed=\(\blacktriangleleft\), numberwithin=chapter]{remark} %additional options; numberwithin=,..., see 'Thmtools' Users’ Guide
+\declaretheorem[style=definition,qed=\(\triangle\),numberwithin=chapter]{definition}
+\newtheorem{ass}{Assumption}[chapter]
+\newtheorem{prop}{Proposition}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\declaretheorem[style=definition,qed=\(\perp\),numberwithin=chapter]{example}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{coroll}{Corollary}[chapter]
+
+%----------------------------------------------------------------------------------------
+% TITLE PAGE -  Creates titlepage command
+%----------------------------------------------------------------------------------------
+%New command for the UZH logo. Used within big \titleGP
+\newcommand*{\uzhlogo}{\includegraphics{Graphics/uzh_logo_e_pos.pdf}}
+\newcommand*{\ethlogo}{\includegraphics{Graphics/ETHlogo.pdf}}
+
+
+\newcommand*{\titleGP}{\begingroup %Create the command for including the title page in the document.
+
+\centering %Center all text.
+
+% Include University logo
+\vspace*{\baselineskip} %White space at the top of the page.
+\ifQF
+\uzhlogo\hspace{120pt}\ethlogo\\[2\baselineskip] %University Logo.
+\else
+\uzhlogo\\[2\baselineskip] %University Logo.
+\fi
+
+% Create title 'box'
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} %Thick horizontal line.
+\rule{\textwidth}{0.4pt}\\[\baselineskip] %Thin horizontal line.
+
+% TITLE
+{\LARGE [ Title ]}\\[0.2\baselineskip] %Title.
+
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} %Thin horizontal line.
+\rule{\textwidth}{1.6pt}\\[2\baselineskip] %Thick horizontal line.
+\scshape %Small caps.
+
+% Thesis
+\thesis's Thesis\\[2\baselineskip]
+
+\ifQF
+Submitted in partial fulfillment of the requirements for the degree of Master of Science in Quantitative Finance \par
+\else
+Submitted in partial fulfillment of the requirements for the degree of \thesis\ of Arts in Economics and Business Administration \par
+\fi
+
+\vspace*{2\baselineskip}
+
+% AUTHOR BLOCK - ADAPT
+Author\\
+{\Large [ Your Name ] \\ [5pt]
+ }
+% [ Address ] \\[5pt]
+[ Student-ID ]\\[5pt]
+[ Contact (E-Mail) ] \\
+
+\vspace*{2\baselineskip}
+
+% SUPERVISOR+ASSISTANT BLOCK -ADAPT
+Supervisor\\
+{\Large Prof.\ Dr.\ Markus Leippold\\[5pt]
+\small Professor of Financial Engineering\\[5pt]
+\small Department of Finance\\[5pt]University of Zurich\par}
+\vspace*{2\baselineskip}
+
+Assistant\\
+
+{\Large [ Name ] \par}
+
+\vfill
+
+{\scshape Date of Submission: [ Date ]} \\[0.3\baselineskip]
+
+\endgroup} % This is the end of the command
+
+
+%----------------------------------------------------------------------------------------
+% HEADER/FOOTER
+%----------------------------------------------------------------------------------------
+% Special header and footer style for the Executive summary and Task Assignment section.
+\fancypagestyle{firststyle}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[C]{\thepage}
+}
+
+%Customize headers and footers. - ADAPT
+\pagestyle{fancy}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\rightmark}
+\fancyfoot[L]{[ Your Name ]} % NAME
+\fancyfoot[C]{}
+\fancyfoot[R]{[ Running Thesis Title ]} % RUNNING TITLE
+\setlength{\headheight}{13.6pt}
+
+%----------------------------------------------------------------------------------------
+% SIGNATURE setup
+%----------------------------------------------------------------------------------------
+%Define the signature line with dots. (create \dotbox command)
+\NewDocumentCommand\dotbox{o O{.5\linewidth} m O{3ex} O{\linewidth}}
+{
+  \begin{minipage}{7cm}
+    \makebox[7cm][l]{\,.\dotfill}
+    \\
+    \makebox[7cm][l]{\,#3}
+  \end{minipage}
+}
