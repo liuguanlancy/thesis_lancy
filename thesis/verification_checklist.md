@@ -28,6 +28,8 @@ For this Extreme pass, no inline verification notes are left in the LaTeX. Pleas
 
 If any item differs from your final datasets, runs, or counts, please update Chapter 1 wording to match the final artifacts (numbers must not drift from the reported results).
 
+Ultra Pass note: Chapter 1 edits further vary cadence and transitions but do not change any numbers, labels, figure/table refs, or citations. Please re-check the exact values listed above post-edit.
+
 ---
 
 # Verification Checklist – Chapter 2 (Background and Related Work)
@@ -35,6 +37,7 @@ If any item differs from your final datasets, runs, or counts, please update Cha
 - Citations: Confirm financial NLP and model references align with the intended sources (FinBERT, BloombergGPT, FinGPT, curriculum and mixture papers).
 - Causal LM description: Ensure objective and architecture descriptions match the models actually used (decoder-only; attention variants).
 - Compute/memory examples: Check bfloat16, gradient accumulation, activation checkpointing descriptions reflect your training scripts and logs.
+- Extra note (Ultra Pass): Only stylistic cadence and minor narrative asides added; no new model, dataset, or citation content.
 - No quantitative claims added beyond cited works; no new datasets introduced.
 
 ---
@@ -48,6 +51,7 @@ If any item differs from your final datasets, runs, or counts, please update Cha
 - Training setup: Optimizer, LR, schedule, warmup, batch, precision, sequence length match run configs.
 - LR adjustments: Only the three affected cases (WikiText, Financial QA, Twitter at larger sizes) used smaller LRs; cross-check with LR comparison tables.
 - Compute budget: 36 runs × 100M tokens = 3.6B tokens; runtime estimates on Lambda Labs A100 are consistent with logs.
+- Ultra Pass note: Only narrative cadence and connector changes; all values, labels, and tables remain identical to prior pass.
 
 ---
 
@@ -60,6 +64,7 @@ If any item differs from your final datasets, runs, or counts, please update Cha
 - Medium/small datasets: Perplexity numbers, epochs ranges, and CV percentages match corresponding tables and figures.
 - Reverse scaling notes: LR reductions and recovered metrics (e.g., Twitter 4B to 12.35 ppl) match plots (`figures/scaling_twitter.png`) and LR tables.
 - Variance-performance discussion: Ensure the CV numbers and mean PPL cited in that section are consistent with the listed tables.
+- Ultra Pass note: Only phrasing/connector tweaks; no changes to any results, figures, tables, or labels.
 
 ---
 
@@ -68,6 +73,7 @@ If any item differs from your final datasets, runs, or counts, please update Cha
 - Finding summaries: Check the exact values (21.55, 26.69, 48.7; 55%/62%/78% CV; 2.3× gap) against Chapter 4.
 - Correlations and variance claims: r = 0.82 (News↔SEC), r = 0.68–0.73 (instruction cluster), 89% variance for Twitter, log(tokens) vs variance r = -0.78.
 - Trade-offs: “29% financial performance for 16% general improvement” and other percentages reflect your computed deltas.
+- Ultra Pass note: Added brief connective phrases and emphasis only; all quantitative references and citations unchanged.
 - No new claims introduced; all numerical statements sourced from Chapter 4 tables/figures.
 
 ---
@@ -79,3 +85,4 @@ If any item differs from your final datasets, runs, or counts, please update Cha
 - Model size guidance: 1.7B “recommended” rationale matches performance/memory/time numbers; 0.6B/4B trade-offs reflect actual runs.
 - Industry guidance: Claims about privacy/compliance and cost must align with your institutional policy and any publicly shareable cost estimates.
 - Future work items (dynamic schedules, adaptation stages) are framed as suggestions; no implied new results.
+- Ultra Pass note: Only style cadence/phrasing changes; all metrics, names, and references preserved.

@@ -1,16 +1,16 @@
 \chapter{Background and Related Work}
 
-This chapter reviews four areas that matter for our study. First, financial NLP. Then pretraining basics. Next, data-mixing strategies. Finally, domain adaptation and transfer learning. The aim is context, not a full survey. Put another way, we give just enough background to understand our choices later.
+This chapter reviews four areas that matter for our study. First, financial NLP. Then pretraining basics. Next, data-mixing strategies. Finally, domain adaptation and transfer learning. The aim is context, not a full survey. Put another way, we give just enough background to understand our choices later. Not a catalog.
 
 \section{Financial NLP}
 
 \subsection{The Financial NLP Landscape}
 
-Financial NLP covers many tasks. Sentiment analysis on news and social media. Question answering on regulatory text. Numerical reasoning in reports. Information extraction from SEC filings \parencite{araci2019finbert, chen2021finqa}. The domain brings specific challenges that differ from general NLP: specialized vocabulary (e.g., "alpha", "beta", "EBITDA"), domain‑specific reasoning (e.g., causal chains in market analysis), numerical grounding (reading financial statements), and temporal dynamics (events, earnings releases) \parencite{wu2023bloomberggpt, araci2019finbert}. In practice, many of these challenges show up together in one document.
+Financial NLP covers many tasks. Sentiment analysis on news and social media. Question answering on regulatory text. Numerical reasoning in reports. Information extraction from SEC filings \parencite{araci2019finbert, chen2021finqa}. The domain brings specific challenges that differ from general NLP: specialized vocabulary (e.g., "alpha", "beta", "EBITDA"), domain‑specific reasoning (e.g., causal chains in market analysis), numerical grounding (reading financial statements), and temporal dynamics (events, earnings releases) \parencite{wu2023bloomberggpt, araci2019finbert}. In practice, many of these challenges show up together in one document. Sometimes in one paragraph.
 
 \subsection{Existing Financial Language Models}
 
-Several finance‑specialized LMs have appeared. \textbf{BloombergGPT} \parencite{wu2023bloomberggpt} is a 50B model trained on a 51\%/49\% mix of financial and general data. It scores well on financial benchmarks while keeping general ability. \textbf{FinBERT} variants \parencite{araci2019finbert, yang2020finbert} continue pretraining BERT on financial corpora and improve sentiment analysis on news. More recently, \textbf{FinGPT} \parencite{yang2023fingpt} explored open‑source, instruction‑tuned approaches for finance. We cite these to position our choices; we do not try to compare with them directly.
+Several finance‑specialized LMs have appeared. \textbf{BloombergGPT} \parencite{wu2023bloomberggpt} is a 50B model trained on a 51\%/49\% mix of financial and general data. It scores well on financial benchmarks while keeping general ability. \textbf{FinBERT} variants \parencite{araci2019finbert, yang2020finbert} continue pretraining BERT on financial corpora and improve sentiment analysis on news. More recently, \textbf{FinGPT} \parencite{yang2023fingpt} explored open‑source, instruction‑tuned approaches for finance. We cite these to position our choices; we do not try to compare with them directly. Different aims.
 
 \subsection{Domain-Specific Challenges}
 
@@ -26,11 +26,11 @@ Most models use the \textbf{causal language modeling} objective: predict the nex
 
 \textcite{kaplan2020scaling} showed power-law relationships among model size, dataset size, compute, and performance. Larger models are more sample-efficient. That finding pushed the field toward billion-parameter models. Still, details matter. Later work added nuance. \textcite{hoffmann2022training} argued many models are undertrained relative to size (the Chinchilla view). \textcite{tay2022ul2} showed that objectives and data quality matter a lot for scaling.
 
-\textbf{Hyperparameter sensitivity} gets less attention. \textcite{mccandlish2018empirical} noted that optimal learning rates can fall with model size. For 0.6B--4B models in specialized domains, systematic studies are limited. Many scaling‑law papers assume "proper tuning" without saying how, which hides the messy part we examine empirically. Tuning matters at this scale. In our work, all main runs used LR=2e-5. In a few cases we reduced LR to stabilize training. We do not claim a general rule.
+\textbf{Hyperparameter sensitivity} gets less attention. \textcite{mccandlish2018empirical} noted that optimal learning rates can fall with model size. For 0.6B--4B models in specialized domains, systematic studies are limited. Many scaling‑law papers assume "proper tuning" without saying how, which hides the messy part we examine empirically. Tuning matters at this scale. In our work, all main runs used LR=2e-5. In a few cases we reduced LR to stabilize training. We do not claim a general rule. Only a practical one.
 
 \subsection{Computational and Memory Considerations}
 
-Training large language models takes real compute. A 1B‑parameter model in 32‑bit uses about 4GB just for parameters; optimizer states can double or triple that \parencite{rajbhandari2020zero,kingma2014adam}. For 0.6B--4B models, memory‑savvy tricks help: mixed precision (bfloat16), gradient accumulation, activation checkpointing, and parameter‑efficient methods like LoRA. Otherwise it does not fit. These make training feasible on enterprise GPUs (e.g., RTX A6000 48GB, A100 40GB, H100 80GB) \parencite{narayanan2021efficient,hu2021lora}. In practice, most of our runs used bfloat16 + accumulation.
+Training large language models takes real compute. A 1B‑parameter model in 32‑bit uses about 4GB just for parameters; optimizer states can double or triple that \parencite{rajbhandari2020zero,kingma2014adam}. For 0.6B--4B models, memory‑savvy tricks help: mixed precision (bfloat16), gradient accumulation, activation checkpointing, and parameter‑efficient methods like LoRA. Otherwise it does not fit. These make training feasible on enterprise GPUs (e.g., RTX A6000 48GB, A100 40GB, H100 80GB) \parencite{narayanan2021efficient,hu2021lora}. In practice, most of our runs used bfloat16 + accumulation. And careful checkpointing.
 
 \section{Data Mixture Strategies}
 

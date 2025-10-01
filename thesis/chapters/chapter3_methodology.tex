@@ -1,10 +1,10 @@
 \chapter{Methodology}
 
-This chapter explains how we ran the study. First, the design. Then models, datasets, training setup, and finally evaluation. The goal is simple: fair, repeatable comparisons. We keep the setup practical—what we could run reliably with our compute.
+This chapter explains how we ran the study. First, the design. Then models, datasets, training setup, and finally evaluation. The goal is simple: fair, repeatable comparisons. We keep the setup practical—what we could run reliably with our compute. No more, no less.
 
 \section{Experimental Design Overview}
 
-We evaluate \textbf{10 pretraining configurations}. Two mixtures (Financial; Wiki+Financial). Eight single-dataset baselines. Each configuration trains at three sizes (0.6B/1.7B/4B). All with a fixed \textbf{100M-token budget}. We evaluate on \textbf{8 held-out test sets}. We also run six follow-ups with smaller learning rates to address stability at larger scale. \Cref{tab:exp_settings} summarizes the settings. In short: fix tokens, vary size and data.
+We evaluate \textbf{10 pretraining configurations}. Two mixtures (Financial; Wiki+Financial). Eight single-dataset baselines. Each configuration trains at three sizes (0.6B/1.7B/4B). All with a fixed \textbf{100M-token budget}. We evaluate on \textbf{8 held-out test sets}. We also run six follow-ups with smaller learning rates to address stability at larger scale. \Cref{tab:exp_settings} summarizes the settings. In short: fix tokens, vary size and data. Simple design, clear comparisons.
 
 \input{tables/table_experimental_settings}
 
@@ -29,7 +29,7 @@ Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
 \end{tabular}
 \end{table}
 
-Why Qwen3? Three reasons. Consistent architecture across sizes enables clean comparisons. Strong baselines on general and domain tasks. And inference is efficient—these models fit on consumer hardware for edge deployment.
+Why Qwen3? Three reasons. Consistent architecture across sizes enables clean comparisons. Strong baselines on general and domain tasks. And inference is efficient—these models fit on consumer hardware for edge deployment. So we can test ideas quickly.
 
 \section{Datasets}
 
@@ -158,7 +158,7 @@ For fairness, every run uses \textbf{100M tokens}, regardless of dataset size or
 
 \textbf{Total compute}. $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) from Lambda Labs, each 100M-token run took 2--8 hours by size (0.6B: $\sim$2h; 1.7B: $\sim$4h; 4B: $\sim$8h). Roughly 150 GPU-hours in total.
 
-This token-controlled design helps isolate model--data interactions rather than compute artifacts. Variable epoch counts (2--249) come from dataset size differences while keeping token exposure fixed.
+This token-controlled design helps isolate model--data interactions rather than compute artifacts. Variable epoch counts (2--249) come from dataset size differences while keeping token exposure fixed. Put another way, same tokens, different stories.
 
 \section{Evaluation Protocol}
 
@@ -190,4 +190,4 @@ Lower is better.
 \end{equation*}
 Lower CV\% means more consistent performance across datasets; higher CV\% means specialization or brittleness.
 
-All metrics use full test sets (no subsampling), the same sequence length (1,024 tokens), and the same batch size as training. We evaluate the final checkpoint. No selection by validation, since we lack task-specific validation sets.
+All metrics use full test sets (no subsampling), the same sequence length (1,024 tokens), and the same batch size as training. We evaluate the final checkpoint. No selection by validation, since we lack task-specific validation sets. Still, the comparisons remain fair.

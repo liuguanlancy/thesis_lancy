@@ -2,43 +2,43 @@
 
 \section{Motivation}
 
-Large language models have moved very fast \parencite{vaswani2017attention,radford2019language,brown2020language,touvron2023llama}. Too fast to ignore. But finance? Still difficult. Banks and funds hold sensitive data: transactions, positions, internal notes. Sending any of this to external APIs is usually not acceptable. Privacy rules like GDPR say no \parencite{eu2016gdpr}. Competitors say no, too. So the practical answer is simple: models should run locally. Small models. Keep data on the device and still get useful results.
+Large language models have moved very fast \parencite{vaswani2017attention,radford2019language,brown2020language,touvron2023llama}. Too fast to ignore. But finance? Still difficult. Banks and funds hold sensitive data: transactions, positions, internal notes. Sending any of this to external APIs is usually not acceptable. Privacy rules like GDPR say no \parencite{eu2016gdpr}. Competitors say no, too. So the practical answer is simple: models should run locally. Small models. Keep data on the device and still get useful results. In practice, this constraint drives most of our choices.
 
-Two paths are common. Train a huge model from scratch. Or fine-tune a general model on financial text. The first is costly—most teams cannot pay that compute bill. The second often misses domain details \parencite{gururangan2020don}. There is also a belief: adding high-quality general text (e.g., Wikipedia, The Pile) always helps. We did not accept this blindly. We tested it \parencite{gao2020pile,raffel2020exploring,longpre2023pretrainer}.
+Two paths are common. Train a huge model from scratch. Or fine-tune a general model on financial text. The first is costly—most teams cannot pay that compute bill. The second often misses domain details \parencite{gururangan2020don}. There is also a belief: adding high-quality general text (e.g., Wikipedia, The Pile) always helps. We did not accept this blindly. We tested it \parencite{gao2020pile,raffel2020exploring,longpre2023pretrainer}. Put another way, we preferred evidence over habit.
 
-The goal here is straightforward: find better data mixing for a specialized domain \parencite{wu2023bloomberggpt}. We study how in-domain financial text and out-of-domain general corpora interact during pretraining. We focus on 0.6B–4B parameter models. Why this range? They fit on laptops; some even on phones. And in practice they are already good enough for many use cases \parencite{yang2024qwen2,xia2023sheared,team2024gemma,javaheripi2023phi}. We ran 10 pretraining configurations across three sizes.
+The goal here is straightforward: find better data mixing for a specialized domain \parencite{wu2023bloomberggpt}. We study how in-domain financial text and out-of-domain general corpora interact during pretraining. We focus on 0.6B–4B parameter models. Why this range? They fit on laptops; some even on phones. And in practice they are already good enough for many use cases \parencite{yang2024qwen2,xia2023sheared,team2024gemma,javaheripi2023phi}. We ran 10 pretraining configurations across three sizes. Still, we kept the setup simple on purpose.
 
-This topic matters now. Regulations tighten each year \parencite{eu2016gdpr}. Teams want on-device processing. Many groups have limited compute. So understanding what actually works in the 0.6B--4B range is critical. What does not work is also important.
+This topic matters now. Regulations tighten each year \parencite{eu2016gdpr}. Teams want on-device processing. Many groups have limited compute. So understanding what actually works in the 0.6B--4B range is critical. What does not work is also important. To be fair, the constraints are as real as the goals.
 
-One more thing surprised us. In a few settings we saw ``reverse scaling'': smaller models beating larger ones. Sounds odd at first. But it was not a deep limitation. It came from hyperparameters \parencite{kaplan2020scaling,hoffmann2022training,mccandlish2018empirical}. The lesson we took is very down-to-earth: tune learning rate first; judge model size later.
+One more thing surprised us. In a few settings we saw ``reverse scaling'': smaller models beating larger ones. Sounds odd at first. But it was not a deep limitation. It came from hyperparameters \parencite{kaplan2020scaling,hoffmann2022training,mccandlish2018empirical}. The lesson we took is very down-to-earth: tune learning rate first; judge model size later. So we did.
 
 \section{Research Questions}
 
 Four questions drive this thesis. Let me state them plainly.
 
 \textbf{RQ1: Data Mixture Composition}
-Start with the facts. Mixed financial datasets: 21.55 ppl. Wiki+Financial mixtures: 26.69 ppl. Pure WikiText: 48.7 ppl (\Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}). The pattern is clear in our setup. In-domain diversity helps. The question we ask is deeper: how do different combinations of financial datasets and general corpora change performance? Does mixing several financial datasets improve stability versus a single dataset? And when we add high-quality general text (WikiText), does it help financial tasks—or does it hurt?
+Start with the facts. Mixed financial datasets: 21.55 ppl. Wiki+Financial mixtures: 26.69 ppl. Pure WikiText: 48.7 ppl (\Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}). The pattern is clear in our setup. In-domain diversity helps. The question we ask is deeper: how do different combinations of financial datasets and general corpora change performance? Does mixing several financial datasets improve stability versus a single dataset? And when we add high-quality general text (WikiText), does it help financial tasks—or does it hurt? In our data, the answer leans one way.
 
 \textbf{RQ2: Model Size and Training Dynamics}
-Training setups change with model size (0.6B, 1.7B, 4B). How much? And how sensitive are the results to hyperparameters—especially learning rate? We used LR=2e-5 for the main runs. A standard choice. In a few cases, training behaved poorly, so we reduced LR to $1\times10^{-5}$ or $5\times10^{-6}$. This stabilized training. We do not claim a universal rule; these are practical fixes for our runs.
+Training setups change with model size (0.6B, 1.7B, 4B). How much? And how sensitive are the results to hyperparameters—especially learning rate? We used LR=2e-5 for the main runs. A standard choice. In a few cases, training behaved poorly, so we reduced LR to $1\times10^{-5}$ or $5\times10^{-6}$. This stabilized training. We do not claim a universal rule; these are practical fixes for our runs. Still, the pattern is hard to miss.
 
 \textbf{RQ3: Dataset Size Effects}
-When is a dataset big enough for standalone pretraining? How does size affect overtraining and cross-dataset generalization? For small datasets, when is mixing not optional? We found two practical thresholds. Over 100M tokens: training is stable (\Cref{fig:scaling_news_articles,fig:scaling_sec_reports}). Below 20M: severe overtraining. Variance goes up to 89--97\%. Mixing becomes necessary (\Cref{fig:scaling_financial_qa,fig:scaling_twitter,tab:cross_financial_qa,tab:cross_twitter}).
+When is a dataset big enough for standalone pretraining? How does size affect overtraining and cross-dataset generalization? For small datasets, when is mixing not optional? We found two practical thresholds. Over 100M tokens: training is stable (\Cref{fig:scaling_news_articles,fig:scaling_sec_reports}). Below 20M: severe overtraining. Variance goes up to 89--97\%. Mixing becomes necessary (\Cref{fig:scaling_financial_qa,fig:scaling_twitter,tab:cross_financial_qa,tab:cross_twitter}). These cutoffs are practical, not theoretical.
 
 \textbf{RQ4: Domain Transfer Patterns}
-Look at the cross-dataset tables (\Cref{tab:cross_financial_news,tab:cross_financial_repor,tab:cross_alpaca,tab:cross_fingpt,tab:cross_fiqa,tab:cross_twitter}). Bold cells line up by format, not by domain. In our results, format consistency matters more than vocabulary. Long-form transfers to long-form. Instructions to instructions. Short-form stays isolated. So the question is: how well do financial-pretrained models transfer across task types—sentiment, Q\&A, document understanding—and how much do document format and task structure control that transfer?
+Look at the cross-dataset tables (\Cref{tab:cross_financial_news,tab:cross_financial_repor,tab:cross_alpaca,tab:cross_fingpt,tab:cross_fiqa,tab:cross_twitter}). Bold cells line up by format, not by domain. In our results, format consistency matters more than vocabulary. Long-form transfers to long-form. Instructions to instructions. Short-form stays isolated. So the question is: how well do financial-pretrained models transfer across task types—sentiment, Q\&A, document understanding—and how much do document format and task structure control that transfer? For us, format dominates the story.
 
-We trained 30 models to address these questions and ran 240 evaluations on eight held-out test sets. The evidence is not perfect, but it is informative and actionable for specialized domains.
+We trained 30 models to address these questions and ran 240 evaluations on eight held-out test sets. The evidence is not perfect, but it is informative and actionable for specialized domains. So we treat it as guidance, not a law.
 
 \section{Contributions}
 
 Six findings matter most.
 
 \textbf{1. Empirical Data Mixture Guidelines}
-We give concrete recommendations for financial pretraining. In our experiments, in-domain diversity beats high-quality general corpora. Mixed financial datasets reach 21.55 perplexity at 4B parameters. WikiText pretraining? 48.7 mean perplexity across financial evaluations. About 2.3$\times$ worse. This pushes against the common belief that general high-quality text always helps. We support the claim with visual evidence: 11 scaling figures and 18 tables. Ten tables report per-training-dataset results; eight report cross-dataset comparisons.
+We give concrete recommendations for financial pretraining. In our experiments, in-domain diversity beats high-quality general corpora. Mixed financial datasets reach 21.55 perplexity at 4B parameters. WikiText pretraining? 48.7 mean perplexity across financial evaluations. About 2.3$\times$ worse. This pushes against the common belief that general high-quality text always helps. We support the claim with visual evidence: 11 scaling figures and 18 tables. Ten tables report per-training-dataset results; eight report cross-dataset comparisons. The trend is hard to ignore.
 
 \textbf{2. Learning Rate Notes}
-All primary experiments used LR=2e-5. Three follow-ups behaved oddly (WikiText, Financial QA, Twitter). We lowered LR to $1\times10^{-5}$ or $5\times10^{-6}$ depending on the case. Training stabilized and performance improved. These are practical fixes in our setting, not universal rules. The plots show the recovery (\Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter}); the tables list exact metrics (\Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison}).
+All primary experiments used LR=2e-5. Three follow-ups behaved oddly (WikiText, Financial QA, Twitter). We lowered LR to $1\times10^{-5}$ or $5\times10^{-6}$ depending on the case. Training stabilized and performance improved. These are practical fixes in our setting, not universal rules. The plots show the recovery (\Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter}); the tables list exact metrics (\Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison}). In short, small LR cuts were enough.
 
 \textbf{3. Dataset Size Effects on Pretraining}
 We describe empirical thresholds linking dataset size to training viability:
@@ -47,16 +47,16 @@ We describe empirical thresholds linking dataset size to training viability:
     \item Medium datasets (20--100K samples): moderate overtraining (6--30 epochs); acceptable for narrow use cases
     \item Large datasets (> 100K samples): minimal overtraining (2--24 epochs); viable for standalone pretraining
 \end{itemize}
-These results offer practical guidance. When is mixing necessary? When is a single dataset enough? They also help teams plan limited annotation budgets. The ranges are approximate and tied to our data.
+These results offer practical guidance. When is mixing necessary? When is a single dataset enough? They also help teams plan limited annotation budgets. The ranges are approximate and tied to our data. Still, they match what we saw across runs.
 
 \textbf{4. Cross-Domain Interaction Analysis}
-We examined how high-quality general corpora (WikiText) interact with domain-specific financial data during pretraining. Conventional wisdom says they help. Our results are mixed. Sometimes WikiText adds little benefit; sometimes it hurts financial performance. Mixed WikiText+Financial pretraining: 26.69 perplexity. Pure financial mixing: 21.55. About 24\% worse when WikiText is added. Cross-dataset tables show this visually. WikiText rows rarely have bold (best) cells in financial evaluations. Mixed financial rows? Often bold. Still, the best balance depends on the application.
+We examined how high-quality general corpora (WikiText) interact with domain-specific financial data during pretraining. Conventional wisdom says they help. Our results are mixed. Sometimes WikiText adds little benefit; sometimes it hurts financial performance. Mixed WikiText+Financial pretraining: 26.69 perplexity. Pure financial mixing: 21.55. About 24\% worse when WikiText is added. Cross-dataset tables show this visually. WikiText rows rarely have bold (best) cells in financial evaluations. Mixed financial rows? Often bold. Still, the best balance depends on the application. In practice, pick the mixture for your use case.
 
 \textbf{5. Lightweight Financial Model Feasibility}
-Models in the 0.6B--4B range can reach practical financial NLP performance with good data mixtures and careful tuning. This enables edge deployment. Our 4B model reaches 21.55 perplexity on diverse financial tasks. Competitive with much larger models, yet it runs on consumer hardware. This matters in practice.
+Models in the 0.6B--4B range can reach practical financial NLP performance with good data mixtures and careful tuning. This enables edge deployment. Our 4B model reaches 21.55 perplexity on diverse financial tasks. Competitive with much larger models, yet it runs on consumer hardware. This matters in practice. For deployment, the middle size is often the sweet spot.
 
 \textbf{6. Open-Source Training Pipeline}
-We release a complete codebase for mixture-based pretraining. It includes an evaluation suite spanning 10 experiments and 30 trained models. It supports automatic mixture composition, multi-dataset evaluation, and structured hyperparameter search.
+We release a complete codebase for mixture-based pretraining. It includes an evaluation suite spanning 10 experiments and 30 trained models. It supports automatic mixture composition, multi-dataset evaluation, and structured hyperparameter search. Simple to run; easy to extend.
 
 \section{Thesis Organization}
 
@@ -64,26 +64,26 @@ Here is how the thesis is structured.
 
 \textbf{Chapter 2: Background and Related Work} covers financial NLP, pretraining objectives, data mixture strategies, and domain adaptation. It also situates this work in transfer learning and scaling laws.
 
-\textbf{Chapter 3: Methodology} details the experimental design. Model family (Qwen3). Datasets (7 financial datasets, 207M tokens total, plus WikiText). Mixture strategy (50cap rule). Training setup. We also explain how we discovered and addressed learning rate sensitivity during development. In short: what we did and why.
+\textbf{Chapter 3: Methodology} details the experimental design. Model family (Qwen3). Datasets (7 financial datasets, 207M tokens total, plus WikiText). Mixture strategy (50cap rule). Training setup. We also explain how we discovered and addressed learning rate sensitivity during development. In short: what we did and why. And where we adjusted.
 
 \textbf{Chapter 4: Results} presents findings with visuals: 11 scaling figures and 18 tables. We start with data-mixing effects—the core finding—then analyze individual datasets, examine training dynamics and learning rate sensitivity, and end with domain transfer patterns. Scaling figures show trends across model sizes. Cross-dataset tables show which approach works best for each evaluation scenario. Story first. Chronology second.
 
-\textbf{Chapter 5: Discussion} interprets results against prior work. Why does WikiText underperform on financial tasks? We analyze table patterns. What are the benefits of in-domain diversity? We read the scaling trends. Learning rate sensitivity? Practical notes. We end with guidelines for practitioners.
+\textbf{Chapter 5: Discussion} interprets results against prior work. Why does WikiText underperform on financial tasks? We analyze table patterns. What are the benefits of in-domain diversity? We read the scaling trends. Learning rate sensitivity? Practical notes. We end with guidelines for practitioners. Put another way, how to use this tomorrow.
 
 \textbf{Chapter 6: Conclusion} summarizes contributions, discusses implications for research and practice, and outlines future directions: larger models, dynamic mixing strategies, and downstream task evaluation.
 
 \section{Scope and Limitations}
 
-This thesis examines pretraining dynamics for causal language models in the 0.6B--4B range on financial text. Below are the scope and limitations.
+This thesis examines pretraining dynamics for causal language models in the 0.6B--4B range on financial text. Below are the scope and limitations. We keep claims within what we ran.
 
 \textbf{Model Architecture:} All experiments use Qwen3. We expect the learning-rate and data-mixing observations to generalize, but validating on other architectures (LLaMA, Gemma, Phi) would strengthen the claim.
 
 \textbf{Data Mixture Strategy:} We use one strategy, 50cap, which caps the largest dataset at 50\% of the mixture. Other strategies exist (square-root sampling, temperature sampling, curriculum). We did not test them; they could behave differently.
 
-\textbf{Evaluation Methodology:} We evaluate using perplexity on held-out test sets from the pretraining distribution. Perplexity correlates with downstream quality, but we do not directly measure task accuracy (sentiment classification, NER, Q\&A). This keeps focus on pretraining dynamics and limits direct application claims. Still, the correlation is known to hold.
+\textbf{Evaluation Methodology:} We evaluate using perplexity on held-out test sets from the pretraining distribution. Perplexity correlates with downstream quality, but we do not directly measure task accuracy (sentiment classification, NER, Q\&A). This keeps focus on pretraining dynamics and limits direct application claims. Still, the correlation is known to hold. See Chapter 4 tables.
 
 \textbf{Scale Range:} We cover 0.6B to 4B parameters due to hardware limits. Larger models (7B+) might show different dynamics and data sensitivity. The range we study remains relevant for edge deployment.
 
 \textbf{Domain Specificity:} We work on financial text. Some findings likely generalize (learning-rate effects, dataset-size effects). Others are domain-specific. The limited benefit of WikiText, for instance, may not hold in other fields.
 
-Training 30 models and running 240 evaluations provides evidence for our claims. We separate what needs further validation from what is well supported. Not everything is conclusive. That is acceptable.
+Training 30 models and running 240 evaluations provides evidence for our claims. We separate what needs further validation from what is well supported. Not everything is conclusive. That is acceptable. Still, the patterns are consistent.

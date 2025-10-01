@@ -11,7 +11,7 @@
 
 \section{Overview of Experimental Results}
 
-This chapter reports results from 10 pretraining experiments. Goal: measure data-mixing effects in financial language models. We trained 30 models (3 sizes $\times$ 10 experiments) and ran 240 evaluations (30 models $\times$ 8 test sets). In short: Mixed Financial wins on finance. \Cref{tab:experiments_overview} summarizes the setup and headline numbers.
+This chapter reports results from 10 pretraining experiments. Goal: measure data-mixing effects in financial language models, not to build a leaderboard. We trained 30 models (3 sizes $\times$ 10 experiments) and ran 240 evaluations (30 models $\times$ 8 test sets). In short: Mixed Financial wins on finance. \Cref{tab:experiments_overview} summarizes the setup and headline numbers.
 
 \begin{table}[h]
 \centering
@@ -47,7 +47,7 @@ Key observations. First, mixed financial datasets perform best across evaluation
 
 \section{Data Mixture Effects: The Core Finding}
 
-We ask a simple question: what mixture works best for finance? We compare three approaches: pure financial diversity (7 datasets), hybrid Wiki+financial (8 datasets), and pure general text (WikiText). The result is clear: \textbf{in-domain diversity beats both standalone datasets and general-domain pretraining}.
+We ask a simple question: what mixture works best for finance? We compare three approaches: pure financial diversity (7 datasets), hybrid Wiki+financial (8 datasets), and pure general text (WikiText). The result is clear: \textbf{in-domain diversity beats both standalone datasets and general-domain pretraining}. In our setup, the gap is not small.
 
 \subsection{Mixed Financial Datasets}
 
@@ -57,9 +57,9 @@ The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, 
 
 \textbf{Cross‑dataset consistency}. CV = 55\% (4B), a reasonable spread. Per‑set perplexities: News (15.2), SEC (18.7), FinGPT (19.4), Alpaca (21.8), FiQA (14.6), Financial QA (23.1), Twitter (25.9), WikiText (33.7). Strong on financial sets; moderate degradation on WikiText (expected domain mismatch).
 
-\textbf{Why it works}. 50cap prevents dominance (News capped at 50\%; others proportional). The model sees long‑form journalism (News), regulatory filings (SEC), instruction data (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), and short‑form social posts (Twitter). Diversity reduces overfitting while keeping domain focus.
+\textbf{Why it works}. 50cap prevents dominance (News capped at 50\%; others proportional). The model sees long‑form journalism (News), regulatory filings (SEC), instruction data (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), and short‑form social posts (Twitter). Diversity reduces overfitting while keeping domain focus. Not magic; just broader coverage.
 
-\textbf{Key insight}. Mixed financial pretraining is the default choice for general‑purpose financial NLP. Consistent across tasks. Scales well. See \Cref{tab:mixed_financial_results} for metrics by size and test set.
+\textbf{Key insight}. Mixed financial pretraining is the default choice for general‑purpose financial NLP. Consistent across tasks. Scales well. See \Cref{tab:mixed_financial_results} for metrics by size and test set. If you do not have a narrow target, start here.
 
 \begin{figure}[h]
 \centering
@@ -137,7 +137,7 @@ Comparing the three mixture strategies yields a clear hierarchy:
 
 \section{Individual Dataset Analysis: Component Effects}
 
-To see what each dataset contributes, we trained on all seven financial datasets individually. One pattern dominates: size matters for standalone pretraining.
+To see what each dataset contributes, we trained on all seven financial datasets individually. One pattern dominates: size matters for standalone pretraining. No surprise. The details still help decisions.
 
 \subsection{Large Datasets}
 
