@@ -239,3 +239,6 @@ Thumbs.db
 
 # Debug directories
 debug_grpo/
+
+# Personal prompt files
+prompt.md
