@@ -11,7 +11,7 @@
 
 \section{Overview of Experimental Results}
 
-This chapter presents results from 10 pretraining experiments evaluating data mixture effects in financial language models. We trained 30 models (3 sizes $\times$ 10 experiments) and conducted 240 evaluations (30 models $\times$ 8 test sets). \Cref{tab:experiments_overview} summarizes all experiments.
+This chapter reports results from 10 pretraining experiments. Goal: measure data-mixing effects in financial language models. We trained 30 models (3 sizes $\times$ 10 experiments) and ran 240 evaluations (30 models $\times$ 8 test sets). In short: Mixed Financial wins on finance. \Cref{tab:experiments_overview} summarizes the setup and headline numbers.
 
 \begin{table}[h]
 \centering
@@ -43,23 +43,23 @@ Twitter Sentiment & Twitter & 100M & 4B (12.35 ppl) \\
 \label{tab:experiments_overview}
 \end{table}
 
-Key observations: (1) Mixed financial datasets achieve the best overall performance across evaluation sets, (2) WikiText shows strong general-domain performance but poor financial transfer, (3) large individual datasets (News, SEC) are viable for standalone pretraining, (4) small datasets (Financial QA, Twitter) exhibit extreme overtraining (67-249 epochs) despite normalization efforts, indicating insufficient data diversity.
+Key observations. First, mixed financial datasets perform best across evaluation sets. Second, WikiText is strong in general text but transfers poorly to finance. Third, large individual datasets (News, SEC) are viable alone. Fourth, small datasets (Financial QA, Twitter) overtrain heavily (67--249 epochs), signaling low diversity. Bottom line: pick Mixed Financial unless you have a narrow, format-specific goal.
 
 \section{Data Mixture Effects: The Core Finding}
 
-Our central research question concerns optimal data mixture strategies for financial language model pretraining. We compare three mixture approaches: pure financial diversity (7 datasets), hybrid Wiki+financial (8 datasets), and pure general-domain (WikiText only). Results demonstrate that \textbf{in-domain diversity substantially outperforms both standalone datasets and general-domain pretraining}.
+We ask a simple question: what mixture works best for finance? We compare three approaches: pure financial diversity (7 datasets), hybrid Wiki+financial (8 datasets), and pure general text (WikiText). The result is clear: \textbf{in-domain diversity beats both standalone datasets and general-domain pretraining}.
 
 \subsection{Mixed Financial Datasets}
 
-The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 207M tokens with 50cap) achieves the best overall performance across model sizes and evaluation sets.
+The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 207M tokens with 50cap) achieves the best overall performance across sizes and evaluation sets.
 
-\textbf{Performance by Model Size}: Qwen3-0.6B: 27.84 ppl (mean across 8 test sets), Qwen3-1.7B: 24.12 ppl, Qwen3-4B: 21.55 ppl. Normal scaling holds with consistent improvements: 1.7B reduces perplexity by 13.4\% over 0.6B, 4B reduces by 10.7\% over 1.7B. This mixture demonstrates the strongest scale-dependent gains among all experiments. As visualized in \Cref{fig:scaling_mixed_financial}, both perplexity (left panel, log scale) and loss (right panel) decrease smoothly and monotonically across model sizes, with no irregularities or reversals.
+\textbf{Performance by model size}. 0.6B: 27.84 ppl (mean across 8 test sets). 1.7B: 24.12 ppl. 4B: 21.55 ppl. Normal scaling holds: 1.7B improves 13.4\% over 0.6B; 4B improves 10.7\% over 1.7B. Among all experiments, this mixture shows the strongest size‑driven gains. \Cref{fig:scaling_mixed_financial} shows both perplexity (log scale) and loss dropping smoothly with size.
 
-\textbf{Cross-Dataset Robustness}: Performance across the 8 evaluation sets shows relative spread (CV) of 55\% for the 4B model, indicating reasonable generalization. Individual test set perplexities: News (15.2), SEC (18.7), FinGPT (19.4), Alpaca (21.8), FiQA (14.6), Financial QA (23.1), Twitter (25.9), WikiText (33.7). The mixture performs well on all financial datasets with moderate degradation on WikiText (expected given domain mismatch).
+\textbf{Cross‑dataset robustness}. CV = 55\% (4B), a reasonable spread. Per‑set perplexities: News (15.2), SEC (18.7), FinGPT (19.4), Alpaca (21.8), FiQA (14.6), Financial QA (23.1), Twitter (25.9), WikiText (33.7). Strong on financial sets; moderate degradation on WikiText (expected domain mismatch).
 
-\textbf{Why This Works}: The 50cap strategy ensures no single dataset dominates (News capped at 50\%, remaining 6 datasets proportionally sampled). This produces exposure to diverse financial document types: long-form journalism (News), regulatory filings (SEC), instruction-following (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), and short-form social media (Twitter). The diversity prevents overfitting to dataset-specific artifacts while maintaining domain specialization.
+\textbf{Why it works}. 50cap prevents dominance (News capped at 50\%; others proportional). The model sees long‑form journalism (News), regulatory filings (SEC), instruction data (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), and short‑form social posts (Twitter). Diversity reduces overfitting while keeping domain focus.
 
-\textbf{Key Insight}: Mixed financial pretraining is the recommended approach for general-purpose financial NLP applications, providing robust performance across evaluation tasks with strong scaling properties. \Cref{tab:mixed_financial_results} provides detailed evaluation metrics across all 8 test sets for each model size.
+\textbf{Key insight}. Mixed financial pretraining is the default choice for general‑purpose financial NLP. Robust across tasks. Scales well. See \Cref{tab:mixed_financial_results} for metrics by size and test set.
 
 \begin{figure}[h]
 \centering
@@ -72,11 +72,11 @@ The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, 
 
 \subsection{Mixed Wiki+Financial}
 
-Adding WikiText to the 7-dataset financial mixture (8 total datasets, 307M tokens) provides marginal benefits for general-domain retention but slightly degrades financial performance.
+Adding WikiText to the financial mixture (8 datasets, 307M tokens) helps general‑domain retention a bit, but it slightly hurts financial performance.
 
-\textbf{Performance by Model Size}: Qwen3-0.6B: 31.42 ppl, Qwen3-1.7B: 28.95 ppl, Qwen3-4B: 26.69 ppl. Normal scaling observed but with larger perplexities than pure financial mixture at all scales. The 4B model's 26.69 ppl represents a 24\% increase over pure financial (21.55 ppl). \Cref{fig:scaling_mixed_wiki_financial} shows the scaling pattern remains monotonic but with consistently higher perplexity and loss values compared to pure financial mixture.
+\textbf{Performance by model size}. 0.6B: 31.42 ppl. 1.7B: 28.95 ppl. 4B: 26.69 ppl. Scaling is normal but worse than pure financial at every size. The 4B gap is 24\% (26.69 vs 21.55). \Cref{fig:scaling_mixed_wiki_financial} shows monotonic curves with consistently higher values than the pure financial mixture.
 
-\textbf{WikiText Benefit Analysis}: On WikiText test set specifically, Wiki+Financial mixture achieves 28.4 ppl (4B model) compared to 33.7 ppl for pure financial mixture, a 15.7\% improvement. However, this comes at the cost of financial performance: mean financial perplexity increases from 20.2 (pure financial) to 26.1 (Wiki+Financial), a 29.2\% degradation. This trade-off is evident in \Cref{tab:mixed_wiki_financial_results}, where Financial News evaluation shows 38.68 ppl (0.6B) compared to Mixed Financial's superior performance.
+\textbf{WikiText trade‑off}. On the WikiText test set, Wiki+Financial (4B) reaches 28.4 ppl vs 33.7 for pure financial, a 15.7\% gain. But mean financial perplexity worsens from 20.2 to 26.1 (29.2\% degradation). \Cref{tab:mixed_wiki_financial_results} shows this pattern clearly.
 
 \textbf{Trade-off Evaluation}: The mixture allocates approximately 25\% of tokens to WikiText (100M of 407M before 50cap normalization). For applications requiring both general and financial capabilities, this trade-off may be acceptable. However, for finance-focused deployments, the performance loss on financial tasks outweighs general-domain gains.
 
@@ -137,11 +137,11 @@ Comparing the three mixture strategies yields a clear hierarchy:
 
 \section{Individual Dataset Analysis: Component Effects}
 
-To understand which datasets contribute most to mixture performance and when standalone pretraining is viable, we trained models on each of the 7 financial datasets individually. Results reveal a clear relationship between dataset size and pretraining viability.
+To see what each dataset contributes, we trained on all seven financial datasets individually. One pattern dominates: size matters for standalone pretraining.
 
 \subsection{Large Datasets}
 
-Two datasets exceed 80M tokens: News Articles (197M) and SEC Reports (80M). Both demonstrate viable standalone pretraining with reasonable generalization.
+Two datasets exceed 80M tokens: News Articles (197M) and SEC Reports (80M). Both are viable alone and generalize reasonably.
 
 \textbf{News Articles (Lettria, 197M tokens)}:
 \begin{itemize}
@@ -161,9 +161,9 @@ Two datasets exceed 80M tokens: News Articles (197M) and SEC Reports (80M). Both
 \item \textbf{Relative spread}: 18\% (4B model), lowest among all experiments on SEC test set itself, but 32\% across all 8 evaluation sets
 \end{itemize}
 
-\textbf{Long-Form Transfer Pattern}: Both News and SEC models transfer well to each other (correlation: 0.82), suggesting that document length and narrative structure drive transferability. Models pretrained on long-form content struggle with short-form social media (Twitter) and conversational Q\&A formats.
+\textbf{Long‑form transfer}. News and SEC models transfer well to each other (corr = 0.82). Length and narrative structure drive transfer. Models trained on long‑form struggle with short‑form (Twitter) and conversational Q\&A.
 
-\textbf{Viability Conclusion}: Datasets exceeding 80-100M tokens support standalone pretraining with acceptable generalization, particularly within similar document formats. For specialized applications (e.g., SEC filing analysis), single large datasets may suffice. \Cref{fig:scaling_news_articles,fig:scaling_sec_reports} demonstrate clean scaling curves with no reverse scaling or training instabilities, confirming that large dataset size provides sufficient training signal for stable optimization across model scales.
+\textbf{Viability}. Datasets over 80--100M tokens support standalone pretraining with acceptable generalization, especially within similar formats. For targeted use (e.g., SEC filings), a single large dataset can be enough. \Cref{fig:scaling_news_articles,fig:scaling_sec_reports} show clean scaling without instabilities.
 
 \begin{figure}[h]
 \centering
@@ -297,11 +297,11 @@ Aggregating results across all 7 individual experiments reveals an empirical rel
 \item \textbf{$<$ 20M tokens}: Requires mixing, severe overtraining ($>$30 epochs), poor generalization
 \end{itemize}
 
-\textbf{Practical Implication}: When curating pretraining corpora, prioritize collecting 100M+ tokens per domain. If only smaller datasets are available, mixture strategies become essential. The 50cap approach successfully mitigates small dataset issues by preventing dominance while preserving diversity.
+\textbf{Practical implication}. When curating corpora, aim for 100M+ tokens per domain. If only small datasets are available, use mixtures. 50cap prevents dominance while preserving diversity.
 
 \section{Training Dynamics and Scaling Behavior}
 
-Beyond data mixture effects, our experiments revealed critical insights about model scaling behavior and hyperparameter sensitivity. We observed two distinct scaling patterns across our 10 experiments: normal scaling (larger models consistently outperform smaller ones) and reverse scaling (larger models underperform), with the latter resolved through systematic learning rate adjustment.
+Beyond mixtures, two scaling patterns stood out. Normal scaling: larger models beat smaller ones. Reverse scaling: larger models underperform. The second case disappeared after simple learning‑rate adjustments.
 
 \subsection{Normal Scaling Pattern}
 
@@ -325,7 +325,7 @@ Seven of ten experiments exhibited expected scaling behavior where larger models
 
 \subsection{Reverse Scaling Phenomenon}
 
-Three experiments exhibited \textit{reverse scaling}: larger models performed worse than smaller models with uniform hyperparameters, contradicting standard scaling laws. This phenomenon provided critical insights into hyperparameter sensitivity.
+Three experiments showed \textit{reverse scaling}: with the same hyperparameters, larger models did worse than smaller ones. That contradicts standard scaling laws. It also exposes learning‑rate sensitivity.
 
 \textbf{WikiText (100M tokens) - Most Severe Case}:
 \begin{itemize}

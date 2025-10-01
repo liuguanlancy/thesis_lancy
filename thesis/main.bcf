@@ -2546,11 +2546,11 @@
     <bcf:citekey order="4">gao2020pile</bcf:citekey>
     <bcf:citekey order="4">raffel2020exploring</bcf:citekey>
     <bcf:citekey order="4">longpre2023pretrainer</bcf:citekey>
-    <bcf:citekey order="5">yang2024qwen2</bcf:citekey>
-    <bcf:citekey order="5">xia2023sheared</bcf:citekey>
-    <bcf:citekey order="5">team2024gemma</bcf:citekey>
-    <bcf:citekey order="5">javaheripi2023phi</bcf:citekey>
-    <bcf:citekey order="6">wu2023bloomberggpt</bcf:citekey>
+    <bcf:citekey order="5">wu2023bloomberggpt</bcf:citekey>
+    <bcf:citekey order="6">yang2024qwen2</bcf:citekey>
+    <bcf:citekey order="6">xia2023sheared</bcf:citekey>
+    <bcf:citekey order="6">team2024gemma</bcf:citekey>
+    <bcf:citekey order="6">javaheripi2023phi</bcf:citekey>
     <bcf:citekey order="7">eu2016gdpr</bcf:citekey>
     <bcf:citekey order="8">kaplan2020scaling</bcf:citekey>
     <bcf:citekey order="8">hoffmann2022training</bcf:citekey>
@@ -2609,13 +2609,8 @@
     <bcf:citekey order="48">merity2016pointer</bcf:citekey>
     <bcf:citekey order="49">longpre2023pretrainer</bcf:citekey>
     <bcf:citekey order="50">kaplan2020scaling</bcf:citekey>
-    <bcf:citekey order="51">kaplan2020scaling</bcf:citekey>
-    <bcf:citekey order="52">hoffmann2022training</bcf:citekey>
-    <bcf:citekey order="53">kaplan2020scaling</bcf:citekey>
-    <bcf:citekey order="53">hoffmann2022training</bcf:citekey>
-    <bcf:citekey order="54">kaplan2020scaling</bcf:citekey>
-    <bcf:citekey order="54">hoffmann2022training</bcf:citekey>
-    <bcf:citekey order="55">xie2023doremi</bcf:citekey>
+    <bcf:citekey order="50">hoffmann2022training</bcf:citekey>
+    <bcf:citekey order="51">xie2023doremi</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

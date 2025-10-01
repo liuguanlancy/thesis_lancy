@@ -1,18 +1,18 @@
 \chapter{Methodology}
 
-This chapter describes our experimental methodology for studying data mixture effects in financial language model pretraining. We begin with an overview of the experimental design, then detail the model architecture, datasets, training setup with hyperparameter tuning, and evaluation protocol.
+This chapter explains how we ran the study. First, the design. Then models, datasets, training setup, and finally evaluation. The goal is simple: fair, repeatable comparisons.
 
 \section{Experimental Design Overview}
 
-We evaluate \textbf{10 pretraining configurations}: 2 mixtures (Financial; Wiki+Financial) and 8 single-dataset baselines. Each configuration is trained at three model sizes (0.6B/1.7B/4B) with a fixed \textbf{100M-token budget} and evaluated on \textbf{8 held-out test sets}. We additionally run 6 follow-up runs with adjusted learning rates to address training stability at larger scales. \Cref{tab:exp_settings} summarizes the settings used throughout.
+We evaluate \textbf{10 pretraining configurations}. Two mixtures (Financial; Wiki+Financial). Eight single-dataset baselines. Each configuration trains at three sizes (0.6B/1.7B/4B). All with a fixed \textbf{100M-token budget}. We evaluate on \textbf{8 held-out test sets}. We also run six follow-ups with adjusted learning rates to address stability at larger scale. \Cref{tab:exp_settings} summarizes the settings. In short: fix tokens, vary size and data.
 
 \input{tables/table_experimental_settings}
 
-This design supports our research questions on mixture composition, model scale, dataset size, and domain transfer. Results are presented in Chapter 4.
+This design targets our questions on mixture composition, model scale, dataset size, and domain transfer. Results appear in Chapter 4.
 
 \section{Model Architecture}
 
-We use the \textbf{Qwen3 model family} \parencite{yang2024qwen2}, a series of open-source transformer-based decoder-only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped-query attention (GQA) for memory efficiency and supports both standard and flash attention mechanisms. We select three model sizes from the Qwen3-Base series (pretrained checkpoints without post-training alignment), detailed in \Cref{tab:model_specs}.
+We use the \textbf{Qwen3} family \parencite{yang2024qwen2}. It is a set of open-source, decoder-only transformer LMs pretrained on diverse multilingual corpora. Qwen3 uses grouped-query attention (GQA) for memory efficiency and supports standard and flash attention. We select three sizes from the Qwen3-Base series (pretrained checkpoints without post-training alignment). Specs are in \Cref{tab:model_specs}.
 
 \begin{table}[h]
 \centering
@@ -29,13 +29,13 @@ Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
 \end{tabular}
 \end{table}
 
-We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) strong baseline performance on general and domain-specific benchmarks, and (3) efficient inference suitable for edge deployment scenarios (all models fit on consumer hardware).
+We chose Qwen3 for three reasons. Consistent architecture across sizes enables clean comparisons. Strong baselines on general and domain tasks. Efficient inference suitable for edge deployment (all models fit on consumer hardware).
 
 \section{Datasets}
 
 \subsection{Financial Datasets}
 
-We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 207M tokens), summarized in \Cref{tab:financial_datasets}. These datasets exhibit wide variance in size (0.3M--197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets), enabling comprehensive study of intra-domain diversity effects.
+We curate seven financial datasets covering multiple tasks, document types, and scales (total: 207M tokens), summarized in \Cref{tab:financial_datasets}. Sizes vary from 0.3M to 197M tokens. Formats include news, reports, Q\&A, and social media. Formality ranges from regulatory filings to tweets. This lets us study intra-domain diversity.
 
 \begin{table}[h]
 \centering
@@ -65,7 +65,7 @@ Twitter Sentiment & 1.1K & 0.3M & Social Media & Labeled tweets ($<$280 chars) w
 
 \subsection{WikiText}
 
-We use \textbf{WikiText-103} \parencite{merity2016pointer} as a general-domain baseline, summarized in \Cref{tab:wikitext_dataset}. WikiText serves two purposes: (1) evaluating domain transfer (general $\leftrightarrow$ financial), and (2) testing whether high-quality general corpora complement financial pretraining in mixtures.
+We use \textbf{WikiText-103} \parencite{merity2016pointer} as a general-domain baseline (\Cref{tab:wikitext_dataset}). It serves two purposes: evaluate domain transfer (general $\leftrightarrow$ financial), and test whether high-quality general text complements financial pretraining in mixtures.
 
 \begin{table}[h]
 \centering
@@ -146,9 +146,9 @@ Beyond learning rate, we maintained consistent hyperparameters across experiment
 
 \subsection{Computational Budget}
 
-To ensure fair comparison across all experiments, we normalized the token budget to \textbf{100M tokens per training run}, regardless of dataset size or model scale. This design controls for data exposure while allowing investigation of how model size and data characteristics interact.
+For fairness, every run uses \textbf{100M tokens}, regardless of dataset size or model scale. This controls data exposure while we study model size and data characteristics.
 
-\textbf{Experimental Scale}: Our study comprises 36 training runs in total:
+\textbf{Experimental scale}. We ran 36 training jobs:
 \begin{itemize}
     \item \textbf{2 mixture experiments}: Mixed Financial (7 datasets combined), Mixed Wiki+Financial (7 financial + WikiText)
     \item \textbf{8 individual datasets}: WikiText, Financial News, SEC Reports, FinGPT, Finance Alpaca, FiQA, Financial QA 10K, Twitter Financial
@@ -156,38 +156,38 @@ To ensure fair comparison across all experiments, we normalized the token budget
     \item \textbf{6 additional learning rate adjustment runs}: Upon observing abnormalities in the baseline results, we conducted follow-up experiments with adjusted learning rates for three datasets (WikiText 1.7B \& 4B, Financial QA 1.7B \& 4B, Twitter 1.7B \& 4B) to investigate hyperparameter sensitivity at scale
 \end{itemize}
 
-\textbf{Total computational cost}: $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) rented from Lambda Labs, each 100M-token run required 2--8 hours depending on model size (0.6B: $\sim$2h, 1.7B: $\sim$4h, 4B: $\sim$8h), totaling approximately 150 GPU-hours for the complete experimental suite.
+\textbf{Total compute}. $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) from Lambda Labs, each 100M-token run took 2--8 hours by size (0.6B: $\sim$2h; 1.7B: $\sim$4h; 4B: $\sim$8h). Roughly 150 GPU-hours in total.
 
-This token-controlled design ensures that observed performance differences reflect genuine model-data interactions rather than artifacts of unequal training compute. Variable epoch counts (2-249 epochs across experiments) emerge naturally from dataset size variation while maintaining constant token exposure.
+This token-controlled design helps isolate model--data interactions rather than compute artifacts. Variable epoch counts (2--249) come from dataset size differences while keeping token exposure fixed.
 
 \section{Evaluation Protocol}
 
 \subsection{Multi-Dataset Evaluation}
 
-Each trained model is evaluated on \textbf{8 held-out test sets} to measure both in-domain and out-of-domain generalization:
+Each trained model is evaluated on \textbf{8 held-out test sets} to measure in-domain and out-of-domain generalization:
 
-\textbf{Financial Test Sets} (7 datasets): Test splits from all 7 financial training datasets (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter). This evaluates how well models generalize to unseen examples within each financial domain.
+\textbf{Financial} (7 datasets): Test splits from all seven financial training datasets (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter). Measures generalization to unseen examples within each financial domain.
 
-\textbf{General Test Set} (1 dataset): WikiText test split. This measures retention of general language capabilities and tests cross-domain transfer (financial $\to$ general and general $\to$ financial).
+\textbf{General} (1 dataset): WikiText test split. Measures retention of general language capability and cross-domain transfer (financial $\to$ general and general $\to$ financial).
 
-For models trained on dataset $D$, evaluation on $D$'s test set measures in-domain generalization; evaluation on other datasets measures cross-dataset transfer. For mixed models, all 8 test sets measure generalization across the mixture distribution.
+For a model trained on dataset $D$, evaluating on $D$ measures in-domain generalization; other datasets measure cross-dataset transfer. For mixed models, all eight test sets probe generalization across the mixture.
 
 \subsection{Metrics}
 
 We report three complementary metrics:
 
-\textbf{Cross-Entropy Loss}: Primary metric; average negative log-likelihood per token.
+\textbf{Cross-Entropy Loss}. Primary metric; average negative log-likelihood per token.
 \begin{equation*}
     \mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N} \log P\bigl(w_i \,\mid\, w_{<i}\bigr)
 \end{equation*}
 Lower is better.
 
-\textbf{Perplexity}: Interpretable transformation of cross-entropy: $\text{PPL} = \exp(\mathcal{L})$. Represents effective vocabulary size the model considers at each prediction. PPL = 10 means the model is effectively choosing among 10 tokens on average. Lower is better. Primary metric for comparisons in this thesis.
+\textbf{Perplexity}. Interpretable transform of cross-entropy: $\text{PPL} = \exp(\mathcal{L})$. Roughly, the effective vocabulary size per prediction. PPL = 10 means the model effectively chooses among ten tokens on average. Lower is better. This is our primary comparison metric.
 
-\textbf{Relative Spread (Coefficient of Variation)}: Cross-dataset variability of performance. Compute CV\% on the 8 perplexities (one per evaluation set) as
+\textbf{Relative Spread (Coefficient of Variation)}. Cross-dataset variability. Compute CV\% on the eight perplexities (one per evaluation set) as
 \begin{equation*}
     \text{CV}\% = 100\,\frac{\text{sample std. dev. of PPL}}{\text{mean PPL}}\, .
 \end{equation*}
-Lower CV\% indicates more consistent performance across datasets; higher CV\% indicates specialization or brittleness.
+Lower CV\% means more consistent performance across datasets; higher CV\% means specialization or brittleness.
 
-All metrics are computed on full test sets (no subsampling) with the same sequence length (1,024 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).
+All metrics use full test sets (no subsampling), the same sequence length (1,024 tokens), and the same batch size as training. We evaluate the final checkpoint. No selection by validation, since we lack task-specific validation sets.

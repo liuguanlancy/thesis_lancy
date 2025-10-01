@@ -8,27 +8,27 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Mixed Financial Dataset: Scaling Behavior}}{20}{figure.caption.11}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Mixed Financial Dataset: Scaling Behavior}}{16}{figure.caption.11}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Mixed Wiki+Financial Dataset: Scaling Behavior}}{21}{figure.caption.13}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Mixed Wiki+Financial Dataset: Scaling Behavior}}{18}{figure.caption.13}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces WikiText Dataset: Reverse Scaling}}{22}{figure.caption.15}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces WikiText Dataset: Reverse Scaling}}{19}{figure.caption.15}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Comparison of Mixture Strategies}}{23}{figure.caption.17}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Comparison of Mixture Strategies}}{20}{figure.caption.17}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Financial News Dataset: Scaling Behavior}}{25}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Financial News Dataset: Scaling Behavior}}{21}{figure.caption.18}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.6}{\ignorespaces SEC Reports Dataset: Scaling Behavior}}{25}{figure.caption.19}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces SEC Reports Dataset: Scaling Behavior}}{22}{figure.caption.19}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.7}{\ignorespaces FinGPT Sentiment Dataset: Scaling Behavior}}{27}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces FinGPT Sentiment Dataset: Scaling Behavior}}{23}{figure.caption.22}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Finance Alpaca Dataset: Scaling Behavior}}{27}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Finance Alpaca Dataset: Scaling Behavior}}{24}{figure.caption.23}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.9}{\ignorespaces FiQA Dataset: Scaling Behavior}}{28}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces FiQA Dataset: Scaling Behavior}}{24}{figure.caption.24}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Financial QA 10K Dataset: Reverse Scaling}}{30}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Financial QA 10K Dataset: Reverse Scaling}}{26}{figure.caption.28}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Twitter Financial Sentiment Dataset: Reverse Scaling}}{30}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Twitter Financial Sentiment Dataset: Reverse Scaling}}{27}{figure.caption.29}%
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
