@@ -1,0 +1,25 @@
+% Experimental Settings Summary Table
+\begin{table}[h]
+\centering
+\caption[Experimental Settings Summary]{Summary of experimental settings used across all pretraining runs.}
+\label{tab:exp_settings}
+\small
+\begin{tabular}{p{3.8cm} p{9.5cm}}
+\toprule
+\textbf{Aspect} & \textbf{Setting} \\
+\midrule
+Pretraining configurations & 10 total: 2 mixtures (Financial; Wiki+Financial) + 8 single-dataset runs \\
+Model sizes & Qwen3-0.6B, Qwen3-1.7B, Qwen3-4B \\
+Token budget & 100M tokens per run (normalized across datasets and model sizes) \\
+Sequence length & 1{,}024 tokens \\
+Optimizer & AdamW ($\beta_1$=0.9, $\beta_2$=0.999, $\epsilon$=$10^{-8}$), weight decay 0.01 \\
+LR schedule & Cosine decay, 1{,}000 warmup steps, minimum LR $10^{-6}$ \\
+Learning rate & $2\times10^{-5}$ for all main runs; ad-hoc smaller LRs used in a few follow-ups when anomalies were observed \\
+Batching & Effective batch size 8; gradient accumulation used only when memory was insufficient \\
+Precision & bfloat16 mixed precision; dropout 0.0 \\
+Hardware & NVIDIA RTX A6000 (48GB), A100 (40GB), H100 (80GB); GPUs rented from Lambda Labs \\
+Mixture policy & 50cap-proportional sampling to limit dominance of large sources \\
+Evaluation & 8 held-out test sets (7 financial + WikiText); metrics: Cross-Entropy, Perplexity, CV\% \\
+\bottomrule
+\end{tabular}
+\end{table}

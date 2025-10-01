@@ -4,21 +4,15 @@ This chapter describes our experimental methodology for studying data mixture ef
 
 \section{Experimental Design Overview}
 
-Our research investigates how different data sources interact during pretraining and their impact on model performance across financial and general-domain evaluation tasks. The experimental framework consists of \textbf{10 distinct experiments} spanning three categories:
+We evaluate \textbf{10 pretraining configurations}: 2 mixtures (Financial; Wiki+Financial) and 8 single-dataset baselines. Each configuration is trained at three model sizes (0.6B/1.7B/4B) with a fixed \textbf{100M-token budget} and evaluated on \textbf{8 held-out test sets}. We additionally run 6 follow-up runs with adjusted learning rates to address training stability at larger scales. \Cref{tab:exp_settings} summarizes the settings used throughout.
 
-\textbf{1. Mixture Experiments} (3 experiments): Test different data combination strategies by pretraining on mixed datasets with controlled proportions. These experiments directly address our core research question about optimal mixture composition.
+\input{tables/table_experimental_settings}
 
-\textbf{2. Individual Dataset Experiments} (7 experiments): Establish baselines by pretraining on single datasets to understand each dataset's individual contribution and identify when standalone training is viable versus when mixing is necessary.
-
-\textbf{3. Learning Rate Adjustment Experiments}: Systematic hyperparameter tuning to resolve training instabilities observed in initial experiments, particularly the ``reverse scaling'' phenomenon where larger models underperformed smaller ones.
-
-Each experiment trains models at three scales (0.6B, 1.7B, 4B parameters) to study scale-dependent effects, yielding \textbf{30 trained models}. All models are evaluated on \textbf{8 held-out test sets} covering financial sentiment, Q\&A, documents, and general text, producing \textbf{240 evaluation data points}.
-
-This comprehensive design enables us to answer our four research questions: (RQ1) optimal mixture composition, (RQ2) model size and training dynamics, (RQ3) dataset size effects, and (RQ4) domain transfer patterns. Results are presented in Chapter 4 with extensive visual documentation: 11 scaling figures showing performance trends across model sizes, 10 per-training-dataset tables showing detailed evaluation metrics, and 8 cross-dataset comparison tables identifying optimal training approaches for each evaluation scenario.
+This design supports our research questions on mixture composition, model scale, dataset size, and domain transfer. Results are presented in Chapter 4.
 
 \section{Model Architecture}
 
-We use the \textbf{Qwen2 model family} \parencite{yang2024qwen2}, a series of open-source transformer-based decoder-only language models pretrained on diverse multilingual corpora. Qwen2 employs grouped-query attention (GQA) for memory efficiency and supports both standard and flash attention mechanisms. We select three model sizes from the Qwen2-Base series (pretrained checkpoints without post-training alignment), detailed in \Cref{tab:model_specs}.
+We use the \textbf{Qwen3 model family} \parencite{yang2024qwen2}, a series of open-source transformer-based decoder-only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped-query attention (GQA) for memory efficiency and supports both standard and flash attention mechanisms. We select three model sizes from the Qwen3-Base series (pretrained checkpoints without post-training alignment), detailed in \Cref{tab:model_specs}.
 
 \begin{table}[h]
 \centering
@@ -71,11 +65,21 @@ Twitter Sentiment & 1.1K & 0.3M & Social Media & Labeled tweets ($<$280 chars) w
 
 \subsection{WikiText}
 
-We use \textbf{WikiText-103} \parencite{merity2016pointer}, a standard high-quality general-domain corpus. WikiText consists of verified Wikipedia articles (103K documents, $\sim$100M tokens) covering diverse topics with encyclopedic writing style. Text is well-formed, grammatically correct, and factually grounded.
+We use \textbf{WikiText-103} \parencite{merity2016pointer} as a general-domain baseline, summarized in \Cref{tab:wikitext_dataset}. WikiText serves two purposes: (1) evaluating domain transfer (general $\leftrightarrow$ financial), and (2) testing whether high-quality general corpora complement financial pretraining in mixtures.
 
-WikiText serves two purposes in our experiments: (1) as a baseline for evaluating domain transfer from general to financial text, and (2) as a potential complementary data source for mixed pretraining (testing whether high-quality general corpora improve financial performance).
-
-Key characteristics: formal register, broad topical coverage (no financial focus), clean preprocessing (no markup artifacts), comparable size to our largest individual financial datasets (News, SEC). This comparability enables fair comparison of domain-specific vs general pretraining.
+\begin{table}[h]
+\centering
+\caption[WikiText Dataset Characteristics]{WikiText-103 characteristics. Similar scale to SEC; smaller than News.}
+\label{tab:wikitext_dataset}
+\small
+\begin{tabular}{p{3cm}cccp{5.5cm}}
+\toprule
+\textbf{Dataset} & \textbf{Examples} & \textbf{Tokens} & \textbf{Genre} & \textbf{Description} \\
+\midrule
+WikiText-103 & 103K & 103M & Encyclopedia & Verified Wikipedia articles with formal register, broad topical coverage, clean preprocessing \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Mixture Strategies}
 
@@ -102,92 +106,59 @@ This strategy contrasts with temperature sampling (which requires tuning hyperpa
 
 \subsection{Initial Configuration}
 
-All models were initially trained with uniform hyperparameters across scales to establish baseline performance. The configuration follows standard practices for causal language modeling:
+All models were trained with uniform hyperparameters across scales to establish baseline performance. The configuration follows standard practices for causal language modeling:
 
 \textbf{Optimizer}: AdamW with $\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$, weight decay $0.01$
 
-\textbf{Learning Rate}: $2 \times 10^{-5}$ (uniform across all model sizes initially)
+\textbf{Learning Rate}: $2 \times 10^{-5}$ (used for all main settings)
 
 \textbf{LR Schedule}: Cosine decay with 1,000 warmup steps, minimum LR $10^{-6}$
 
-\textbf{Batch Configuration}: Per-device batch size 4, gradient accumulation steps 8, effective global batch size 32 (4 devices $\times$ 4 $\times$ 8)
+\textbf{Batch Configuration}: Effective batch size 8 across all runs. When device memory was insufficient for a given model/sequence length, we used gradient accumulation to maintain the same effective batch size.
 
-\textbf{Sequence Length}: 2,048 tokens (trade-off between context and memory efficiency)
+\textbf{Sequence Length}: 1,024 tokens (fixed for all runs)
 
 \textbf{Precision}: bfloat16 mixed precision for memory efficiency
 
 \textbf{Training Duration}: Dataset-dependent. Small datasets ($<$20K samples) trained for maximum epochs to reach $\sim$100M token budget; large datasets trained for 2-5 epochs. All models exposed to approximately 100M training tokens for fair comparison.
 
-\textbf{Hardware}: NVIDIA RTX 4090 (24GB VRAM) and Apple M1 Max (32GB unified memory). Distributed data parallelism across 4 GPUs where available; single-device training for M1 Max with gradient accumulation.
+\textbf{Hardware}: NVIDIA RTX A6000 (48GB), A100 (40GB), and H100 (80GB) GPUs rented from Lambda Labs. Gradient accumulation was applied as needed to fit memory constraints.
 
-This uniform configuration enabled rapid experimentation but revealed significant training instabilities for larger models, motivating the systematic learning rate adjustments described next.
+When we observed abnormalities in a few experiments, we reran those specific cases with smaller LRs as a simple heuristic to stabilize training. We do not claim any theoretical scaling rule for LR; these adjustments were pragmatic.
 
-\subsection{Discovery of Reverse Scaling}
+\subsection{Pragmatic Learning Rate Adjustments}
 
-Initial experiments revealed a surprising ``reverse scaling'' phenomenon: in 3 out of 10 experiments, larger models performed \textit{worse} than smaller models, contradicting established scaling laws:
-
-\textbf{WikiText Pretraining}: Qwen3-0.6B achieved 9.68 perplexity, Qwen3-4B achieved 31.54 perplexity (3.3$\times$ worse), and Qwen3-1.7B suffered training collapse (infinite loss). This severe degradation signaled fundamental training instability.
-
-\textbf{Financial QA 10K}: Qwen3-1.7B (8.42 ppl) outperformed Qwen3-4B (9.02 ppl) and Qwen3-0.6B (9.69 ppl), suggesting hyperparameter mismatch rather than capacity limitation.
-
-\textbf{Twitter Sentiment}: Qwen3-1.7B (12.55 ppl) $<$ Qwen3-0.6B (16.28 ppl) $<$ Qwen3-4B (18.05 ppl). Clear monotonic degradation with increasing model size.
-
-Critically, reverse scaling occurred across different dataset types (general text, small financial datasets, short-form social media), suggesting a systematic issue rather than dataset-specific artifacts. Other experiments (FiQA, FinGPT, News, SEC, Alpaca) showed normal scaling (larger models better), indicating the instability was not universal but depended on dataset characteristics and/or model size.
-
-This pattern contradicted the literature's expectation that larger models are more sample-efficient \parencite{kaplan2020scaling}. We hypothesized that the uniform learning rate ($2 \times 10^{-5}$), appropriate for 0.6B models, was too large for 1.7B and 4B models, causing training instability.
-
-\subsection{Systematic Learning Rate Adjustment}
-
-To test our hypothesis, we conducted targeted retraining experiments on the three datasets exhibiting reverse scaling, systematically reducing learning rates for 1.7B and 4B models:
-
-\textbf{Learning Rate Candidates}:
-\begin{itemize}
-\item 0.6B: $2 \times 10^{-5}$ (unchanged, served as reference)
-\item 1.7B: tested $1 \times 10^{-5}$ (50\% reduction)
-\item 4B: tested $5 \times 10^{-6}$ (75\% reduction), $3 \times 10^{-6}$ (85\% reduction)
-\end{itemize}
-
-\textbf{Results - Financial QA 10K}: 4B model with LR $5 \times 10^{-6}$ achieved 8.09 ppl (down from 9.02 ppl, 10.3\% improvement), finally outperforming 1.7B (8.42 ppl) and 0.6B (9.69 ppl). Normal scaling restored.
-
-\textbf{Results - Twitter Sentiment}: 4B model with LR $5 \times 10^{-6}$ achieved 12.35 ppl (down from 18.05 ppl, 31.6\% improvement), matching 1.7B performance (12.55 ppl) and substantially outperforming 0.6B (16.28 ppl).
-
-\textbf{Results - WikiText}: 1.7B model with LR $1 \times 10^{-5}$ achieved stable training (down from collapse), though 0.6B still performed best on this general-domain task. 4B model showed improvement but remained suboptimal, suggesting WikiText benefits less from scale than financial data.
-
-These adjustments demonstrated that reverse scaling was a \textit{training artifact} rather than a fundamental model limitation. Proper learning rate scaling restored expected performance hierarchies.
-
-\subsection{Final Learning Rate Recommendations}
-
-Based on systematic experiments and validation across all 10 training regimes, we establish the following learning rate scaling guidelines for Qwen3 models:
-
-\begin{table}[h]
-\centering
-\begin{tabular}{lccc}
-\toprule
-\textbf{Model Size} & \textbf{Learning Rate} & \textbf{Reduction Factor} & \textbf{Scaling Ratio} \\
-\midrule
-0.6B & $2 \times 10^{-5}$ & 1.0$\times$ (baseline) & --- \\
-1.7B & $1 \times 10^{-5}$ & 0.5$\times$ & $\sqrt{1.7/0.6} \approx 1.68$ \\
-4B & $5 \times 10^{-6}$ & 0.25$\times$ & $\sqrt{4/0.6} \approx 2.58$ \\
-\bottomrule
-\end{tabular}
-\caption[Learning Rate Recommendations by Model Size]{Learning rate recommendations by model size. Reduction factors follow approximate inverse square-root scaling relative to 0.6B baseline.}
-\end{table}
-
-The empirical pattern suggests $LR \propto 1/\sqrt{\text{model\_size}}$, consistent with gradient magnitude scaling theory: larger models accumulate larger gradient norms, requiring smaller learning rates for stable optimization. This relationship holds across both financial and general domains in our experiments.
+In three configurations we observed abnormal behavior (e.g., larger models underperforming smaller ones). For these few cases, we retried with smaller learning rates (e.g., $1\times 10^{-5}$ or $5\times 10^{-6}$) purely as a practical heuristic to stabilize training. We do not propose or rely on a learning-rate scaling theory in this work. LR-comparison tables for the affected settings are reported in Chapter~4.
 
 \subsection{Other Hyperparameters}
 
 Beyond learning rate, we maintained consistent hyperparameters across experiments:
 
-\textbf{Batch Size and Accumulation}: Effective batch size 32 tokens across all runs, achieved through gradient accumulation. Larger batches ($>$64) showed minimal benefit while increasing memory requirements.
+\textbf{Batch Size and Accumulation}: Effective batch size 8 across all runs. We used gradient accumulation only when necessary to fit models and sequence lengths into GPU memory.
 
 \textbf{Warmup Steps}: 1,000 steps (3.1\% of training for 32K total steps) provided sufficient stabilization during initial training. Longer warmup did not improve final performance.
 
 \textbf{Training Epochs}: Varied by dataset size to normalize token exposure. Small datasets (Twitter, Financial QA) trained for 67-249 epochs to reach 100M token budget; medium datasets (FiQA, FinGPT, Alpaca) for 6-30 epochs; large datasets (SEC, News) for 2-24 epochs. This normalization ensures fair comparison across datasets of different sizes.
 
-\textbf{Maximum Sequence Length}: 2,048 tokens balanced context length with memory efficiency. Financial documents often exceed this length (SEC filings: 10K+ tokens), but longer sequences quadratically increase memory and slow training. We accept truncation as a practical trade-off.
+\textbf{Maximum Sequence Length}: 1,024 tokens. Financial documents often exceed this length (SEC filings: 10K+ tokens), but longer sequences quadratically increase memory and slow training. We accept truncation as a practical trade-off.
 
 \textbf{Dropout}: 0.0 (no dropout) following common practice for large-scale pretraining where overfitting is rarely observed.
+
+\subsection{Computational Budget}
+
+To ensure fair comparison across all experiments, we normalized the token budget to \textbf{100M tokens per training run}, regardless of dataset size or model scale. This design controls for data exposure while allowing investigation of how model size and data characteristics interact.
+
+\textbf{Experimental Scale}: Our study comprises 36 training runs in total:
+\begin{itemize}
+    \item \textbf{2 mixture experiments}: Mixed Financial (7 datasets combined), Mixed Wiki+Financial (7 financial + WikiText)
+    \item \textbf{8 individual datasets}: WikiText, Financial News, SEC Reports, FinGPT, Finance Alpaca, FiQA, Financial QA 10K, Twitter Financial
+    \item \textbf{3 model sizes per configuration}: 0.6B, 1.7B, 4B parameters across all 10 settings = 30 baseline runs
+    \item \textbf{6 additional learning rate adjustment runs}: Upon observing abnormalities in the baseline results, we conducted follow-up experiments with adjusted learning rates for three datasets (WikiText 1.7B \& 4B, Financial QA 1.7B \& 4B, Twitter 1.7B \& 4B) to investigate hyperparameter sensitivity at scale
+\end{itemize}
+
+\textbf{Total computational cost}: $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) rented from Lambda Labs, each 100M-token run required 2--8 hours depending on model size (0.6B: $\sim$2h, 1.7B: $\sim$4h, 4B: $\sim$8h), totaling approximately 150 GPU-hours for the complete experimental suite.
+
+This token-controlled design ensures that observed performance differences reflect genuine model-data interactions rather than artifacts of unequal training compute. Variable epoch counts (2-249 epochs across experiments) emerge naturally from dataset size variation while maintaining constant token exposure.
 
 \section{Evaluation Protocol}
 
@@ -205,24 +176,18 @@ For models trained on dataset $D$, evaluation on $D$'s test set measures in-doma
 
 We report three complementary metrics:
 
-\textbf{Cross-Entropy Loss}: Primary metric. Average negative log-likelihood per token: $\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N} \log P(w_i | w_{<i})$ where $w_i$ is the $i$-th token. Lower is better. Reports raw optimization objective.
+\textbf{Cross-Entropy Loss}: Primary metric; average negative log-likelihood per token.
+\begin{equation*}
+    \mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N} \log P\bigl(w_i \,\mid\, w_{<i}\bigr)
+\end{equation*}
+Lower is better.
 
 \textbf{Perplexity}: Interpretable transformation of cross-entropy: $\text{PPL} = \exp(\mathcal{L})$. Represents effective vocabulary size the model considers at each prediction. PPL = 10 means the model is effectively choosing among 10 tokens on average. Lower is better. Primary metric for comparisons in this thesis.
 
-\textbf{Relative Spread (Coefficient of Variation)}: Measures cross-dataset variance: $\text{CV} = \sigma / \mu$ where $\sigma$ is the (sample) standard deviation and $\mu$ is the mean \emph{perplexity} across the 8 evaluation test sets. Lower CV indicates more robust generalization (consistent performance across domains); higher CV indicates specialization or brittleness. Useful for comparing mixture strategies. We report CV as a percentage: $\text{CV}\% = 100\,\sigma/\mu$.
+\textbf{Relative Spread (Coefficient of Variation)}: Cross-dataset variability of performance. Compute CV\% on the 8 perplexities (one per evaluation set) as
+\begin{equation*}
+    \text{CV}\% = 100\,\frac{\text{sample std. dev. of PPL}}{\text{mean PPL}}\, .
+\end{equation*}
+Lower CV\% indicates more consistent performance across datasets; higher CV\% indicates specialization or brittleness.
 
-\paragraph{CV computation details}
-For each trained model/configuration $m$:
-\begin{enumerate}
-    \item Compute token-averaged cross-entropy on each evaluation set $d\in\mathcal{D}$, then convert to perplexity via $\mathrm{PPL}_d(m) = \exp(\mathcal{L}_d(m))$.
-    \item Form the 8-dimensional vector of perplexities $\mathbf{p}(m) = [\mathrm{PPL}_d(m)]_{d\in\mathcal{D}}$ (macro over datasets; all 8 sets are weighted equally).
-    \item Compute the macro mean and (sample) standard deviation across datasets:
-    \begin{equation*}
-        \mu(m) = \frac{1}{|\mathcal{D}|}\sum_{d\in\mathcal{D}} \mathrm{PPL}_d(m),\qquad
-        \sigma(m) = \sqrt{\frac{1}{|\mathcal{D}|-1}\sum_{d\in\mathcal{D}}\bigl(\mathrm{PPL}_d(m) - \mu(m)\bigr)^2} \, .
-    \end{equation*}
-    \item Report $\mathrm{CV}(m) = \sigma(m)/\mu(m)$ and $\mathrm{CV}\%(m) = 100\,\sigma(m)/\mu(m)$.
-\end{enumerate}
-Notes: (i) CV uses \emph{perplexity}, not cross-entropy. (ii) The averaging is \emph{macro} across datasets (each test set contributes equally), while each dataset-level perplexity itself is computed as a micro-average over all tokens in that test set. (iii) Configurations with any non-finite perplexity (e.g., training collapse leading to $\infty$) are excluded from CV computation and are flagged in tables; CV is computed only when all eight values are finite. When we report an \emph{in-domain} CV (e.g., for SEC in \Cref{tab:experiments_overview}), the same definition is applied over subdivisions within that dataset, whereas \emph{cross-dataset} CV uses the 8-set vector above.
-
-All metrics are computed on full test sets (no subsampling) with the same sequence length (2,048 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).
+All metrics are computed on full test sets (no subsampling) with the same sequence length (1,024 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).

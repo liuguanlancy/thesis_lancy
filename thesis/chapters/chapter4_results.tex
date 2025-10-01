@@ -16,30 +16,30 @@ This chapter presents results from 10 pretraining experiments evaluating data mi
 \begin{table}[h]
 \centering
 \small
-\begin{tabular}{lcccc}
+\begin{tabular}{lccc}
 \toprule
-\textbf{Experiment} & \textbf{Datasets} & \textbf{Tokens} & \textbf{Epochs} & \textbf{Best Model} \\
+\textbf{Experiment} & \textbf{Datasets} & \textbf{Token Budget} & \textbf{Best Model} \\
 \midrule
-\multicolumn{5}{l}{\textit{Mixture Experiments}} \\
-Mixed Financial & 7 financial & 207M & 3-8 & 4B (21.55 ppl) \\
-Mixed Wiki+Fin & 8 (Wiki+7 fin) & 307M & 2-6 & 4B (26.69 ppl) \\
-Pure WikiText & WikiText-103 & 100M & 2-5 & 0.6B (9.68 ppl) \\
+\multicolumn{4}{l}{\textit{Mixture Experiments}} \\
+Mixed Financial & 7 financial & 100M & 4B (21.55 ppl) \\
+Mixed Wiki+Fin & 8 (Wiki+7 fin) & 100M & 4B (26.69 ppl) \\
 \midrule
-\multicolumn{5}{l}{\textit{Large Individual Datasets}} \\
-News Articles & Lettria News & 197M & 2-3 & 4B (18.92 ppl) \\
-SEC Reports & SEC Filings & 80M & 6-24 & 4B (22.47 ppl) \\
+\multicolumn{4}{l}{\textit{Large Individual Datasets}} \\
+WikiText & WikiText-103 & 100M & 0.6B (9.68 ppl) \\
+News Articles & Lettria News & 100M & 4B (18.92 ppl) \\
+SEC Reports & SEC Filings & 100M & 4B (22.47 ppl) \\
 \midrule
-\multicolumn{5}{l}{\textit{Medium Individual Datasets}} \\
-FinGPT Sentiment & FinGPT & 19M & 12-30 & 4B (19.83 ppl) \\
-Finance Alpaca & Alpaca & 17M & 13-25 & 4B (25.14 ppl) \\
-FiQA & FiQA Q\&A & 4M & 6-8 & 4B (16.35 ppl) \\
+\multicolumn{4}{l}{\textit{Medium Individual Datasets}} \\
+FinGPT Sentiment & FinGPT & 100M & 4B (19.83 ppl) \\
+Finance Alpaca & Alpaca & 100M & 4B (25.14 ppl) \\
+FiQA & FiQA Q\&A & 100M & 4B (16.35 ppl) \\
 \midrule
-\multicolumn{5}{l}{\textit{Small Individual Datasets}} \\
-Financial QA 10K & 10K Q\&A & 3.5M & 67-100 & 4B (8.09 ppl) \\
-Twitter Sentiment & Twitter & 0.3M & 150-249 & 4B (12.35 ppl) \\
+\multicolumn{4}{l}{\textit{Small Individual Datasets}} \\
+Financial QA 10K & 10K Q\&A & 100M & 4B (8.09 ppl) \\
+Twitter Sentiment & Twitter & 100M & 4B (12.35 ppl) \\
 \bottomrule
 \end{tabular}
-\caption[Overview of Pretraining Experiments]{Overview of 10 pretraining experiments. Perplexity reported for best-performing model size on the corresponding training dataset's test set. Epochs vary by model size to normalize token exposure ($\sim$100M tokens per model).}
+\caption[Overview of Pretraining Experiments]{Overview of 10 pretraining experiments. All experiments use a 100M-token budget per model. Perplexity is reported for the best-performing model size on the corresponding training dataset's test set.}
 \label{tab:experiments_overview}
 \end{table}
 
@@ -321,7 +321,7 @@ Seven of ten experiments exhibited expected scaling behavior where larger models
 
 \textbf{Mixed Wiki+Financial (307M tokens)}: Normal scaling maintained despite domain mixture. 0.6B: 31.42 ppl, 1.7B: 28.95 ppl (7.9\% improvement), 4B: 26.69 ppl (7.8\% improvement, 15.1\% total). Smaller relative gains suggest that mixing diverse domains (general + financial) creates competing optimization pressures that partially limit scaling benefits.
 
-\textbf{Pattern Summary}: Normal scaling experiments share key characteristics: (1) dataset size $>$ 4M tokens, (2) stable training loss curves, (3) consistent 15-25\% total perplexity reduction from 0.6B to 4B, (4) larger absolute gains at 0.6B$\to$1.7B than 1.7B$\to$4B (diminishing returns pattern consistent with scaling laws).
+\textbf{Pattern Summary}: Normal scaling experiments share key characteristics: (1) dataset size $>$ 4M tokens, (2) stable training loss curves, (3) consistent 15-25\% total perplexity reduction from 0.6B to 4B, (4) larger absolute gains at 0.6B$\to$1.7B than 1.7B$\to$4B (diminishing returns pattern).
 
 \subsection{Reverse Scaling Phenomenon}
 
@@ -383,20 +383,7 @@ To diagnose reverse scaling, we conducted systematic learning rate experiments o
 \item \textbf{4B @ $5 \times 10^{-6}$}: 12.35 ppl, down from 18.05 ppl with original LR (31.6\% improvement). Matches 1.7B performance (12.55 ppl), successfully recovering from severe reverse scaling. This represents the largest single-hyperparameter improvement observed across all experiments.
 \end{itemize}
 
-\textbf{Empirical Learning Rate Scaling Law}: Aggregating results across all experiments (both normal and reverse scaling cases), we observe that optimal learning rate follows approximate inverse square-root scaling with model size:
-
-\[
-\text{LR}_{\text{optimal}}(N) \propto \frac{1}{\sqrt{N}}
-\]
-
-where $N$ is parameter count. Concretely:
-\begin{itemize}
-\item \textbf{0.6B} ($N = 6 \times 10^8$): LR = $2 \times 10^{-5}$ (baseline)
-\item \textbf{1.7B} ($N = 1.7 \times 10^9$): LR = $1 \times 10^{-5}$ (ratio: $\sqrt{1.7/0.6} \approx 1.68$, reduction: 50\%)
-\item \textbf{4B} ($N = 4 \times 10^9$): LR = $5 \times 10^{-6}$ (ratio: $\sqrt{4/0.6} \approx 2.58$, reduction: 75\%)
-\end{itemize}
-
-This scaling relationship aligns with optimization theory: gradient norms scale with $\sqrt{N}$ for randomly initialized networks, requiring proportionally smaller learning rates to maintain stable updates. Our empirical findings validate this theoretical prediction in the practical regime of 0.6B-4B models on financial/general text.
+\textbf{Observed LR Adjustments (Heuristic)}: In a few affected runs, smaller learning rates (e.g., $1\times10^{-5}$ for 1.7B and $5\times10^{-6}$ for 4B) stabilized training compared to the main setting (2e-5). We treat these reductions as pragmatic fixes for specific anomalies rather than as a general scaling rule.
 
 \subsection{Fixing Reverse Scaling}
 
@@ -410,13 +397,10 @@ The systematic LR adjustments provide actionable guidelines for practitioners fa
 \item Small dataset ($<$ 20M tokens) or very clean data (e.g., Wikipedia)
 \end{enumerate}
 
-\textbf{Resolution Protocol}:
+\textbf{What Worked for Us}:
 \begin{enumerate}
-\item \textbf{Reduce learning rate by 50\%} for model sizes 2-3$\times$ baseline (e.g., 0.6B$\to$1.7B)
-\item \textbf{Reduce learning rate by 75\%} for model sizes 4-7$\times$ baseline (e.g., 0.6B$\to$4B)
-\item \textbf{Monitor training stability}: Check gradient norms (should remain $<$1.0), loss curve smoothness
-\item \textbf{Extend warmup if needed}: Double warmup steps (1,000$\to$2,000) for very large models or small datasets
-\item \textbf{Verify recovery}: Larger model should outperform smaller model by 10-25\% on in-domain evaluation
+\item When larger models showed instability, we retried with a smaller LR (e.g., $1\times10^{-5}$ or $5\times10^{-6}$)
+\item We monitored loss curves for smooth convergence and continued with the stabilized setting
 \end{enumerate}
 
 \textbf{Success Metrics Post-Fix}: All three reverse scaling cases achieved expected performance hierarchies after LR adjustment:
@@ -426,7 +410,7 @@ The systematic LR adjustments provide actionable guidelines for practitioners fa
 \item WikiText: Training stabilized (though 0.6B remained optimal for this specific general-domain task)
 \end{itemize}
 
-\textbf{Broader Implications}: Reverse scaling is a \textit{training artifact}, not a fundamental limitation. Proper hyperparameter scaling resolves these issues, enabling reliable capacity improvements. This finding challenges interpretations of reverse scaling as evidence of model-specific deficiencies---most apparent regressions stem from inadequate hyperparameter adjustment during scaling.
+\textbf{Broader Implications}: Reverse scaling in our runs reflected training configuration issues rather than fundamental limitations. Simple LR reductions resolved the affected cases; we do not claim broader theoretical guidance beyond these observations.
 
 \subsection{Model Stability Analysis}
 
@@ -450,15 +434,15 @@ This counterintuitive result---larger models generalizing \textit{more consisten
 \item \textbf{Reverse scaling experiments (post-fix)}: Curves normalize, smooth convergence restored
 \end{itemize}
 
-\textbf{Optimal Configuration Summary}: For 0.6B-4B Qwen3 models on financial/general text:
+\textbf{Practical Configuration Notes}: For 0.6B-4B Qwen3 models on financial/general text:
 \begin{itemize}
 \item \textbf{Data}: Prefer diverse mixtures ($>$100M tokens) over single small datasets ($<$20M)
-\item \textbf{Learning Rate}: Scale by $1/\sqrt{N}$ relative to baseline (0.6B: 2e-5, 1.7B: 1e-5, 4B: 5e-6)
-\item \textbf{Batch Size}: Maintain effective batch size $\geq$ 32 across scales (use gradient accumulation if needed)
+\item \textbf{Learning Rate}: Use 2e-5 for main runs; if larger models show instability on a dataset, try a smaller LR (e.g., $1\times10^{-5}$ or $5\times10^{-6}$)
+\item \textbf{Batch Size}: Use effective batch size 8; apply gradient accumulation if needed to fit memory
 \item \textbf{Warmup}: 1,000 steps sufficient for stable training; increase to 2,000+ for datasets $<$ 10M tokens
 \end{itemize}
 
-These guidelines, derived from systematic experimentation, enable reliable model scaling in specialized domains.
+These notes reflect what worked in our setup and may help reproduce stable training in similar contexts.
 
 \section{Domain Transfer and Generalization Patterns}
 
@@ -646,9 +630,9 @@ This chapter presented results from 10 pretraining experiments (30 models, 240 e
 
 Mixed Financial datasets (7 datasets, 207M tokens, 50cap strategy) achieved best overall performance: 21.55 ppl @ 4B with 55\% cross-dataset variance. This substantially outperforms pure WikiText (48.7 ppl mean financial, 78\% CV) and individual financial datasets (mean: 24.8 ppl, 65\% CV). The result demonstrates that multiple in-domain datasets, even if individually small or noisy, provide better specialization and generalization than large, clean general corpora.
 
-\textbf{Learning Rate Scaling Laws}
+\textbf{Learning Rate Adjustments (Heuristic)}
 
-Optimal learning rate follows $\text{LR} \propto 1/\sqrt{N}$ where $N$ is parameter count. Empirically: 0.6B: $2 \times 10^{-5}$, 1.7B: $1 \times 10^{-5}$ (50\% reduction), 4B: $5 \times 10^{-6}$ (75\% reduction). This scaling law resolved reverse scaling in 3 experiments (WikiText, Financial QA, Twitter), recovering 10-32\% performance. \textbf{Reverse scaling is a training artifact, not a model limitation}.
+All main runs used LR=2e-5. In three follow-up runs with abnormalities (WikiText, Financial QA, Twitter), reducing LR (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) stabilized training and improved results. We present these as context-specific fixes, not as a scaling law.
 
 \textbf{Dataset Size Effects}
 
@@ -703,10 +687,10 @@ Resource-Constrained & Mixed Financial & 1.7B & 24.12 & 58\% \\
 
 \begin{enumerate}
 \item \textbf{Always mix in-domain data}: Even 7 small-to-medium datasets ($<$ 200M tokens total) outperform 100M tokens of high-quality general text for domain tasks.
-\item \textbf{Scale learning rate down by 50-75\%} when increasing model size 2-7$\times$. Failure to do so causes reverse scaling.
+\item \textbf{If larger models are unstable}, try a smaller LR. In affected runs, $1\times10^{-5}$ or $5\times10^{-6}$ worked for us.
 \item \textbf{Prioritize dataset diversity over size}: 7 datasets of 4-197M tokens (mixed) beats single 197M token dataset by 12\% (21.55 vs 18.92 ppl mean).
 \item \textbf{Format matching matters}: Train on formats you'll evaluate on. Long-form models fail on Q\&A; Q\&A models fail on documents; Twitter models fail on everything else.
 \item \textbf{100M tokens is sufficient} when properly mixed. Don't oversample small datasets—50cap strategy prevents dominance while preserving diversity.
 \end{enumerate}
 
-These results demonstrate that thoughtful data curation and hyperparameter scaling enable effective specialized LM pretraining in the 0.6B-4B regime, achieving strong performance on domain tasks while maintaining acceptable general capabilities.
+These results demonstrate that thoughtful data curation and stable training settings enable effective specialized LM pretraining in the 0.6B–4B regime, achieving strong performance on domain tasks while maintaining acceptable general capabilities.

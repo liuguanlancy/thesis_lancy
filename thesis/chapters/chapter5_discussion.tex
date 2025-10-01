@@ -10,9 +10,9 @@ Our 10 experiments (30 models, 240 evaluations) establish four major findings th
 
 Mixed Financial datasets achieved 21.55 ppl (4B) with 55\% variance, substantially better than WikiText's 48.7 ppl mean financial performance (78\% variance). This 2.3$\times$ performance gap demonstrates that multiple in-domain datasets—even if individually small (Twitter 0.3M tokens) or noisy (social media text)—provide superior domain specialization compared to large, curated general corpora. The result challenges conventional wisdom that high-quality general pretraining suffices for domain adaptation. \Cref{fig:scaling_comparison_all} visually confirms this hierarchy: the performance gap between Mixed Financial (blue line) and WikiText (green line) widens from 0.6B to 4B, indicating that domain diversity scales better than general quality. The cross-dataset tables (\Cref{tab:cross_financial_news,tab:cross_financial_qa,tab:cross_fingpt,tab:cross_fiqa}) further validate this through boldface patterns—Mixed Financial rows consistently capture best-performance positions across evaluation datasets, while WikiText rows rarely achieve boldface except in their own domain.
 
-\textbf{Finding 2: Learning Rate Must Scale Inverse-Square-Root with Model Size}
+\textbf{Finding 2: Simple LR Reductions Stabilized a Few Runs}
 
-We discovered an empirical scaling law: $\text{LR}_{\text{optimal}}(N) \propto 1/\sqrt{N}$ where $N$ is parameter count. Concretely: 0.6B requires $2 \times 10^{-5}$, 1.7B requires $1 \times 10^{-5}$ (50\% reduction), 4B requires $5 \times 10^{-6}$ (75\% reduction). Failure to scale learning rates caused reverse scaling in 3/10 experiments; proper scaling recovered 10-32\% performance. This finding resolves apparent model limitations as training artifacts, enabling reliable capacity scaling. The visual evidence is compelling: \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} show dramatic differences between solid lines (original LR) and dashed lines (adjusted LR). The gap between these lines—representing 10-32\% improvement—demonstrates that reverse scaling is entirely a hyperparameter artifact. \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} quantify this recovery numerically, with boldface values shifting from smaller to larger models after LR adjustment, restoring the expected scaling order.
+All main runs used LR=2e-5. In three configurations that showed abnormalities (WikiText, Financial QA, Twitter), we retried with smaller learning rates (e.g., $1\times10^{-5}$ or $5\times10^{-6}$) and observed improved stability and performance. We treat these reductions as pragmatic fixes in our setup rather than a general scaling rule. The differences between solid (original LR) and dashed (reduced LR) lines in \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} illustrate these context-specific improvements; \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} quantify them.
 
 \textbf{Finding 3: Dataset Size Critically Affects Pretraining Viability}
 
@@ -64,23 +64,9 @@ While in-domain diversity helps, cross-domain mixing (Mixed Wiki+Financial) show
 
 \textbf{Practical Implication}: For specialized applications, domain purity wins. Only mix cross-domain when explicit general-domain retention is required (e.g., conversational agents handling both financial and general queries). For finance-focused deployments, pure in-domain mixtures maximize performance.
 
-\subsection{Scale-Dependent Training Dynamics}
+\subsection{Scale-Dependent Training Notes}
 
-The empirical learning rate scaling law ($\text{LR} \propto 1/\sqrt{N}$) connects to optimization theory and provides generalizable guidelines:
-
-\textbf{Why Larger Models Need Smaller Learning Rates}:
-
-\textbf{1. Gradient Magnitude Scaling}: For randomly initialized networks, expected gradient norm scales as $\|\nabla\mathcal{L}\| \propto \sqrt{N}$ where $N$ is parameter count. Larger models accumulate larger gradient magnitudes across more parameters. With uniform learning rate $\alpha$, parameter updates scale as $\Delta\theta = \alpha \nabla\mathcal{L}$, so larger models take proportionally larger steps in parameter space. To maintain equivalent effective step sizes, learning rate must scale inversely: $\alpha \propto 1/\sqrt{N}$.
-
-\textbf{2. Optimizer Momentum Accumulation}: AdamW maintains exponential moving averages of gradients and squared gradients. Larger models with larger gradient norms accumulate momentum faster. The adaptive learning rate denominator ($\sqrt{v_t} + \epsilon$) partially compensates, but empirically insufficient at large scales. Explicit LR reduction prevents momentum-driven instability.
-
-\textbf{3. Effective Learning Rate and Batch Size}: The effective learning rate scales with $\alpha \times \sqrt{B}$ where $B$ is batch size. We maintained uniform batch size (32) across model sizes, so LR directly controlled optimization. Had we scaled batch size proportionally with model size (common practice), LR scaling requirements would differ. Our finding applies specifically to fixed-batch-size scaling regimes common in resource-constrained settings.
-
-\textbf{Empirical Scaling Law Validation}: Our observed 50\% and 75\% reductions for 1.7B and 4B match theoretical predictions. The ratio $\sqrt{1.7/0.6} \approx 1.68$ suggests 1.68$\times$ LR reduction; we used 2$\times$ (50\%). The ratio $\sqrt{4/0.6} \approx 2.58$ suggests 2.58$\times$ reduction; we used 4$\times$ (75\%). Slight over-reduction reflects practical conservatism—slightly too-small learning rates cause slow convergence (acceptable) while too-large rates cause divergence (catastrophic).
-
-\textbf{Connection to Scaling Laws Literature}: \textcite{kaplan2020scaling} and \textcite{hoffmann2022training} (Chinchilla) assume proper hyperparameter tuning but don't detail tuning procedures. Our findings suggest that naive hyperparameter transfer across scales explains some reported scaling anomalies—apparent model capacity limitations may actually reflect training artifacts. Proper LR scaling enables reliable improvements, validating the core scaling laws premise while adding practical implementation detail.
-
-\textbf{Generalizability Beyond Financial Domain}: The LR scaling law derives from model architecture (parameter count, gradient statistics) not data domain. We validated on financial/general text, but the relationship should hold for other specialized domains (legal, medical, scientific) using similar architectures (Qwen3, LLaMA, Gemma decoder-only transformers). Architecture-specific validation remains future work.
+Our experience suggests that larger models can be more sensitive to optimization settings on some datasets. While we kept LR=2e-5 for main runs, reducing LR in a handful of follow-ups helped stabilize training. We do not claim a general rule beyond this observation.
 
 \section{Practical Guidelines for Financial LM Pretraining}
 
@@ -100,7 +86,7 @@ Synthesizing experimental findings into actionable recommendations:
 
 \subsection{Model Size Selection}
 
-\textbf{0.6B Models}: Fast training ($\sim$6 hours for 100M tokens on RTX 4090), low memory (4GB), suitable for rapid prototyping. Performance acceptable (27.84 ppl Mixed Financial) but high variance (63\% CV). Use for development, experimentation, or extremely resource-constrained deployment (mobile devices).
+\textbf{0.6B Models}: Fast training ($\sim$6 hours for 100M tokens on Lambda Labs GPUs), low memory (4GB), suitable for rapid prototyping. Performance acceptable (27.84 ppl Mixed Financial) but high variance (63\% CV). Use for development, experimentation, or extremely resource-constrained deployment (mobile devices).
 
 \textbf{1.7B Models}: Best performance-efficiency balance. Training moderate ($\sim$12 hours), memory reasonable (10GB), performance strong (24.12 ppl, 58\% CV). Recommended for most applications—92\% of 4B's performance at 2.4$\times$ lower memory and 2$\times$ faster training. Optimal for production deployment balancing quality and resource constraints.
 
@@ -113,20 +99,13 @@ Synthesizing experimental findings into actionable recommendations:
 \item \textbf{Performance-critical} (willing to invest tuning effort): 4B, requires LR scaling expertise
 \end{enumerate}
 
-\subsection{Learning Rate Guidelines by Model Size}
+\subsection{Learning Rate Notes}
 
-\textbf{Recommended Learning Rates}:
-\begin{itemize}
-\item \textbf{0.6B}: $2 \times 10^{-5}$ (baseline, reference configuration)
-\item \textbf{1.7B}: $1 \times 10^{-5}$ (50\% reduction, prevents mild instability)
-\item \textbf{4B}: $5 \times 10^{-6}$ (75\% reduction, essential for stable training)
-\end{itemize}
+\textbf{Main setting}: $2 \times 10^{-5}$ across all primary experiments.
 
-\textbf{Scaling Formula}: For intermediate sizes: $\text{LR}(N) = 2 \times 10^{-5} \times \sqrt{0.6 \times 10^9 / N}$ where $N$ is parameter count. For 3B model: $\text{LR} \approx 7 \times 10^{-6}$.
+\textbf{Follow-ups}: For the few runs with anomalies, we used smaller LRs (e.g., $1\times10^{-5}$ or $5\times10^{-6}$) to stabilize training.
 
-\textbf{Validation Protocol}: After choosing LR, verify training stability: (1) Monitor gradient norms (should remain $<$ 1.0), (2) Check loss curves for smoothness (no spikes), (3) Verify validation loss decreases monotonically. If instability observed, reduce LR by additional 30-50\% and retrain.
-
-\textbf{Other Hyperparameters}: Maintain consistent batch size (32-64), warmup steps (1,000 for datasets $>$ 10M tokens, 2,000 for smaller), cosine LR schedule, weight decay (0.01), AdamW optimizer. These settings proved robust across all experiments.
+\textbf{Scope}: These are practical notes from our setup, not prescriptive guidelines.
 
 \subsection{Token Budget Allocation}
 
@@ -140,16 +119,16 @@ Synthesizing experimental findings into actionable recommendations:
 
 \section{Limitations and Threats to Validity}
 
-\textbf{Single Model Family}: All experiments used Qwen3 (0.6B/1.7B/4B). The LR scaling law and mixture effects may be architecture-specific. Other decoder-only transformers (LLaMA, Gemma, Phi) likely exhibit similar patterns due to shared architectural principles, but validation required. Encoder-only (BERT) or encoder-decoder (T5) models may show different mixture effects due to bidirectional attention or different pretraining objectives.
+\textbf{Single Model Family}: All experiments used Qwen3 (0.6B/1.7B/4B). Observations about LR behavior may be architecture- and dataset-specific. Other decoder-only transformers (LLaMA, Gemma, Phi) could behave differently; validation required. Encoder-only (BERT) or encoder-decoder (T5) models may show different mixture effects due to bidirectional attention or different pretraining objectives.
 
 \textbf{Fixed Mixture Strategy}: We used 50cap exclusively. Other algorithms (temperature sampling, equal mixing, DoReMi dynamic weighting) remain unexplored. The 50cap heuristic worked well but may not be optimal—ablation studies varying cap thresholds (30\%, 40\%, 60\%) could reveal improvements. Dynamic mixture strategies that adjust dataset weights during training based on validation loss may outperform static 50cap.
 
 \textbf{Evaluation on Pretraining Distributions}: We evaluated using perplexity on held-out test sets from the same distributions as training data. This measures pretraining quality but doesn't directly assess downstream task performance. Fine-tuned performance on financial NLP tasks (sentiment classification accuracy, Q\&A F1, summarization ROUGE) may differ from pretraining perplexity rankings. Future work should validate that Mixed Financial's pretraining advantage transfers to downstream applications.
 
-\textbf{Hardware Constraints}: Experiments limited to 0.6B-4B models due to available hardware (RTX 4090 24GB, M1 Max 32GB). Larger models (7B, 13B, 70B) may show different scaling patterns—LR scaling law may require adjustment, mixture benefits may increase or decrease with scale. The $\text{LR} \propto 1/\sqrt{N}$ relationship validated only over 6.7$\times$ size range (0.6B to 4B); extrapolation to 100B+ models uncertain.
+\textbf{Hardware Constraints}: Experiments limited to 0.6B-4B models due to available hardware (RTX A6000 48GB, A100 40GB, H100 80GB rented from Lambda Labs). Larger models (7B, 13B, 70B) may show different patterns; mixture benefits may increase or decrease with scale. We did not investigate LR behavior beyond the few follow-ups reported here.
 
-\textbf{Limited Hyperparameter Search}: We systematically explored learning rates but kept other hyperparameters fixed (batch size 32, warmup 1000 steps, cosine schedule). Larger hyperparameter sweeps over batch size (16, 32, 64, 128), warmup ratios (1\%, 3\%, 5\%), and schedules (linear, cosine, polynomial) may reveal better configurations. Computational budget constraints prevented exhaustive search.
+\textbf{Limited Hyperparameter Search}: We systematically explored learning rates but kept other hyperparameters fixed (effective batch size 8, warmup 1000 steps, cosine schedule). Larger hyperparameter sweeps over batch size (4, 8, 16, 32), warmup ratios (1\%, 3\%, 5\%), and schedules (linear, cosine, polynomial) may reveal better configurations. Computational budget constraints prevented exhaustive search.
 
-\textbf{Financial Domain Specificity}: Results may not generalize to other specialized domains with different characteristics. Legal text (extremely long documents, formal citations) or medical text (heavy abbreviations, multimodal integration) may show different mixture effects. The core principles (in-domain diversity, LR scaling) likely generalize, but specific mixture ratios and optimal configurations require domain-specific validation.
+\textbf{Financial Domain Specificity}: Results may not generalize to other specialized domains with different characteristics. Legal text (extremely long documents, formal citations) or medical text (heavy abbreviations, multimodal integration) may show different mixture effects. The core principles (in-domain diversity, and our LR heuristics) may generalize, but specific mixture ratios and optimal configurations require domain-specific validation.
 
-Despite these limitations, our findings provide robust empirical evidence for data mixture effects, training dynamics, and practical guidelines applicable to financial LM pretraining and likely informative for other specialized domains.
+Despite these limitations, our findings provide robust empirical evidence for data mixture effects, training dynamics, and practical practices applicable to financial LM pretraining and likely informative for other specialized domains.
