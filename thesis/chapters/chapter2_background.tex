@@ -1,48 +1,48 @@
 \chapter{Background and Related Work}
 
-This chapter reviews four areas that matter for our study. First, financial NLP. Then pretraining basics. Next, data-mixing strategies. Finally, domain adaptation and transfer learning. The aim is context, not a full survey. Put another way, we give just enough background to understand our choices later. Not a catalog.
+This chapter reviews four areas that matter for our study. First, financial NLP. Then pretraining basics. Next, data-mixing strategies. Finally, domain adaptation and transfer learning. The aim is context, not a full survey.
 
 \section{Financial NLP}
 
 \subsection{The Financial NLP Landscape}
 
-Financial NLP covers many tasks. Sentiment analysis on news and social media. Question answering on regulatory text. Numerical reasoning in reports. Information extraction from SEC filings \parencite{araci2019finbert, chen2021finqa}. The domain brings specific challenges that differ from general NLP: specialized vocabulary (e.g., "alpha", "beta", "EBITDA"), domain‑specific reasoning (e.g., causal chains in market analysis), numerical grounding (reading financial statements), and temporal dynamics (events, earnings releases) \parencite{wu2023bloomberggpt, araci2019finbert}. In practice, many of these challenges show up together in one document. Sometimes in one paragraph.
+Financial NLP covers many tasks. Sentiment analysis on news and social media. Question answering on regulatory text. Numerical reasoning in reports. Information extraction from SEC filings \parencite{araci2019finbert, chen2021finqa}. The domain brings specific challenges that differ from general NLP: specialized vocabulary (e.g., "alpha", "beta", "EBITDA"), domain‑specific reasoning (e.g., causal chains in market analysis), numerical grounding (reading financial statements), and temporal dynamics (events, earnings releases) \parencite{wu2023bloomberggpt, araci2019finbert}. In practice, these challenges often co‑occur within a single document.
 
 \subsection{Existing Financial Language Models}
 
-Several finance‑specialized LMs have appeared. \textbf{BloombergGPT} \parencite{wu2023bloomberggpt} is a 50B model trained on a 51\%/49\% mix of financial and general data. It scores well on financial benchmarks while keeping general ability. \textbf{FinBERT} variants \parencite{araci2019finbert, yang2020finbert} continue pretraining BERT on financial corpora and improve sentiment analysis on news. More recently, \textbf{FinGPT} \parencite{yang2023fingpt} explored open‑source, instruction‑tuned approaches for finance. We cite these to position our choices; we do not try to compare with them directly. Different aims.
+Several finance‑specialized LMs have appeared. \textbf{BloombergGPT} \parencite{wu2023bloomberggpt} is a 50B model trained on a 51\%/49\% mix of financial and general data. It scores well on financial benchmarks while keeping general ability. \textbf{FinBERT} variants \parencite{araci2019finbert, yang2020finbert} continue pretraining BERT on financial corpora and improve sentiment analysis on news. More recently, \textbf{FinGPT} \parencite{yang2023fingpt} explored open‑source, instruction‑tuned approaches for finance. We cite these to position our choices; we do not provide head‑to‑head comparisons.
 
 \subsection{Domain-Specific Challenges}
 
-Three challenges keep coming up. \textbf{First}, privacy: institutions cannot upload sensitive data (portfolios, strategies, client information) to external APIs, so models must run locally \parencite{wu2023bloomberggpt}. \textbf{Second}, data scarcity: curated financial corpora are much smaller than general web text, so we need data‑efficient training. \textbf{Third}, fast vocabulary change: terms like "DeFi" and "ESG" appear and shift with markets; models must adapt. And quickly.
+Three challenges keep coming up. \textbf{First}, privacy: institutions cannot upload sensitive data (portfolios, strategies, client information) to external APIs, so models must run locally \parencite{wu2023bloomberggpt}. \textbf{Second}, data scarcity: curated financial corpora are much smaller than general web text, so we need data‑efficient training. \textbf{Third}, rapid vocabulary change: terms like "DeFi" and "ESG" appear and shift with markets; models must adapt.
 
 \section{Language Model Pretraining}
 
 \subsection{Pretraining Objectives and Architecture}
 
-Most models use the \textbf{causal language modeling} objective: predict the next token from the previous context \parencite{radford2019language, brown2020language}. It is self‑supervised and scales to unlabeled corpora. Simple idea. Powerful in practice. Put another way, next‑token prediction gives a clean training signal at massive scale. Architecturally, decoder‑only transformers (GPT, LLaMA, Qwen) dominate. Multi‑head self‑attention captures long‑range dependencies; feed‑forward layers add non‑linearity \parencite{vaswani2017attention, touvron2023llama}.
+Most models use the \textbf{causal language modeling} objective: predict the next token from the previous context \parencite{radford2019language, brown2020language}. It is self‑supervised, scales to unlabeled corpora, and provides a clean training signal at large scale. Architecturally, decoder‑only transformers (GPT, LLaMA, Qwen) dominate. Multi‑head self‑attention captures long‑range dependencies; feed‑forward layers add non‑linearity \parencite{vaswani2017attention, touvron2023llama}.
 
 \subsection{Scaling Laws and Model Size Effects}
 
 \textcite{kaplan2020scaling} showed power-law relationships among model size, dataset size, compute, and performance. Larger models are more sample-efficient. That finding pushed the field toward billion-parameter models. Still, details matter. Later work added nuance. \textcite{hoffmann2022training} argued many models are undertrained relative to size (the Chinchilla view). \textcite{tay2022ul2} showed that objectives and data quality matter a lot for scaling.
 
-\textbf{Hyperparameter sensitivity} gets less attention. \textcite{mccandlish2018empirical} noted that optimal learning rates can fall with model size. For 0.6B--4B models in specialized domains, systematic studies are limited. Many scaling‑law papers assume "proper tuning" without saying how, which hides the messy part we examine empirically. Tuning matters at this scale. In our work, all main runs used LR=2e-5. In a few cases we reduced LR to stabilize training. We do not claim a general rule. Only a practical one.
+\textbf{Hyperparameter sensitivity} gets less attention. \textcite{mccandlish2018empirical} noted that optimal learning rates can fall with model size. For 0.6B--4B models in specialized domains, systematic studies are limited. Many scaling‑law papers assume "proper tuning" without specifying procedures, which hides the practical effort. Tuning matters at this scale. In our work, all main runs used LR=2e-5; in a few cases we reduced LR to stabilize training.
 
 \subsection{Computational and Memory Considerations}
 
-Training large language models takes real compute. A 1B‑parameter model in 32‑bit uses about 4GB just for parameters; optimizer states can double or triple that \parencite{rajbhandari2020zero,kingma2014adam}. For 0.6B--4B models, memory‑savvy tricks help: mixed precision (bfloat16), gradient accumulation, activation checkpointing, and parameter‑efficient methods like LoRA. Otherwise it does not fit. These make training feasible on enterprise GPUs (e.g., RTX A6000 48GB, A100 40GB, H100 80GB) \parencite{narayanan2021efficient,hu2021lora}. In practice, most of our runs used bfloat16 + accumulation. And careful checkpointing.
+Training large language models takes real compute. A 1B‑parameter model in 32‑bit uses about 4GB just for parameters; optimizer states can double or triple that \parencite{rajbhandari2020zero,kingma2014adam}. For 0.6B--4B models, memory‑savvy approaches help: mixed precision (bfloat16), gradient accumulation, activation checkpointing, and parameter‑efficient methods like LoRA. These make training feasible on enterprise GPUs (e.g., RTX A6000 48GB, A100 40GB, H100 80GB) \parencite{narayanan2021efficient,hu2021lora}. We use bfloat16 with gradient accumulation where needed.
 
 \section{Data Mixture Strategies}
 
 \subsection{Curriculum Learning and Sequential Mixing}
 
-\textbf{Curriculum learning} sequences data from easier to harder, or from general to specialized \parencite{bengio2009curriculum}. \textcite{wu2022opt} used curriculum in OPT pretraining by increasing difficulty over time. In finance, a natural path is Wikipedia -> news -> SEC filings. Evidence is mixed at large scale \parencite{longpre2023pretrainer}. Some works report limited gains for masked LM; others see gains in narrow settings. Not universal. In practice, many systems sample from mixtures instead of strict curricula \parencite{raffel2020exploring,wu2022opt}.
+\textbf{Curriculum learning} sequences data from easier to harder, or from general to specialized \parencite{bengio2009curriculum}. \textcite{wu2022opt} used curriculum in OPT pretraining by increasing difficulty over time. In finance, a natural path is Wikipedia → news → SEC filings. Evidence is mixed at large scale \parencite{longpre2023pretrainer}; some works report limited gains for masked LM, others gains in narrow settings. In practice, many systems sample from mixtures instead of strict curricula \parencite{raffel2020exploring,wu2022opt}.
 
 \subsection{Simultaneous Mixture Approaches}
 
-Another option is \textbf{simultaneous mixture}: sample from multiple datasets throughout training. \textcite{raffel2020exploring} (T5) used a multi-task mixture with task prefixes; diverse pretraining improved downstream generalization. \textcite{xie2023doremi} proposed DoReMi to adjust domain weights during training using validation perplexity, beating static mixtures on The Pile. Common in practice.
+Another option is \textbf{simultaneous mixture}: sample from multiple datasets throughout training. \textcite{raffel2020exploring} (T5) used a multi-task mixture with task prefixes; diverse pretraining improved downstream generalization. \textcite{xie2023doremi} proposed DoReMi to adjust domain weights during training using validation perplexity, beating static mixtures on The Pile. This approach is common in practice.
 
-\textbf{BloombergGPT} \parencite{wu2023bloomberggpt} mixed 51\% financial with 49\% general data (The Pile, C4) at the token level. The balance kept general skills and added domain strength. But that study used one 50B model. How mixture and size interact (0.6B vs 4B) is less explored. We test this across three sizes. Mixed financial datasets (21.55 ppl @ 4B) clearly beat Wiki+Financial mixtures (26.69 ppl @ 4B; about 24\% worse), as shown in \Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}. For specialized use, domain purity can win over balance.
+\textbf{BloombergGPT} \parencite{wu2023bloomberggpt} mixed 51\% financial with 49\% general data (The Pile, C4) at the token level. The balance kept general skills and added domain strength. That study used one 50B model; how mixture and size interact (0.6B vs 4B) is less explored. We test this across three sizes. Mixed financial datasets (21.55 ppl @ 4B) outperform Wiki+Financial mixtures (26.69 ppl @ 4B; about 24\% worse), as shown in \Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}.
 
 \subsection{Domain Proportions and Sampling Strategies}
 
@@ -60,7 +60,7 @@ We use a \textbf{50\% capping strategy} (``50cap'') for financial mixtures (deta
 
 \subsection{Cross-Domain Transfer in Language Models}
 
-\textbf{Transfer learning} -- pretrain on broad data, then fine-tune for a domain -- has been standard since BERT \parencite{devlin2019bert,pan2010transfer,zhuang2020comprehensive}. The assumption is that general knowledge transfers. Often true. Not always. Recent work adds nuance. \textcite{gururangan2020don} showed \textbf{domain-adaptive pretraining} (continued pretraining on domain corpora) improves performance in biomedicine, computer science, news, and reviews. General pretraining alone is not enough for specialized use.
+\textbf{Transfer learning}—pretrain on broad data, then fine-tune for a domain—has been standard since BERT \parencite{devlin2019bert,pan2010transfer,zhuang2020comprehensive}. The assumption is that general knowledge transfers; this is often true, but not universal. \textcite{gururangan2020don} showed \textbf{domain-adaptive pretraining} (continued pretraining on domain corpora) improves performance in biomedicine, computer science, news, and reviews. General pretraining alone is not sufficient for specialized use.
 
 In finance, \textcite{araci2019finbert} improved results via continued pretraining on financial news; \textcite{yang2020finbert} added task-adaptive pretraining. \textcite{huang2023finbert} found domain-specific pretraining beats general models on financial IE. These are mostly BERT-style and classification-focused; domain adaptation for \textit{causal, generative} LMs in finance is less studied. Parameter-efficient methods (e.g., surgical fine-tuning \parencite{lee2022surgical}) hint that selective adaptation can help transfer and reduce forgetting.
 
@@ -70,9 +70,9 @@ In finance, \textcite{araci2019finbert} improved results via continued pretraini
 
 \subsection{Distribution Shift and Domain Mismatch}
 
-\textbf{Distribution shift}—differences between training and evaluation—hurts generalization \parencite{quinonero2009dataset}. In finance this shows up as vocabulary shift (financial terms vs general language), discourse differences (analyst reports vs encyclopedic text), and formatting (tables in 10‑K vs narrative news). That hurts. \textcite{aharoni2020unsupervised} showed domain mismatch strongly degrades out‑of‑distribution performance. That motivates diverse mixtures that cover sub‑domains.
+\textbf{Distribution shift}—differences between training and evaluation—hurts generalization \parencite{quinonero2009dataset}. In finance this appears as vocabulary shift (financial terms vs general language), discourse differences (analyst reports vs encyclopedic text), and formatting (tables in 10‑K vs narrative news). \textcite{aharoni2020unsupervised} showed domain mismatch strongly degrades out‑of‑distribution performance, motivating mixtures that cover sub‑domains.
 
-We test this directly. Does pretraining on high‑quality general text (WikiText) transfer to financial evaluation sets? Or does domain mismatch require in‑domain pretraining? And when we mix in‑domain datasets (sentiment, Q\&A, news, reports), do models generalize better than training on just one?
+We test this directly by asking whether pretraining on high‑quality general text (WikiText) transfers to financial evaluation sets, whether domain mismatch requires in‑domain pretraining, and whether mixing in‑domain datasets (sentiment, Q\&A, news, reports) yields better generalization than training on a single dataset.
 
 \subsection{Related Empirical Studies}
 
