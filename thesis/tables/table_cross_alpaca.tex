@@ -4,25 +4,26 @@
 
 \begin{table}[h]
 \centering
-\caption{Alpaca Evaluation: Performance Across Training Datasets}
+\caption[Alpaca Evaluation: Cross-Dataset Performance]{Alpaca Evaluation: Performance Across Training Datasets}
 \label{tab:cross_alpaca}
 \begin{tabular}{l|ccc|ccc}
 \hline
-\textbf{Training Dataset} & \multicolumn{3}{c|}{\textbf{Cross-Entropy Loss}} & \multicolumn{3}{c}{\textbf{Perplexity}} \\n\cline{2-4} \cline{5-7}
+\textbf{Training Dataset} & \multicolumn{3}{c|}{\textbf{Cross-Entropy Loss}} & \multicolumn{3}{c}{\textbf{Perplexity}} \\
+\cline{2-4} \cline{5-7}
   & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} & \textbf{0.6B} & \textbf{1.7B} & \textbf{4B} \\
-Alpaca (2e-5) & 4.16 & 2.75 & 2.11 & 63.73 & 15.61 & 8.22  \
- Financial QA (2e-5) & 2.38 & \textbf{2.23} & 2.29 & 10.82 & \textbf{9.31} & 9.91  \
- Financial QA (1.7B: 1e-5, 4B: 5e-6) & 2.38 & 2.29 & 2.18 & 10.82 & 9.92 & 8.88  \
- FinGPT (2e-5) & 3.57 & 2.55 & 2.11 & 35.55 & 12.78 & 8.27  \
- FiQA (2e-5) & 4.14 & 2.56 & \textbf{1.96} & 62.97 & 12.96 & \textbf{7.12}  \
- Mixed Financial (2e-5) & 4.54 & 3.38 & 2.97 & 93.35 & 29.53 & 19.50  \
- Mixed Wiki+Financial (2e-5) & 4.07 & 3.48 & 3.15 & 58.56 & 32.38 & 23.23  \
- Financial News (2e-5) & 4.57 & 3.61 & 3.39 & 96.31 & 36.92 & 29.75  \
- SEC Reports (2e-5) & 3.86 & 3.14 & 2.92 & 47.65 & 23.04 & 18.54  \
- Twitter Financial (2e-5) & 3.01 & 2.66 & 2.96 & 20.21 & 14.33 & 19.20  \
- Twitter Financial (1.7B: 1e-5, 4B: 5e-6) & 3.01 & 2.54 & 2.61 & 20.21 & 12.66 & 13.65  \
- WikiText (2e-5) & \textbf{2.22} & 3.24 & 3.48 & \textbf{9.23} & 25.51 & 32.38  \
- WikiText (1.7B: 5e-6, 4B: 3e-6) & \textbf{2.22} & 3.79 & 3.64 & \textbf{9.23} & 44.22 & 38.06  \
+Alpaca (2e-5) & 4.16 & 2.75 & 2.11 & 63.73 & 15.61 & 8.22  \\
+Financial QA (2e-5) & 2.38 & \textbf{2.23} & 2.29 & 10.82 & \textbf{9.31} & 9.91  \\
+Financial QA (1.7B: 1e-5, 4B: 5e-6) & 2.38 & 2.29 & 2.18 & 10.82 & 9.92 & 8.88  \\
+FinGPT (2e-5) & 3.57 & 2.55 & 2.11 & 35.55 & 12.78 & 8.27  \\
+FiQA (2e-5) & 4.14 & 2.56 & \textbf{1.96} & 62.97 & 12.96 & \textbf{7.12}  \\
+Mixed Financial (2e-5) & 4.54 & 3.38 & 2.97 & 93.35 & 29.53 & 19.50  \\
+Mixed Wiki+Financial (2e-5) & 4.07 & 3.48 & 3.15 & 58.56 & 32.38 & 23.23  \\
+Financial News (2e-5) & 4.57 & 3.61 & 3.39 & 96.31 & 36.92 & 29.75  \\
+SEC Reports (2e-5) & 3.86 & 3.14 & 2.92 & 47.65 & 23.04 & 18.54  \\
+Twitter Financial (2e-5) & 3.01 & 2.66 & 2.96 & 20.21 & 14.33 & 19.20  \\
+Twitter Financial (1.7B: 1e-5, 4B: 5e-6) & 3.01 & 2.54 & 2.61 & 20.21 & 12.66 & 13.65  \\
+WikiText (2e-5) & \textbf{2.22} & 3.24 & 3.48 & \textbf{9.23} & 25.51 & 32.38  \\
+WikiText (1.7B: 5e-6, 4B: 3e-6) & \textbf{2.22} & 3.79 & 3.64 & \textbf{9.23} & 44.22 & 38.06  \\
 \hline
 \end{tabular}
 \end{table}

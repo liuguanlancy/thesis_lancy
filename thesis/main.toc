@@ -193,13 +193,3 @@
 \contentsline {subsection}{\numberline {6.3.5}Theoretical Understanding of Learning Rate Scaling}{61}{subsection.6.3.5}%
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {6.4}Closing Remarks}{61}{section.6.4}%
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Appendices}{}{section*.41}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}Experimental Details}{64}{appendix.A}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.1}Complete Hyperparameter Tables}{64}{section.A.1}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.2}Additional Results Tables}{64}{section.A.2}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A.3}Dataset Preprocessing Details}{64}{section.A.3}%

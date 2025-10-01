@@ -22,7 +22,7 @@ We use the \textbf{Qwen2 model family} \parencite{yang2024qwen2}, a series of op
 
 \begin{table}[h]
 \centering
-\caption{Qwen3 model specifications across three scales. All models use the same tokenizer (151,643 tokens) and support 32K context length. Training memory shown for bfloat16 precision.}
+\caption[Qwen3 Model Specifications]{Qwen3 model specifications across three scales. All models use the same tokenizer (151,643 tokens) and support 32K context length. Training memory shown for bfloat16 precision.}
 \label{tab:model_specs}
 \begin{tabular}{lcccccc}
 \toprule
@@ -45,7 +45,7 @@ We curate 7 financial datasets spanning diverse tasks, document types, and data 
 
 \begin{table}[h]
 \centering
-\caption{Financial dataset characteristics. Total: 207M tokens across 7 datasets with diverse genres and scales.}
+\caption[Financial Dataset Characteristics]{Financial dataset characteristics. Total: 207M tokens across 7 datasets with diverse genres and scales.}
 \label{tab:financial_datasets}
 \small
 \begin{tabular}{p{3cm}cccp{5.5cm}}
@@ -170,7 +170,7 @@ Based on systematic experiments and validation across all 10 training regimes, w
 4B & $5 \times 10^{-6}$ & 0.25$\times$ & $\sqrt{4/0.6} \approx 2.58$ \\
 \bottomrule
 \end{tabular}
-\caption{Learning rate recommendations by model size. Reduction factors follow approximate inverse square-root scaling relative to 0.6B baseline.}
+\caption[Learning Rate Recommendations by Model Size]{Learning rate recommendations by model size. Reduction factors follow approximate inverse square-root scaling relative to 0.6B baseline.}
 \end{table}
 
 The empirical pattern suggests $LR \propto 1/\sqrt{\text{model\_size}}$, consistent with gradient magnitude scaling theory: larger models accumulate larger gradient norms, requiring smaller learning rates for stable optimization. This relationship holds across both financial and general domains in our experiments.

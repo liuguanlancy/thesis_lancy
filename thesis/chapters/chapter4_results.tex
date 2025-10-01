@@ -39,7 +39,7 @@ Financial QA 10K & 10K Q\&A & 3.5M & 67-100 & 4B (8.09 ppl) \\
 Twitter Sentiment & Twitter & 0.3M & 150-249 & 4B (12.35 ppl) \\
 \bottomrule
 \end{tabular}
-\caption{Overview of 10 pretraining experiments. Perplexity reported for best-performing model size on the corresponding training dataset's test set. Epochs vary by model size to normalize token exposure ($\sim$100M tokens per model).}
+\caption[Overview of Pretraining Experiments]{Overview of 10 pretraining experiments. Perplexity reported for best-performing model size on the corresponding training dataset's test set. Epochs vary by model size to normalize token exposure ($\sim$100M tokens per model).}
 \label{tab:experiments_overview}
 \end{table}
 
@@ -64,7 +64,7 @@ The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_mixed_financial.png}
-\caption{Mixed Financial Dataset: Model scaling behavior across 0.6B, 1.7B, and 4B parameters. Left panel shows perplexity (log scale) decreasing consistently with model size. Right panel shows cross-entropy loss following expected scaling pattern. Both metrics demonstrate normal scaling with 22.6\% total improvement from 0.6B to 4B.}
+\caption[Mixed Financial Dataset: Scaling Behavior]{Mixed Financial Dataset: Model scaling behavior across 0.6B, 1.7B, and 4B parameters. Left panel shows perplexity (log scale) decreasing consistently with model size. Right panel shows cross-entropy loss following expected scaling pattern. Both metrics demonstrate normal scaling with 22.6\% total improvement from 0.6B to 4B.}
 \label{fig:scaling_mixed_financial}
 \end{figure}
 
@@ -87,7 +87,7 @@ Adding WikiText to the 7-dataset financial mixture (8 total datasets, 307M token
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_mixed_wiki_financial.png}
-\caption{Mixed Wiki+Financial Dataset: Scaling behavior shows normal pattern but with higher perplexity than pure financial mixture. The 15.1\% total improvement (0.6B to 4B) is smaller than pure financial (22.6\%), suggesting domain mixture creates competing optimization pressures that limit scaling benefits.}
+\caption[Mixed Wiki+Financial Dataset: Scaling Behavior]{Mixed Wiki+Financial Dataset: Scaling behavior shows normal pattern but with higher perplexity than pure financial mixture. The 15.1\% total improvement (0.6B to 4B) is smaller than pure financial (22.6\%), suggesting domain mixture creates competing optimization pressures that limit scaling benefits.}
 \label{fig:scaling_mixed_wiki_financial}
 \end{figure}
 
@@ -110,7 +110,7 @@ Pretraining exclusively on WikiText-103 (100M tokens, 2-5 epochs) establishes a 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_wikitext.png}
-\caption{WikiText Dataset: Severe reverse scaling phenomenon. The 1.7B model shows adjusted learning rate results (dashed line, squares) after fixing training collapse. The 4B model required 75\% LR reduction to stabilize. Clean, structured data amplifies learning rate sensitivity at larger scales.}
+\caption[WikiText Dataset: Reverse Scaling]{WikiText Dataset: Severe reverse scaling phenomenon. The 1.7B model shows adjusted learning rate results (dashed line, squares) after fixing training collapse. The 4B model required 75\% LR reduction to stabilize. Clean, structured data amplifies learning rate sensitivity at larger scales.}
 \label{fig:scaling_wikitext}
 \end{figure}
 
@@ -131,7 +131,7 @@ Comparing the three mixture strategies yields a clear hierarchy:
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_comparison_all.png}
-\caption{Comparison of all three mixture strategies across model sizes. Mixed Financial (blue) consistently outperforms Mixed Wiki+Financial (orange) and WikiText (green) on financial evaluation metrics. The divergence increases with model size, demonstrating that in-domain diversity scales better than general-domain quality.}
+\caption[Comparison of Mixture Strategies]{Comparison of all three mixture strategies across model sizes. Mixed Financial (blue) consistently outperforms Mixed Wiki+Financial (orange) and WikiText (green) on financial evaluation metrics. The divergence increases with model size, demonstrating that in-domain diversity scales better than general-domain quality.}
 \label{fig:scaling_comparison_all}
 \end{figure}
 
@@ -168,14 +168,14 @@ Two datasets exceed 80M tokens: News Articles (197M) and SEC Reports (80M). Both
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_news_articles.png}
-\caption{Financial News Articles Dataset: Excellent normal scaling with 21.7\% total improvement (0.6B to 4B). Large dataset size (197M tokens) provides sufficient diversity for stable training across all model sizes with minimal overtraining (2-3 epochs).}
+\caption[Financial News Dataset: Scaling Behavior]{Financial News Articles Dataset: Excellent normal scaling with 21.7\% total improvement (0.6B to 4B). Large dataset size (197M tokens) provides sufficient diversity for stable training across all model sizes with minimal overtraining (2-3 epochs).}
 \label{fig:scaling_news_articles}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_sec_reports.png}
-\caption{SEC Reports Dataset: Consistent normal scaling with 22.4\% total improvement. The 80M token corpus supports standalone pretraining with moderate overtraining (6-24 epochs). Strong transfer to similar long-form documents.}
+\caption[SEC Reports Dataset: Scaling Behavior]{SEC Reports Dataset: Consistent normal scaling with 22.4\% total improvement. The 80M token corpus supports standalone pretraining with moderate overtraining (6-24 epochs). Strong transfer to similar long-form documents.}
 \label{fig:scaling_sec_reports}
 \end{figure}
 
@@ -216,21 +216,21 @@ Three datasets range from 4-19M tokens: FinGPT Sentiment (19M), Finance Alpaca (
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_fingpt.png}
-\caption{FinGPT Sentiment Dataset: Normal scaling with 22.1\% improvement despite moderate overtraining (12-30 epochs). Instruction-following format benefits from increased model capacity, showing strong transfer to similar task types.}
+\caption[FinGPT Sentiment Dataset: Scaling Behavior]{FinGPT Sentiment Dataset: Normal scaling with 22.1\% improvement despite moderate overtraining (12-30 epochs). Instruction-following format benefits from increased model capacity, showing strong transfer to similar task types.}
 \label{fig:scaling_fingpt}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_alpaca.png}
-\caption{Finance Alpaca Dataset: Consistent 21.8\% improvement across model sizes. Educational Q\&A format shows reliable scaling despite 13-25 epochs of training, but exhibits narrow task focus with 48\% cross-dataset variance.}
+\caption[Finance Alpaca Dataset: Scaling Behavior]{Finance Alpaca Dataset: Consistent 21.8\% improvement across model sizes. Educational Q\&A format shows reliable scaling despite 13-25 epochs of training, but exhibits narrow task focus with 48\% cross-dataset variance.}
 \label{fig:scaling_alpaca}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_fiqa.png}
-\caption{FiQA Dataset: Strong normal scaling with 25.2\% total improvement. Despite small size (4M tokens), conversational Q\&A format produces stable training and excellent in-domain performance, though with high variance (52\%) on out-of-format tasks.}
+\caption[FiQA Dataset: Scaling Behavior]{FiQA Dataset: Strong normal scaling with 25.2\% total improvement. Despite small size (4M tokens), conversational Q\&A format produces stable training and excellent in-domain performance, though with high variance (52\%) on out-of-format tasks.}
 \label{fig:scaling_fiqa}
 \end{figure}
 
@@ -267,14 +267,14 @@ Two datasets fall below 4M tokens: Financial QA 10K (3.5M) and Twitter Sentiment
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_financial_qa.png}
-\caption{Financial QA 10K Dataset: Moderate reverse scaling resolved via learning rate adjustment. The 4B model (dashed line, squares) shows adjusted LR results with 10.3\% improvement, recovering expected scaling order. Extreme overtraining (67-100 epochs) causes 89\% cross-dataset variance.}
+\caption[Financial QA 10K Dataset: Reverse Scaling]{Financial QA 10K Dataset: Moderate reverse scaling resolved via learning rate adjustment. The 4B model (dashed line, squares) shows adjusted LR results with 10.3\% improvement, recovering expected scaling order. Extreme overtraining (67-100 epochs) causes 89\% cross-dataset variance.}
 \label{fig:scaling_financial_qa}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_twitter.png}
-\caption{Twitter Financial Sentiment Dataset: Severe reverse scaling phenomenon. The 4B model (dashed line, squares) required 75\% LR reduction to recover performance, achieving 31.6\% improvement. Extremely small dataset (0.3M tokens, 150-249 epochs) creates brittle optimization landscape with 89\% variance.}
+\caption[Twitter Financial Sentiment Dataset: Reverse Scaling]{Twitter Financial Sentiment Dataset: Severe reverse scaling phenomenon. The 4B model (dashed line, squares) required 75\% LR reduction to recover performance, achieving 31.6\% improvement. Extremely small dataset (0.3M tokens, 150-249 epochs) creates brittle optimization landscape with 89\% variance.}
 \label{fig:scaling_twitter}
 \end{figure}
 
@@ -675,7 +675,7 @@ Balanced General+Finance & Mixed Wiki+Fin & 4B & 26.69 & 62\% \\
 Resource-Constrained & Mixed Financial & 1.7B & 24.12 & 58\% \\
 \bottomrule
 \end{tabular}
-\caption{Best configurations by application. *SEC's 18\% CV is in-domain only; cross-dataset CV is 32\%.}
+\caption[Best Configurations by Application]{Best configurations by application. *SEC's 18\% CV is in-domain only; cross-dataset CV is 32\%.}
 \end{table}
 
 \textbf{Avoid}:
