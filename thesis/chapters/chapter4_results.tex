@@ -55,11 +55,11 @@ The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, 
 
 \textbf{Performance by model size}. 0.6B: 27.84 ppl (mean across 8 test sets). 1.7B: 24.12 ppl. 4B: 21.55 ppl. Normal scaling holds: 1.7B improves 13.4\% over 0.6B; 4B improves 10.7\% over 1.7B. Among all experiments, this mixture shows the strongest size‑driven gains. \Cref{fig:scaling_mixed_financial} shows both perplexity (log scale) and loss dropping smoothly with size.
 
-\textbf{Cross‑dataset robustness}. CV = 55\% (4B), a reasonable spread. Per‑set perplexities: News (15.2), SEC (18.7), FinGPT (19.4), Alpaca (21.8), FiQA (14.6), Financial QA (23.1), Twitter (25.9), WikiText (33.7). Strong on financial sets; moderate degradation on WikiText (expected domain mismatch).
+\textbf{Cross‑dataset consistency}. CV = 55\% (4B), a reasonable spread. Per‑set perplexities: News (15.2), SEC (18.7), FinGPT (19.4), Alpaca (21.8), FiQA (14.6), Financial QA (23.1), Twitter (25.9), WikiText (33.7). Strong on financial sets; moderate degradation on WikiText (expected domain mismatch).
 
 \textbf{Why it works}. 50cap prevents dominance (News capped at 50\%; others proportional). The model sees long‑form journalism (News), regulatory filings (SEC), instruction data (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), and short‑form social posts (Twitter). Diversity reduces overfitting while keeping domain focus.
 
-\textbf{Key insight}. Mixed financial pretraining is the default choice for general‑purpose financial NLP. Robust across tasks. Scales well. See \Cref{tab:mixed_financial_results} for metrics by size and test set.
+\textbf{Key insight}. Mixed financial pretraining is the default choice for general‑purpose financial NLP. Consistent across tasks. Scales well. See \Cref{tab:mixed_financial_results} for metrics by size and test set.
 
 \begin{figure}[h]
 \centering
@@ -149,7 +149,7 @@ Two datasets exceed 80M tokens: News Articles (197M) and SEC Reports (80M). Both
 \item \textbf{Performance}: 0.6B: 24.15 ppl, 1.7B: 20.83 ppl, 4B: 18.92 ppl (News test set)
 \item \textbf{Normal scaling}: Consistent improvements with model size (21\% 0.6B→1.7B, 9\% 1.7B→4B)
 \item \textbf{Cross-dataset generalization}: Strong transfer to SEC (22.1 ppl) and FinGPT (23.4 ppl), moderate to Alpaca (28.7 ppl) and FiQA (19.2 ppl), poor to Twitter (41.3 ppl) and Financial QA (35.8 ppl)
-\item \textbf{Relative spread}: 26\% (4B model), among the lowest for individual datasets, indicating robust generalization
+\item \textbf{Relative spread}: 26\% (4B model), among the lowest for individual datasets, indicating more consistent generalization
 \end{itemize}
 
 \textbf{SEC Reports (80M tokens)}:
@@ -292,7 +292,7 @@ Aggregating results across all 7 individual experiments reveals an empirical rel
 
 \textbf{Viability Thresholds}:
 \begin{itemize}
-\item \textbf{$>$ 100M tokens}: Excellent standalone viability, minimal overtraining (2-5 epochs), robust generalization
+\item \textbf{$>$ 100M tokens}: Excellent standalone viability, minimal overtraining (2-5 epochs), more consistent generalization
 \item \textbf{20-100M tokens}: Viable with caveats, moderate overtraining (6-30 epochs), task-specific transfer patterns
 \item \textbf{$<$ 20M tokens}: Requires mixing, severe overtraining ($>$30 epochs), poor generalization
 \end{itemize}
@@ -423,7 +423,7 @@ Beyond individual experiment performance, we analyze training stability across m
 \item SEC: 0.6B (38\% spread) $\to$ 4B (32\% spread), 15.8\% reduction
 \end{itemize}
 
-This counterintuitive result---larger models generalizing \textit{more consistently}---suggests that increased capacity enables learning more robust features that transfer across distribution shifts, provided training is stable.
+This counterintuitive result---larger models generalizing \textit{more consistently}---suggests that increased capacity enables learning features that transfer more consistently across distribution shifts, provided training is stable.
 
 \textbf{Small Dataset Instability Exception}: Small datasets (Financial QA 3.5M, Twitter 0.3M) maintain high variance even at 4B (89-97\%), indicating that insufficient data prevents stable learning regardless of model capacity. For these cases, mixing remains the only viable solution.
 
@@ -446,7 +446,7 @@ These notes reflect what worked in our setup and may help reproduce stable train
 
 \section{Domain Transfer and Generalization Patterns}
 
-Having established data mixture effects and training dynamics, we now examine how models generalize across evaluation sets. Cross-dataset transfer reveals which training regimes produce robust representations versus brittle, overfit models.
+Having established data mixture effects and training dynamics, we now examine how models generalize across evaluation sets. Cross-dataset transfer reveals which training regimes produce representations that generalize more consistently versus brittle, overfit models.
 
 \subsection{Cross-Dataset Evaluation}
 
@@ -454,7 +454,7 @@ Each trained model was evaluated on all 8 held-out test sets (7 financial + Wiki
 
 \textbf{Best Generalizers (Low Mean PPL, Low Variance)}:
 
-\textbf{1. Mixed Financial @ 4B}: 21.55 ppl mean, 55\% CV. Performs consistently well across all financial test sets (News: 15.2, SEC: 18.7, FinGPT: 19.4, Alpaca: 21.8, FiQA: 14.6, Financial QA: 23.1, Twitter: 25.9), with only moderate degradation on WikiText (33.7). The 7-dataset diversity enables robust cross-task generalization—no single evaluation set shows catastrophic failure.
+\textbf{1. Mixed Financial @ 4B}: 21.55 ppl mean, 55\% CV. Performs consistently well across all financial test sets (News: 15.2, SEC: 18.7, FinGPT: 19.4, Alpaca: 21.8, FiQA: 14.6, Financial QA: 23.1, Twitter: 25.9), with only moderate degradation on WikiText (33.7). The 7-dataset diversity enables cross-task consistency—no single evaluation set shows catastrophic failure.
 
 \textbf{2. News @ 4B}: 23.8 ppl mean, 26\% CV. Strong performance on document-heavy tasks (SEC: 22.1, FinGPT: 23.4) and moderate on Q\&A formats (Alpaca: 28.7, FiQA: 19.2). Excellent on own test set (18.92). The large dataset size (197M tokens) and long-form content provide transferable linguistic patterns.
 
@@ -527,7 +527,7 @@ Reciprocally, other models perform poorly on Twitter: News @ 4B: 41.3 ppl, SEC @
 
 \subsection{Variance Comparison}
 
-Coefficient of variation (CV) across the 8 test sets quantifies model robustness. Lower CV indicates consistent generalization; higher CV indicates specialization or brittleness.
+Coefficient of variation (CV) across the 8 test sets quantifies model consistency. Lower CV indicates consistent generalization; higher CV indicates specialization or brittleness.
 
 \textbf{Mixture Models (Lowest Variance)}:
 \begin{itemize}
@@ -536,7 +536,7 @@ Coefficient of variation (CV) across the 8 test sets quantifies model robustness
 \item Mixed Financial @ 1.7B: 58\% CV
 \end{itemize}
 
-Diverse training data produces robust representations. The 7-dataset mixture exposes models to varied formats, preventing overfitting to dataset-specific artifacts. Even mixing WikiText (domain mismatch) maintains reasonable variance (62\%), though performance degrades.
+Diverse training data produces representations that generalize more consistently. The 7-dataset mixture exposes models to varied formats, preventing overfitting to dataset-specific artifacts. Even mixing WikiText (domain mismatch) maintains reasonable variance (62\%), though performance degrades.
 
 \textbf{Large Individual Datasets (Low-Moderate Variance)}:
 \begin{itemize}
@@ -570,7 +570,7 @@ Small datasets ($<$ 4M tokens) produce brittle models regardless of optimization
 
 High-quality general data doesn't substitute for domain data. WikiText's clean text produces low variance \textit{within} general domains but high variance on financial tasks due to vocabulary and reasoning pattern mismatches.
 
-\textbf{Variance-Performance Trade-off}: Lowest variance models also achieve lowest mean perplexity (Mixed Financial: 21.55 ppl, 55\% CV), indicating that robustness and performance are complementary, not competing objectives. Diverse training improves both.
+\textbf{Variance-Performance Trade-off}: Lowest variance models also achieve lowest mean perplexity (Mixed Financial: 21.55 ppl, 55\% CV), indicating that consistency and performance are complementary, not competing, objectives. Diverse training improves both.
 
 \input{tables/table_cross_financial_qa}
 

@@ -1,10 +1,10 @@
 \chapter{Methodology}
 
-This chapter explains how we ran the study. First, the design. Then models, datasets, training setup, and finally evaluation. The goal is simple: fair, repeatable comparisons.
+This chapter explains how we ran the study. First, the design. Then models, datasets, training setup, and finally evaluation. The goal is simple: fair, repeatable comparisons. We keep the setup practical—what we could run reliably with our compute.
 
 \section{Experimental Design Overview}
 
-We evaluate \textbf{10 pretraining configurations}. Two mixtures (Financial; Wiki+Financial). Eight single-dataset baselines. Each configuration trains at three sizes (0.6B/1.7B/4B). All with a fixed \textbf{100M-token budget}. We evaluate on \textbf{8 held-out test sets}. We also run six follow-ups with adjusted learning rates to address stability at larger scale. \Cref{tab:exp_settings} summarizes the settings. In short: fix tokens, vary size and data.
+We evaluate \textbf{10 pretraining configurations}. Two mixtures (Financial; Wiki+Financial). Eight single-dataset baselines. Each configuration trains at three sizes (0.6B/1.7B/4B). All with a fixed \textbf{100M-token budget}. We evaluate on \textbf{8 held-out test sets}. We also run six follow-ups with smaller learning rates to address stability at larger scale. \Cref{tab:exp_settings} summarizes the settings. In short: fix tokens, vary size and data.
 
 \input{tables/table_experimental_settings}
 
@@ -12,7 +12,7 @@ This design targets our questions on mixture composition, model scale, dataset s
 
 \section{Model Architecture}
 
-We use the \textbf{Qwen3} family \parencite{yang2024qwen2}. It is a set of open-source, decoder-only transformer LMs pretrained on diverse multilingual corpora. Qwen3 uses grouped-query attention (GQA) for memory efficiency and supports standard and flash attention. We select three sizes from the Qwen3-Base series (pretrained checkpoints without post-training alignment). Specs are in \Cref{tab:model_specs}.
+We use the \textbf{Qwen3} family \parencite{yang2024qwen2}. Qwen3 is an open-source, decoder-only transformer family pretrained on diverse multilingual corpora. It uses grouped-query attention (GQA) for memory efficiency and supports standard and flash attention. We select three sizes from the Qwen3-Base series (pretrained checkpoints without post-training alignment). Specs are in \Cref{tab:model_specs}.
 
 \begin{table}[h]
 \centering
@@ -29,7 +29,7 @@ Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
 \end{tabular}
 \end{table}
 
-We chose Qwen3 for three reasons. Consistent architecture across sizes enables clean comparisons. Strong baselines on general and domain tasks. Efficient inference suitable for edge deployment (all models fit on consumer hardware).
+Why Qwen3? Three reasons. Consistent architecture across sizes enables clean comparisons. Strong baselines on general and domain tasks. And inference is efficient—these models fit on consumer hardware for edge deployment.
 
 \section{Datasets}
 
@@ -85,7 +85,7 @@ WikiText-103 & 103K & 103M & Encyclopedia & Verified Wikipedia articles with for
 
 We employ a \textbf{50\% capping strategy} (``50cap'') for dataset mixing to balance diversity with data efficiency. The algorithm works as follows:
 
-\textbf{Step 1 - Cap dominant datasets}: Identify the largest dataset in the mixture. If its token count exceeds 50\% of the total mixture, cap it at exactly 50\%. This prevents any single dataset from dominating the mixture.
+\textbf{Step 1 — Cap dominant datasets}: Identify the largest dataset in the mixture. If its token count exceeds 50\% of the total mixture, cap it at exactly 50\%. This prevents any single dataset from dominating the mixture.
 
 \textbf{Step 2 - Proportional sampling}: For remaining datasets (below 50\% threshold), sample tokens proportionally to their original sizes. This preserves relative contributions while ensuring diversity.
 
@@ -136,13 +136,13 @@ Beyond learning rate, we maintained consistent hyperparameters across experiment
 
 \textbf{Batch Size and Accumulation}: Effective batch size 8 across all runs. We used gradient accumulation only when necessary to fit models and sequence lengths into GPU memory.
 
-\textbf{Warmup Steps}: 1,000 steps (3.1\% of training for 32K total steps) provided sufficient stabilization during initial training. Longer warmup did not improve final performance.
+\textbf{Warmup Steps}: 1,000 steps (3.1\% of training for 32K total steps) stabilized the initial phase. Longer warmup did not improve final performance.
 
-\textbf{Training Epochs}: Varied by dataset size to normalize token exposure. Small datasets (Twitter, Financial QA) trained for 67-249 epochs to reach 100M token budget; medium datasets (FiQA, FinGPT, Alpaca) for 6-30 epochs; large datasets (SEC, News) for 2-24 epochs. This normalization ensures fair comparison across datasets of different sizes.
+\textbf{Training Epochs}: Varied by dataset size to normalize token exposure. Small datasets (Twitter, Financial QA) trained for 67--249 epochs to reach the 100M-token budget; medium datasets (FiQA, FinGPT, Alpaca) for 6--30 epochs; large datasets (SEC, News) for 2--24 epochs. This normalization ensures fair comparison across datasets of different sizes.
 
 \textbf{Maximum Sequence Length}: 1,024 tokens. Financial documents often exceed this length (SEC filings: 10K+ tokens), but longer sequences quadratically increase memory and slow training. We accept truncation as a practical trade-off.
 
-\textbf{Dropout}: 0.0 (no dropout) following common practice for large-scale pretraining where overfitting is rarely observed.
+\textbf{Dropout}: 0.0 (no dropout), following common practice for large-scale pretraining where overfitting is rarely observed.
 
 \subsection{Computational Budget}
 
