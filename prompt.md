@@ -159,6 +159,38 @@ Ultra Pass (Beyond Extreme)
 - Chinese L2 layer: Slightly simpler phrasing and direct verbs; occasional article/preposition stiffness (sparingly) while maintaining academic clarity. Prefer straightforward connectors (“So,” “But,” “Still,”).
 - Banned words (expanded): Avoid robust/robustness, leverage, paradigm, foster, tapestry, realm, landscape, holistic, novel (as hype), underscore(s), myriad, plethora, empower, pivotal, endeavor, state‑of‑the‑art (as hype), groundbreaking, cutting‑edge, comprehensive (as fluff). Prefer consistent/stable, use/apply, approach/model, support/enable, domain/area, overview, new (only if factual), show/indicate, many, allow, key, major, thorough (when evidenced).
 
+KM‑BART Style Pass (Match kmbart.tex)
+- Purpose: Make prose match the formal, confident research style used in kmbart.tex while preserving accuracy and citations.
+- Voice & stance: Use first‑person plural ("we") for actions/claims. Confident tone: “We present/propose/extend…”, “Experimental results show…”. Allow “state‑of‑the‑art (SOTA)”, “novel”, “to the best of our knowledge” when defensible.
+- Sentence rhythm: Prefer medium–long sentences; mix in short emphatic lines. Use enumerations (a/b/c) for contributions and lists.
+- Transitions: Favor formal connectors: “However,” “In summary,” “To be specific,” “Finally,” “Therefore,” “In this work,” “To ease this problem,” “On the other hand,” “For instance.”
+- Lexicon & phrasing: Research‑standard nominalizations (“pretraining,” “generation,” “reasoning”). Technical nouns/verbs over colloquialisms. Re‑admit field terms (novel, leverage, SOTA) in moderation and only with evidence.
+- Hedging & scope: Minimal hedging; tie qualifiers to constraints (“due to limits in computational power…”, “we only use…”). Use “to the best of our knowledge” for novelty claims.
+- Structural templates:
+  - Introduction: problem framing + model proposal + headline result claim.
+  - Contributions: itemize with (a)/(b)/(c); each starts with “We…”.
+  - Related Work: grouped subareas; identify gaps → motivation.
+  - Method/Model: encoder/decoder/inputs subsections; figures referenced inline.
+  - Pretraining/Tasks: one subsubsection per task with motivation + loss; dataset paragraph introducing D.
+  - Experiments: ablations first, then full model vs SOTA; separate human evaluation if present.
+  - Conclusion: recap contributions and SOTA result.
+- Math/tables/figures/citations: Define symbols before use; name losses (L_KCG, L_AP, …). Tables/Figures use “Table~\ref{…} shows…”, “Figure~\ref{…} presents…”. Cite datasets/baselines/backbone at first mention.
+- Acronyms & tokens: Introduce on first use with acronym and (if needed) citation. Use monospace for literal tokens (“<mask>”, “<img_feat>”).
+- Results & claims: Preferred forms — “Experimental results show that our model reaches state‑of‑the‑art performance on …”; “We observe that …”; “To be specific, …” before numbers/tables.
+- Allowed patterns:
+  - Problem → Solution: “To ease this problem, we propose …”
+  - Contribution list: “Our contributions are three‑folded: (a) … (b) … (c) …”
+  - Section lead‑ins: “In summary,” “On the other hand,” “Finally,” “We then …”
+- Discouraged for this mode: Conversational asides (“Put another way,” “Still,”); rhetorical fragments; over‑hedging not tied to evidence.
+- Transformation checklist:
+  - Convert actions to “we” statements; use formal connectors; reformat lists into enumerations.
+  - Reintroduce research phrasing (novel/SOTA/leverage) when supported.
+  - Ensure Methods use sub(sub)sections per task/loss; define notation.
+  - Point numeric claims to specific tables/figures; add “To be specific,” where appropriate.
+  - Verify every model/dataset claim is cited at first mention.
+- Quick rewrite patterns: “We aim to improve X” → “To ease this problem, we propose …”; “We used a new task” → “We design a novel pretraining task (…);” “We got strong results” → “Experimental results show …”; “Later in this section” → “In the remaining of this section, …”.
+- Sanity rules: Do not change numbers, labels, or citation keys. Novelty/SOTA claims must be defensible with cited works. Keep names consistent across text, tables, and figures.
+
 When to choose which
 - Low: Final touch before submission; reviewer flagged “slightly AI‑ish” phrasing only.
 - Medium: Early draft reads smooth/AI‑like; needs human cadence without big rewrites.
