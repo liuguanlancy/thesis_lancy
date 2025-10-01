@@ -191,6 +191,17 @@ KM‑BART Style Pass (Match kmbart.tex)
 - Quick rewrite patterns: “We aim to improve X” → “To ease this problem, we propose …”; “We used a new task” → “We design a novel pretraining task (…);” “We got strong results” → “Experimental results show …”; “Later in this section” → “In the remaining of this section, …”.
 - Sanity rules: Do not change numbers, labels, or citation keys. Novelty/SOTA claims must be defensible with cited works. Keep names consistent across text, tables, and figures.
 
+- Avoid AI‑like signals (specific to this mode)
+  - Limit hype density: if using “novel/SOTA/leverage/to the best of our knowledge,” do so sparingly, once per relevant section, and anchor immediately to a citation, table, or figure.
+  - Vary openings: avoid repeating the same sentence starters across a paragraph (“Furthermore/Additionally/Moreover”). Mix with “However,” “Therefore,” or restructure the sentence.
+  - Prefer concrete references over generic praise: point to Table~/ Figure~ refs and exact metrics instead of vague claims (“strong improvements,” “significant gains”) without numbers.
+  - Avoid boilerplate templates: do not stack identical claim patterns (“We propose… We design… We develop…”) in consecutive sentences; merge or alternate with evidence‑first phrasing.
+  - Keep connectors formal, not ornamental: remove filler transitions that don’t add logic (“It is worth noting that,” “In recent years,” used generically).
+  - Control nominalization chains: keep no more than two stacked abstract nouns in a clause (e.g., “improvement of performance of pretraining” → rewrite to a concrete subject–verb form).
+  - No synonym padding: don’t append near‑synonymous adjectives (“novel and groundbreaking,” “comprehensive and holistic”). Choose one, or neither.
+  - Avoid vague universal hedging: replace “may/might/could” with scope‑tied qualifiers (“in our 0.6B–4B setup,” “with 100M tokens”).
+  - Keep repetition purposeful: reuse key technical terms consistently; avoid oscillating synonyms that blur meaning (e.g., “module/architecture/model component” within the same context).
+
 When to choose which
 - Low: Final touch before submission; reviewer flagged “slightly AI‑ish” phrasing only.
 - Medium: Early draft reads smooth/AI‑like; needs human cadence without big rewrites.
