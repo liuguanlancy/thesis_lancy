@@ -1,17 +1,8 @@
 \chapter{Results}
 
-% TO BE WRITTEN - 10 pages
-% Structure:
-% 4.1 Overview (0.5 page)
-% 4.2 Data Mixture Effects (3 pages)
-% 4.3 Individual Dataset Analysis (2 pages)
-% 4.4 Training Dynamics and Scaling Behavior (2.5 pages)
-% 4.5 Domain Transfer and Generalization (1.5 pages)
-% 4.6 Summary (0.5 page)
-
 \section{Overview of Experimental Results}
 
-This chapter presents results from 10 pretraining experiments evaluating data mixture effects in financial language models. We trained 30 models (3 sizes $\times$ 10 experiments) and conducted 237 evaluations (30 models $\times$ 8 test sets; Mixed Financial excludes WikiText evaluation). \Cref{tab:experiments_overview} summarizes all experiments. The numbers below keep the training setup fixed so differences reflect data–model interactions. That way, we can compare fairly. And reason about causes, not noise.
+This chapter presents results from 10 pretraining experiments evaluating data mixture effects in financial language models. We trained 30 models. That is, 3 sizes $\times$ 10 experiments. In total, 237 evaluations (30 models $\times$ 8 test sets; Mixed Financial excludes WikiText evaluation). \Cref{tab:experiments_overview} summarizes all experiments. We keep the training setup fixed so differences reflect data–model interactions. That way, we can compare fairly. And reason about causes, not noise.
 
 \begin{table}[h]
 \centering
@@ -43,7 +34,7 @@ Twitter Sentiment & Twitter & 100M & 4B (11.81 ppl) \\
 \label{tab:experiments_overview}
 \end{table}
 
-Key observations: (1) mixed financial datasets achieve the best overall performance across evaluation sets, (2) WikiText shows strong general‑domain performance but poor financial transfer, (3) large individual datasets (News, SEC) are viable for standalone pretraining, and (4) small datasets (Financial QA, Twitter) exhibit extreme overtraining (68–249 epochs) despite normalization. In short: diversity helps. Tiny datasets do not. So mix.
+We noticed four things: (1) mixed financial datasets achieve the best overall performance across evaluation sets, (2) WikiText shows strong general‑domain performance but poor financial transfer, (3) large individual datasets (News, SEC) are viable for standalone pretraining, and (4) small datasets (Financial QA, Twitter) exhibit extreme overtraining (68–249 epochs) despite normalization. In short: diversity helps. Tiny datasets do not. So mix.
 
 \section{Data Mixture Effects: The Core Finding}
 

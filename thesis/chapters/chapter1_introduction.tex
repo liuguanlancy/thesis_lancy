@@ -14,7 +14,7 @@ Beyond applications, we also add to understanding how models learn from differen
 
 \section{Research Questions}
 
-This thesis investigates the following core research questions. We keep them narrow and testable.
+This thesis investigates the following core research questions. We keep them narrow and testable. We do not chase new theory or SOTA here.
 
 \textbf{RQ1: Data Mixture Composition}
 How do combinations of in‑domain financial datasets and out‑of‑domain general corpora affect model performance and generalization? Specifically, does mixing multiple financial datasets improve consistency compared to single‑dataset training, and does adding high‑quality general text (WikiText) help or hurt financial tasks? Our results (\Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}) indicate that mixed financial datasets achieve 21.55 ppl (mean across financial evaluations), compared to 26.69 ppl for Wiki+Financial mixtures (overall mean across eight evaluations) and 41.96 ppl for pure WikiText (mean across financial evaluations after LR adjustment)—suggesting in‑domain diversity is the better choice.
