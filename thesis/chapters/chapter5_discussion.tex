@@ -1,6 +1,6 @@
 \chapter{Discussion}
 
-This chapter interprets the experimental findings from Chapter 4, explaining mechanisms behind data mixture effects, training dynamics, and generalization patterns. We synthesize empirical observations into actionable guidelines and acknowledge methodological limitations. Still, we keep conclusions tied to our evidence. Where the data are thin, we say so.
+This chapter interprets the findings from Chapter 4. We explain mechanisms behind data mixture effects, training dynamics, and generalization patterns. The goal is simple: turn results into guidance without overreaching. Where the data are thin, we say so. And we keep claims tied to evidence.
 
 \section{Key Empirical Findings}
 
@@ -8,11 +8,11 @@ Our 10 experiments (30 models, 237 evaluations) lead to four main findings about
 
 \textbf{Finding 1: In-Domain Diversity Outperforms General Corpus Quality}
 
-Mixed Financial datasets achieved 21.55 ppl (4B) with 55\% relative spread, substantially better than WikiText's 41.96 ppl mean financial performance (\~53\% relative spread, after LR adjustment). This 1.95$\times$ performance gap suggests that multiple in-domain datasets—even if individually small (Twitter 0.3M tokens) or noisy (social media text)—provide stronger domain specialization than large, curated general corpora in our setup. This result challenges a common assumption that high-quality general pretraining suffices for domain adaptation. \Cref{fig:scaling_comparison_all} shows this clearly: the performance gap between Mixed Financial (blue line) and WikiText (green line) widens from 0.6B to 4B, indicating that in-domain diversity scales better than general quality. The cross-dataset tables (\Cref{tab:cross_financial_news,tab:cross_financial_qa,tab:cross_fingpt,tab:cross_fiqa}) further support this through boldface patterns—Mixed Financial rows often capture best-performance positions across evaluation datasets, while WikiText rows rarely do except in their own domain.
+Mixed Financial datasets achieved 21.55 ppl (4B) with 55\% relative spread, substantially better than WikiText's 41.96 ppl mean financial performance (\~53\% relative spread, after LR adjustment). This 1.95$\times$ gap suggests that multiple in‑domain datasets—even if individually small (Twitter 0.3M tokens) or noisy (social media text)—provide stronger domain specialization than large, curated general corpora in our setup. This challenges a common assumption that high‑quality general pretraining suffices for domain adaptation. \Cref{fig:scaling_comparison_all} shows this clearly: the performance gap between Mixed Financial (blue line) and WikiText (green line) widens from 0.6B to 4B, indicating that in‑domain diversity scales better than general quality. The cross‑dataset tables (\Cref{tab:cross_financial_news,tab:cross_financial_qa,tab:cross_fingpt,tab:cross_fiqa}) support this through boldface patterns—Mixed Financial rows often capture best‑performance positions across financial evaluations, while WikiText rows rarely do outside its own domain.
 
 \textbf{Finding 2: Simple LR Reductions Stabilized a Few Runs}
 
-All main runs used LR=2e-5. In three configurations that showed abnormalities (WikiText, Financial QA, Twitter), we retried smaller learning rates (e.g., $1\times10^{-5}$ or $5\times10^{-6}$) and observed improved stability and performance. We treat these reductions as pragmatic fixes in our setup rather than a general scaling rule. The differences between solid (original LR) and dashed (reduced LR) lines in \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} show these improvements; \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} quantify them.
+All main runs used LR=2e‑5. In three configurations that showed abnormalities (WikiText, Financial QA, Twitter), we retried smaller learning rates (e.g., $1\times10^{-5}$ or $5\times10^{-6}$) and observed improved stability and performance. We treat these reductions as pragmatic fixes in our setup rather than a general scaling rule. The solid (original LR) vs dashed (reduced LR) lines in \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} show these improvements; \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} quantify them.
 
 \textbf{Finding 3: Dataset Size Critically Affects Pretraining Viability}
 
