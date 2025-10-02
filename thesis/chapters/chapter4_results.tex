@@ -48,9 +48,9 @@ The 7‑dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA
 
 \textbf{Cross‑Dataset Consistency}: Performance across the financial evaluation sets shows 55\% relative spread for the 4B model, indicating reasonable generalization. Individual test set perplexities for 4B (financial datasets): Financial News (13.84), SEC Reports (22.36), FinGPT (23.08), Alpaca (19.50), FiQA (21.20), Financial QA (25.14), Twitter (25.72). Still, there is room to reduce variance.
 
-\textbf{Why This Works}: The 50cap strategy ensures no single dataset dominates (News capped at 50\%, remaining 6 datasets proportionally sampled). This produces exposure to diverse financial document types: long-form journalism (News), regulatory filings (SEC), instruction-following (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), and short-form social media (Twitter). The diversity prevents overfitting to dataset-specific artifacts while maintaining domain specialization.
+\textbf{Why This Works}: 50cap stops any one dataset from taking over (News capped at 50\%, others sampled proportionally). The model sees many document types: long‑form journalism (News), regulatory filings (SEC), instruction data (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), short social posts (Twitter). This breadth cuts overfitting to quirks and still keeps financial focus.
 
-\textbf{Key Insight}: Mixed financial pretraining is the recommended approach for general‑purpose financial NLP applications, providing consistent performance across evaluation tasks with strong scaling properties. \Cref{tab:mixed_financial_results} provides detailed evaluation metrics across all 7 financial test sets for each model size. For a general financial model, start here.
+\textbf{Key Insight}: For a general financial model, start with mixed financial pretraining. It gives consistent results across tasks and scales well. See \Cref{tab:mixed_financial_results} for all 7 test sets by model size.
 
 \begin{figure}[h]
 \centering
@@ -202,7 +202,7 @@ Three datasets range from 4-19M tokens: FinGPT Sentiment (19M), Finance Alpaca (
 \item \textbf{Relative spread}: 18.97\% (4B model)
 \end{itemize}
 
-\textbf{Medium Dataset Conclusion}: Datasets in the 4-20M token range support pretraining but exhibit task-type specialization. Instruction-formatted datasets (FinGPT, Alpaca, FiQA) transfer well to each other but poorly to document formats. For general financial applications, these datasets should be mixed rather than used standalone. As shown in \Cref{fig:scaling_fingpt,fig:scaling_alpaca,fig:scaling_fiqa}, all three medium datasets maintain normal scaling patterns despite moderate overtraining (12-30 epochs), with smooth perplexity reduction curves and no optimization instabilities. Detailed cross-dataset performance in \Cref{tab:fingpt_results,tab:alpaca_results,tab:fiqa_results} confirms task-type clustering: strong mutual transfer within instruction-formatted tasks, weak transfer to document formats. So mixing is safer.
+\textbf{Medium Dataset Conclusion}: 4–20M token datasets work but stay format‑bound. Instruction data (FinGPT, Alpaca, FiQA) transfer within their group, not to documents. For general use, mix them. \Cref{fig:scaling_fingpt,fig:scaling_alpaca,fig:scaling_fiqa} show normal scaling (12–30 epochs); \Cref{tab:fingpt_results,tab:alpaca_results,tab:fiqa_results} show the clustering. Mixing is safer.
 
 \begin{figure}[h]
 \centering
@@ -253,7 +253,7 @@ Two datasets fall below 4M tokens: Financial QA 10K (3.5M) and Twitter Sentiment
 \item \textbf{Relative spread}: 20.35\% (4B model)
 \end{itemize}
 
-\textbf{Small Dataset Conclusion}: Datasets below 4M tokens (equivalently, $<$20K samples for typical financial texts) are \textbf{not viable for standalone pretraining}. Extreme overtraining, poor generalization, and training instabilities (reverse scaling) make these datasets unsuitable. However, when included in mixtures, they contribute valuable task diversity without dominating the distribution (50cap prevents Twitter's 0.3M from being oversampled). The visual evidence in \Cref{fig:scaling_financial_qa,fig:scaling_twitter} is striking: dashed lines (adjusted LR) show substantial performance recovery, with the gap between solid (original LR) and dashed lines representing 10-32\% improvement. \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} quantify this recovery across all evaluation datasets, with boldface values highlighting dramatic improvements after LR adjustment.
+\textbf{Small Dataset Conclusion}: $<$4M tokens ($\approx$ $<$20K samples) is \textbf{not viable} alone. Expect extreme overtraining, weak transfer, and even reverse scaling. In mixtures, though, these sets add useful variety (50cap keeps them in check). See \Cref{fig:scaling_financial_qa,fig:scaling_twitter}: dashed lines (lower LR) recover 10–32\% vs solid lines. \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} gives the numbers.
 
 \begin{figure}[h]
 \centering
@@ -281,11 +281,11 @@ Aggregating results across all 7 individual experiments reveals an empirical rel
 
 \textbf{Overtraining Epochs}: Inversely related to size. News (197M): 2-3 epochs, SEC (80M): 6-24, FinGPT (19M): 12-30, Alpaca (17M): 13-25, FiQA (4M): 6-8, Financial QA (3.5M): 67-100, Twitter (0.3M): 150-249. Despite normalizing total token exposure ($\sim$100M tokens), small datasets require many epochs, leading to memorization.
 
-\textbf{Viability Thresholds}:
+\textbf{Viability Thresholds} (rules of thumb):
 \begin{itemize}
-\item \textbf{$>$ 100M tokens}: Excellent standalone viability, minimal overtraining (2-5 epochs), consistent generalization
-\item \textbf{20-100M tokens}: Viable with caveats, moderate overtraining (6-30 epochs), task-specific transfer patterns
-\item \textbf{$<$ 20M tokens}: Requires mixing, severe overtraining ($>$30 epochs), poor generalization
+\item \textbf{$>$ 100M tokens}: Standalone is fine; 2–5 epochs; consistent transfer
+\item \textbf{20–100M tokens}: Works with caveats; 6–30 epochs; format effects
+\item \textbf{$<$ 20M tokens}: Mix it; $>$30 epochs; poor transfer
 \end{itemize}
 
 \textbf{Practical Implication}: When curating pretraining corpora, prioritize collecting 100M+ tokens per domain. If only smaller datasets are available, mixture strategies become essential. The 50cap approach successfully mitigates small dataset issues by preventing dominance while preserving diversity.

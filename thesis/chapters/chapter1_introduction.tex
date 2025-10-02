@@ -66,17 +66,17 @@ The remainder of this thesis is organized as follows:
 
 \textbf{Chapter 3: Methodology} describes our experimental design in detail, including model architecture (Qwen3 family), dataset characteristics (7 financial datasets totaling 207M tokens, plus WikiText), mixture strategies (50cap algorithm), and training setup. We document the iterative process of discovering and resolving learning rate sensitivity issues, demonstrating the scientific rigor underlying our empirical findings.
 
-\textbf{Chapter 4: Results} presents experimental findings organized by theme, supported by visual evidence (11 scaling figures and 18 detailed tables). We begin with data mixture effects (the core finding), move to individual dataset analysis (component effects), examine training dynamics and learning-rate sensitivity, and conclude with domain transfer patterns. Scaling figures show performance trends across model sizes, while cross-dataset tables identify which training approaches perform best for each evaluation scenario.
+\textbf{Chapter 4: Results} groups findings by theme and backs them with plots and tables (11 scaling figures, 18 tables). We start from data mixture effects (the core finding), then look at single datasets (component effects), training dynamics and LR sensitivity, and finally domain transfer. The scaling figures track performance across sizes; the cross-dataset tables make it easy to see which training setup wins where.
 
-\textbf{Chapter 5: Discussion} interprets our findings in light of existing theory and practice, leveraging the visual evidence from Chapter 4. We explain why WikiText underperforms on financial tasks (analyzing cross-dataset table boldface patterns), analyze the benefits of in-domain diversity (interpreting scaling figure trends), discuss practical aspects of learning rate sensitivity (connecting LR adjustment figures to observed stability), and provide concrete guidelines for practitioners training financial language models (supported by specific figure and table references).
+\textbf{Chapter 5: Discussion} ties the results back to prior work and practice. We comment on why WikiText underperforms on finance (see the boldface patterns in the cross-dataset tables), what in‑domain diversity buys us (read from the scaling plots), how LR tweaks changed stability (match dashed vs solid lines), and we finish with concrete guidelines that point to the exact tables and figures.
 
-\textbf{Chapter 6: Conclusion} summarizes contributions, discusses implications for research and practice, and outlines promising directions for future work, including extension to larger models, exploration of dynamic mixing strategies, and evaluation on downstream financial tasks.
+\textbf{Chapter 6: Conclusion} sums up contributions, notes implications, and lists near‑term next steps: try larger models, test dynamic mixing, and check downstream tasks.
 
 \section{Scope and Limitations}
 
-This thesis focuses specifically on pretraining dynamics for causal language models in the 0.6B-4B parameter range applied to financial text. Several important scope limitations should be noted:
+This thesis focuses on pretraining dynamics for causal LMs in the 0.6B–4B range on financial text. A few scope limits matter:
 
-\textbf{Model Architecture:} All experiments use the Qwen3 model family. While we believe our findings on learning rate scaling and data mixture effects are generalizable, validation on other architectures (LLaMA, Gemma, Phi) would strengthen confidence in universality.
+\textbf{Model Architecture:} All runs use Qwen3. The learning‑rate/mixture takeaways likely carry over, but checking LLaMA, Gemma, Phi would help.
 
 \textbf{Data Mixture Strategy:} We use a single mixture algorithm (50cap, which caps the largest dataset at 50\% of the mixture). We did not explore square-root sampling, temperature-based sampling, or dynamic curriculum learning; these might lead to different results.
 

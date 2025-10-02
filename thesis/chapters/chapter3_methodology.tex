@@ -106,7 +106,7 @@ This strategy contrasts with temperature sampling (which requires tuning hyperpa
 
 \subsection{Initial Configuration}
 
-All models were trained with uniform hyperparameters across scales to establish baseline performance. The configuration follows standard practices for causal language modeling:
+We trained all models with a single hyperparameter template to set a baseline. Standard causal LM choices:
 
 \textbf{Optimizer}: AdamW with $\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$, weight decay $0.01$
 
@@ -114,7 +114,7 @@ All models were trained with uniform hyperparameters across scales to establish 
 
 \textbf{LR Schedule}: Cosine decay with 1,000 warmup steps, minimum LR $10^{-6}$
 
-\textbf{Batch Configuration}: Effective batch size 8 across all runs. When device memory was insufficient for a given model/sequence length, we used gradient accumulation to maintain the same effective batch size.
+\textbf{Batch Configuration}: Effective batch size 8 across all runs. When memory was tight, we used gradient accumulation to keep the same effective batch size.
 
 \textbf{Sequence Length}: 1,024 tokens (fixed for all runs)
 

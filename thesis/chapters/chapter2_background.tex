@@ -20,11 +20,11 @@ Financial NLP faces three practical challenges. \textbf{First}, privacy concerns
 
 \subsection{Pretraining Objectives and Architecture}
 
-Modern language models are mostly trained with the \textbf{causal language modeling} objective: predict the next token given the context \parencite{radford2019language, brown2020language}. We follow this default. Architecturally, transformer‑based decoder‑only models (GPT family, LLaMA, Qwen) are standard, with multi‑head self‑attention capturing long‑range dependencies and feed‑forward layers providing non‑linear transformations \parencite{vaswani2017attention, touvron2023llama}. Nothing exotic here.
+Modern language models mostly use \textbf{causal language modeling}: predict the next token from the context \parencite{radford2019language, brown2020language}. We follow this default. Architecturally, we use the usual decoder‑only transformer (GPT, LLaMA, Qwen): self‑attention for long context; feed‑forward blocks for the non‑linear part \parencite{vaswani2017attention, touvron2023llama}. Nothing fancy.
 
 \subsection{Scaling Laws and Model Size Effects}
 
-The work of \textcite{kaplan2020scaling} established power‑law relationships between model size, dataset size, compute budget, and final performance. The core point—that larger models can be more sample efficient—motivated the move toward billion‑parameter models. Later work added nuance: \textcite{hoffmann2022training} showed models are often undertrained relative to size (Chinchilla scaling), and \textcite{tay2022ul2} discussed how objectives and data quality shape scaling. Put simply: bigger helps, but details matter.
+The work of \textcite{kaplan2020scaling} linked model size, dataset size, compute, and final performance by power laws. The core point—that larger models can be more sample efficient—pushed the field toward billion‑parameter scales. Later work added nuance: \textcite{hoffmann2022training} showed undertraining is common (Chinchilla); \textcite{tay2022ul2} emphasized objectives and data quality. Put simply: bigger helps, but details matter.
 
 Critically, \textbf{hyperparameter sensitivity} is less studied. While \textcite{mccandlish2018empirical} noted that optimal learning rates can decrease with model size, systematic studies for models in the 0.6B–4B range—especially in specialized domains—remain limited. Many scaling-law papers assume good tuning without showing the details, which can hide training dynamics. In our work, all main runs used LR=2e-5; in a few cases we reduced LR pragmatically to stabilize training. We do not claim a general rule.
 
@@ -40,13 +40,13 @@ Training large language models requires substantial compute. A 1‑billion‑par
 
 \subsection{Simultaneous Mixture Approaches}
 
-An alternative to sequential mixing is \textbf{simultaneous mixture}: sampling from multiple datasets concurrently throughout training. \textcite{raffel2020exploring} (T5) used a multi-task mixture with task-specific prefixes, finding that diverse pretraining improved downstream task generalization. \textcite{xie2023doremi} introduced DoReMi, a method that dynamically adjusts domain mixture weights during training based on validation perplexity, achieving better sample efficiency than static mixtures on The Pile dataset.
+An alternative to sequential mixing is \textbf{simultaneous mixture}: sample from multiple datasets throughout training. \textcite{raffel2020exploring} (T5) used a multi‑task mixture with task‑specific prefixes and found diverse pretraining helped downstream. \textcite{xie2023doremi} introduced DoReMi, which adjusts domain weights during training by validation perplexity, improving sample efficiency over static mixtures on The Pile.
 
-\textbf{BloombergGPT's approach} \parencite{wu2023bloomberggpt} is particularly relevant: they mixed 51\% financial data with 49\% general-purpose data (The Pile, C4) at the token level, demonstrating that balanced mixtures preserve general capabilities while gaining domain expertise. However, their work focused on a single 50B model; the interaction between mixture strategy and model size (0.6B vs 4B) remains underexplored. Our work tests this hypothesis systematically across three model scales, finding that mixed financial datasets (21.55 ppl @ 4B) substantially outperform both Wiki+Financial mixtures (26.69 ppl @ 4B, 24\% degradation) and pure WikiText (41.96 ppl mean financial @ 4B, 95\% degradation), as documented in \Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}. This suggests that domain purity may be more valuable than domain balance for specialized applications.
+\textbf{BloombergGPT} \parencite{wu2023bloomberggpt} mixed 51\% financial with 49\% general (The Pile, C4) at token level and showed balanced mixtures can keep general skills while adding domain strength. Their focus was a single 50B model. The interaction with model size (0.6B vs 4B) is less clear. Our runs across three sizes show mixed financial datasets (21.55 ppl @ 4B) outperform Wiki+Financial (26.69 ppl @ 4B, 24\% worse) and pure WikiText (41.96 ppl mean financial @ 4B, 95\% worse), per \Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}. For specialized use, domain purity seems to win over domain balance.
 
 \subsection{Domain Proportions and Sampling Strategies}
 
-Determining optimal domain proportions in mixtures is non-trivial. Three sampling strategies dominate the literature:
+Choosing domain proportions is not obvious. Three common strategies:
 
 \textbf{1. Temperature sampling} \parencite{arivazhagan2019massively}: Sample from dataset $d$ with probability $p_d \propto n_d^{1/T}$ where $n_d$ is dataset size and $T$ is temperature. $T < 1$ upsamples small datasets; $T > 1$ downsamples them.
 
@@ -54,7 +54,7 @@ Determining optimal domain proportions in mixtures is non-trivial. Three samplin
 
 \textbf{3. Equal mixing} \parencite{sanh2022multitask}: Assign equal sampling probability to each dataset regardless of size. This maximizes task diversity but may undersample large datasets.
 
-This thesis employs a \textbf{50\% capping strategy} (``50cap'') for financial dataset mixtures, as described in Chapter 3, to balance diversity with data efficiency. We chose it for simplicity and stability in our setup.
+This thesis uses a \textbf{50\% capping strategy} (``50cap'') for financial mixtures (details in Chapter 3) to balance diversity and efficiency. We chose it for simplicity and stability in our setup.
 
 \section{Domain Adaptation and Transfer Learning}
 
@@ -70,7 +70,7 @@ A key challenge in domain adaptation is \textbf{catastrophic forgetting}: when a
 
 \subsection{Distribution Shift and Domain Mismatch}
 
-\textbf{Distribution shift}—the discrepancy between training and evaluation data—directly impacts generalization \parencite{quinonero2009dataset}. In financial NLP, this appears as vocabulary shift (financial terminology vs general language), discourse differences (analytical reports vs encyclopedic text), and formatting (structured tables in 10-K filings vs narrative news). \textcite{aharoni2020unsupervised} showed that domain mismatch can severely degrade performance on out-of-distribution test sets, motivating diverse mixtures that cover multiple sub-domains.
+\textbf{Distribution shift}—the gap between training and evaluation data—directly affects generalization \parencite{quinonero2009dataset}. In finance, this shows up as vocabulary (financial terms vs general), discourse (analytical reports vs encyclopedic text), and formatting (10‑K tables vs narrative news). \textcite{aharoni2020unsupervised} showed domain mismatch can severely degrade out‑of‑distribution performance, which motivates mixtures that cover sub‑domains.
 
 Our thesis investigates this empirically: does pretraining purely on high-quality general corpora (WikiText) transfer to financial evaluation sets? Or does domain mismatch make in-domain pretraining necessary? And when mixing in-domain datasets (sentiment, Q\&A, news, reports), do models generalize better than single-dataset training?
 
