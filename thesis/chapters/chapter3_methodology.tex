@@ -1,10 +1,10 @@
 \chapter{Methodology}
 
-This chapter describes our experimental methodology for studying data mixture effects in financial language model pretraining. We begin with an overview of the design, then detail model architecture, datasets, training setup with hyperparameter tuning, and evaluation protocol. In our setup, we favor simple choices that are easy to reproduce. When trade‑offs appear, we pick the option that keeps the setup stable. Boring by design.
+This chapter describes our experimental methodology for studying data mixture effects in financial language model pretraining. We begin with an overview of the design, then detail model architecture, datasets, training setup with hyperparameter tuning, and evaluation protocol. In our setup, we favor simple choices that are easy to reproduce. When trade offs appear, we pick the option that keeps the setup stable. Boring by design.
 
 \section{Experimental Design Overview}
 
-We evaluate \textbf{10 pretraining configurations}: 2 mixtures (Financial; Wiki+Financial) and 8 single‑dataset baselines. Each configuration is trained at three model sizes (0.6B/1.7B/4B) with a fixed \textbf{100M‑token budget} and evaluated on \textbf{8 held‑out test sets}. We also run 6 follow‑up runs with adjusted learning rates to address training stability at larger scales. We kept other factors fixed where possible. \Cref{tab:exp_settings} summarizes the settings used throughout.
+We evaluate \textbf{10 pretraining configurations}: 2 mixtures (Financial; Wiki+Financial) and 8 single dataset baselines. Each configuration is trained at three model sizes (0.6B/1.7B/4B) with a fixed \textbf{100M token budget} and evaluated on \textbf{8 held out test sets}. We also run 6 follow up runs with adjusted learning rates to address training stability at larger scales. We kept other factors fixed where possible. \Cref{tab:exp_settings} summarizes the settings used throughout.
 
 \input{tables/table_experimental_settings}
 
@@ -12,7 +12,7 @@ This design supports our research questions on mixture composition, model scale,
 
 \section{Model Architecture}
 
-We use the \textbf{Qwen3 model family} \parencite{yang2024qwen2}, a series of open‑source transformer‑based decoder‑only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped‑query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3‑Base series (pretrained checkpoints without post‑training alignment), detailed in \Cref{tab:model_specs}. In our runs, these sizes allow clean comparisons without changing tokenizers or context limits.
+We use the \textbf{Qwen3 model family} \parencite{yang2024qwen2}, a series of open source transformer based decoder only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3 Base series (pretrained checkpoints without post training alignment), detailed in \Cref{tab:model_specs}. In our runs, these sizes allow clean comparisons without changing tokenizers or context limits.
 
 \begin{table}[h]
 \centering
@@ -29,13 +29,13 @@ Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
 \end{tabular}
 \end{table}
 
-We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) stable baseline performance on general and domain‑specific benchmarks, and (3) efficient inference suitable for edge deployment (all models fit on consumer hardware). Put another way, it lets us study scale without changing too many other factors. And it reduces engineering noise.
+We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) stable baseline performance on general and domain specific benchmarks, and (3) efficient inference suitable for edge deployment (all models fit on consumer hardware). Put another way, it lets us study scale without changing too many other factors. And it reduces engineering noise.
 
 \section{Datasets}
 
 \subsection{Financial Datasets}
 
-We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 207M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.3M–197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra‑domain effects without changing models.
+We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 207M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.3M to 197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra domain effects without changing models.
 
 \begin{table}[h]
 \centering
@@ -65,7 +65,7 @@ Twitter Sentiment & 1.1K & 0.3M & Social Media & Labeled tweets ($<$280 chars) w
 
 \subsection{WikiText}
 
-We use \textbf{WikiText‑103} \parencite{merity2016pointer} as a general‑domain baseline, summarized in \Cref{tab:wikitext_dataset}. WikiText serves two purposes: (1) evaluating domain transfer (general $\leftrightarrow$ financial), and (2) testing whether high‑quality general corpora complement financial pretraining in mixtures. Sometimes it helps; sometimes not.
+We use \textbf{WikiText 103} \parencite{merity2016pointer} as a general domain baseline, summarized in \Cref{tab:wikitext_dataset}. WikiText serves two purposes: (1) evaluating domain transfer (general $\leftrightarrow$ financial), and (2) testing whether high quality general corpora complement financial pretraining in mixtures. Sometimes it helps; sometimes not.
 
 \begin{table}[h]
 \centering
@@ -156,9 +156,9 @@ To ensure fair comparison across experiments, we normalized the token budget to 
     \item \textbf{6 additional learning rate adjustment runs}: Upon observing abnormalities in the baseline results, we conducted follow-up experiments with adjusted learning rates for three datasets (WikiText 1.7B \& 4B, Financial QA 1.7B \& 4B, Twitter 1.7B \& 4B) to investigate hyperparameter sensitivity at scale
 \end{itemize}
 
-\textbf{Total computational cost}: $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) rented from Lambda Labs, each 100M-token run required 2–8 hours depending on model size (0.6B: $\sim$2h, 1.7B: $\sim$4h, 4B: $\sim$8h), totaling approximately 150 GPU-hours for the complete experimental suite.
+\textbf{Total computational cost}: $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) rented from Lambda Labs, each 100M-token run required 2 to 8 hours depending on model size (0.6B: $\sim$2h, 1.7B: $\sim$4h, 4B: $\sim$8h), totaling approximately 150 GPU-hours for the complete experimental suite.
 
-This token‑controlled design helps ensure that performance differences reflect model–data interactions rather than unequal training compute. Variable epoch counts (2–249 across experiments) follow from dataset size while keeping token exposure constant. But it also means small datasets see many passes. A trade‑off we accept.
+This token controlled design helps ensure that performance differences reflect model data interactions rather than unequal training compute. Variable epoch counts (2 to 249 across experiments) follow from dataset size while keeping token exposure constant. But it also means small datasets see many passes. A trade off we accept.
 
 \section{Evaluation Protocol}
 
