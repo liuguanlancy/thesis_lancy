@@ -325,7 +325,7 @@ Three experiments exhibited \textit{reverse scaling}: larger models performed wo
 \item \textbf{4B}: 31.54 ppl (after LR adjustment; originally $>$100 ppl)
 \end{itemize}
 
-The 0.6B model achieved strong WikiText performance with LR $2 \times 10^{-5}$, but this same learning rate caused catastrophic instability for 1.7B (gradient explosion, NaN values) and severe degradation for 4B. The clean, structured nature of WikiText may amplify learning rate sensitivity---uniform, high-quality text produces consistent gradients that accumulate more rapidly in larger models.
+The 0.6B model achieved strong WikiText performance with LR $2 \times 10^{-5}$, but this same learning rate caused catastrophic instability for 1.7B (gradient explosion, NaN values) and severe degradation for 4B. The clean, structured nature of WikiText may amplify learning rate sensitivity—uniform, high-quality text produces consistent gradients that accumulate more rapidly in larger models.
 
 \textbf{Financial QA 10K (3.5M tokens) - Moderate Reverse Scaling}:
 \begin{itemize}

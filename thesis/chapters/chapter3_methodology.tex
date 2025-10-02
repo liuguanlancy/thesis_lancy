@@ -156,7 +156,7 @@ To ensure fair comparison across experiments, we normalized the token budget to 
     \item \textbf{6 additional learning rate adjustment runs}: Upon observing abnormalities in the baseline results, we conducted follow-up experiments with adjusted learning rates for three datasets (WikiText 1.7B \& 4B, Financial QA 1.7B \& 4B, Twitter 1.7B \& 4B) to investigate hyperparameter sensitivity at scale
 \end{itemize}
 
-\textbf{Total computational cost}: $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) rented from Lambda Labs, each 100M-token run required 2--8 hours depending on model size (0.6B: $\sim$2h, 1.7B: $\sim$4h, 4B: $\sim$8h), totaling approximately 150 GPU-hours for the complete experimental suite.
+\textbf{Total computational cost}: $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) rented from Lambda Labs, each 100M-token run required 2–8 hours depending on model size (0.6B: $\sim$2h, 1.7B: $\sim$4h, 4B: $\sim$8h), totaling approximately 150 GPU-hours for the complete experimental suite.
 
 This token‑controlled design helps ensure that performance differences reflect model–data interactions rather than unequal training compute. Variable epoch counts (2–249 across experiments) follow from dataset size while keeping token exposure constant. But it also means small datasets see many passes. A trade‑off we accept.
 
