@@ -184,10 +184,10 @@ Lower is better.
 
 \textbf{Perplexity}: Interpretable transformation of cross-entropy: $\text{PPL} = \exp(\mathcal{L})$. Represents effective vocabulary size the model considers at each prediction. PPL = 10 means the model is effectively choosing among 10 tokens on average. Lower is better. Primary metric for comparisons in this thesis.
 
-\textbf{Relative Spread (Coefficient of Variation)}: Cross-dataset variability of performance. Compute CV\% on the 8 perplexities (one per evaluation set) as
+\textbf{Relative Spread}: Cross-dataset variability of performance. We report relative spread as
 \begin{equation*}
-    \text{CV}\% = 100\,\frac{\text{sample std. dev. of PPL}}{\text{mean PPL}}\, .
+    \text{Relative Spread}\% = 100\,\frac{\max(\text{PPL}) - \min(\text{PPL})}{\text{mean PPL}}\, ,
 \end{equation*}
-Lower CV\% indicates more consistent performance across datasets; higher CV\% indicates specialization or brittleness.
+computed over the set of evaluation perplexities (one per evaluation dataset). Lower values indicate more consistent performance across datasets; higher values indicate specialization or brittleness.
 
 All metrics are computed on full test sets (no subsampling) with the same sequence length (1,024 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).

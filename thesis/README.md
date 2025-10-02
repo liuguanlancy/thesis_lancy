@@ -87,10 +87,10 @@ Or use your preferred LaTeX editor (VSCode with LaTeX Workshop, TeXMaker, Overle
 
 ## Key Findings to Highlight
 
-1. **Data Mixture**: Mixed financial (21.55 ppl) >> WikiText (31.54 ppl)
+1. **Data Mixture**: Mixed Financial (21.55 ppl, mean across financial evaluations) >> WikiText (31.54 ppl on WikiText; 41.96 ppl mean across financial evaluations after LR adjustment)
 2. **LR Scaling**: 0.6B (2e-5) → 1.7B (1e-5) → 4B (5e-6)
 3. **Dataset Size**: <20K samples require mixing, >100K viable standalone
-4. **Experiments**: 10 experiments, 30 models, 240 evaluations
+4. **Experiments**: 10 experiments, 30 models, 237 evaluations (Mixed Financial excludes WikiText evaluation)
 
 ## Next Steps
 
