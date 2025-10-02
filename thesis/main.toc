@@ -16,7 +16,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}Financial NLP}{5}{section.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.1}The Financial NLP Landscape}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.1}Tasks and Settings in Financial NLP}{5}{subsection.2.1.1}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.1.2}Existing Financial Language Models}{5}{subsection.2.1.2}%
 \defcounter {refsection}{0}\relax 
