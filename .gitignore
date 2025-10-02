@@ -242,3 +242,51 @@ debug_grpo/
 
 # Personal prompt files
 prompt.md
+
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.synctex(busy)
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.dvi
+*.ps
+*.lol
+*.idx
+*.ilg
+*.ind
+*.glo
+*.gls
+*.glsdefs
+*.acn
+*.acr
+*.alg
+*.ist
+*.loa
+*.thm
+*.brf
+*.cb
+*.cb2
+*.lb
+*.nlo
+*.nls
+*.tdo
+*.xdv
+*.upa
+*.upb
+
+# LaTeX build directories
+_minted-*/
+auto/
