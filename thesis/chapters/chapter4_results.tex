@@ -51,11 +51,11 @@ Our central research question concerns optimal data mixture strategies for finan
 
 \subsection{Mixed Financial Datasets}
 
-The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 207M tokens with 50cap) achieves the best overall performance across model sizes and evaluation sets.
+The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 207M tokens with 50cap) achieves the best overall performance across model sizes and evaluation sets. In practice, this is the configuration we would pick first.
 
-\textbf{Performance by Model Size}: Mean perplexity across financial evaluations decreases consistently with scale: 0.6B: 130.30 ppl, 1.7B: 34.49 ppl, 4B: 21.55 ppl (\Cref{tab:mixed_financial_results}). From 0.6B to 1.7B this is a \~73.5\% reduction; from 1.7B to 4B a further \~37.5\% reduction. As visualized in \Cref{fig:scaling_mixed_financial}, both perplexity (left panel, log scale) and loss (right panel) decrease smoothly and monotonically across model sizes, with no irregularities or reversals.
+\textbf{Performance by Model Size}: Mean perplexity across financial evaluations decreases consistently with scale: 0.6B: 130.30 ppl, 1.7B: 34.49 ppl, 4B: 21.55 ppl (\Cref{tab:mixed_financial_results}). From 0.6B to 1.7B this is a \~73.5\% reduction; from 1.7B to 4B a further \~37.5\% reduction. As shown in \Cref{fig:scaling_mixed_financial}, both perplexity (left panel, log scale) and loss (right panel) decrease smoothly and monotonically across model sizes, with no irregularities or reversals.
 
-\textbf{Cross-Dataset Consistency}: Performance across the financial evaluation sets shows 55\% relative spread for the 4B model, indicating reasonable generalization. Individual test set perplexities for 4B (financial datasets): Financial News (13.84), SEC Reports (22.36), FinGPT (23.08), Alpaca (19.50), FiQA (21.20), Financial QA (25.14), Twitter (25.72).
+\textbf{Cross-Dataset Consistency}: Performance across the financial evaluation sets shows 55\% relative spread for the 4B model, indicating reasonable generalization. Individual test set perplexities for 4B (financial datasets): Financial News (13.84), SEC Reports (22.36), FinGPT (23.08), Alpaca (19.50), FiQA (21.20), Financial QA (25.14), Twitter (25.72). Still, there is room to reduce variance.
 
 \textbf{Why This Works}: The 50cap strategy ensures no single dataset dominates (News capped at 50\%, remaining 6 datasets proportionally sampled). This produces exposure to diverse financial document types: long-form journalism (News), regulatory filings (SEC), instruction-following (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), and short-form social media (Twitter). The diversity prevents overfitting to dataset-specific artifacts while maintaining domain specialization.
 

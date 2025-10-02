@@ -4,11 +4,11 @@ This chapter describes our experimental methodology for studying data mixture ef
 
 \section{Experimental Design Overview}
 
-We evaluate \textbf{10 pretraining configurations}: 2 mixtures (Financial; Wiki+Financial) and 8 single-dataset baselines. Each configuration is trained at three model sizes (0.6B/1.7B/4B) with a fixed \textbf{100M-token budget} and evaluated on \textbf{8 held-out test sets}. We also run 6 follow-up runs with adjusted learning rates to address training stability at larger scales. \Cref{tab:exp_settings} summarizes the settings used throughout.
+We evaluate \textbf{10 pretraining configurations}: 2 mixtures (Financial; Wiki+Financial) and 8 single-dataset baselines. Each configuration is trained at three model sizes (0.6B/1.7B/4B) with a fixed \textbf{100M-token budget} and evaluated on \textbf{8 held-out test sets}. We also run 6 follow-up runs with adjusted learning rates to address training stability at larger scales. We kept other factors fixed where possible. \Cref{tab:exp_settings} summarizes the settings used throughout.
 
 \input{tables/table_experimental_settings}
 
-This design supports our research questions on mixture composition, model scale, dataset size, and domain transfer. Results are presented in Chapter 4.
+This design supports our research questions on mixture composition, model scale, dataset size, and domain transfer. Results are presented in Chapter 4 with figures and tables.
 
 \section{Model Architecture}
 
@@ -188,6 +188,6 @@ Lower is better.
 \begin{equation*}
     \text{Relative Spread}\% = 100\,\frac{\max(\text{PPL}) - \min(\text{PPL})}{\text{mean PPL}}\, ,
 \end{equation*}
-computed over the set of evaluation perplexities (one per evaluation dataset). Lower values indicate more consistent performance across datasets; higher values indicate specialization or brittleness.
+computed over the set of evaluation perplexities (one per evaluation dataset). Lower is better for consistency; higher suggests specialization or brittleness.
 
 All metrics are computed on full test sets (no subsampling) with the same sequence length (1,024 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).

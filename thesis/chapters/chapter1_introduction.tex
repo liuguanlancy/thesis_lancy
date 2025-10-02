@@ -78,12 +78,12 @@ This thesis focuses specifically on pretraining dynamics for causal language mod
 
 \textbf{Model Architecture:} All experiments use the Qwen3 model family. While we believe our findings on learning rate scaling and data mixture effects are generalizable, validation on other architectures (LLaMA, Gemma, Phi) would strengthen confidence in universality.
 
-\textbf{Data Mixture Strategy:} We employ a single mixture algorithm (50cap, which caps the largest dataset at 50\% of the mixture). Other mixing approaches—such as square-root sampling, temperature-based sampling, or dynamic curriculum learning—remain unexplored and may yield different results.
+\textbf{Data Mixture Strategy:} We use a single mixture algorithm (50cap, which caps the largest dataset at 50\% of the mixture). We did not explore square-root sampling, temperature-based sampling, or dynamic curriculum learning; these might lead to different results.
 
-\textbf{Evaluation Methodology:} We evaluate models based on perplexity on held-out test sets from the pretraining distribution. While perplexity strongly correlates with downstream task performance, we do not directly measure accuracy on specific financial NLP tasks (sentiment classification, named entity recognition, question answering). This choice reflects our focus on pretraining dynamics rather than application performance, but limits direct applicability claims.
+\textbf{Evaluation Methodology:} We evaluate models by perplexity on held-out test sets from the pretraining distribution. While perplexity often correlates with downstream performance, we do not directly measure accuracy on financial NLP tasks (sentiment, NER, QA). This is because we focus on pretraining dynamics, not downstream systems. But it limits how far we can generalize to applications.
 
-\textbf{Scale Range:} Our experiments cover 0.6B to 4B parameters due to hardware constraints. Larger models (7B+) may exhibit different training dynamics and data sensitivity patterns. However, the parameter range studied is particularly relevant for edge deployment scenarios.
+\textbf{Scale Range:} Our experiments cover 0.6B to 4B parameters due to hardware limits. Larger models (7B+) may show different training dynamics and data sensitivity. Still, the range we study is relevant for edge deployment.
 
-\textbf{Domain Specificity:} While we focus on financial text, many findings—particularly regarding learning rate scaling and dataset size effects—are likely domain-agnostic. The specific conclusion that WikiText provides minimal benefit is domain-specific and may not generalize to other specialized domains.
+\textbf{Domain Specificity:} We focus on financial text. Many findings—especially about learning rate and dataset size—likely transfer to other domains, but the claim that WikiText helps little is domain-specific and may not hold elsewhere.
 
-Despite these limitations, our experimental approach across 30 models and 240 evaluation results provides solid empirical evidence for the claims made, with clear separation between what we can conclude and what needs further study.
+Despite these limits, our experiments across 30 models and 240+ evaluations provide solid evidence for the claims here. We try to separate clearly what we know from what needs more study.
