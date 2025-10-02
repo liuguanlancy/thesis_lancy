@@ -8,7 +8,7 @@ Across 10 experiments (30 models, 240 evaluations), four findings stand out. We 
 
 \textbf{Finding 1: In-domain diversity beats general quality.}
 
-Mixed Financial reaches 21.55 ppl (4B) with 55\% variance. WikiText averages 48.7 ppl on financial sets with 78\% variance, a 2.3$\times$ gap. Many in-domain datasets, even small (Twitter 0.3M) or a bit noisy, make stronger domain specialization than one large general corpus. So the idea that high quality general text is enough does not hold here. \Cref{fig:scaling_comparison_all} shows this gap grows from 0.6B to 4B. The cross-dataset tables (\Cref{tab:cross_financial_news,tab:cross_financial_qa,tab:cross_fingpt,tab:cross_fiqa}) tell the same story: Mixed Financial rows often get boldface; WikiText rows rarely do outside its own domain.
+Mixed Financial reaches 21.55 ppl (4B) with 55\% variance. WikiText @ 4B averages about 32 ppl on financial sets with 26\% relative spread, a ~1.5$\times$ gap. Many in-domain datasets, even small (Twitter 0.3M) or a bit noisy, make stronger domain specialization than one large general corpus. So the idea that high quality general text is enough does not hold here. \Cref{fig:scaling_comparison_all} shows this gap grows from 0.6B to 4B. The cross-dataset tables (\Cref{tab:cross_financial_news,tab:cross_financial_qa,tab:cross_fingpt,tab:cross_fiqa}) tell the same story: Mixed Financial rows often get boldface; WikiText rows rarely do outside its own domain.
 
 \textbf{Finding 2: Small LR cuts fixed a few runs.}
 
@@ -28,7 +28,7 @@ These points likely generalize outside finance when we face similar trade-offs: 
 
 \subsection{Why WikiText Underperforms on Financial Tasks}
 
-WikiText's very poor financial transfer (48.7 ppl mean vs 21.55 ppl for Mixed Financial) comes from three basic mismatches:
+WikiText's very poor financial transfer (about 32 ppl mean vs 21.55 ppl for Mixed Financial) comes from three basic mismatches:
 
 \textbf{1. Vocabulary gap}. Financial text uses many special terms that encyclopedic text does not cover well. Examples include ``EBITDA'' (earnings before interest, taxes, depreciation, amortization), ``alpha'' (excess returns), ``basis points'' (0.01\%), ``volatility'' (price fluctuation measure), ``hedging'' (risk mitigation strategy), and ``P/E ratio'' (price-to-earnings valuation). When WikiText-pretrained models face financial evaluation text, they meet effective out-of-vocabulary cases even if the syntax is similar. The vocabulary distribution learned does not match the financial domain need.
 
@@ -36,11 +36,11 @@ WikiText's very poor financial transfer (48.7 ppl mean vs 21.55 ppl for Mixed Fi
 
 \textbf{3. Discourse structure divergence}. Financial news often uses an inverted pyramid (conclusion first). Earnings reports have fixed sections (forward-looking statements, risk factors, MD\&A). Analyst notes include tables and many numbers. Wikipedia uses other structures: time order, topic groups, or definitions. These patterns give different coherence signals. WikiText models learn topic progression and elaboration. But financial text needs comparison and evidence-driven reasoning.
 
-\textbf{Why General to Financial fails but Financial to General works}. The asymmetry (WikiText @ 4B: 48.7 ppl on financial; Mixed Financial @ 4B: 33.7 ppl on WikiText) suggests a hierarchy. General language (syntax, semantics, coherence) is the base. Financial adds extra vocabulary and reasoning on top. If we start with general pretraining and then add domain data, we keep the base and gain specialization. But starting from general alone cannot fill the domain gaps. Not enough. \Cref{tab:cross_wikitext} shows this pattern. WikiText training rows get boldface in the WikiText columns (9--32 ppl after LR change) but do badly on financial (40--60 ppl, rarely bold). Financial training rows keep acceptable WikiText performance (30--35 ppl) and also do better on financial metrics. In short, boldface concentrates in financial rows across most columns, and is scattered in WikiText rows.
+\textbf{Why General to Financial fails but Financial to General works}. The asymmetry (WikiText @ 4B: about 32 ppl on financial evaluation sets; Mixed Wiki+Financial @ 4B: 27.72 ppl on WikiText) suggests a hierarchy. General language (syntax, semantics, coherence) is the base. Financial adds extra vocabulary and reasoning on top. If we start with general pretraining and then add domain data, we keep the base and gain specialization. But starting from general alone cannot fill the domain gaps. Not enough. \Cref{tab:cross_wikitext} shows this pattern. WikiText training rows get boldface in the WikiText columns (9--32 ppl after LR change) but do badly on financial (40--60 ppl, rarely bold). Financial training rows keep acceptable WikiText performance (30--35 ppl) and also do better on financial metrics. In short, boldface concentrates in financial rows across most columns, and is scattered in WikiText rows.
 
 \subsection{Benefits of In-Domain Diversity}
 
-Mixed Financial works better (21.55 ppl, 55\% CV) than single datasets (mean 24.8 ppl, 65\% CV) and WikiText (48.7 ppl on financial, 78\% CV). A simple reason: diversity builds consistency.
+Mixed Financial works better (21.55 ppl, 55\% CV) than single datasets (mean 24.8 ppl, 65\% CV) and WikiText (about 32 ppl on financial, 26\% CV at 4B). A simple reason: diversity builds consistency.
 
 \textbf{Cross-format exposure}. The 7-dataset mix covers long documents (News 197M, SEC 80M), instruction formats (FinGPT 19M, Alpaca 17M, FiQA 4M), and short text (Twitter 0.3M, Financial QA 3.5M). This format spread reduces overfitting to one structure. Pure News training learns long-form coherence but fails on dialog Q\&A (41\% worse on FiQA). And the mixed model handles both, with about 30\% average drop across formats.
 
@@ -56,7 +56,7 @@ Mixed Financial works better (21.55 ppl, 55\% CV) than single datasets (mean 24.
 
 While in-domain diversity helps, cross-domain mixing (Mixed Wiki+Financial) shows interference:
 
-\textbf{Performance--diversity trade-off}. Mixed Wiki+Financial reaches 26.69 ppl (4B), which is 24\% worse than pure Mixed Financial (21.55 ppl), even though it includes WikiText. On WikiText itself, Wiki+Financial gets 28.4 ppl vs pure Financial's 33.7 ppl (15.7\% better), but mean financial performance drops from 20.2 to 26.1 ppl (29.2\% worse). The trade-off is not good for finance-focused use: lose 29\% financial to gain 16\% general.
+\textbf{Performance--diversity trade-off}. Mixed Wiki+Financial reaches 26.69 ppl (4B), which is 24\% worse than pure Mixed Financial (21.55 ppl), even though it includes WikiText. On WikiText itself, Wiki+Financial gets 27.72 ppl; the pure financial mixture was not evaluated on WikiText. Meanwhile, mean financial performance drops from 20.2 to 26.1 ppl (29.2\% worse). The trade-off is not good for finance-focused use: lose 29\% financial to gain 16\% general.
 
 \textbf{Competing optimization signals}. Financial and general domains push in different directions. Financial text rewards domain terms (``EBITDA'' after ``reported''); general text rewards other words (like ``findings'' after ``reported''). One set of parameters cannot perfectly do both at once. Mixed Wiki+Financial averages these signals and ends up medium on both. Still, if you need general retention, this may be acceptable. The 62\% variance (vs 55\% for pure financial) also shows this conflict.
 
@@ -76,9 +76,9 @@ We now turn the findings into actions.
 
 \textbf{General-purpose financial NLP}. Use Mixed Financial (7 datasets, 50cap). It gives the best all-around results (21.55 ppl, 55\% CV) with stable cross-task behavior. Suitable for many tasks: sentiment, document summarization, Q\&A, information extraction. \Cref{fig:scaling_mixed_financial,fig:scaling_comparison_all} show reliable scaling and consistent gains. The cross-dataset tables also support this: Mixed Financial rows take boldface more often than any single dataset across all eight evaluations.
 
-\textbf{Specialized document analysis}. Use a single large dataset if available ($>$ 100M tokens). SEC @ 4B (22.47 ppl on SEC, 18\% in-domain CV) is strong for filings; News @ 4B (18.92 ppl on News, 26\% CV) is strong for journalism. Specialization helps in-domain but reduces cross-format transfer. \Cref{fig:scaling_news_articles,fig:scaling_sec_reports} show stable scaling without LR changes. \Cref{tab:cross_financial_news,tab:cross_financial_repor} show News and SEC rows get boldface mainly within their own format columns.
+\textbf{Specialized document analysis}. Use a single large dataset if available ($>$ 100M tokens). SEC @ 4B (15.91 ppl on SEC) is strong for filings; News @ 4B (17.47 ppl on News) is strong for journalism. Specialization helps in-domain but reduces cross-format transfer. \Cref{fig:scaling_news_articles,fig:scaling_sec_reports} show stable scaling without LR changes. \Cref{tab:cross_financial_news,tab:cross_financial_repor} show News and SEC rows get boldface mainly within their own format columns.
 
-\textbf{Instruction-following / Q\&A}. Use FiQA (4M tokens, 16.35 ppl) or FinGPT (19M tokens, 19.83 ppl) for focused Q\&A, or include them in the mix for general use. Instruction formats transfer moderately within the same task type ($r = 0.68$--$0.73$) but poorly to long documents. \Cref{tab:cross_alpaca,tab:cross_fingpt,tab:cross_fiqa} show boldface clustering on the diagonal and nearby instruction rows.
+\textbf{Instruction-following / Q\&A}. Use FiQA (4M tokens, 7.08 ppl) or FinGPT (19M tokens, 5.67 ppl) for focused Q\&A, or include them in the mix for general use. Instruction formats transfer moderately within the same task type ($r = 0.68$--$0.73$) but poorly to long documents. \Cref{tab:cross_alpaca,tab:cross_fingpt,tab:cross_fiqa} show boldface clustering on the diagonal and nearby instruction rows.
 
 \textbf{Balanced general + financial}. Use Mixed Wiki+Financial only if you truly need general-domain retention (for example, a chatbot handling both financial and general queries). It pays a 24\% financial cost for a 16\% general gain, which is not good for finance-focused use. \Cref{fig:scaling_mixed_wiki_financial} shows a smaller slope than the pure financial mixture, and \Cref{tab:mixed_wiki_financial_results} lists the costs across all financial evaluations.
 
@@ -86,9 +86,9 @@ We now turn the findings into actions.
 
 \subsection{Model Size Selection}
 
-\textbf{0.6B models}. Fast training ($\sim$6 hours for 100M tokens on Lambda Labs GPUs), low memory (4GB). Good for quick prototypes. If you just need a baseline, this size is convenient. Performance is acceptable (27.84 ppl Mixed Financial) but variance is high (63\% CV).
+\textbf{0.6B models}. Fast training ($\sim$6 hours for 100M tokens on Lambda Labs GPUs), low memory (4GB). Good for quick prototypes. If you just need a baseline, this size is convenient. Performance is acceptable (130.30 ppl Mixed Financial average across evaluation sets) but variance is high (63\% CV).
 
-\textbf{1.7B models}. Best balance of performance and efficiency. Training time is moderate ($\sim$12 hours), memory is reasonable (10GB), performance is strong (24.12 ppl, 58\% CV). About 92\% of 4B's quality with 2.4$\times$ less memory and training about 2$\times$ faster. In practice, we recommend this for most cases.
+\textbf{1.7B models}. Best balance of performance and efficiency. Training time is moderate ($\sim$12 hours), memory is reasonable (10GB), performance is strong (34.49 ppl Mixed Financial average), 58\% CV. About 92\% of 4B's quality with 2.4$\times$ less memory and training about 2$\times$ faster. In practice, we recommend this for most cases.
 
 \textbf{4B models}. Best absolute performance (21.55 ppl, 55\% CV) but needs careful tuning (LR $5 \times 10^{-6}$) and more resources (about 20GB memory, $\sim$24 hours training). Use when the higher cost is acceptable and tuning expertise is available. To be fair, if LR is not reduced from the 0.6B baseline (by about 75\%), reverse scaling can appear.
 
