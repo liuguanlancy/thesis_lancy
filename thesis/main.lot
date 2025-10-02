@@ -6,55 +6,55 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {3.1}{\ignorespaces Experimental Settings Summary}}{9}{table.caption.6}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Experimental Settings Summary}}{10}{table.caption.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {3.2}{\ignorespaces Qwen3 Model Specifications}}{10}{table.caption.7}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Qwen3 Model Specifications}}{11}{table.caption.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {3.3}{\ignorespaces Financial Dataset Characteristics}}{11}{table.caption.8}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Financial Dataset Characteristics}}{12}{table.caption.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {3.4}{\ignorespaces WikiText Dataset Characteristics}}{11}{table.caption.9}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces WikiText Dataset Characteristics}}{12}{table.caption.9}%
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.1}{\ignorespaces Overview of Pretraining Experiments}}{15}{table.caption.10}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Overview of Pretraining Experiments}}{16}{table.caption.10}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.2}{\ignorespaces Mixed Financial: Evaluation Results}}{17}{table.caption.12}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Mixed Financial: Evaluation Results}}{18}{table.caption.12}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.3}{\ignorespaces Mixed Wiki+Financial: Evaluation Results}}{17}{table.caption.14}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Mixed Wiki+Financial: Evaluation Results}}{18}{table.caption.14}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.4}{\ignorespaces WikiText: Learning Rate Comparison}}{19}{table.caption.16}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces WikiText: Learning Rate Comparison}}{20}{table.caption.16}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.5}{\ignorespaces Financial News: Evaluation Results}}{21}{table.caption.20}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Financial News: Evaluation Results}}{22}{table.caption.20}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.6}{\ignorespaces SEC Reports: Evaluation Results}}{22}{table.caption.21}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces SEC Reports: Evaluation Results}}{23}{table.caption.21}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.7}{\ignorespaces FinGPT Sentiment: Evaluation Results}}{25}{table.caption.25}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces FinGPT Sentiment: Evaluation Results}}{26}{table.caption.25}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.8}{\ignorespaces Finance Alpaca: Evaluation Results}}{25}{table.caption.26}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Finance Alpaca: Evaluation Results}}{26}{table.caption.26}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.9}{\ignorespaces FiQA: Evaluation Results}}{26}{table.caption.27}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces FiQA: Evaluation Results}}{27}{table.caption.27}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.10}{\ignorespaces Financial QA 10K: Learning Rate Comparison}}{27}{table.caption.30}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces Financial QA 10K: Learning Rate Comparison}}{28}{table.caption.30}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.11}{\ignorespaces Twitter Financial: Learning Rate Comparison}}{28}{table.caption.31}%
+\contentsline {table}{\numberline {4.11}{\ignorespaces Twitter Financial: Learning Rate Comparison}}{29}{table.caption.31}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.12}{\ignorespaces Financial News Evaluation: Cross-Dataset Performance}}{34}{table.caption.32}%
+\contentsline {table}{\numberline {4.12}{\ignorespaces Financial News Evaluation: Cross-Dataset Performance}}{35}{table.caption.32}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.13}{\ignorespaces SEC Reports Evaluation: Cross-Dataset Performance}}{35}{table.caption.33}%
+\contentsline {table}{\numberline {4.13}{\ignorespaces SEC Reports Evaluation: Cross-Dataset Performance}}{36}{table.caption.33}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.14}{\ignorespaces Alpaca Evaluation: Cross-Dataset Performance}}{36}{table.caption.34}%
+\contentsline {table}{\numberline {4.14}{\ignorespaces Alpaca Evaluation: Cross-Dataset Performance}}{37}{table.caption.34}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.15}{\ignorespaces FinGPT Evaluation: Cross-Dataset Performance}}{37}{table.caption.35}%
+\contentsline {table}{\numberline {4.15}{\ignorespaces FinGPT Evaluation: Cross-Dataset Performance}}{38}{table.caption.35}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.16}{\ignorespaces FiQA Evaluation: Cross-Dataset Performance}}{38}{table.caption.36}%
+\contentsline {table}{\numberline {4.16}{\ignorespaces FiQA Evaluation: Cross-Dataset Performance}}{39}{table.caption.36}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.17}{\ignorespaces Twitter Financial Evaluation: Cross-Dataset Performance}}{39}{table.caption.37}%
+\contentsline {table}{\numberline {4.17}{\ignorespaces Twitter Financial Evaluation: Cross-Dataset Performance}}{40}{table.caption.37}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.18}{\ignorespaces Financial QA Evaluation: Cross-Dataset Performance}}{40}{table.caption.38}%
+\contentsline {table}{\numberline {4.18}{\ignorespaces Financial QA Evaluation: Cross-Dataset Performance}}{41}{table.caption.38}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.19}{\ignorespaces WikiText Evaluation: Cross-Dataset Performance}}{41}{table.caption.39}%
+\contentsline {table}{\numberline {4.19}{\ignorespaces WikiText Evaluation: Cross-Dataset Performance}}{42}{table.caption.39}%
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {4.20}{\ignorespaces Best Configurations by Application}}{41}{table.caption.40}%
+\contentsline {table}{\numberline {4.20}{\ignorespaces Best Configurations by Application}}{42}{table.caption.40}%
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

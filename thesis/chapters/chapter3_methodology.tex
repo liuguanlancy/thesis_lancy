@@ -1,6 +1,6 @@
 \chapter{Methodology}
 
-This chapter explains how we ran the study. First, the design. Then models, datasets, training setup, and finally evaluation. The goal is fair, repeatable comparisons. We keep the setup practical and aligned with available compute.
+This chapter explains how we ran the study. First, the design. Then models, datasets, training setup, and finally evaluation. The goal is fair, repeatable comparisons. We keep the setup practical and aligned with available compute. Put another way, we avoid tricks that do not scale.
 
 \section{Experimental Design Overview}
 
@@ -8,7 +8,7 @@ We evaluate \textbf{10 pretraining configurations}: two mixtures (Financial; Wik
 
 \input{tables/table_experimental_settings}
 
-This design targets our questions on mixture composition, model scale, dataset size, and domain transfer. Results appear in Chapter 4.
+This design targets our questions on mixture composition, model scale, dataset size, and domain transfer. Results appear in Chapter~4.
 
 \section{Model Architecture}
 
@@ -29,13 +29,13 @@ Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
 \end{tabular}
 \end{table}
 
-Why Qwen3? Three reasons. Consistent architecture across sizes enables clean comparisons. Strong baselines on general and domain tasks. Inference is efficient—these models fit on consumer hardware for edge deployment.
+Why Qwen3? Three reasons. Consistent architecture across sizes enables clean comparisons. Strong baselines on general and domain tasks. Inference is efficient—these models fit on consumer hardware for edge deployment. In practice, this makes experimentation faster.
 
 \section{Datasets}
 
 \subsection{Financial Datasets}
 
-We curate seven financial datasets covering multiple tasks, document types, and scales (total: 207M tokens), summarized in \Cref{tab:financial_datasets}. Sizes vary from 0.3M to 197M tokens. Formats include news, reports, Q\&A, and social media. Formality ranges from regulatory filings to tweets. This lets us study intra-domain diversity.
+We curate seven financial datasets covering multiple tasks, document types, and scales (total: 207M tokens), summarized in \Cref{tab:financial_datasets}. Sizes vary from 0.3M to 197M tokens. Formats include news, reports, Q\&A, and social media. Formality ranges from regulatory filings to tweets. This lets us study intra-domain diversity. Still, the coverage is not exhaustive.
 
 \begin{table}[h]
 \centering
@@ -158,7 +158,7 @@ For fairness, every run uses \textbf{100M tokens}, regardless of dataset size or
 
 \textbf{Total compute}. $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) from Lambda Labs, each 100M-token run took 2--8 hours by size (0.6B: $\sim$2h; 1.7B: $\sim$4h; 4B: $\sim$8h). Roughly 150 GPU-hours in total.
 
-This token-controlled design helps isolate model--data interactions rather than compute artifacts. Variable epoch counts (2--249) come from dataset size differences while keeping token exposure fixed.
+This token-controlled design helps isolate model--data interactions rather than compute artifacts. Variable epoch counts (2--249) come from dataset size differences while keeping token exposure fixed. Simple, but effective for our goals.
 
 \section{Evaluation Protocol}
 

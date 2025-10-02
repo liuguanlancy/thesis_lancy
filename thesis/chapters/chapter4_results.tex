@@ -11,7 +11,7 @@
 
 \section{Overview of Experimental Results}
 
-This chapter reports results from 10 pretraining experiments. The goal is to measure data-mixing effects in financial language models. We trained 30 models (3 sizes $\times$ 10 experiments) and ran 240 evaluations (30 models $\times$ 8 test sets). In short: Mixed Financial performs best on financial evaluation sets. \Cref{tab:experiments_overview} summarizes the setup and headline numbers.
+This chapter reports results from 10 pretraining experiments. The goal is to measure data-mixing effects in financial language models. We trained 30 models (3 sizes $\times$ 10 experiments) and ran 240 evaluations (30 models $\times$ 8 test sets). In short: Mixed Financial performs best on financial evaluation sets. Put another way, in-domain diversity beats general text in our setup. \Cref{tab:experiments_overview} summarizes the setup and headline numbers.
 
 \begin{table}[h]
 \centering
@@ -43,7 +43,7 @@ Twitter Sentiment & Twitter & 100M & 4B (12.35 ppl) \\
 \label{tab:experiments_overview}
 \end{table}
 
-Key observations. First, mixed financial datasets perform best across evaluation sets. Second, WikiText is strong in general text but transfers poorly to finance. Third, large individual datasets (News, SEC) are viable alone. Fourth, small datasets (Financial QA, Twitter) overtrain heavily (67--249 epochs), signaling low diversity. Bottom line: pick Mixed Financial unless you have a narrow, format-specific goal.
+Key observations. First, mixed financial datasets perform best across evaluation sets. Second, WikiText is strong in general text but transfers poorly to finance. Third, large individual datasets (News, SEC) are viable alone. Fourth, small datasets (Financial QA, Twitter) overtrain heavily (67--249 epochs), signaling low diversity. Bottom line: pick Mixed Financial unless you have a narrow, format-specific goal. Still, check your target format.
 
 \section{Data Mixture Effects: The Core Finding}
 
