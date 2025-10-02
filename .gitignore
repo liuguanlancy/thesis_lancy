@@ -244,3 +244,11 @@ debug_grpo/
 prompt.md
 
 kmbart.tex
+
+*.aux
+*.bcf
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.toc
