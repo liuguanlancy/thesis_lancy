@@ -11,7 +11,7 @@
 
 \section{Overview of Experimental Results}
 
-This chapter presents results from 10 pretraining experiments evaluating data mixture effects in financial language models. We trained 30 models (3 sizes $\times$ 10 experiments) and conducted 237 evaluations (30 models $\times$ 8 test sets; Mixed Financial excludes WikiText evaluation). \Cref{tab:experiments_overview} summarizes all experiments.
+This chapter presents results from 10 pretraining experiments evaluating data mixture effects in financial language models. We trained 30 models (3 sizes $\times$ 10 experiments) and conducted 237 evaluations (30 models $\times$ 8 test sets; Mixed Financial excludes WikiText evaluation). \Cref{tab:experiments_overview} summarizes all experiments. The numbers below keep the training setup fixed so differences reflect data–model interactions.
 
 \begin{table}[h]
 \centering
@@ -43,11 +43,11 @@ Twitter Sentiment & Twitter & 100M & 4B (11.81 ppl) \\
 \label{tab:experiments_overview}
 \end{table}
 
-Key observations: (1) Mixed financial datasets achieve the best overall performance across evaluation sets, (2) WikiText shows strong general-domain performance but poor financial transfer, (3) large individual datasets (News, SEC) are viable for standalone pretraining, (4) small datasets (Financial QA, Twitter) exhibit extreme overtraining (68-249 epochs) despite normalization efforts, indicating insufficient data diversity.
+Key observations: (1) mixed financial datasets achieve the best overall performance across evaluation sets, (2) WikiText shows strong general-domain performance but poor financial transfer, (3) large individual datasets (News, SEC) are viable for standalone pretraining, and (4) small datasets (Financial QA, Twitter) exhibit extreme overtraining (68–249 epochs) despite normalization. In short: diversity helps; tiny datasets do not.
 
 \section{Data Mixture Effects: The Core Finding}
 
-Our central research question concerns optimal data mixture strategies for financial language model pretraining. We compare three mixture approaches: pure financial diversity (7 datasets), hybrid Wiki+financial (8 datasets), and pure general-domain (WikiText only). Results show that \textbf{in-domain diversity substantially outperforms both standalone datasets and general-domain pretraining}. Put another way, format- and domain-matched data wins here.
+Our central research question concerns optimal data mixture strategies for financial language model pretraining. We compare three mixture approaches: pure financial diversity (7 datasets), hybrid Wiki+financial (8 datasets), and pure general-domain (WikiText only). Results show that \textbf{in-domain diversity substantially outperforms both standalone datasets and general-domain pretraining}. Put another way, format- and domain-matched data wins here. And the gap widens at larger scales.
 
 \subsection{Mixed Financial Datasets}
 
