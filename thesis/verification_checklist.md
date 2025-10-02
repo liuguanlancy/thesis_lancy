@@ -34,11 +34,12 @@ Ultra Pass note: Chapter 1 edits further vary cadence and transitions but do not
 
 # Verification Checklist – Chapter 2 (Background and Related Work)
 
-- Citations: Confirm financial NLP and model references align with the intended sources (FinBERT, BloombergGPT, FinGPT, curriculum and mixture papers).
-- Causal LM description: Ensure objective and architecture descriptions match the models actually used (decoder-only; attention variants).
-- Compute/memory examples: Check bfloat16, gradient accumulation, activation checkpointing descriptions reflect your training scripts and logs.
-- Extra note (Ultra Pass): Only stylistic cadence and minor narrative asides added; no new model, dataset, or citation content.
-- No quantitative claims added beyond cited works; no new datasets introduced.
+- Citations: Confirm financial NLP and model references align with the intended sources (FinBERT, BloombergGPT, FinGPT; curriculum/mixture/transfer papers).
+- Causal LM description: Ensure the objective/architecture description matches the models actually used (decoder-only; attention/FFN details).
+- Compute/memory setup: Verify use of bfloat16 with gradient accumulation and activation checkpointing reflects training scripts/logs.
+- Learning rate: Confirm “main runs used LR=2e-5; some reduced for stability” matches Chapter 3 configs and LR comparison tables.
+- Mixture performance numbers: Reconfirm 4B Mixed Financial (21.55 ppl) vs Mixed Wiki+Financial (26.69 ppl; ~24% worse) agree with `tab:mixed_financial_results`, `tab:mixed_wiki_financial_results`, and `fig:scaling_comparison_all`.
+- Scope note: Only stylistic and connector adjustments were made; no new claims, datasets, or citations were introduced.
 
 ---
 
