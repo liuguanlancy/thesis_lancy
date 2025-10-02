@@ -290,3 +290,6 @@ prompt.md
 # LaTeX build directories
 _minted-*/
 auto/
+
+# Specific files to ignore
+kmbart.tex
