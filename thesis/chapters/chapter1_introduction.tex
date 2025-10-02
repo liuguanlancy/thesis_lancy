@@ -8,7 +8,7 @@ In practice, domain adaptation tends to follow two paths: train very large model
 
 This thesis studies how different data sources—both in‑domain financial data and out‑of‑domain high‑quality corpora—interact during pretraining. We focus on models in the 0.6B to 4B parameter range, which are realistic for laptops and some mobile devices while keeping acceptable performance \parencite{yang2024qwen2,xia2023sheared,team2024gemma,javaheripi2023phi}. Through systematic experiments across 10 pretraining configurations and three model sizes, we present evidence about data mixture strategies for specialized domains \parencite{wu2023bloomberggpt}. Put another way, we test simple choices that many teams can replicate.
 
-This study is timely. Regulations such as GDPR and emerging financial data protection standards push for on‑device processing \parencite{eu2016gdpr}. And as more teams adopt AI with limited compute, insights on 0.6B–4B models are practically useful.
+This study is timely. Regulations such as GDPR and emerging financial data protection standards push for on‑device processing \parencite{eu2016gdpr}. And as more teams adopt AI with limited compute, insights on 0.6B–4B models are practically useful. Still, we keep scope modest.
 
 Beyond applications, we also add to understanding how models learn from different data distributions. We observed a surprising pattern sometimes called ``reverse scaling''—in some regimes smaller models outperform larger ones. In our runs, these cases point to hyperparameter choices rather than fundamental limits \parencite{kaplan2020scaling,hoffmann2022training,mccandlish2018empirical}. Tuning matters.
 
