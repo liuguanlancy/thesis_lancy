@@ -1,6 +1,6 @@
 \chapter{Conclusion}
 
-This thesis investigated efficient pretraining strategies for financial language models, addressing the critical challenge of developing lightweight, privacy-preserving models suitable for on-device deployment. Through systematic experimentation with 10 pretraining configurations across three model scales (0.6B, 1.7B, 4B parameters), we established empirical guidelines for data mixture composition and resource allocation that enable practitioners to train effective specialized models without access to massive computational resources.
+This thesis investigated efficient pretraining strategies for financial language models, addressing the challenge of developing lightweight, privacy-preserving models suitable for on-device deployment. Through systematic experiments with 10 pretraining configurations across three scales (0.6B, 1.7B, 4B parameters), we derived empirical guidelines for data mixture composition and resource allocation that enable practitioners to train effective specialized models without massive compute.
 
 \section{Summary of Contributions}
 
@@ -8,7 +8,7 @@ This work contributes to the intersection of domain adaptation and language mode
 
 \subsection{Data Mixture Guidelines for Financial NLP}
 
-We demonstrated that \textbf{diverse in-domain data mixtures significantly outperform general-domain pretraining} for financial applications. Mixed Financial (7 datasets, 322M tokens total capped at 50\% per dataset) achieved 21.55 perplexity at 4B scale with 55\% relative spread across financial tasks—substantially better than WikiText (41.96 ppl mean across financial evaluations after LR adjustment, \~53\% relative spread) despite WikiText's larger individual size (100M tokens). Including WikiText in mixtures (Mixed Wiki+Financial) degraded financial performance by 24\% (26.69 ppl) while improving general-domain performance by only a few perplexity points—an unfavorable trade-off for finance-focused applications. This finding is supported by comprehensive visual evidence: \Cref{fig:scaling_comparison_all} shows the widening performance gap between mixed financial and WikiText approaches across model sizes, while cross-dataset comparison tables reveal that mixed financial training rows consistently capture best-performance (boldface) positions across financial evaluation columns.
+We demonstrated that \textbf{diverse in-domain data mixtures significantly outperform general-domain pretraining} for financial applications. Mixed Financial (7 datasets, 322M tokens total capped at 50\% per dataset) achieved 21.55 perplexity at 4B scale with 55\% relative spread across financial tasks—substantially better than WikiText (41.96 ppl mean across financial evaluations after LR adjustment, \~53\% relative spread) despite WikiText's larger individual size (100M tokens). Including WikiText in mixtures (Mixed Wiki+Financial) degraded financial performance by 24\% (26.69 ppl) while improving general-domain performance by only a few perplexity points—an unfavorable trade-off for finance-focused applications. This finding is supported by visual evidence: \Cref{fig:scaling_comparison_all} shows the widening performance gap between mixed financial and WikiText approaches across model sizes, while cross-dataset comparison tables show that mixed financial training rows often capture best-performance (boldface) positions across financial evaluation columns.
 
 The 50cap mixture strategy proved effective in balancing large dominant datasets (Financial News 197M, SEC Reports 80M tokens) with smaller specialized sources (Twitter Financial 0.3M, Financial QA 3.5M tokens). This approach prevents dominance-driven overfitting while preserving diversity benefits—small datasets contributed meaningful format variety despite non-viability as standalone training sources.
 
@@ -34,9 +34,9 @@ These findings suggest \textbf{practitioners should prioritize format diversity 
 
 We demonstrated that \textbf{1.7B models offer optimal performance-efficiency balance}, achieving 92\% of 4B's performance (24.12 vs 21.55 ppl on Mixed Financial) while requiring 50\% memory (10GB vs 20GB) and 50\% training time (12 vs 24 hours for 100M tokens on Lambda Labs GPUs). This finding directly addresses the thesis motivation of developing lightweight, privacy-preserving models for on-device deployment.
 
-0.6B models remain viable for rapid prototyping and extremely resource-constrained scenarios (mobile devices), accepting 22\% performance degradation (27.84 ppl) for 3$\times$ faster training. 4B models justify their cost only when maximizing absolute performance is critical and hyperparameter tuning expertise is available—improper learning rate selection at this scale causes training collapse, making 4B models less robust than smaller alternatives.
+0.6B models remain viable for rapid prototyping and extremely resource-constrained scenarios (mobile devices), accepting 22\% performance degradation (27.84 ppl) for 3$\times$ faster training. 4B models justify their cost only when maximizing absolute performance is critical and hyperparameter tuning expertise is available—improper learning rate selection at this scale causes training collapse, making 4B models less stable than smaller alternatives.
 
-For the privacy-preserving financial chatbot application motivating this thesis, \textbf{1.7B represents the recommended deployment target}: small enough for laptop inference on consumer hardware, large enough for acceptable performance, and robust enough for reliable training without extensive hyperparameter search.
+For the privacy-preserving financial chatbot application motivating this thesis, \textbf{1.7B represents the recommended deployment target}: small enough for laptop inference on consumer hardware, large enough for acceptable performance, and stable enough for reliable training without extensive hyperparameter search.
 
 \subsection{Open-Source Reproducible Pipeline}
 
@@ -54,7 +54,7 @@ Financial institutions and fintech companies developing on-premise NLP systems c
 
 \textbf{Model Selection}: Deploy 1.7B models for production applications balancing quality and resources. Use 0.6B for prototyping and testing. Reserve 4B for scenarios where performance justifies cost and expertise for careful LR tuning is available.
 
-\textbf{Training Configuration}: Use LR=2e-5 for main runs; if a larger model shows instability on a dataset, try a smaller LR (e.g., $1\times10^{-5}$ or $5\times10^{-6}$). Monitor loss curves to detect instability. Allocate 100M token budgets—diminishing returns beyond this threshold for sub-5B models. Use standard configurations (AdamW, cosine schedules, 1000 warmup steps) which proved robust across experiments.
+\textbf{Training Configuration}: Use LR=2e-5 for main runs; if a larger model shows instability on a dataset, try a smaller LR (e.g., $1\times10^{-5}$ or $5\times10^{-6}$). Monitor loss curves to detect instability. Allocate 100M token budgets—diminishing returns beyond this threshold for sub-5B models. Use standard configurations (AdamW, cosine schedules, 1000 warmup steps) which proved stable across experiments.
 
 \textbf{Privacy and Compliance}: On-device deployment with 1.7B models enables GDPR-compliant financial NLP without data transmission to external services—critical for banks, investment firms, and financial advisors handling sensitive client information.
 
@@ -98,7 +98,7 @@ Our experiments covered 0.6B-4B parameters (6.7$\times$ range) on Qwen3 architec
 
 Our 50cap strategy worked well but wasn't rigorously optimized. Future work should explore:
 
-\textbf{Dynamic Mixture Schedules}: Curriculum learning approaches that shift mixture composition during training—start with general data for basic capabilities, transition to specialized data for domain expertise. Or reverse: start specialized to establish domain vocabulary, add general data to improve robustness.
+\textbf{Dynamic Mixture Schedules}: Curriculum learning approaches that shift mixture composition during training—start with general data for basic capabilities, transition to specialized data for domain expertise. Or reverse: start specialized to establish domain vocabulary, add general data to improve stability.
 
 \textbf{Adaptive Weighting}: Use validation loss gradients or uncertainty estimates to identify which datasets currently contribute most to learning. Upweight informative datasets, downweight exhausted sources. DoReMi \parencite{xie2023doremi} provides reference implementation; adaptation to specialized domains requires experimentation.
 
@@ -122,11 +122,11 @@ This thesis assessed pretraining quality via perplexity. Validation on downstrea
 
 Our single-stage approach (pretrain directly on financial mixtures) represents one point in a broader design space:
 
-\textbf{General $\rightarrow$ Domain Adaptation}: Pretrain on WikiText or C4 for general capabilities, then continue pretraining on financial data. Compare to direct financial pretraining. Theory suggests general stage builds robust syntax/reasoning, domain stage adds specialized vocabulary—empirical validation needed.
+\textbf{General $\rightarrow$ Domain Adaptation}: Pretrain on WikiText or C4 for general capabilities, then continue pretraining on financial data. Compare to direct financial pretraining. Theory suggests general stage builds stable syntax/reasoning, domain stage adds specialized vocabulary—empirical validation needed.
 
 \textbf{Domain $\rightarrow$ Task Specialization}: Pretrain on broad financial mixture, then continue on task-specific data (e.g., only sentiment data for sentiment model). Balances general financial knowledge with task-specific optimization.
 
-\textbf{Mixture Schedules}: Gradually shift mixture composition across training—start balanced, progressively upweight high-priority datasets. Or inverse: start specialized, progressively diversify to improve robustness.
+\textbf{Mixture Schedules}: Gradually shift mixture composition across training—start balanced, progressively upweight high-priority datasets. Or inverse: start specialized, progressively diversify to improve stability.
 
 Optimal strategies likely depend on target application and available data. Practitioners need decision frameworks: "If you have 10M domain tokens and 100M general tokens, use Strategy X; if 100M domain and 10M general, use Strategy Y."
 

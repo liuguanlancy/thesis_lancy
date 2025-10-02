@@ -1,32 +1,32 @@
 \chapter{Background and Related Work}
 
-This chapter reviews the key areas of research that inform our study of data mixture effects in financial language model pretraining. We begin with an overview of financial natural language processing, then discuss language model pretraining fundamentals, examine existing work on data mixture strategies, and conclude with domain adaptation and transfer learning considerations.
+This chapter reviews the areas of research that inform our study of data mixture effects in financial language model pretraining. We start with an overview of financial NLP, then discuss pretraining fundamentals, examine prior work on mixture strategies, and close with domain adaptation and transfer learning. Put another way, we move from context to mechanisms to practice.
 
 \section{Financial NLP}
 
 \subsection{The Financial NLP Landscape}
 
-Financial natural language processing encompasses a diverse range of tasks, from sentiment analysis of news articles and social media to question answering on regulatory documents, from numerical reasoning in financial reports to information extraction from SEC filings \parencite{araci2019finbert, chen2021finqa}. The financial domain presents unique challenges that distinguish it from general-domain NLP: specialized vocabulary (e.g., ``alpha'', ``beta'', ``EBITDA''), domain-specific reasoning patterns (e.g., causal chains in market analysis), numerical grounding (understanding financial statements), and temporal dynamics (market events, earnings releases) \parencite{wu2023bloomberggpt, araci2019finbert}.
+Financial natural language processing covers many tasks: sentiment on news and social media, question answering on regulatory documents, numerical reasoning in reports, and information extraction from SEC filings \parencite{araci2019finbert, chen2021finqa}. The domain has some specific challenges compared to general-domain NLP: specialized vocabulary (e.g., ``alpha'', ``beta'', ``EBITDA''), domain reasoning patterns (e.g., causal chains in market analysis), numerical grounding (financial statements), and temporal dynamics (market events, earnings releases) \parencite{wu2023bloomberggpt, araci2019finbert}.
 
 \subsection{Existing Financial Language Models}
 
-Several large language models specialized for finance have emerged in recent years. \textbf{BloombergGPT} \parencite{wu2023bloomberggpt}, a 50-billion-parameter model, was pretrained on a mixture of 51\% financial data and 49\% general-purpose datasets, demonstrating strong performance on financial benchmarks while maintaining general language capabilities. \textbf{FinBERT} variants \parencite{araci2019finbert, yang2020finbert} adapted BERT to financial text through continued pretraining on financial corpora, showing improved sentiment analysis on financial news. More recently, \textbf{FinGPT} \parencite{yang2023fingpt} explored open-source alternatives with instruction-tuning approaches for financial tasks.
+Several finance-focused language models have appeared in recent years. \textbf{BloombergGPT} \parencite{wu2023bloomberggpt}, a 50-billion-parameter model, was pretrained on a mixture of 51\% financial and 49\% general data, showing strong performance on financial benchmarks while keeping general capabilities. \textbf{FinBERT} variants \parencite{araci2019finbert, yang2020finbert} adapted BERT to financial text via continued pretraining, improving sentiment analysis on financial news. More recently, \textbf{FinGPT} \parencite{yang2023fingpt} explored open-source instruction-tuning for financial tasks.
 
 \subsection{Domain-Specific Challenges}
 
-Financial NLP faces three critical challenges. \textbf{First}, privacy concerns: financial institutions cannot upload sensitive data (portfolios, trading strategies, client information) to external APIs, necessitating locally-deployable models \parencite{wu2023bloomberggpt}. \textbf{Second}, data scarcity: compared to general web text, curated financial corpora are limited in scale, making data-efficient training crucial. \textbf{Third}, rapid vocabulary evolution: financial language evolves with market trends (e.g., ``DeFi'', ``ESG''), requiring models that can adapt to new terminology.
+Financial NLP faces three critical challenges. \textbf{First}, privacy concerns: financial institutions cannot upload sensitive data (portfolios, trading strategies, client information) to external APIs, so locally deployable models are needed \parencite{wu2023bloomberggpt}. \textbf{Second}, data scarcity: compared to general web text, curated financial corpora are smaller, so data-efficient training is important. \textbf{Third}, rapid vocabulary change: financial language shifts with market trends (e.g., ``DeFi'', ``ESG''), so models must adapt to new terms.
 
 \section{Language Model Pretraining}
 
 \subsection{Pretraining Objectives and Architecture}
 
-Modern language models are predominantly trained using the \textbf{causal language modeling} objective: predicting the next token given preceding context \parencite{radford2019language, brown2020language}. This self-supervised approach enables learning from vast unlabeled corpora. Architecturally, transformer-based decoder-only models (GPT family, LLaMA, Qwen) have become the dominant paradigm, with multi-head self-attention mechanisms capturing long-range dependencies and feed-forward layers providing non-linear transformations \parencite{vaswani2017attention, touvron2023llama}.
+Modern language models are mostly trained using the \textbf{causal language modeling} objective: predict the next token given the context \parencite{radford2019language, brown2020language}. This self-supervised approach learns from large unlabeled corpora. Architecturally, transformer-based decoder-only models (GPT family, LLaMA, Qwen) are now the standard design, with multi-head self-attention capturing long-range dependencies and feed-forward layers providing non-linear transformations \parencite{vaswani2017attention, touvron2023llama}.
 
 \subsection{Scaling Laws and Model Size Effects}
 
-The seminal work of \textcite{kaplan2020scaling} established power-law relationships between model size, dataset size, and compute budget with final performance. Their key finding---that larger models are more sample-efficient---motivated the trend toward billion-parameter models. However, subsequent research revealed nuances: \textcite{hoffmann2022training} showed that models are often undertrained relative to their size (introducing the Chinchilla scaling laws), and \textcite{tay2022ul2} demonstrated that training objectives and data quality significantly modulate scaling behavior.
+The seminal work of \textcite{kaplan2020scaling} established power-law relationships between model size, dataset size, compute budget, and final performance. Their key finding—that larger models are more sample efficient—motivated the move toward billion-parameter models. Later work added nuance: \textcite{hoffmann2022training} showed models are often undertrained relative to size (Chinchilla scaling), and \textcite{tay2022ul2} showed that objectives and data quality shape scaling behavior.
 
-Critically, \textbf{hyperparameter sensitivity} has received less attention in the literature. While \textcite{mccandlish2018empirical} noted that optimal learning rates can decrease with model size, systematic studies for models in the 0.6B–4B parameter range—particularly in specialized domains—remain limited. Most scaling-law papers assume proper tuning without detailing the adjustment process, potentially obscuring training dynamics that we investigate empirically. In our work, all main runs used LR=2e-5; in a few specific cases we reduced LR pragmatically to stabilize training. We do not claim a general learning-rate scaling rule.
+Critically, \textbf{hyperparameter sensitivity} has received less attention. While \textcite{mccandlish2018empirical} noted that optimal learning rates can decrease with model size, systematic studies for models in the 0.6B–4B range—especially in specialized domains—remain limited. Many scaling-law papers assume proper tuning without detailing the process, which can hide training dynamics. In our work, all main runs used LR=2e-5; in a few cases we reduced LR pragmatically to stabilize training. We do not claim a general learning-rate rule.
 
 \subsection{Computational and Memory Considerations}
 
@@ -54,15 +54,15 @@ Determining optimal domain proportions in mixtures is non-trivial. Three samplin
 
 \textbf{3. Equal mixing} \parencite{sanh2022multitask}: Assign equal sampling probability to each dataset regardless of size. This maximizes task diversity but may undersample large datasets.
 
-This thesis employs a \textbf{50\% capping strategy} (``50cap'') for financial dataset mixtures, as described in Chapter 3, to balance diversity with data efficiency.
+This thesis employs a \textbf{50\% capping strategy} (``50cap'') for financial dataset mixtures, as described in Chapter 3, to balance diversity with data efficiency. We chose it for simplicity and stability in our setup.
 
 \section{Domain Adaptation and Transfer Learning}
 
 \subsection{Cross-Domain Transfer in Language Models}
 
-\textbf{Transfer learning}---pretraining on broad data then fine-tuning on specialized tasks---has been the dominant paradigm since BERT \parencite{devlin2019bert,pan2010transfer,zhuang2020comprehensive}. The underlying assumption is that general linguistic knowledge transfers to domain-specific applications. However, recent work reveals nuances: \textcite{gururangan2020don} showed that \textbf{domain-adaptive pretraining} (continued pretraining on domain-specific corpora) significantly improves performance on biomedical, computer science, news, and reviews domains, suggesting that general pretraining alone is insufficient for specialized applications.
+\textbf{Transfer learning}—pretraining on broad data then fine-tuning on specialized tasks—has been the common approach since BERT \parencite{devlin2019bert,pan2010transfer,zhuang2020comprehensive}. The assumption is that general linguistic knowledge transfers to domain applications. However, recent work shows nuance: \textcite{gururangan2020don} found that \textbf{domain-adaptive pretraining} (continued pretraining on domain corpora) improves performance across domains, suggesting general pretraining alone is not enough for specialized use.
 
-In finance, \textcite{araci2019finbert} demonstrated improvements from continued pretraining on financial news; \textcite{yang2020finbert} achieved further gains with task-adaptive pretraining. More recently, \textcite{huang2023finbert} showed that domain-specific pretraining substantially outperforms general models on financial information extraction tasks. However, these studies focused on BERT-style masked language models and downstream classification tasks---the effectiveness of domain adaptation for \textit{generative causal language models} in financial pretraining remains less studied. Recent advances in parameter-efficient fine-tuning, such as surgical fine-tuning \parencite{lee2022surgical}, suggest that selective adaptation strategies may further improve domain transfer while mitigating catastrophic forgetting.
+In finance, \textcite{araci2019finbert} showed improvements from continued pretraining on financial news; \textcite{yang2020finbert} saw further gains with task-adaptive pretraining. More recently, \textcite{huang2023finbert} found that domain-specific pretraining outperforms general models on financial information extraction. However, these studies focus on BERT-style masked language models and classification tasks—the effectiveness of domain adaptation for \textit{generative causal language models} in financial pretraining is less studied. Advances in parameter-efficient fine-tuning, such as surgical fine-tuning \parencite{lee2022surgical}, suggest selective adaptation may improve transfer while mitigating catastrophic forgetting.
 
 \subsection{Catastrophic Forgetting and Stability}
 
@@ -70,9 +70,9 @@ A key challenge in domain adaptation is \textbf{catastrophic forgetting}: when a
 
 \subsection{Distribution Shift and Domain Mismatch}
 
-\textbf{Distribution shift}---the discrepancy between training and evaluation data---directly impacts model generalization \parencite{quinonero2009dataset}. In financial NLP, distribution shift manifests in multiple ways: vocabulary shift (financial terminology vs general language), discourse patterns (analytical reports vs encyclopedic text), and data formatting (structured tables in 10-K filings vs narrative news articles). \textcite{aharoni2020unsupervised} showed that domain mismatch severely degrades performance on out-of-distribution test sets, motivating the need for diverse pretraining mixtures that cover multiple sub-domains.
+\textbf{Distribution shift}—the discrepancy between training and evaluation data—directly impacts generalization \parencite{quinonero2009dataset}. In financial NLP, this appears as vocabulary shift (financial terminology vs general language), discourse differences (analytical reports vs encyclopedic text), and formatting (structured tables in 10-K filings vs narrative news). \textcite{aharoni2020unsupervised} showed that domain mismatch can severely degrade performance on out-of-distribution test sets, motivating diverse mixtures that cover multiple sub-domains.
 
-Our thesis investigates this empirically: does pretraining purely on high-quality general corpora (WikiText) transfer effectively to financial evaluation sets? Or does domain mismatch necessitate in-domain pretraining? And when mixing in-domain datasets (sentiment, Q\&A, news, reports), do models generalize better than single-dataset training?
+Our thesis investigates this empirically: does pretraining purely on high-quality general corpora (WikiText) transfer to financial evaluation sets? Or does domain mismatch make in-domain pretraining necessary? And when mixing in-domain datasets (sentiment, Q\&A, news, reports), do models generalize better than single-dataset training?
 
 \subsection{Related Empirical Studies}
 
