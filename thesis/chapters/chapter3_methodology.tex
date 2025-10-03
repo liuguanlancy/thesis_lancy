@@ -1,6 +1,6 @@
 \chapter{Methodology}
 
-This chapter explains how we ran the experiments. First an overview of the design, then model architecture, datasets, training setup with tuning, and evaluation protocol. We favor simple choices that are easy to reproduce. When trade offs appear, we keep the setup stable. Boring by design.
+This chapter explains how we ran the experiments: first an overview of the design, then model architecture, datasets, training setup with tuning, and the evaluation protocol. We favor simple choices that are easy to reproduce. When trade‑offs appear, we keep the setup stable—deliberately straightforward by design.
 
 \section{Experimental Design Overview}
 
@@ -29,7 +29,7 @@ Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
 \end{tabular}
 \end{table}
 
-We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) stable baseline performance on general and domain specific benchmarks, and (3) efficient inference suitable for edge deployment (all models fit on consumer hardware). Put another way, it lets us study scale without changing too many other factors. And it reduces engineering noise.
+We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) stable baseline performance on general and domain‑specific benchmarks, and (3) efficient inference suitable for edge deployment (all models fit on consumer hardware). Stated differently, it lets us study scale without changing too many other factors and reduces engineering noise.
 
 \section{Datasets}
 

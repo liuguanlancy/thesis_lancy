@@ -1,6 +1,6 @@
 \chapter{Background and Related Work}
 
-This chapter reviews work that we actually use. We start with financial NLP, then pretraining basics, prior mixture strategies, and finally domain adaptation and transfer learning. Put another way: context, mechanisms, practice. Short and to the point. We do not try to survey everything.
+This chapter reviews work that we actually use. We start with financial NLP, then pretraining basics, prior mixture strategies, and finally domain adaptation and transfer learning. In other words: context, mechanisms, and practice—concise rather than exhaustive.
 
 \section{Financial NLP}
 
@@ -20,7 +20,7 @@ Financial NLP faces three practical challenges. \textbf{First}, privacy concerns
 
 \subsection{Pretraining Objectives and Architecture}
 
-Modern language models mostly use \textbf{causal language modeling}: predict the next token from the context \parencite{radford2019language, brown2020language}. We follow this default. Architecturally, we use the usual decoder only transformer (GPT, LLaMA, Qwen): self attention for long context; feed forward blocks for the non linear part \parencite{vaswani2017attention, touvron2023llama}. Nothing fancy.
+Modern language models mostly use \textbf{causal language modeling}: predict the next token from the context \parencite{radford2019language, brown2020language}. We follow this default. Architecturally, we use the usual decoder‑only transformer (GPT, LLaMA, Qwen): self‑attention for long context and feed‑forward blocks for the non‑linear part \parencite{vaswani2017attention, touvron2023llama}. Nothing unusual.
 
 \subsection{Scaling Laws and Model Size Effects}
 
