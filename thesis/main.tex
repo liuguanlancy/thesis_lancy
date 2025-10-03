@@ -39,9 +39,9 @@
 
 This thesis studies how data sources interact during pretraining for financial language models. We ran 10 configurations at three model sizes (0.6B, 1.7B, 4B). In our setup, diverse in domain data beats high quality general text for financial tasks.
 
-Key points: (1) mixed financial datasets perform best (21.55 perplexity at 4B) compared to general text pretraining (31.54 perplexity), (2) all main runs used a learning rate of 2e-5; for a few unstable cases we lowered LR to stabilize training, (3) very small datasets (under 20K samples) overtrain and need mixing, and (4) WikiText helps little on finance despite being clean and well known.
+Mixed financial datasets perform best for finance (21.55 perplexity at 4B), whereas general text pretraining trails behind (31.54 perplexity). All main runs used a learning rate of 2e-5; in a few unstable cases we lowered LR and training stabilized. Very small datasets (under 20K samples) overtrain and need mixing. WikiText helps little on finance, even though it is clean and well known.
 
-Put simply, these results give practical guidance for training privacy preserving financial models on local devices, and concrete mixture notes for models from 0.6B to 4B.
+Put simply, these results give practical guidance for training privacy preserving financial models on local devices, plus concrete mixture notes for models from 0.6B to 4B.
 
 \newpage
 
