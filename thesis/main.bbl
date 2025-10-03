@@ -1768,6 +1768,35 @@
       \verb https://doi.org/10.7551/mitpress/9780262170055.001.0001
       \endverb
     \endentry
+    \entry{qwen3}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=4622c4bb7444dadba22813c2addff5e7}{%
+           family={{Qwen Team}},
+           familyi={Q\bibinitperiod}}}%
+      }
+      \strng{namehash}{4622c4bb7444dadba22813c2addff5e7}
+      \strng{fullhash}{4622c4bb7444dadba22813c2addff5e7}
+      \strng{bibnamehash}{4622c4bb7444dadba22813c2addff5e7}
+      \strng{authorbibnamehash}{4622c4bb7444dadba22813c2addff5e7}
+      \strng{authornamehash}{4622c4bb7444dadba22813c2addff5e7}
+      \strng{authorfullhash}{4622c4bb7444dadba22813c2addff5e7}
+      \field{sortinit}{Q}
+      \field{sortinithash}{ce69a400a872ddd02ee7fdb3b38c6abd}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{GitHub repository}
+      \field{note}{Accessed 2025-10-03}
+      \field{title}{Qwen3: Open Large Language Models}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://github.com/QwenLM/Qwen
+      \endverb
+      \verb{url}
+      \verb https://github.com/QwenLM/Qwen
+      \endverb
+    \endentry
     \entry{radford2019language}{article}{}
       \true{moreauthor}
       \true{morelabelname}

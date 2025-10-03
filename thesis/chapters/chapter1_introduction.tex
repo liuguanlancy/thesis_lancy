@@ -20,7 +20,7 @@ This thesis investigates the following core research questions. We keep them nar
 How do combinations of in domain financial datasets and out of domain general corpora affect model performance and generalization? Specifically, does mixing multiple financial datasets improve consistency compared to single dataset training, and does adding high quality general text (WikiText) help or hurt financial tasks? Our results (\Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}) indicate that mixed financial datasets achieve 21.55 ppl (mean across financial evaluations), compared to 26.69 ppl for Wiki+Financial mixtures (overall mean across eight evaluations) and 41.96 ppl for pure WikiText (mean across financial evaluations after LR adjustment), suggesting in domain diversity is the better choice.
 
 \textbf{RQ2: Model Size and Training Dynamics}
-How do optimal training configurations vary across model sizes (0.6B, 1.7B, 4B parameters)? What is the relationship between size and learning rate sensitivity? In our setup, we trained all main runs with LR=2e 5; for a few abnormal cases, we reduced LR pragmatically (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) and saw improved stability. We do not claim a general scaling rule.
+How do optimal training configurations vary across model sizes (0.6B, 1.7B, 4B parameters)? What is the relationship between size and learning rate sensitivity? In our setup, we trained all main runs with LR=2e-5; for a few abnormal cases, we reduced LR pragmatically (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) and saw improved stability. We do not claim a general scaling rule.
 
 \textbf{RQ3: Dataset Size Effects}
 What is the minimum dataset size for effective standalone pretraining, and how does size affect overtraining and cross dataset generalization? At what point do small datasets need mixing? With our data, datasets $>$100M tokens enable stable training (\Cref{fig:scaling_news_articles,fig:scaling_sec_reports}), while datasets $<$20M tokens require mixing due to extreme overtraining and high cross dataset variability (\Cref{fig:scaling_financial_qa,fig:scaling_twitter,tab:cross_financial_qa,tab:cross_twitter}).
@@ -64,7 +64,7 @@ What follows is simple and practical.
 
 \textbf{Chapter 2: Background and Related Work} gives only what we need: key ideas from financial NLP, pretraining basics, mixture strategies, and domain adaptation. Enough context to place our study in transfer learning and scaling work.
 
-\textbf{Chapter 3: Methodology} explains the design we used: Qwen3 models, the datasets (7 financial sets, 207M tokens, plus WikiText), the 50cap mixture rule, and training settings. We also note where we had to adjust learning rate for stability.
+\textbf{Chapter 3: Methodology} explains the design we used: Qwen3 models, the datasets (7 financial sets, 321.4M tokens, plus WikiText), the 50cap mixture rule, and training settings. We also note where we had to adjust learning rate for stability.
 
 \textbf{Chapter 4: Results} presents the evidence with plots and tables (11 scaling figures, 18 tables). First mixtures, then single datasets, then training dynamics, and finally transfer. The plots show trends across sizes; the tables show which setup works where.
 

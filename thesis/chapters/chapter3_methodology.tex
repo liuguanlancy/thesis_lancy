@@ -12,7 +12,7 @@ This design supports our research questions on mixture composition, model scale,
 
 \section{Model Architecture}
 
-We use the \textbf{Qwen3 model family} \parencite{yang2024qwen2}, a series of open source transformer based decoder only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3 Base series (pretrained checkpoints without post training alignment), detailed in \Cref{tab:model_specs}. In our runs, these sizes allow clean comparisons without changing tokenizers or context limits.
+We use the \textbf{Qwen3 model family} \parencite{yang2024qwen2,qwen3}, a series of open source transformer based decoder only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3 Base series (pretrained checkpoints without post training alignment), detailed in \Cref{tab:model_specs}. In our runs, these sizes allow clean comparisons without changing tokenizers or context limits.
 
 \begin{table}[h]
 \centering
@@ -35,11 +35,11 @@ We chose Qwen3 for three reasons: (1) architectural consistency across scales en
 
 \subsection{Financial Datasets}
 
-We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 207M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.3M to 197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra domain effects without changing models.
+We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 321.4M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.3M to 197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra domain effects without changing models.
 
 \begin{table}[h]
 \centering
-\caption[Financial Dataset Characteristics]{Financial dataset characteristics. Total: 207M tokens across 7 datasets with diverse genres and scales.}
+\caption[Financial Dataset Characteristics]{Financial dataset characteristics. Total: 321.4M tokens across 7 datasets with diverse genres and scales.}
 \label{tab:financial_datasets}
 \small
 \begin{tabular}{p{3cm}cccp{5.5cm}}
@@ -97,6 +97,15 @@ We employ a \textbf{50\% capping strategy} (``50cap'') for dataset mixing to bal
 \item Remaining datasets sampled proportionally from 160.5M token budget
 \item Final mixture: $\sim$321M tokens with News contributing exactly 50\%
 \end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/diagram_50cap.png}
+\caption[50cap Mixture Strategy Visualization]{Token allocation in Mixed Financial dataset using 50cap strategy. News Articles is capped to contribute at most 50\% in sampling (illustrative normalization; raw corpus remains 197M). The remaining six datasets are sampled proportionally from the other 50\%, ensuring diversity while preventing dominance. Left panel shows pie chart view; right panel shows stacked bar view with total allocation.}
+\label{fig:diagram_50cap}
+\end{figure}
+
+\Cref{fig:diagram_50cap} visualizes the 50cap sampling policy: News Articles (red) is capped to at most 50\% of sampled tokens; the remaining 50\% is distributed proportionally among the other six datasets. The pie (left) shows percentage composition; the stacked bar (right) normalizes absolute counts to a 50/50 split (\(\approx\!160.7\,\text{M}+\approx\!160.7\,\text{M}\) if scaled to the 321.4M corpus total) for illustration only — 50cap does not modify raw corpus sizes.
 
 For the 8-dataset WikiText+Financial mixture, WikiText (100M) and News (197M) are both large; we apply 50cap to ensure neither dominates, then proportionally sample the other 6 financial datasets.
 

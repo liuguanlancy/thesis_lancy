@@ -12,7 +12,7 @@ Mixed Financial datasets achieved 21.55 ppl (4B) with 55\% relative spread, subs
 
 \textbf{Finding 2: Simple LR Reductions Stabilized a Few Runs}
 
-All main runs used LR=2e 5. In three configurations that showed abnormalities (WikiText, Financial QA, Twitter), we retried smaller learning rates (e.g., $1\times10^{-5}$ or $5\times10^{-6}$) and observed improved stability and performance. We treat these reductions as pragmatic fixes in our setup rather than a general scaling rule. The solid (original LR) vs dashed (reduced LR) lines in \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} show these improvements; \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} quantify them.
+All main runs used LR=2e-5. In three configurations that showed abnormalities (WikiText, Financial QA, Twitter), we retried smaller learning rates (e.g., $1\times10^{-5}$ or $5\times10^{-6}$) and observed improved stability and performance. We treat these reductions as pragmatic fixes in our setup rather than a general scaling rule. The solid (original LR) vs dashed (reduced LR) lines in \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} show these improvements; \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} quantify them.
 
 \textbf{Finding 3: Dataset Size Critically Affects Pretraining Viability}
 
