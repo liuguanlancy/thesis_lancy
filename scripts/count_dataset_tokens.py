@@ -174,8 +174,8 @@ class DatasetTokenCounter:
             # Calculate statistics
             avg_tokens = total_tokens / total_examples if total_examples > 0 else 0
             
-            # Calculate epochs with 26.2B tokens (100k steps × 256 batch × 1024 max_length with packing)
-            tokens_per_experiment = 26.2e9
+            # Calculate epochs with 100M tokens (actual budget per phase2b_rtx4090.sh)
+            tokens_per_experiment = 100e6  # 100M = 0.1B
             epochs_with_packing = tokens_per_experiment / total_tokens if total_tokens > 0 else 0
             
             # Processing time
@@ -203,7 +203,7 @@ class DatasetTokenCounter:
             print(f"  ✓ Total tokens (exact): {total_tokens:,}")
             print(f"  ✓ Avg tokens/example: {avg_tokens:.1f} (min: {min_tokens}, max: {max_tokens})")
             print(f"  ✓ Total dataset: {total_tokens/1e6:.2f}M tokens ({total_tokens/1e9:.3f}B)")
-            print(f"  ✓ Epochs with 26.2B tokens: {epochs_with_packing:.1f}")
+            print(f"  ✓ Epochs with 100M tokens: {epochs_with_packing:.1f}")
             print(f"  ✓ Processing time: {elapsed_time:.1f} seconds")
             
             if epochs_with_packing > 100:
@@ -236,8 +236,8 @@ class DatasetTokenCounter:
         print("\n" + "="*60)
         print("PHASE 2B DATASET EXACT TOKEN ANALYSIS")
         print("Using tokenizer: Qwen/Qwen3-0.6B-Base")
-        print("Target tokens per experiment: 26.2B")
-        print("Configuration: 100k steps × 256 batch × 1024 max_length")
+        print("Target tokens per experiment: 100M (0.1B)")
+        print("Configuration: ~12k steps × 8 batch × 1024 max_length")
         print("Processing ALL examples for exact counts...")
         print("="*60)
         
@@ -269,17 +269,17 @@ class DatasetTokenCounter:
                 weighted_tokens += dataset_tokens
                 print(f"  {stat['label']}: {rate*100:.0f}% → {dataset_tokens/1e6:.2f}M tokens")
         
-        mixed_epochs = 26.2e9 / total_combined_tokens if total_combined_tokens > 0 else 0
+        mixed_epochs = 100e6 / total_combined_tokens if total_combined_tokens > 0 else 0
         print(f"\nMixed corpus total tokens (exact): {total_combined_tokens:,} ({total_combined_tokens/1e6:.2f}M)")
-        print(f"Mixed corpus epochs with 26.2B tokens: {mixed_epochs:.1f}")
+        print(f"Mixed corpus epochs with 100M tokens: {mixed_epochs:.1f}")
         
         # Summary statistics
         print("\n" + "="*60)
         print("EXACT TOKEN COUNT SUMMARY")
         print("="*60)
         print(f"\nTotal processing time: {total_processing_time/60:.1f} minutes")
-        print("\nWith packing ENABLED and 100k steps for all experiments:")
-        print("Each experiment processes: 26.2B tokens")
+        print("\nWith packing ENABLED and ~12k steps for all experiments:")
+        print("Each experiment processes: 100M tokens (0.1B)")
         print("\nDataset-specific EXACT epoch counts:")
         
         for stat in all_stats:
@@ -310,10 +310,10 @@ class DatasetTokenCounter:
         with open(output_path, "w") as f:
             json.dump({
                 "tokenizer": "Qwen/Qwen3-0.6B-Base",
-                "tokens_per_experiment": 26.2e9,
+                "tokens_per_experiment": 100e6,
                 "configuration": {
-                    "steps": 100000,
-                    "batch_size": 256,
+                    "steps": 12207,
+                    "batch_size": 8,
                     "max_length": 1024,
                     "packing": True
                 },
@@ -343,19 +343,19 @@ def main():
     print("STARTING EXACT TOKEN COUNT ANALYSIS")
     print("This will process ALL examples and may take 10-30 minutes...")
     print("="*60)
-    
+
     counter = DatasetTokenCounter(tokenizer_name="Qwen/Qwen3-0.6B-Base")
     counter.analyze_all_datasets()
-    
+
     print("\n" + "="*60)
     print("EXACT ANALYSIS COMPLETE")
     print("="*60)
-    print("\nKey findings (EXACT counts):")
-    print("1. Twitter dataset is extremely short (~27 tokens avg) - massive overtraining")
-    print("2. FinGPT is surprisingly short (~54 tokens avg) despite being 'sentiment instructions'")
-    print("3. Finance Alpaca and FiQA are longer (~250 tokens avg) but still heavily overtrained")
+    print("\nKey findings (EXACT counts with 100M token budget):")
+    print("1. Twitter dataset is extremely short (~27 tokens avg) - massive overtraining (357k epochs!)")
+    print("2. FinGPT is surprisingly short (~54 tokens avg) despite being 'sentiment instructions' (24k epochs)")
+    print("3. Finance Alpaca and FiQA are longer (~250 tokens avg) but still heavily overtrained (12-28k epochs)")
     print("4. All individual experiments will massively overtrain their datasets")
-    print("5. Mixed corpus provides the most reasonable training (~1000 epochs)")
+    print("5. Mixed corpus provides the most reasonable training (~0.45 epochs = less than 1 pass)")
     
 
 if __name__ == "__main__":
