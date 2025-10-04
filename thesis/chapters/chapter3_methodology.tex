@@ -91,12 +91,7 @@ We employ a \textbf{50\% capping strategy} (``50cap'') for dataset mixing to bal
 
 \textbf{Step 3 - Token-level interleaving}: During training, sample batches from the mixed distribution at the token level (not example level). This ensures fine-grained mixing throughout training rather than sequential block exposure.
 
-\textbf{Example}: For the 7-dataset financial mixture (News 197M, SEC 80M, FinGPT 19M, Alpaca 17M, FiQA 4M, Financial QA 3.5M, Twitter 0.3M; total 321M tokens):
-\begin{itemize}
-\item News exceeds 50\% (61.4\%), capped at 50\% (160.5M tokens)
-\item Remaining datasets sampled proportionally from 160.5M token budget
-\item Final mixture: $\sim$321M tokens with News contributing exactly 50\%
-\end{itemize}
+\textbf{Example}: For the 7‑dataset financial mixture (News 197M, SEC 80M, FinGPT 19M, Alpaca 17M, FiQA 4M, Financial QA 3.5M, Twitter 0.3M; total 321M tokens), News exceeds 50\% (61.4\%) and is capped at 50\% (160.5M tokens); the remaining datasets are sampled proportionally from the other 160.5M‑token budget; the final mixture stays at $\sim$321M tokens with News contributing exactly half.
 
 \begin{figure}[h]
 \centering
@@ -157,13 +152,7 @@ Beyond learning rate, we maintained consistent hyperparameters across experiment
 
 To ensure fair comparison across experiments, we normalized the token budget to \textbf{100M tokens per training run}, regardless of dataset size or model scale. This design controls for data exposure while allowing investigation of how model size and data characteristics interact. A simple rule that kept the study manageable.
 
-\textbf{Experimental Scale}: Our study comprises 36 training runs in total:
-\begin{itemize}
-    \item \textbf{2 mixture experiments}: Mixed Financial (7 datasets combined), Mixed Wiki+Financial (7 financial + WikiText)
-    \item \textbf{8 individual datasets}: WikiText, Financial News, SEC Reports, FinGPT, Finance Alpaca, FiQA, Financial QA 10K, Twitter Financial
-    \item \textbf{3 model sizes per configuration}: 0.6B, 1.7B, 4B parameters across all 10 settings = 30 baseline runs
-    \item \textbf{6 additional learning rate adjustment runs}: Upon observing abnormalities in the baseline results, we conducted follow-up experiments with adjusted learning rates for three datasets (WikiText 1.7B \& 4B, Financial QA 1.7B \& 4B, Twitter 1.7B \& 4B) to investigate hyperparameter sensitivity at scale
-\end{itemize}
+\textbf{Experimental Scale}: In total we ran 36 trainings: two mixture settings (Mixed Financial; Mixed Wiki+Financial), eight single‑dataset baselines (WikiText, Financial News, SEC, FinGPT, Finance Alpaca, FiQA, Financial QA 10K, Twitter), each at three sizes (0.6B/1.7B/4B) for 30 baselines, plus six follow‑ups with reduced learning rates on the three problematic datasets (WikiText, Financial QA, Twitter) to probe sensitivity at larger scales.
 
 \textbf{Total computational cost}: $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) rented from Lambda Labs, each 100M-token run required 2 to 8 hours depending on model size (0.6B: $\sim$2h, 1.7B: $\sim$4h, 4B: $\sim$8h), totaling approximately 150 GPU-hours for the complete experimental suite.
 

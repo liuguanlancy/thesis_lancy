@@ -30,6 +30,20 @@ How well do models pretrained on financial data transfer across task types (sent
 
 These questions are addressed through a detailed experimental framework with 30 trained models and 237 evaluation results across eight held-out test sets (Mixed Financial excludes WikiText evaluation), providing systematic evidence on data mixture effects in specialized-domain pretraining.
 
+\section{Related Work}
+
+A concise summary; Chapter 2 provides details.
+
+\textbf{Financial NLP.} The domain covers sentiment analysis, question answering, numerical reasoning, and information extraction from regulatory documents \parencite{araci2019finbert, chen2021finqa}. Challenges include specialized vocabulary (``alpha,'' ``EBITDA''), domain reasoning patterns, and privacy constraints that push toward local deployment \parencite{wu2023bloomberggpt}. Existing models range from FinBERT variants \parencite{araci2019finbert, yang2020finbert} to BloombergGPT (50B, mixed 51\% financial and 49\% general) \parencite{wu2023bloomberggpt}. Most focus on single large models; few study mixture effects across sizes.
+
+\textbf{Language model pretraining.} Modern LMs use causal language modeling (next-token prediction) on transformer architectures \parencite{vaswani2017attention, radford2019language, brown2020language}. Scaling laws \parencite{kaplan2020scaling, hoffmann2022training} show that model size, data size, and compute follow power-law relationships. Bigger models are more sample-efficient. But hyperparameter sensitivity at intermediate scales (0.6B–4B) is less studied. Chapter 2 covers training dynamics and memory constraints.
+
+\textbf{Data mixture strategies.} Pretraining can be sequential (curriculum) or simultaneous; we use a simple “50cap” mixture and refer to Chapter 2 for rationale.
+
+\textbf{Domain adaptation and transfer.} Transfer learning assumes general pretraining helps specialized tasks \parencite{devlin2019bert, pan2010transfer}. But \textcite{gururangan2020don} showed domain-adaptive pretraining (continued training on domain text) improves performance. Key challenges include catastrophic forgetting \parencite{kirkpatrick2017overcoming} and distribution shift \parencite{quinonero2009dataset}. Chapter 2 reviews the evidence; we test it empirically.
+
+\textbf{Research gaps.} We address three gaps: in‑domain mixtures vs general corpora across sizes, dataset size thresholds for when mixing is necessary, and whether transfer follows format (long‑form, instruction, short‑form) more than vocabulary.
+
 \section{Contributions}
 
 This thesis makes six primary contributions to understanding data mixture effects and training dynamics for language model pretraining:
@@ -41,13 +55,7 @@ We provide concrete, evidence-based recommendations for financial language model
 All main experiments used LR=2e-5. In three follow-ups with abnormalities (WikiText, Financial QA, Twitter), we reduced LR (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) and observed improved stability and results. We present these as pragmatic fixes in our setup, not a general rule. Figures \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} show recovery in these runs; \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} give the metrics.
 
 \textbf{3. Dataset Size Effects on Pretraining}
-We summarize empirical relationships between dataset size and training viability:
-\begin{itemize}
-    \item Small datasets (< 20K samples): Extreme overtraining (67-249 epochs), high variance (70-97\% relative spread), require mixing
-    \item Medium datasets (20-100K samples): Moderate overtraining (6-30 epochs), acceptable for specific use cases
-    \item Large datasets (> 100K samples): Minimal overtraining (2-24 epochs), viable for standalone pretraining
-\end{itemize}
-These findings provide practical guidance on when mixing is necessary versus when individual datasets suffice, with direct implications for practitioners planning limited data collection and annotation budgets.
+We summarize the size story briefly: small datasets (< 20K samples) overtrain badly (67–249 epochs) and show high variance (70–97\% spread), so they need mixing; medium datasets (20–100K) overtrain less (6–30 epochs) and can work for narrow use; large datasets (> 100K) train stably (2–24 epochs) and can stand alone. These observations help decide when mixing is necessary versus when an individual dataset is enough, a practical point for limited data collection budgets.
 
 \textbf{4. Cross-Domain Interaction Analysis}
 We study how high-quality general corpora (WikiText) interact with domain-specific financial data during pretraining. Contrary to common expectations, WikiText provides little benefit and sometimes degrades financial task performance. Mixed WikiText+Financial pretraining achieves 26.69 perplexity compared to 21.55 for pure financial mixing, a 24\% degradation. This suggests domain-specific data strategies are better for specialized applications. Cross-dataset tables show this pattern: WikiText rows rarely capture best-performance positions across financial evaluation columns, while mixed financial rows often do.

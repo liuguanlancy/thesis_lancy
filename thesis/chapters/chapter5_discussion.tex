@@ -92,12 +92,7 @@ Synthesizing experimental findings into actionable recommendations:
 
 \textbf{4B Models}: Best absolute performance (21.55 ppl, 55\% relative spread) but requires careful hyperparameter tuning (LR $5 \times 10^{-6}$ in affected cases) and substantial resources (20GB memory, $\sim$24 hours training). Use when maximizing performance justifies cost, and when expertise for hyperparameter tuning is available. Critical: failure to tune learning rate can cause reverse scaling, practitioners may need to reduce LR substantially at larger scales.
 
-\textbf{Scaling Decision Tree}:
-\begin{enumerate}
-\item \textbf{Resource-constrained} (mobile, edge devices): 0.6B, accept 22\% performance loss vs 4B
-\item \textbf{Balanced production deployment}: 1.7B, optimal trade-off (92\% of 4B performance, 50\% resources)
-\item \textbf{Performance-critical} (willing to invest tuning effort): 4B, requires LR scaling expertise
-\end{enumerate}
+\textbf{Scaling Decision Tree}: In short, choose 0.6B under tight resource constraints (mobile, edge) and accept about a 22\% loss versus 4B; pick 1.7B for the best performance–efficiency balance (about 92\% of 4B at roughly half the resources); go to 4B only when maximum performance justifies the tuning effort.
 
 \subsection{Learning Rate Notes}
 
