@@ -1,0 +1,195 @@
+# Thesis Revision Advice - English Translation & Executable Actions
+
+## Original Chinese Feedback (from /revision)
+1. introduction里面要加一个literature review，然后要强调你做的东西跟literature的区别是什么，contribution是什么
+2. 我觉得内容没什么问题!但是写的方式修改一下，不要一个bullet point个bullet point的写，而是写成一段段话的形式，像一个完整的故事而不是单纯罗列结果。不然会有点不像金融的文章
+3. 然后 dataset要描述一下用了什么时间段的，每种数据大概多少个这样(不知道我是不是看漏了)
+
+---
+
+## REVISION ITEM 1: Add Literature Review to Introduction
+
+### Translation
+Add a literature review section in the introduction that emphasizes what distinguishes your work from existing literature and what your contribution is.
+
+### Executable Actions
+
+**Add a dedicated Literature Review section in Chapter 1 (Introduction):**
+
+1. **Survey existing work in 3 key areas:**
+   - Domain-specific pretraining (e.g., FinBERT, BloombergGPT, domain adaptation papers)
+   - Data mixture strategies (e.g., DoReMi, The Pile, mixture optimization)
+   - Scaling laws and compute-optimal training (e.g., Chinchilla, Kaplan et al.)
+
+2. **Explicitly state your contribution by contrasting with prior work:**
+   - **Gap in literature:** "While BloombergGPT mixed financial and general data, no systematic study compares pure in-domain mixtures vs. high-quality general corpora across multiple model sizes"
+   - **Your contribution:** "We provide the first controlled comparison of 10 mixture strategies across 3 model sizes (0.6B-4B), revealing that diverse in-domain data outperforms high-quality general corpora for financial tasks"
+
+3. **Add a new subsection:**
+   - **Location:** Insert "1.3 Related Work and Contributions" between current 1.2 (Research Questions) and 1.3 (Thesis Structure)
+   - **Length:** 2-3 pages
+   - **Structure:**
+     - 1.3.1 Domain-Specific Language Model Pretraining
+     - 1.3.2 Data Mixture Strategies for Pretraining
+     - 1.3.3 Scaling Laws and Compute Efficiency
+     - 1.3.4 Our Contributions
+
+4. **Renumber:** Current 1.3 (Thesis Structure) becomes 1.4
+
+---
+
+## REVISION ITEM 2: Transform Bullet Points into Narrative Paragraphs
+
+### Translation
+The content is fine, but revise the writing style: convert bullet points into flowing paragraphs that tell a complete story rather than just listing results. Otherwise it doesn't read like a finance paper.
+
+### Executable Actions
+
+**Specific sections to revise:**
+
+### 2.1 Chapter 4, Section 4.2.4 (Dataset Size vs Generalization)
+**Current:** Has bullet points for "Viability Thresholds"
+```
+• > 100M tokens: Standalone is fine; 2 to 5 epochs; consistent transfer
+• 20 to 100M tokens: Works with caveats; 6 to 30 epochs; format effects
+• < 20M tokens: Mix it; >30 epochs; poor transfer
+```
+
+**Action:** Rewrite as a flowing paragraph:
+"Our experiments reveal three empirical viability thresholds based on dataset size. Datasets exceeding 100M tokens support standalone pretraining effectively, requiring only 2 to 5 epochs and exhibiting consistent cross-dataset transfer. Datasets in the 20-100M range remain viable but with caveats: they require 6 to 30 epochs and show format-dependent transfer patterns. Below 20M tokens, datasets become non-viable for standalone pretraining, requiring more than 30 epochs and exhibiting poor cross-dataset transfer, making mixture strategies essential."
+
+### 2.2 Chapter 4, Section 4.6 (Summary and Key Results)
+**Current:** Multiple bullet-pointed findings
+
+**Action:** Convert to narrative paragraphs with transitions:
+- Start paragraphs with: "First, we find that...", "Moreover...", "In addition...", "Finally..."
+- Connect findings logically: "Building on this observation...", "This pattern extends to...", "Consistent with..."
+- Create flow between findings rather than discrete lists
+
+### 2.3 Chapter 5, Section 5.1 (Key Empirical Findings)
+**Current:** Four findings presented with bold headers and bullet points
+
+**Action:** Rewrite as connected paragraphs that build on each other:
+- **Finding 1** → Introductory paragraph establishing main result
+- **Finding 2** → "This performance advantage is complemented by..."
+- **Finding 3** → "However, achieving these results requires careful attention to..."
+- **Finding 4** → "Finally, our analysis reveals that..."
+- Create logical flow showing how findings relate and build upon each other
+
+### 2.4 Chapter 5, Section 5.4 (Practical Guidelines)
+**Current:** Heavy use of bullet points in subsections
+
+**Action:** Convert to prose with embedded examples:
+- Replace bullet lists with paragraphs containing inline examples
+- Use "For instance,", "Consider the case of...", "In scenarios where..."
+- Maintain structure but present as flowing text with transitions
+
+### 2.5 Chapter 6 (Conclusion)
+**Current:** May have bulleted future work or recommendations
+
+**Action:** Ensure all content flows as paragraphs, not lists
+
+**General Principle:**
+Use bullets ONLY for:
+- Lists of discrete items (e.g., model specifications in tables)
+- Itemized technical details (e.g., hyperparameters)
+
+Use paragraphs for:
+- Arguments and reasoning
+- Findings and interpretations
+- Discussions and implications
+- Recommendations and guidelines
+
+---
+
+## REVISION ITEM 3: Add Dataset Temporal and Quantitative Details
+
+### Translation
+Add descriptions of the time period covered by each dataset and approximate counts/breakdown of each data type (the reviewer may have missed this if it exists).
+
+### Executable Actions
+
+### 3.1 Expand Chapter 3, Table 3.1 (Financial Dataset Characteristics)
+
+**Add two new columns:**
+
+1. **"Time Period" column** showing data collection dates:
+   - Lettria Financial News: [2018-2023] or [specify if available]
+   - SEC Financial Reports: [FY 2015-2022] or [specify fiscal years]
+   - FinGPT Sentiment: [2020-2023] or [specify]
+   - Finance Alpaca: [2021-2023] or [specify]
+   - FiQA: [2016-2018] or [specify from original dataset]
+   - Financial QA 10K: [FY 2019-2021] or [specify fiscal years covered]
+   - Twitter Sentiment: [2020-2021] or [specify collection period]
+
+2. **Expand "Examples" column to show breakdown:**
+   - Not just "300K" but "300K articles (earnings: 150K, market news: 100K, policy: 50K)"
+   - Not just "54.3K" but "54.3K reports (10-K: 38K, 10-Q: 16.3K)" or by year
+   - Not just "76.8K" but "76.8K headlines (positive: 25K, neutral: 30K, negative: 21.8K)"
+   - Show temporal distribution if relevant: "7.1K QA pairs (2019: 2K, 2020: 3K, 2021: 2.1K)"
+
+**Example revised table row:**
+```
+Dataset         | Examples | Tokens | Time Period | Genre      | Description
+----------------|----------|--------|-------------|------------|-------------
+Financial News  | 300K     | 197M   | 2018-2023   | Journalism | Long-form articles: earnings reports (150K), market analysis (100K), policy news (50K)
+```
+
+### 3.2 Expand Chapter 3, Table 3.2 (WikiText Dataset Characteristics)
+
+**Add details:**
+- Article date range: "Wikipedia snapshot as of [date]" or "Articles from [year range]"
+- Category breakdown if available: "103K articles (Biography: 35K, Science: 25K, History: 20K, Other: 23K)"
+
+### 3.3 Add Text Description in Section 3.3.1
+
+**Before or after the table, add a paragraph like:**
+"Our financial datasets span the period from 2015 to 2023, covering diverse market conditions including the COVID-19 pandemic (2020-2021) and subsequent recovery. The News dataset (197M tokens) contains 300K articles collected between 2018-2023, with approximately 50% covering earnings announcements, 33% market analysis, and 17% policy developments. SEC reports (80M tokens) comprise 54.3K regulatory filings from fiscal years 2015-2022, including both annual 10-K reports (70%) and quarterly 10-Q filings (30%). [Continue for other datasets...]"
+
+### 3.4 Add Temporal Considerations to Section 3.3.3 (Mixture Strategies)
+
+**Add a note about temporal alignment:**
+"All datasets were collected from overlapping time periods (2015-2023) to minimize temporal distribution shift effects, though individual datasets vary in their exact coverage windows. The WikiText baseline, based on a 2017 Wikipedia snapshot, represents an earlier time period and different topical distribution."
+
+---
+
+## Implementation Checklist
+
+- [ ] Add Section 1.3 "Related Work and Contributions" to Chapter 1
+- [ ] Renumber Section 1.3 → 1.4 (Thesis Structure)
+- [ ] Rewrite bullet points in Section 4.2.4 as flowing paragraphs
+- [ ] Rewrite bullet points in Section 4.6 as narrative with transitions
+- [ ] Rewrite bullet points in Section 5.1 as connected paragraphs
+- [ ] Rewrite bullet points in Section 5.4 as prose with inline examples
+- [ ] Add "Time Period" column to Table 3.1
+- [ ] Expand "Examples" column in Table 3.1 with breakdowns
+- [ ] Add temporal details to Table 3.2 (WikiText)
+- [ ] Add temporal description paragraph to Section 3.3.1
+- [ ] Add temporal alignment note to Section 3.3.3
+- [ ] Review entire thesis to eliminate unnecessary bullet points
+- [ ] Ensure all major findings presented as flowing narrative
+
+---
+
+## Priority Order
+
+1. **HIGH PRIORITY:** Add Literature Review section (Revision Item 1)
+   - Most critical for thesis contribution clarity
+   - Affects overall structure and argumentation
+
+2. **MEDIUM PRIORITY:** Transform bullet points to paragraphs (Revision Item 2)
+   - Improves readability and academic tone
+   - Affects multiple chapters
+
+3. **MEDIUM PRIORITY:** Add temporal/quantitative dataset details (Revision Item 3)
+   - Enhances reproducibility and clarity
+   - Localized to Chapter 3
+
+---
+
+## Notes
+
+- These revisions address presentation and completeness, not content validity
+- The core experimental work and findings are sound
+- Focus on improving narrative flow and contextualizing contributions within existing literature
+- Ensure the thesis reads as a cohesive story, not a technical report
