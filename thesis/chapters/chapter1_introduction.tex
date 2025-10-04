@@ -16,16 +16,16 @@ Beyond applications, we also add to understanding how models learn from differen
 
 This thesis investigates the following core research questions. We keep them narrow and testable. We do not chase new theory or SOTA here.
 
-\textbf{RQ1: Data Mixture Composition}
+RQ1: Data mixture composition
 How do combinations of in domain financial datasets and out of domain general corpora affect model performance and generalization? Specifically, does mixing multiple financial datasets improve consistency compared to single dataset training, and does adding high quality general text (WikiText) help or hurt financial tasks? Our results (\Cref{fig:scaling_comparison_all,tab:mixed_financial_results,tab:mixed_wiki_financial_results}) indicate that mixed financial datasets achieve 21.55 ppl (mean across financial evaluations), compared to 26.69 ppl for Wiki+Financial mixtures (overall mean across eight evaluations) and 41.96 ppl for pure WikiText (mean across financial evaluations after LR adjustment), suggesting in domain diversity is the better choice.
 
-\textbf{RQ2: Model Size and Training Dynamics}
+RQ2: Model size and training dynamics
 How do optimal training configurations vary across model sizes (0.6B, 1.7B, 4B parameters)? What is the relationship between size and learning rate sensitivity? In our setup, we trained all main runs with LR=2e-5; for a few abnormal cases, we reduced LR pragmatically (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) and saw improved stability. We do not claim a general scaling rule.
 
-\textbf{RQ3: Dataset Size Effects}
+RQ3: Dataset size effects
 What is the minimum dataset size for effective standalone pretraining, and how does size affect overtraining and cross dataset generalization? At what point do small datasets need mixing? With our data, datasets $>$100M tokens enable stable training (\Cref{fig:scaling_news_articles,fig:scaling_sec_reports}), while datasets $<$20M tokens require mixing due to extreme overtraining and high cross dataset variability (\Cref{fig:scaling_financial_qa,fig:scaling_twitter,tab:cross_financial_qa,tab:cross_twitter}).
 
-\textbf{RQ4: Domain Transfer Patterns}
+RQ4: Domain transfer patterns
 How well do models pretrained on financial data transfer across task types (sentiment, question answering, document understanding), and how much does document format matter? Cross dataset comparison tables (\Cref{tab:cross_financial_news,tab:cross_financial_repor,tab:cross_alpaca,tab:cross_fingpt,tab:cross_fiqa,tab:cross_twitter}) suggest that format consistency (long form, instruction, short form) drives transfer more than domain vocabulary, with boldface patterns clustering along format based diagonals.
 
 These questions are addressed through a detailed experimental framework with 30 trained models and 237 evaluation results across eight held-out test sets (Mixed Financial excludes WikiText evaluation), providing systematic evidence on data mixture effects in specialized-domain pretraining.
@@ -34,15 +34,15 @@ These questions are addressed through a detailed experimental framework with 30 
 
 A concise summary; Chapter 2 provides details.
 
-\textbf{Financial NLP.} The domain covers sentiment analysis, question answering, numerical reasoning, and information extraction from regulatory documents \parencite{araci2019finbert, chen2021finqa}. Challenges include specialized vocabulary (``alpha,'' ``EBITDA''), domain reasoning patterns, and privacy constraints that push toward local deployment \parencite{wu2023bloomberggpt}. Existing models range from FinBERT variants \parencite{araci2019finbert, yang2020finbert} to BloombergGPT (50B, mixed 51\% financial and 49\% general) \parencite{wu2023bloomberggpt}. Most focus on single large models; few study mixture effects across sizes.
+Financial NLP. The domain covers sentiment analysis, question answering, numerical reasoning, and information extraction from regulatory documents \parencite{araci2019finbert, chen2021finqa}. Challenges include specialized vocabulary (``alpha,'' ``EBITDA''), domain reasoning patterns, and privacy constraints that push toward local deployment \parencite{wu2023bloomberggpt}. Existing models range from FinBERT variants \parencite{araci2019finbert, yang2020finbert} to BloombergGPT (50B, mixed 51\% financial and 49\% general) \parencite{wu2023bloomberggpt}. Most focus on single large models; few study mixture effects across sizes.
 
-\textbf{Language model pretraining.} Modern LMs use causal language modeling (next-token prediction) on transformer architectures \parencite{vaswani2017attention, radford2019language, brown2020language}. Scaling laws \parencite{kaplan2020scaling, hoffmann2022training} show that model size, data size, and compute follow power-law relationships. Bigger models are more sample-efficient. But hyperparameter sensitivity at intermediate scales (0.6B–4B) is less studied. Chapter 2 covers training dynamics and memory constraints.
+Language model pretraining. Modern LMs use causal language modeling (next-token prediction) on transformer architectures \parencite{vaswani2017attention, radford2019language, brown2020language}. Scaling laws \parencite{kaplan2020scaling, hoffmann2022training} show that model size, data size, and compute follow power-law relationships. Bigger models are more sample-efficient. But hyperparameter sensitivity at intermediate scales (0.6B–4B) is less studied. Chapter 2 covers training dynamics and memory constraints.
 
-\textbf{Data mixture strategies.} Pretraining can be sequential (curriculum) or simultaneous; we use a simple “50cap” mixture and refer to Chapter 2 for rationale.
+Data mixture strategies. Pretraining can be sequential (curriculum) or simultaneous; we use a simple “50cap” mixture and refer to Chapter 2 for rationale.
 
-\textbf{Domain adaptation and transfer.} Transfer learning assumes general pretraining helps specialized tasks \parencite{devlin2019bert, pan2010transfer}. But \textcite{gururangan2020don} showed domain-adaptive pretraining (continued training on domain text) improves performance. Key challenges include catastrophic forgetting \parencite{kirkpatrick2017overcoming} and distribution shift \parencite{quinonero2009dataset}. Chapter 2 reviews the evidence; we test it empirically.
+Domain adaptation and transfer. Transfer learning assumes general pretraining helps specialized tasks \parencite{devlin2019bert, pan2010transfer}. But \textcite{gururangan2020don} showed domain-adaptive pretraining (continued training on domain text) improves performance. Key challenges include catastrophic forgetting \parencite{kirkpatrick2017overcoming} and distribution shift \parencite{quinonero2009dataset}. Chapter 2 reviews the evidence; we test it empirically.
 
-\textbf{Research gaps.} We address three gaps: in‑domain mixtures vs general corpora across sizes, dataset size thresholds for when mixing is necessary, and whether transfer follows format (long‑form, instruction, short‑form) more than vocabulary.
+We address three gaps: in‑domain mixtures vs general corpora across sizes, dataset size thresholds for when mixing is necessary, and whether transfer follows format (long‑form, instruction, short‑form) more than vocabulary.
 
 \section{Contributions}
 

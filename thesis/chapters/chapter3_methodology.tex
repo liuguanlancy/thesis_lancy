@@ -4,7 +4,7 @@ This chapter explains how we ran the experiments: first an overview of the desig
 
 \section{Experimental Design Overview}
 
-We evaluate \textbf{10 pretraining configurations}: 2 mixtures (Financial; Wiki+Financial) and 8 single dataset baselines. Each configuration is trained at three model sizes (0.6B/1.7B/4B) with a fixed \textbf{100M token budget} and evaluated on \textbf{8 held out test sets}. We also run 6 follow up runs with adjusted learning rates to address training stability at larger scales. We kept other factors fixed where possible. \Cref{tab:exp_settings} summarizes the settings used throughout.
+We evaluate 10 pretraining configurations: 2 mixtures (Financial; Wiki+Financial) and 8 single‑dataset baselines. Each configuration is trained at three model sizes (0.6B/1.7B/4B) with a fixed 100M‑token budget and evaluated on eight held‑out test sets. We also run 6 follow‑up runs with adjusted learning rates to address training stability at larger scales. We kept other factors fixed where possible. \Cref{tab:exp_settings} summarizes the settings used throughout.
 
 \input{tables/table_experimental_settings}
 
@@ -12,7 +12,7 @@ This design supports our research questions on mixture composition, model scale,
 
 \section{Model Architecture}
 
-We use the \textbf{Qwen3 model family} \parencite{yang2024qwen2,qwen3}, a series of open source transformer based decoder only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3 Base series (pretrained checkpoints without post training alignment), detailed in \Cref{tab:model_specs}. In our runs, these sizes allow clean comparisons without changing tokenizers or context limits.
+We use the Qwen3 model family \parencite{yang2024qwen2,qwen3}, a series of open‑source transformer‑based decoder‑only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3 Base series (pretrained checkpoints without post‑training alignment), detailed in \Cref{tab:model_specs}. In our runs, these sizes allow clean comparisons without changing tokenizers or context limits.
 
 \begin{table}[h]
 \centering
@@ -65,7 +65,7 @@ Twitter Sentiment & 1.1K & 0.3M & Social Media & Labeled tweets ($<$280 chars) w
 
 \subsection{WikiText}
 
-We use \textbf{WikiText 103} \parencite{merity2016pointer} as a general domain baseline, summarized in \Cref{tab:wikitext_dataset}. WikiText serves two purposes: (1) evaluating domain transfer (general $\leftrightarrow$ financial), and (2) testing whether high quality general corpora complement financial pretraining in mixtures. Sometimes it helps; sometimes not.
+We use WikiText‑103 \parencite{merity2016pointer} as a general‑domain baseline, summarized in \Cref{tab:wikitext_dataset}. WikiText serves two purposes: (1) evaluating domain transfer (general $\leftrightarrow$ financial), and (2) testing whether high‑quality general corpora complement financial pretraining in mixtures.
 
 \begin{table}[h]
 \centering
@@ -83,15 +83,15 @@ WikiText-103 & 103K & 103M & Encyclopedia & Verified Wikipedia articles with for
 
 \subsection{Mixture Strategies}
 
-We employ a \textbf{50\% capping strategy} (``50cap'') for dataset mixing to balance diversity with data efficiency. The algorithm works as follows:
+We employ a 50\% capping strategy (``50cap'') for dataset mixing to balance diversity with data efficiency. The algorithm works as follows:
 
-\textbf{Step 1 - Cap dominant datasets}: Identify the largest dataset in the mixture. If its token count exceeds 50\% of the total mixture, cap it at exactly 50\%. This prevents any single dataset from dominating the mixture.
+Step 1 — Cap dominant datasets. Identify the largest dataset in the mixture. If its token count exceeds 50\% of the total mixture, cap it at exactly 50\%. This prevents any single dataset from dominating the mixture.
 
-\textbf{Step 2 - Proportional sampling}: For remaining datasets (below 50\% threshold), sample tokens proportionally to their original sizes. This preserves relative contributions while ensuring diversity.
+Step 2 — Proportional sampling. For remaining datasets (below the 50\% threshold), sample tokens proportionally to their original sizes. This preserves relative contributions while ensuring diversity.
 
-\textbf{Step 3 - Token-level interleaving}: During training, sample batches from the mixed distribution at the token level (not example level). This ensures fine-grained mixing throughout training rather than sequential block exposure.
+Step 3 — Token‑level interleaving. During training, sample batches from the mixed distribution at the token level (not example level). This ensures fine‑grained mixing throughout training rather than sequential block exposure.
 
-\textbf{Example}: For the 7‑dataset financial mixture (News 197M, SEC 80M, FinGPT 19M, Alpaca 17M, FiQA 4M, Financial QA 3.5M, Twitter 0.3M; total 321M tokens), News exceeds 50\% (61.4\%) and is capped at 50\% (160.5M tokens); the remaining datasets are sampled proportionally from the other 160.5M‑token budget; the final mixture stays at $\sim$321M tokens with News contributing exactly half.
+Example. For the 7‑dataset financial mixture (News 197M, SEC 80M, FinGPT 19M, Alpaca 17M, FiQA 4M, Financial QA 3.5M, Twitter 0.3M; total 321M tokens), News exceeds 50\% (61.4\%) and is capped at 50\% (160.5M tokens); the remaining datasets are sampled proportionally from the other 160.5M‑token budget; the final mixture stays at $\sim$321M tokens with News contributing exactly half.
 
 \begin{figure}[h]
 \centering
@@ -112,21 +112,7 @@ This strategy contrasts with temperature sampling (which requires tuning hyperpa
 
 We trained all models with a single hyperparameter template to set a baseline. Standard causal LM choices:
 
-\textbf{Optimizer}: AdamW with $\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$, weight decay $0.01$
-
-\textbf{Learning Rate}: $2 \times 10^{-5}$ (used for all main settings)
-
-\textbf{LR Schedule}: Cosine decay with 1,000 warmup steps, minimum LR $10^{-6}$
-
-\textbf{Batch Configuration}: Effective batch size 8 across all runs. When memory was tight, we used gradient accumulation to keep the same effective batch size.
-
-\textbf{Sequence Length}: 1,024 tokens (fixed for all runs)
-
-\textbf{Precision}: bfloat16 mixed precision for memory efficiency
-
-\textbf{Training Duration}: Dataset-dependent. Small datasets ($<$20K samples) trained for maximum epochs to reach $\sim$100M token budget; large datasets trained for 2-5 epochs. All models exposed to approximately 100M training tokens for fair comparison.
-
-\textbf{Hardware}: NVIDIA RTX A6000 (48GB), A100 (40GB), and H100 (80GB) GPUs rented from Lambda Labs. Gradient accumulation was applied as needed to fit memory constraints.
+We used AdamW ($\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$, weight decay $0.01$) with an initial learning rate of $2\times10^{-5}$, cosine decay, 1{,}000 warmup steps, and minimum LR $10^{-6}$. The effective batch size was 8 across all runs; when memory was tight, we used gradient accumulation to maintain that size. Sequences were 1{,}024 tokens with bfloat16 mixed precision. Training duration was dataset‑dependent: small datasets ($<$20K samples) trained many epochs to reach $\sim$100M tokens, while large datasets trained for 2–5 epochs. We used NVIDIA RTX A6000 (48GB), A100 (40GB), and H100 (80GB) GPUs rented from Lambda Labs.
 
 When we observed abnormalities in a few experiments, we reran those specific cases with smaller LRs as a simple heuristic to stabilize training. We do not claim any theoretical scaling rule for LR; these adjustments were pragmatic.
 
@@ -136,25 +122,11 @@ In three configurations we observed abnormal behavior (e.g., larger models under
 
 \subsection{Other Hyperparameters}
 
-Beyond learning rate, we maintained consistent hyperparameters across experiments:
-
-\textbf{Batch Size and Accumulation}: Effective batch size 8 across all runs. We used gradient accumulation only when necessary to fit models and sequence lengths into GPU memory.
-
-\textbf{Warmup Steps}: 1,000 steps (3.1\% of training for 32K total steps) provided sufficient stabilization during initial training. Longer warmup did not improve final performance.
-
-\textbf{Training Epochs}: Varied by dataset size to normalize token exposure. Small datasets (Twitter, Financial QA) trained for 67-249 epochs to reach 100M token budget; medium datasets (FiQA, FinGPT, Alpaca) for 6-30 epochs; large datasets (SEC, News) for 2-24 epochs. This normalization ensures fair comparison across datasets of different sizes.
-
-\textbf{Maximum Sequence Length}: 1,024 tokens. Financial documents often exceed this length (SEC filings: 10K+ tokens), but longer sequences quadratically increase memory and slow training. We accept truncation as a practical trade-off.
-
-\textbf{Dropout}: 0.0 (no dropout) following common practice for large-scale pretraining where overfitting is rarely observed.
+Beyond learning rate, we kept other hyperparameters consistent: effective batch size 8 (using gradient accumulation as needed), warmup of 1{,}000 steps (3.1\% of 32K total steps), and dropout 0.0. Training epochs varied by dataset size to normalize token exposure: small datasets (Twitter, Financial QA) needed 67–249 epochs to reach 100M tokens; medium ones (FiQA, FinGPT, Alpaca) 6–30; large ones (SEC, News) 2–24. We fixed maximum sequence length at 1{,}024 tokens; although financial documents often exceed this, longer sequences increase memory quadratically, so we accepted truncation as a practical trade‑off.
 
 \subsection{Computational Budget}
 
-To ensure fair comparison across experiments, we normalized the token budget to \textbf{100M tokens per training run}, regardless of dataset size or model scale. This design controls for data exposure while allowing investigation of how model size and data characteristics interact. A simple rule that kept the study manageable.
-
-\textbf{Experimental Scale}: In total we ran 36 trainings: two mixture settings (Mixed Financial; Mixed Wiki+Financial), eight single‑dataset baselines (WikiText, Financial News, SEC, FinGPT, Finance Alpaca, FiQA, Financial QA 10K, Twitter), each at three sizes (0.6B/1.7B/4B) for 30 baselines, plus six follow‑ups with reduced learning rates on the three problematic datasets (WikiText, Financial QA, Twitter) to probe sensitivity at larger scales.
-
-\textbf{Total computational cost}: $36 \times 100\text{M} = 3.6\text{B}$ tokens processed. On a single NVIDIA A100 (40GB) rented from Lambda Labs, each 100M-token run required 2 to 8 hours depending on model size (0.6B: $\sim$2h, 1.7B: $\sim$4h, 4B: $\sim$8h), totaling approximately 150 GPU-hours for the complete experimental suite.
+To ensure fair comparison across experiments, we normalized the token budget to 100M tokens per training run, regardless of dataset size or model scale. In total we ran 36 trainings: two mixture settings (Mixed Financial; Mixed Wiki+Financial), eight single‑dataset baselines (WikiText, Financial News, SEC, FinGPT, Finance Alpaca, FiQA, Financial QA 10K, Twitter), each at three sizes (0.6B/1.7B/4B) for 30 baselines, plus six follow‑ups with reduced learning rates on the three problematic datasets (WikiText, Financial QA, Twitter) to probe sensitivity at larger scales. The total computational cost was $36\times100\text{M}=3.6\text{B}$ tokens. On a single NVIDIA A100 (40GB), each 100M‑token run required 2–8 hours depending on model size (0.6B: $\sim$2h; 1.7B: $\sim$4h; 4B: $\sim$8h), about 150 GPU‑hours overall.
 
 This token controlled design helps ensure that performance differences reflect model data interactions rather than unequal training compute. Variable epoch counts (2 to 249 across experiments) follow from dataset size while keeping token exposure constant. But it also means small datasets see many passes. A trade off we accept.
 
@@ -162,30 +134,20 @@ This token controlled design helps ensure that performance differences reflect m
 
 \subsection{Multi-Dataset Evaluation}
 
-Each trained model is evaluated on \textbf{8 held-out test sets} to measure both in-domain and out-of-domain generalization:
-
-\textbf{Financial Test Sets} (7 datasets): Test splits from all 7 financial training datasets (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter). This evaluates how well models generalize to unseen examples within each financial domain.
-
-\textbf{General Test Set} (1 dataset): WikiText test split. This measures retention of general language capabilities and tests cross-domain transfer (financial $\to$ general and general $\to$ financial).
+Each trained model is evaluated on eight held‑out test sets to measure both in‑domain and out‑of‑domain generalization: the seven financial test splits (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter) plus the WikiText test split to gauge retention of general language capabilities and cross‑domain transfer.
 
 For models trained on dataset $D$, evaluation on $D$'s test set measures in-domain generalization; evaluation on other datasets measures cross-dataset transfer. For mixed models, all 8 test sets measure generalization across the mixture distribution.
 
 \subsection{Metrics}
 
-We report three complementary metrics:
-
-\textbf{Cross-Entropy Loss}: Primary metric; average negative log-likelihood per token.
+We report three complementary metrics. Cross‑entropy loss is the average negative log‑likelihood per token,
 \begin{equation*}
     \mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N} \log P\bigl(w_i \,\mid\, w_{<i}\bigr)
 \end{equation*}
-Lower is better.
-
-\textbf{Perplexity}: Interpretable transformation of cross-entropy: $\text{PPL} = \exp(\mathcal{L})$. Represents effective vocabulary size the model considers at each prediction. PPL = 10 means the model is effectively choosing among 10 tokens on average. Lower is better. Primary metric for comparisons in this thesis.
-
-\textbf{Relative Spread}: Cross-dataset variability of performance. We report relative spread as
+with lower being better. Perplexity is the interpretable transformation $\text{PPL}=\exp(\mathcal{L})$, representing the effective vocabulary size considered at each prediction (lower is better). Relative spread measures cross‑dataset variability:
 \begin{equation*}
     \text{Relative Spread}\% = 100\,\frac{\max(\text{PPL}) - \min(\text{PPL})}{\text{mean PPL}}\, ,
 \end{equation*}
-computed over the set of evaluation perplexities (one per evaluation dataset). Lower is better for consistency; higher suggests specialization or brittleness.
+computed over evaluation perplexities (one per dataset); lower values indicate more consistent generalization.
 
 All metrics are computed on full test sets (no subsampling) with the same sequence length (1,024 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).
