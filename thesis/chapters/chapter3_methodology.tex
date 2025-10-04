@@ -35,33 +35,39 @@ We chose Qwen3 for three reasons: (1) architectural consistency across scales en
 
 \subsection{Financial Datasets}
 
-We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 321.4M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.3M to 197M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra domain effects without changing models.
+We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 222.69M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.28M to 197.38M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra domain effects without changing models.
 
 \begin{table}[h]
 \centering
-\caption[Financial Dataset Characteristics]{Financial dataset characteristics. Total: 321.4M tokens across 7 datasets with diverse genres and scales.}
+\caption[Financial Dataset Characteristics]{Financial dataset characteristics. Total: 222.69M tokens across 7 datasets with diverse genres and scales. Dataset identifiers listed in footnotes.}
 \label{tab:financial_datasets}
 \small
-\begin{tabular}{p{3cm}cccp{5.5cm}}
+\begin{tabular}{p{3.4cm}cccp{5.5cm}}
 \toprule
 \textbf{Dataset} & \textbf{Examples} & \textbf{Tokens} & \textbf{Genre} & \textbf{Description} \\
 \midrule
-Lettria Financial News & 300K & 197M & Journalism & Long-form articles on markets, earnings, policy \\
+Financial News Articles$^1$ & 306.2K & 197.4M & Journalism & Long-form articles on markets, earnings, policy \\
 \midrule
-SEC Financial Reports & 54.3K & 80M & Regulatory & 10-K/10-Q excerpts with formal disclosures, legal language \\
+SEC Financial Reports$^2$ & 200K & 8.1M & Regulatory & 10-K annual filings with formal disclosures, legal language \\
 \midrule
-FinGPT Sentiment & 76.8K & 19.1M & Instruction & Headlines + sentiment labels in conversational format \\
+FinGPT Sentiment$^3$ & 76.8K & 4.1M & Instruction & Headlines + sentiment labels in conversational format \\
 \midrule
-Finance Alpaca & 68.9K & 17.2M & Q\&A & Instruction-response pairs on financial concepts \\
+Finance Alpaca$^4$ & 68.9K & 8.5M & Q\&A & Instruction-response pairs on financial concepts \\
 \midrule
-FiQA & 17.4K & 4.3M & Forum & User-generated Q\&A from forums and microblogs \\
+FiQA$^5$ & 14.5K & 3.6M & Forum & User-generated Q\&A from Stack Exchange Investment topic \\
 \midrule
-Financial QA 10K & 7.1K & 3.5M & Document & Questions on 10-K filings requiring tabular reasoning \\
+Financial QA 10K$^6$ & 7.0K & 0.7M & Document & Questions on recent 10-K filings requiring tabular reasoning \\
 \midrule
-Twitter Sentiment & 1.1K & 0.3M & Social Media & Labeled tweets ($<$280 chars) with informal language \\
+Twitter Financial Sentiment$^7$ & 9.5K & 0.28M & Social Media & Labeled tweets ($<$280 chars) with informal language \\
 \bottomrule
+\multicolumn{5}{l}{\footnotesize $^1$\texttt{ashraq/financial-news-articles}, $^2$\texttt{JanosAudran/financial-reports-sec:small\_lite}, $^3$\texttt{FinGPT/fingpt-sentiment-train},} \\
+\multicolumn{5}{l}{\footnotesize $^4$\texttt{gbharti/finance-alpaca}, $^5$\texttt{LLukas22/fiqa}, $^6$\texttt{virattt/financial-qa-10K}, $^7$\texttt{zeroshot/twitter-financial-news-sentiment}}
 \end{tabular}
 \end{table}
+
+Our financial datasets cover diverse genres and formats. SEC reports (8.1M tokens, 200K filings) are 10‑K annual filings—no quarterly 10‑Qs—with formal regulatory language. FiQA (3.6M tokens, 14.5K examples) captures Stack Exchange investment discussions with user‑generated Q\&A. FinGPT headlines (4.1M tokens, 76.8K examples) provide sentiment labels in conversational format. The Twitter dataset (0.28M tokens, 9.5K tweets) includes Bearish/Bullish/Neutral labels with informal language. Financial QA (0.7M tokens, 7K pairs) draws from recent 10‑K filings requiring tabular reasoning. Finance Alpaca (8.5M tokens, 68.9K pairs) is synthetic instruction data—didactic Q\&A without time‑stamped grounding. WikiText (103M tokens, 1.8M articles) provides the general‑domain baseline.
+
+This diversity in genres (journalism, regulatory, instruction, forum, social media, document Q\&A) and formality levels lets us test how models handle different financial communication styles. WikiText provides a general‑domain contrast.
 
 \subsection{WikiText}
 
@@ -69,40 +75,37 @@ We use WikiText‑103 \parencite{merity2016pointer} as a general‑domain baseli
 
 \begin{table}[h]
 \centering
-\caption[WikiText Dataset Characteristics]{WikiText-103 characteristics. Similar scale to SEC; smaller than News.}
+\caption[WikiText Dataset Characteristics]{WikiText-103 characteristics. Similar scale to SEC; smaller than News. Dataset identifier in footnote.}
 \label{tab:wikitext_dataset}
 \small
-\begin{tabular}{p{3cm}cccp{5.5cm}}
+\begin{tabular}{p{3.4cm}cccp{5.5cm}}
 \toprule
 \textbf{Dataset} & \textbf{Examples} & \textbf{Tokens} & \textbf{Genre} & \textbf{Description} \\
 \midrule
-WikiText-103 & 103K & 103M & Encyclopedia & Verified Wikipedia articles with formal register, broad topical coverage, clean preprocessing \\
+WikiText-103$^8$ & 1.8M & 103M & Encyclopedia & Verified Wikipedia articles with formal register, broad topical coverage, clean preprocessing \\
 \bottomrule
+\multicolumn{5}{l}{\footnotesize $^8$\texttt{wikitext:wikitext-103-v1}}
 \end{tabular}
 \end{table}
 
 \subsection{Mixture Strategies}
 
-We employ a 50\% capping strategy (``50cap'') for dataset mixing to balance diversity with data efficiency. The algorithm works as follows:
+We use a 50\% capping strategy (``50cap'') for dataset mixing to balance diversity with data efficiency. If the largest dataset in a mixture exceeds 50\% of total tokens, we cap it at exactly 50\%; this prevents single‑source dominance. The remaining datasets are sampled proportionally to their original sizes, preserving relative contributions while ensuring diversity. During training, we sample batches from the mixed distribution at the token level, not by example. Fine‑grained interleaving throughout training beats sequential block exposure.
 
-Step 1 — Cap dominant datasets. Identify the largest dataset in the mixture. If its token count exceeds 50\% of the total mixture, cap it at exactly 50\%. This prevents any single dataset from dominating the mixture.
+Example. For the 7‑dataset financial mixture (News 197.38M, SEC 8.12M, FinGPT 4.14M, Alpaca 8.46M, FiQA 3.60M, Financial QA 0.70M, Twitter 0.28M; total 222.69M tokens), News exceeds 50\% (88.6\%) and is capped at 50\% (111.34M tokens); the remaining datasets are sampled proportionally from the other 111.34M‑token budget; the final mixture stays at $\sim$222.69M tokens with News contributing exactly half.
 
-Step 2 — Proportional sampling. For remaining datasets (below the 50\% threshold), sample tokens proportionally to their original sizes. This preserves relative contributions while ensuring diversity.
-
-Step 3 — Token‑level interleaving. During training, sample batches from the mixed distribution at the token level (not example level). This ensures fine‑grained mixing throughout training rather than sequential block exposure.
-
-Example. For the 7‑dataset financial mixture (News 197M, SEC 80M, FinGPT 19M, Alpaca 17M, FiQA 4M, Financial QA 3.5M, Twitter 0.3M; total 321M tokens), News exceeds 50\% (61.4\%) and is capped at 50\% (160.5M tokens); the remaining datasets are sampled proportionally from the other 160.5M‑token budget; the final mixture stays at $\sim$321M tokens with News contributing exactly half.
+Dataset alignment. The financial datasets vary in formality (regulatory SEC filings vs informal tweets), source type (news articles vs forum discussions), and task format (sentiment labels vs Q\&A pairs). WikiText represents general encyclopedic knowledge with a different topical distribution. We accept these distribution differences as realistic: real applications mix diverse sources with varying formality and topical coverage.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/diagram_50cap.png}
-\caption[50cap Mixture Strategy Visualization]{Token allocation in Mixed Financial dataset using 50cap strategy. News Articles is capped to contribute at most 50\% in sampling (illustrative normalization; raw corpus remains 197M). The remaining six datasets are sampled proportionally from the other 50\%, ensuring diversity while preventing dominance. Left panel shows pie chart view; right panel shows stacked bar view with total allocation.}
+\caption[50cap Mixture Strategy Visualization]{Token allocation in Mixed Financial dataset using 50cap strategy. News Articles is capped to contribute at most 50\% in sampling (illustrative normalization; raw corpus remains 197.38M). The remaining six datasets are sampled proportionally from the other 50\%, ensuring diversity while preventing dominance. Left panel shows pie chart view; right panel shows stacked bar view with total allocation.}
 \label{fig:diagram_50cap}
 \end{figure}
 
-\Cref{fig:diagram_50cap} visualizes the 50cap sampling policy: News Articles (red) is capped to at most 50\% of sampled tokens; the remaining 50\% is distributed proportionally among the other six datasets. The pie (left) shows percentage composition; the stacked bar (right) normalizes absolute counts to a 50/50 split (\(\approx\!160.7\,\text{M}+\approx\!160.7\,\text{M}\) if scaled to the 321.4M corpus total) for illustration only — 50cap does not modify raw corpus sizes.
+\Cref{fig:diagram_50cap} visualizes the 50cap sampling policy: News Articles (red) is capped to at most 50\% of sampled tokens; the remaining 50\% is distributed proportionally among the other six datasets. The pie (left) shows percentage composition; the stacked bar (right) normalizes absolute counts to a 50/50 split (\(\approx\!111.34\,\text{M}+\approx\!111.34\,\text{M}\) if scaled to the 222.69M corpus total) for illustration only — 50cap does not modify raw corpus sizes.
 
-For the 8-dataset WikiText+Financial mixture, WikiText (100M) and News (197M) are both large; we apply 50cap to ensure neither dominates, then proportionally sample the other 6 financial datasets.
+For the 8-dataset WikiText+Financial mixture, WikiText (103M) and News (197.38M) are both large; we apply 50cap to ensure neither dominates, then proportionally sample the other 6 financial datasets.
 
 This strategy contrasts with temperature sampling (which requires tuning hyperparameters) and equal mixing (which severely undersamples large datasets). The 50cap approach is deterministic, requires no tuning, and empirically performs well in production settings \parencite{longpre2023pretrainer}.
 
