@@ -46,48 +46,28 @@ A concise summary; Chapter 2 provides details.
 
 \section{Contributions}
 
-This thesis makes six primary contributions to understanding data mixture effects and training dynamics for language model pretraining:
+This thesis makes six primary contributions to understanding data mixture effects and training dynamics for language model pretraining. First, we provide empirical data‑mixture guidelines: in‑domain diversity outperforms high‑quality general corpora for financial applications. Mixed financial datasets reach 21.55 perplexity at 4B versus 41.96 for WikiText (mean across financial evaluations after LR adjustment), a $1.95\times$ gap supported by 11 scaling figures and 18 tables.
 
-\textbf{1. Empirical Data Mixture Guidelines}
-We provide concrete, evidence-based recommendations for financial language model pretraining, showing that in-domain diversity outperforms high-quality general corpora for specialized domains. Our experiments show that mixed financial datasets achieve 21.55 perplexity at 4B parameters compared to 41.96 perplexity (mean across financial evaluations after LR adjustment) for WikiText pretraining, a 1.95$\times$ gap. These findings challenge the assumption that general high-quality text always helps domain adaptation. We support this with 11 scaling figures and 18 tables (10 per-training-dataset and 8 cross-dataset comparisons).
+Second, we document simple learning‑rate notes. All main runs used LR=2e‑5; in three abnormal cases (WikiText, Financial QA, Twitter), lowering LR (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) stabilized training and improved results (see \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} and \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison}). These are pragmatic fixes, not a rule.
 
-\textbf{2. Learning Rate Notes}
-All main experiments used LR=2e-5. In three follow-ups with abnormalities (WikiText, Financial QA, Twitter), we reduced LR (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) and observed improved stability and results. We present these as pragmatic fixes in our setup, not a general rule. Figures \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} show recovery in these runs; \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} give the metrics.
+Third, we summarize dataset‑size effects: small datasets (<20K samples) overtrain badly (67–249 epochs) with high variance (70–97\% spread) and need mixing; medium datasets (20–100K) overtrain less (6–30 epochs) and can work for narrow use; large datasets (>100K) train stably (2–24 epochs) and can stand alone. These thresholds help decide when to mix under limited data budgets.
 
-\textbf{3. Dataset Size Effects on Pretraining}
-We summarize the size story briefly: small datasets (< 20K samples) overtrain badly (67–249 epochs) and show high variance (70–97\% spread), so they need mixing; medium datasets (20–100K) overtrain less (6–30 epochs) and can work for narrow use; large datasets (> 100K) train stably (2–24 epochs) and can stand alone. These observations help decide when mixing is necessary versus when an individual dataset is enough, a practical point for limited data collection budgets.
+Fourth, we analyze cross‑domain interactions. Adding WikiText to financial mixtures (Mixed Wiki+Financial) worsens financial performance (26.69 ppl vs 21.55) while improving general performance only slightly—an unfavorable trade‑off for finance.
 
-\textbf{4. Cross-Domain Interaction Analysis}
-We study how high-quality general corpora (WikiText) interact with domain-specific financial data during pretraining. Contrary to common expectations, WikiText provides little benefit and sometimes degrades financial task performance. Mixed WikiText+Financial pretraining achieves 26.69 perplexity compared to 21.55 for pure financial mixing, a 24\% degradation. This suggests domain-specific data strategies are better for specialized applications. Cross-dataset tables show this pattern: WikiText rows rarely capture best-performance positions across financial evaluation columns, while mixed financial rows often do.
+Fifth, we show feasibility of lightweight financial models. With the right mixtures and tuning, 0.6B–4B models deliver practical performance for edge deployment (our 4B model achieves 21.55 ppl on diverse financial tasks).
 
-\textbf{5. Lightweight Financial Model Feasibility}
-We show that 0.6B to 4B parameter models can achieve practical financial NLP performance with appropriate mixtures and tuning, enabling privacy-preserving edge deployment. Our 4B model achieves 21.55 perplexity on diverse financial tasks, competitive with much larger models while remaining deployable on consumer hardware. This addresses the need for locally runnable financial AI systems.
-
-\textbf{6. Open-Source Training Pipeline}
-We provide a reproducible codebase for mixture-based pretraining with a detailed evaluation framework across 10 experiments and 30 trained models. The pipeline supports automatic mixture composition, multi-dataset evaluation, and systematic hyperparameter tuning, enabling future research on domain-specific language model training.
+Sixth, we release an open‑source training pipeline with a multi‑dataset evaluation harness across 10 experiments and 30 models, supporting reproducible mixture composition and tuning.
 
 \section{Thesis Organization}
 
 What follows is simple and practical.
 
-\textbf{Chapter 2: Background and Related Work} gives only what we need: key ideas from financial NLP, pretraining basics, mixture strategies, and domain adaptation. Enough context to place our study in transfer learning and scaling work.
-
-\textbf{Chapter 3: Methodology} explains the design we used: Qwen3 models, the datasets (7 financial sets, 321.4M tokens, plus WikiText), the 50cap mixture rule, and training settings. We also note where we had to adjust learning rate for stability.
-
-\textbf{Chapter 4: Results} presents the evidence with plots and tables (11 scaling figures, 18 tables). First mixtures, then single datasets, then training dynamics, and finally transfer. The plots show trends across sizes; the tables show which setup works where.
-
-\textbf{Chapter 5: Discussion} connects the results to prior work and day to day practice. We explain the weak financial transfer of WikiText (see boldface in cross tables), what in domain diversity buys, how learning rate tweaks changed stability, and we close with practical guidelines with exact references.
-
-\textbf{Chapter 6: Conclusion} sums up contributions, notes implications, and lists next steps: try larger models, test dynamic mixing, and check downstream tasks.
+Chapter 2 (Background) gives only what we need: key ideas from financial NLP, pretraining basics, mixture strategies, and domain adaptation—enough context to place our study. Chapter 3 (Methodology) explains the design: Qwen3 models, datasets (7 financial sets, 321.4M tokens, plus WikiText), the 50cap rule, and training settings, including when we lowered LR. Chapter 4 (Results) presents the evidence with 11 figures and 18 tables, moving from mixtures to single datasets, then dynamics and transfer. Chapter 5 (Discussion) links results to prior work and practice, including why WikiText transfers weakly to finance and where LR tweaks helped. Chapter 6 (Conclusion) summarizes contributions, implications, and next steps.
 
 \section{Scope and Limitations}
 
 We study causal language model pretraining on financial text in the 0.6B to 4B range. Three notes help read the results fairly.
 
-\textbf{Model architecture.} We used Qwen3 for all runs. The learning rate and mixture lessons should carry over, but checking LLaMA, Gemma, and Phi would add confidence.
-
-\textbf{Mixture rule and evaluation.} We kept one mixture rule (50cap, the largest dataset capped at half the mixture) and measured perplexity on held out test sets. This fits our goal of studying pretraining dynamics. It does not give downstream task accuracy, so claims about applications stay limited.
-
-\textbf{Scale and domain.} We worked between 0.6B and 4B for hardware reasons. Larger models can behave differently. Findings about learning rate and dataset size likely transfer to other domains, but the weak benefit of WikiText is specific to finance and may not hold elsewhere.
+Model architecture: we used Qwen3 for all runs. The learning‑rate and mixture lessons should carry over, though checking LLaMA, Gemma, and Phi would add confidence. For mixture and evaluation, we kept a single rule (50cap) and reported perplexity on held‑out test sets—appropriate for studying pretraining dynamics but not downstream accuracy. Finally, we worked between 0.6B and 4B for hardware reasons; larger models may behave differently. Learning‑rate and dataset‑size takeaways likely transfer to other domains, but the weak benefit of WikiText appears finance‑specific.
 
 Across 30 models and more than 240 evaluations, the patterns are consistent. Where evidence is thin, we say so.
