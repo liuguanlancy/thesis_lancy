@@ -29,8 +29,6 @@ Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
 \end{tabular}
 \end{table}
 
-We chose Qwen3 for four reasons: (1) architectural consistency across scales enables clean size comparisons, (2) stable baseline performance on general and domain‑specific benchmarks, (3) efficient inference suitable for edge deployment (all models fit on consumer hardware, (4) SOTA performance of open-weight language models.
-
 \section{Datasets}
 
 \subsection{Financial Datasets}
@@ -65,9 +63,7 @@ Twitter Financial Sentiment$^7$ & 9.5K & 0.28M & Social Media & Labeled tweets (
 \end{tabular}
 \end{table}
 
-Our financial datasets cover diverse genres and formats. SEC reports (8.1M tokens, 200K filings) are 10‑K annual filings with formal regulatory language. FiQA (3.6M tokens, 14.5K examples) captures Stack Exchange investment discussions with user‑generated Q\&A. FinGPT headlines (4.1M tokens, 76.8K examples) provide sentiment labels in conversational format. The Twitter dataset (0.28M tokens, 9.5K tweets) includes Bearish/Bullish/Neutral labels with informal language. Financial QA (0.7M tokens, 7K pairs) draws from recent 10‑K filings requiring tabular reasoning. Finance Alpaca (8.5M tokens, 68.9K pairs) is synthetic instruction data—didactic Q\&A without time‑stamped grounding. WikiText (124M tokens, 1.8M articles) provides the general‑domain baseline.
-
-This diversity in genres (journalism, regulatory, instruction, forum, social media, document Q\&A) and formality levels lets us test how models handle different financial communication styles. WikiText provides a general‑domain contrast.
+Our financial datasets cover diverse genres and formats. SEC reports (8.1M tokens, 200K filings) are 10‑K annual filings with formal regulatory language. FiQA (3.6M tokens, 14.5K examples) captures Stack Exchange investment discussions with user‑generated Q\&A. FinGPT headlines (4.1M tokens, 76.8K examples) provide sentiment labels in conversational format. The Twitter dataset (0.28M tokens, 9.5K tweets) includes Bearish/Bullish/Neutral labels with informal language. Financial QA (0.7M tokens, 7K pairs) draws from recent 10‑K filings requiring tabular reasoning. Finance Alpaca (8.5M tokens, 68.9K pairs) is synthetic instruction data, which consists of Q\&A without time‑stamped grounding. WikiText (124M tokens, 1.8M articles) provides the general‑domain baseline.
 
 \subsection{WikiText}
 
@@ -90,24 +86,27 @@ WikiText-103$^8$ & 1.8M & 124M & Encyclopedia & Verified Wikipedia articles with
 
 \subsection{Mixture Strategies}
 
-We use a 50\% capping strategy (``50cap'') for dataset mixing to balance diversity with data efficiency. If the largest dataset in a mixture exceeds 50\% of total tokens, we cap it at exactly 50\%. This prevents single‑source dominance. The remaining datasets are sampled proportionally to their original sizes in token counts, preserving relative contributions while ensuring diversity. During training, we sample batches from the mixed distribution at the token level, not by example.
+We use a 50\% capping strategy (``50cap'') for dataset mixing. Given $n$ datasets with token counts $T_1, \ldots, T_n$: (1) compute sqrt weights $w_i = \sqrt{T_i} / \sum_j \sqrt{T_j}$; (2) if $\max(w_i) > 0.5$, set $w_k = 0.5$ for $k = \arg\max w_i$ and redistribute excess $\Delta = w_k - 0.5$ proportionally to others: $w_i \gets w_i + \Delta \cdot w_i/(1-w_k)$ for $i \neq k$. This prevents single-source dominance while preserving relative contributions. We use a fixed 100M token training budget for all experiments. We use sqrt over the actual token counts to ensure small datasets get enough weights in the mixture.
 
-We demonstrate our strategy with an example. For the 7‑dataset financial mixture (News 194.47M, SEC 8.12M, FinGPT 4.14M, Alpaca 8.46M, FiQA 3.60M, Financial QA 0.70M, Twitter 0.28M; total 219.77M tokens), News exceeds 50\% (88.5\%) and is capped at 50\% (109.89M tokens); the remaining datasets are sampled proportionally from the other 109.89M‑token budget; the final mixture stays at $\sim$219.77M tokens with News contributing exactly half.
+\textbf{Mixed Financial (7 datasets):} The raw corpus contains 219.77M tokens. News Articles (194.47M) represents 88.5\% of raw corpus size. We apply 50cap to derive sampling proportions, then allocate the 100M token budget. News receives 50.0M tokens (50.0\% of budget). The other six datasets receive: Alpaca 13.0M, SEC 13.0M, FinGPT 9.0M, FiQA 8.5M, Financial QA 4.0M, Twitter 2.5M. Each dataset sees 0.46 epochs on average. \Cref{fig:diagram_50cap} shows the 100M budget allocation.
 
-For dataset alignment, the financial datasets vary in formality (regulatory SEC filings vs informal tweets), source type (news articles vs forum discussions), and task format (sentiment labels vs Q\&A pairs). WikiText represents general encyclopedic knowledge with a different topical distribution. We accept these distribution differences, as we believe that real applications mix diverse sources with varying formality and topical coverage.
+\textbf{Mixed Wiki+Financial (8 datasets):} The raw corpus contains 343.35M tokens. News Articles (194.47M) represents 56.6\% of raw corpus size. We apply 50cap and allocate the 100M token budget. News receives 39.7M tokens (39.7\% of budget). WikiText receives 28.8M tokens (28.8\% of budget). The other six financial datasets receive: Alpaca 8.3M, SEC 8.1M, FinGPT 5.8M, FiQA 5.4M, Financial QA 2.4M, Twitter 1.5M. Each dataset sees 0.29 epochs on average. \Cref{fig:diagram_mixed_wiki} shows the 100M budget allocation.
+
+The 50cap strategy is deterministic and requires no hyperparameter tuning. It prevents dominance while avoiding severe undersampling of large datasets as in equal mixing.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/diagram_50cap.png}
-\caption[50cap Mixture Strategy Visualization]{Token allocation in Mixed Financial dataset using 50cap strategy. News Articles is capped to contribute at most 50\% in sampling (illustrative normalization; raw corpus remains 194.47M). The remaining six datasets are sampled proportionally from the other 50\%, ensuring diversity while preventing dominance. Left panel shows pie chart view; right panel shows stacked bar view with total allocation.}
+\caption[Mixed Financial Token Budget]{100M token budget for Mixed Financial (7 datasets). Raw corpus: 219.77M tokens. After 50cap sampling: News 50.0M (50.0\%), Alpaca 13.0M (13.0\%), SEC 13.0M (13.0\%), FinGPT 9.0M (9.0\%), FiQA 8.5M (8.5\%), Financial QA 4.0M (4.0\%), Twitter 2.5M (2.5\%).}
 \label{fig:diagram_50cap}
 \end{figure}
 
-\Cref{fig:diagram_50cap} visualizes the 50cap sampling policy: News Articles (red) is capped to at most 50\% of sampled tokens; the remaining 50\% is distributed proportionally among the other six datasets. The pie (left) shows percentage composition; the stacked bar (right) normalizes absolute counts to a 50/50 split (\(\approx\!109.89\,\text{M}+\approx\!109.89\,\text{M}\) if scaled to the 219.77M corpus total) for illustration only — 50cap does not modify raw corpus sizes.
-
-For the 8-dataset WikiText+Financial mixture, WikiText (123.58M) and News (194.47M) are both large; we apply 50cap to ensure neither dominates, then proportionally sample the other 6 financial datasets.
-
-This strategy contrasts with temperature sampling (which requires tuning hyperparameters) and equal mixing (which severely undersamples large datasets). Our 50cap approach is deterministic, and requires no tuning.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/diagram_mixed_wiki.png}
+\caption[Mixed Wiki+Financial Token Budget]{100M token budget for Mixed Wiki+Financial (8 datasets). Raw corpus: 343.35M tokens. After 50cap sampling: News 39.7M (39.7\%), WikiText 28.8M (28.8\%), Alpaca 8.3M (8.3\%), SEC 8.1M (8.1\%), FinGPT 5.8M (5.8\%), FiQA 5.4M (5.4\%), Financial QA 2.4M (2.4\%), Twitter 1.5M (1.5\%).}
+\label{fig:diagram_mixed_wiki}
+\end{figure}
 
 \section{Training Setup and Hyperparameter Tuning}
 

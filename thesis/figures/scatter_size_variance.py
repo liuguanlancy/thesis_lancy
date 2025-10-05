@@ -4,9 +4,10 @@ Generate scatter plot: Dataset Size vs. Generalization across all model sizes.
 Shows how variance decreases with both dataset size and model size.
 """
 
+import os
+
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 
 # Set style
 plt.rcParams['font.size'] = 11
@@ -150,7 +151,7 @@ ax.set_xscale('log')
 # Labels and title
 ax.set_xlabel('Dataset Size (Million Tokens, log scale)', fontsize=12, fontweight='bold')
 ax.set_ylabel('Relative Spread (%)', fontsize=12, fontweight='bold')
-ax.set_title('Dataset Size vs. Cross-Dataset Generalization\n(Variance decreases with dataset size AND model size)',
+ax.set_title('Dataset Size vs. Cross-Dataset Generalization\n(Variance decreases with dataset size and model size)',
              fontsize=13, fontweight='bold', pad=20)
 
 # Grid

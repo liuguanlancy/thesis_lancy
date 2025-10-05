@@ -383,7 +383,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # ========================================
-# POST-PROCESSING AND VALIDATION
+# POST-PROCESSING and VALIDATION
 # ========================================
 
 # Auto-generate MODEL_SHORT if not specified

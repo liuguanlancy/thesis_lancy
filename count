@@ -3,13 +3,13 @@ MIXED CORPUS ANALYSIS (7 Financial Datasets)
 ------------------------------------------------------------
 
 Mixture composition (50cap strategy):
-  Financial Q&A: 3.4% → 3.40M tokens (4.85 epochs)
-  FinGPT Sentiment: 19.1% → 19.10M tokens (4.62 epochs)
-  Finance Alpaca: 17.2% → 17.20M tokens (2.03 epochs)
-  FiQA: 4.3% → 4.30M tokens (1.19 epochs)
-  Twitter Sentiment: 0.3% → 0.30M tokens (1.06 epochs)
-  SEC Reports: 19.4% → 19.40M tokens (2.39 epochs)
-  News Articles: 36.2% → 36.20M tokens (0.19 epochs)
+  Financial Q&A: 4.0% → 4.00M tokens (5.71 epochs)
+  FinGPT Sentiment: 9.0% → 9.00M tokens (2.18 epochs)
+  Finance Alpaca: 13.0% → 13.00M tokens (1.54 epochs)
+  FiQA: 8.5% → 8.50M tokens (2.36 epochs)
+  Twitter Sentiment: 2.5% → 2.50M tokens (8.79 epochs)
+  SEC Reports: 13.0% → 13.00M tokens (1.60 epochs)
+  News Articles: 50.0% → 50.00M tokens (0.26 epochs)
 
 Mixed corpus total tokens: 219,774,426 (219.77M)
 With 100M budget: each dataset sees 0.46 epochs on average
@@ -25,7 +25,7 @@ Mixture composition (50cap strategy with WikiText):
   FiQA: 5.4% → 5.40M tokens (1.50 epochs)
   Twitter Sentiment: 1.5% → 1.50M tokens (5.28 epochs)
   SEC Reports: 8.1% → 8.10M tokens (1.00 epochs)
-  News Articles: 39.9% → 39.90M tokens (0.21 epochs)
+  News Articles: 39.7% → 39.70M tokens (0.20 epochs)
   WikiText: 28.8% → 28.80M tokens (0.23 epochs)
 
 Mixed-wiki corpus total tokens: 343,351,575 (343.35M)

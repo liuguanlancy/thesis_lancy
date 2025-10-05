@@ -446,6 +446,6 @@ The refined architecture transforms the thesis from:
 - "Data mixing works for financial NLP"
 
 To:
-- "Comprehensive study of data mixture effects AND training dynamics for 0.6B-4B models, with generalizable findings on LR scaling, dataset size effects, and domain transfer patterns"
+- "Comprehensive study of data mixture effects and training dynamics for 0.6B-4B models, with generalizable findings on LR scaling, dataset size effects, and domain transfer patterns"
 
 This reflects the true depth and breadth of the experimental work completed.

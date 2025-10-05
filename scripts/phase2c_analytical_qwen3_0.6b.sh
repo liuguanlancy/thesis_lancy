@@ -283,7 +283,7 @@ echo "  13. Mixed analytical: 100k steps (FINAL MODEL)"
 echo ""
 if [ -n "$CHECKPOINT_PATH" ]; then
     echo "Started from Phase 2B checkpoint: $CHECKPOINT_PATH"
-    echo "The model now has both financial domain knowledge AND analytical capabilities!"
+    echo "The model now has both financial domain knowledge and analytical capabilities!"
 else
     echo "Started from base model (not recommended)"
     echo "The model has analytical capabilities but lacks financial domain knowledge."

@@ -85,7 +85,7 @@ echo "    --use_lora --lora_r 16 --batch_size 2"
 echo ""
 
 echo "=================================================="
-echo "4. USE CASES AND RECOMMENDATIONS"
+echo "4. USE CASES and RECOMMENDATIONS"
 echo "=================================================="
 echo ""
 

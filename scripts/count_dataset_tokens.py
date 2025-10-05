@@ -288,7 +288,8 @@ class DatasetTokenCounter:
         print("MIXED CORPUS ANALYSIS (7 Financial Datasets)")
         print("-"*60)
 
-        mixture_rates_7 = [0.034, 0.191, 0.172, 0.043, 0.003, 0.194, 0.362]
+        # Actual experimental rates from args.json (50cap: News capped at 50%, others sqrt scaled)
+        mixture_rates_7 = [0.04, 0.09, 0.13, 0.085, 0.025, 0.13, 0.5]
 
         print("\nMixture composition (50cap strategy):")
         weighted_tokens_7 = 0
@@ -316,7 +317,8 @@ class DatasetTokenCounter:
         print("MIXED-WIKI CORPUS ANALYSIS (8 Datasets with WikiText)")
         print("-"*60)
 
-        mixture_rates_8 = [0.024, 0.058, 0.083, 0.054, 0.015, 0.081, 0.399, 0.288]
+        # Actual experimental rates from args.json (50cap with WikiText: sqrt scaled, News <50%)
+        mixture_rates_8 = [0.024, 0.058, 0.083, 0.054, 0.015, 0.081, 0.397, 0.288]
 
         print("\nMixture composition (50cap strategy with WikiText):")
         weighted_tokens_8 = 0
