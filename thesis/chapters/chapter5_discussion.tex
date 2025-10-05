@@ -40,12 +40,12 @@ For instruction-following and Q\&A applications, use FiQA (3.6M tokens, 16.35 pp
 
 \textbf{0.6B Models}: Fast training ($\sim$6 hours for 100M tokens on Lambda Labs GPUs), low memory (4GB), suitable for rapid prototyping. Performance is acceptable for exploratory work, but variability is high (Mixed Financial:  around 98\% relative spread). We should only use this small model for development, experimentation, or extremely resource-constrained deployment (for example, on mobile devices).
 
-\textbf{1.7B Models}: Best performance-efficiency balance. Training moderate ($\sim$12 hours), memory reasonable (10GB), performance strong with improved consistency vs 0.6B (Mixed Financial: \~63\% relative spread). We recommended models of similar sizes for most applications, for its strong performance at substantially lower resource cost than 4B. We believe these models are optimal for production deployment balancing quality and resource constraints.
+\textbf{1.7B Models}: Best performance-efficiency balance. Training moderate ($\sim$12 hours), memory reasonable (10GB), performance strong with improved consistency vs 0.6B (Mixed Financial: \~63\% relative spread). We recommend models of similar sizes for most applications, for their strong performance at substantially lower resource cost than 4B. We believe these models are optimal for production deployment balancing quality and resource constraints.
 
 \textbf{4B Models}: Best absolute performance (21.55 ppl, 55\% relative spread) but requires careful hyperparameter tuning (LR $5 \times 10^{-6}$ in affected cases) and substantial resources (20GB memory, $\sim$24 hours training). Using such models should only be possible when one wants to maximize performance over cost, and when sufficient compute resources for hyperparameter tuning is available. We observe that failure to tune learning rate can cause reverse scaling, one may need to reduce LR substantially at larger scales.
 
 \subsection{Token Budget Allocation}
 
-A 100M token budget proved sufficient when we choose the pretraining dataset setup properly. We suspect that l;;larger models with larger datasets may benefit from extended training (200-500M tokens), but we did not test this for limited compute.
+A 100M token budget proved sufficient when we choose the pretraining dataset setup properly. We suspect that larger models with larger datasets may benefit from extended training (200-500M tokens), but we did not test this for limited compute.
 
-We used 50cap to prevent a single dataset domanating the mixture: if the largest dataset exceeds 50\% of the total, we cap it there and sample others proportionally. This ensures diversity while respecting relative dataset informativeness.
+We used 50cap to prevent a single dataset dominating the mixture: if the largest dataset exceeds 50\% of the total, we cap it there and sample others proportionally. This ensures diversity while respecting relative dataset informativeness.

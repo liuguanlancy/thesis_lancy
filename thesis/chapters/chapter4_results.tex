@@ -195,7 +195,7 @@ Two datasets fall below 1M tokens: Financial QA 10K (0.7M) and Twitter Sentiment
 
 Financial QA 10K (0.7M tokens) trained for 143 epochs, which represents severe overtraining. On its own test set we saw 0.6B: 8.29 ppl, 1.7B: 7.44, 4B: 7.43 (after LR adjustment). The initial 4B underperformance (8.29 ppl) was resolved after reducing LR to $5\times10^{-6}$ (10.4\% better).
 
-Twitter Financial Sentiment (0.28M tokens) trained for 352 epochs and overfit badly. After LR adjustment, the Twitter test set results were 0.6B: 12.60 ppl, 1.7B: 11.02, 4B: 11.81. The worst reverse‑scaling case was the initial 4B at 17.83 (fixed to 11.81 with $5\times10^{-6}$, a 33.8\% gain).
+Twitter Financial Sentiment (0.28M tokens) trained for 352 epochs and overfitted badly. After LR adjustment, the Twitter test set results were 0.6B: 12.60 ppl, 1.7B: 11.02, 4B: 11.81. The worst reverse‑scaling case was the initial 4B at 17.83 (fixed to 11.81 with $5\times10^{-6}$, a 33.8\% gain).
 
 \textbf{Small Dataset Conclusion}: For small datasets, we should expect extreme overtraining (143-352 epochs), weak transfer, and even reverse scaling. However, we argue that in mixtures these datasets could still add useful information (50cap keeps them in check). \Cref{fig:scaling_financial_qa,fig:scaling_twitter} and \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} gives the results of small datasets pretraining.
 
