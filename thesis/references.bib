@@ -1,10 +1,3 @@
-@article{devlin2018bert,
-  title   = {BERT: Pre-training of deep bidirectional transformers for language understanding},
-  author  = {Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},
-  journal = {arXiv preprint arXiv:1810.04805},
-  year    = {2018}
-}
-
 @article{brown2020language,
   title   = {Language models are few-shot learners},
   author  = {Brown, Tom and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared D and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and others},
@@ -14,14 +7,12 @@
   year    = {2020}
 }
 
-@article{radford2019language,
-  title   = {Language models are unsupervised multitask learners},
-  author  = {Radford, Alec and Wu, Jeffrey and Child, Rewon and Luan, David and Amodei, Dario and Sutskever, Ilya and others},
-  journal = {OpenAI blog},
-  volume  = {1},
-  number  = {8},
-  pages   = {9},
-  year    = {2019}
+@techreport{radford2019language,
+  title       = {Language Models are Unsupervised Multitask Learners},
+  author      = {Radford, Alec and Wu, Jeffrey and Child, Rewon and Luan, David and Amodei, Dario and Sutskever, Ilya},
+  institution = {OpenAI},
+  year        = {2019},
+  url         = {https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf}
 }
 
 @article{kaplan2020scaling,
@@ -31,11 +22,15 @@
   year    = {2020}
 }
 
-@article{hoffmann2022training,
-  title   = {Training compute-optimal large language models},
-  author  = {Hoffmann, Jordan and Borgeaud, Sebastian and Mensch, Arthur and Buchatskaya, Elena and Cai, Trevor and Rutherford, Eliza and Casas, Diego de Las and Hendricks, Lisa Anne and Welbl, Johannes and Clark, Aidan and others},
-  journal = {arXiv preprint arXiv:2203.15556},
-  year    = {2022}
+@inproceedings{hoffmann2022training,
+  title     = {Training Compute-Optimal Large Language Models},
+  author    = {Hoffmann, Jordan and Borgeaud, Sebastian and Mensch, Arthur and Buchatskaya, Elena and Cai, Trevor and Rutherford, Eliza and Casas, Diego de Las and Hendricks, Lisa Anne and Welbl, Johannes and Clark, Aidan and others},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {35},
+  pages     = {30016--30030},
+  year      = {2022},
+  editor    = {S. Koyejo and S. Mohamed and A. Agarwal and D. Belgrave and K. Cho and A. Oh},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2022/hash/c1e2faff6f588870935f114ebe04a3e5-Abstract-Conference.html}
 }
 
 @article{touvron2023llama,
@@ -59,18 +54,23 @@
   year    = {2023}
 }
 
-@article{gururangan2020don,
-  title   = {Don't stop pretraining: Adapt language models to domains and tasks},
-  author  = {Gururangan, Suchin and Marasovi{\'c}, Ana and Swayamdipta, Swabha and Lo, Kyle and Beltagy, Iz and Downey, Doug and Smith, Noah A},
-  journal = {arXiv preprint arXiv:2004.10964},
-  year    = {2020}
+@inproceedings{gururangan2020don,
+  title     = {Don't Stop Pretraining: Adapt Language Models to Domains and Tasks},
+  author    = {Gururangan, Suchin and Marasovi{\'c}, Ana and Swayamdipta, Swabha and Lo, Kyle and Beltagy, Iz and Downey, Doug and Smith, Noah A},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics},
+  pages     = {8342--8360},
+  year      = {2020},
+  publisher = {Association for Computational Linguistics},
+  doi       = {10.18653/v1/2020.acl-main.740},
+  url       = {https://aclanthology.org/2020.acl-main.740}
 }
 
-@article{xia2023sheared,
-  title   = {Sheared llama: Accelerating language model pre-training via structured pruning},
-  author  = {Xia, Mengzhou and Gao, Tianyu and Zeng, Zhiyuan and Chen, Danqi},
-  journal = {arXiv preprint arXiv:2310.06694},
-  year    = {2023}
+@inproceedings{xia2023sheared,
+  title     = {Sheared {LLaMA}: Accelerating Language Model Pre-training via Structured Pruning},
+  author    = {Xia, Mengzhou and Gao, Tianyu and Zeng, Zhiyuan and Chen, Danqi},
+  booktitle = {The Twelfth International Conference on Learning Representations},
+  year      = {2024},
+  url       = {https://openreview.net/forum?id=09iOdaeOzp}
 }
 
 @article{araci2019finbert,
@@ -80,33 +80,13 @@
   year    = {2019}
 }
 
-@article{liu2023fingpt,
-  title   = {FinGPT: Open-source financial large language models},
-  author  = {Liu, Xiao-Yang and Chen, Guoxuan and Wang, Hongyang and Zhang, Daochen and Ruan, Jiechao},
-  journal = {arXiv preprint arXiv:2306.06031},
-  year    = {2023}
-}
-
 @inproceedings{merity2016pointer,
-  title     = {Pointer sentinel mixture models},
+  title     = {Pointer Sentinel Mixture Models},
   author    = {Merity, Stephen and Xiong, Caiming and Bradbury, James and Socher, Richard},
   booktitle = {International Conference on Learning Representations},
-  year      = {2017}
-}
-
-@article{smith2017cyclical,
-  title   = {Cyclical learning rates for training neural networks},
-  author  = {Smith, Leslie N},
-  journal = {2017 IEEE winter conference on applications of computer vision (WACV)},
-  pages   = {464--472},
-  year    = {2017}
-}
-
-@article{you2019large,
-  title   = {Large batch optimization for deep learning: Training bert in 76 minutes},
-  author  = {You, Yang and Li, Jing and Reddi, Sashank and Hseu, Jonathan and Kumar, Sanjiv and Bhojanapalli, Srinadh and Song, Xiaodan and Demmel, James and Keutzer, Kurt and Hsieh, Cho-Jui},
-  journal = {arXiv preprint arXiv:1904.00962},
-  year    = {2019}
+  year      = {2017},
+  url       = {https://openreview.net/forum?id=Byj72udxe},
+  note      = {arXiv:1609.07843}
 }
 
 @inproceedings{vaswani2017attention,
@@ -328,30 +308,33 @@
   url          = {https://eur-lex.europa.eu/eli/reg/2016/679/oj}
 }
 
-@article{kingma2014adam,
-  title   = {Adam: A Method for Stochastic Optimization},
-  author  = {Kingma, Diederik P. and Ba, Jimmy},
-  journal = {arXiv preprint arXiv:1412.6980},
-  year    = {2014},
-  url     = {https://arxiv.org/abs/1412.6980}
+@inproceedings{kingma2014adam,
+  title     = {Adam: A Method for Stochastic Optimization},
+  author    = {Kingma, Diederik P. and Ba, Jimmy},
+  booktitle = {3rd International Conference on Learning Representations, {ICLR} 2015},
+  year      = {2015},
+  address   = {San Diego, CA, USA},
+  url       = {https://arxiv.org/abs/1412.6980},
+  note      = {arXiv:1412.6980}
 }
 
-@article{hu2021lora,
-  title   = {LoRA: Low-Rank Adaptation of Large Language Models},
-  author  = {Hu, Edward J. and Shen, Yelong and Wallis, Phillip and Allen-Zhu, Zeyuan and Li, Yuanzhi and Wang, Shean and Wang, Lu and Chen, Weizhu},
-  journal = {arXiv preprint arXiv:2106.09685},
-  year    = {2021},
-  url     = {https://arxiv.org/abs/2106.09685}
+@inproceedings{hu2021lora,
+  title     = {{LoRA}: Low-Rank Adaptation of Large Language Models},
+  author    = {Hu, Edward J. and Shen, Yelong and Wallis, Phillip and Allen-Zhu, Zeyuan and Li, Yuanzhi and Wang, Shean and Wang, Lu and Chen, Weizhu},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2022},
+  url       = {https://openreview.net/forum?id=nZeVKeeFYf9}
 }
 
-@inproceedings{pan2010transfer,
-  title     = {A Survey on Transfer Learning},
-  author    = {Pan, Sinno Jialin and Yang, Qiang},
-  booktitle = {IEEE Transactions on Knowledge and Data Engineering},
-  volume    = {22},
-  pages     = {1345--1359},
-  year      = {2010},
-  doi       = {10.1109/TKDE.2009.191}
+@article{pan2010transfer,
+  title   = {A Survey on Transfer Learning},
+  author  = {Pan, Sinno Jialin and Yang, Qiang},
+  journal = {IEEE Transactions on Knowledge and Data Engineering},
+  volume  = {22},
+  number  = {10},
+  pages   = {1345--1359},
+  year    = {2010},
+  doi     = {10.1109/TKDE.2009.191}
 }
 
 @article{zhuang2020comprehensive,
