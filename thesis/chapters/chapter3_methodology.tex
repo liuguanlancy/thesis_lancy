@@ -14,7 +14,7 @@ This design supports our research questions on mixture composition, model scale,
 
 We use the Qwen3 model family \parencite{yang2024qwen2,qwen3}, a series of open‑source transformer‑based decoder‑only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3 Base series (pretrained checkpoints without post‑training alignment), detailed in \Cref{tab:model_specs}. In our experiments, these different model sizes allow clean comparisons without changing tokenizers or context limits.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption[Qwen3 Model Specifications]{Qwen3 model specifications across three scales. All models use the same tokenizer (151,643 tokens) and support 32K context length. Training memory shown for bfloat16 precision.}
 \label{tab:model_specs}
@@ -37,7 +37,7 @@ We chose Qwen3 for four reasons: (1) architectural consistency across scales ena
 
 We use 7 financial datasets spanning diverse tasks, document types, and data scales (total: 222.69M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.28M to 197.38M tokens), genre (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra domain effects without changing models.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption[Financial Dataset Characteristics]{Financial dataset characteristics. Total: 222.69M tokens across 7 datasets with diverse genres and scales. Dataset identifiers listed in footnotes.}
 \label{tab:financial_datasets}
@@ -73,7 +73,7 @@ This diversity in genres (journalism, regulatory, instruction, forum, social med
 
 We use WikiText-103 \parencite{merity2016pointer} as a general‑domain baseline, summarized in \Cref{tab:wikitext_dataset}. WikiText serves two purposes: (1) evaluating domain transfer (general $\leftrightarrow$ financial), and (2) testing whether high‑quality general corpora complement financial pretraining in mixtures.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption[WikiText Dataset Characteristics]{WikiText-103 characteristics. Similar scale to SEC; smaller than News. Dataset identifier in footnote.}
 \label{tab:wikitext_dataset}
@@ -96,7 +96,7 @@ We demonstrate our strategy with an example. For the 7‑dataset financial mixtu
 
 For dataset alignment, the financial datasets vary in formality (regulatory SEC filings vs informal tweets), source type (news articles vs forum discussions), and task format (sentiment labels vs Q\&A pairs). WikiText represents general encyclopedic knowledge with a different topical distribution. We accept these distribution differences, as we believe that real applications mix diverse sources with varying formality and topical coverage.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.95\textwidth]{figures/diagram_50cap.png}
 \caption[50cap Mixture Strategy Visualization]{Token allocation in Mixed Financial dataset using 50cap strategy. News Articles is capped to contribute at most 50\% in sampling (illustrative normalization; raw corpus remains 194.47M). The remaining six datasets are sampled proportionally from the other 50\%, ensuring diversity while preventing dominance. Left panel shows pie chart view; right panel shows stacked bar view with total allocation.}
