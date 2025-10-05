@@ -2,7 +2,7 @@
 
 \section{Overview of Experimental Results}
 
-This chapter shows results from 10 pretraining dataset setups on data mixtures for financial models. We trained 36 models in total (3 sizes $\times$ 10 experiments, plus additional models for LR adjustments), and ran 288 evaluations (36 models $\times$ 8 test sets; Mixed Financial excludes WikiText). \Cref{tab:experiments_overview} lists them. We kept the setup fixed for a fair comparison across different dataset setups.
+This chapter shows results from 10 pretraining dataset setups on data mixtures for financial models. We trained 30 models in the main experiments (3 sizes $\times$ 10 configurations), and ran 237 evaluations (30 models $\times$ 8 test sets, with Mixed Financial excluding WikiText for 3 models = 237 total). Additionally, we conducted 6 follow-up runs with adjusted learning rates to address training instabilities. \Cref{tab:experiments_overview} lists them. We kept the setup fixed for a fair comparison across different dataset setups.
 
 \begin{table}[h]
 \centering
@@ -369,7 +369,7 @@ Each trained model was evaluated on the held-out test sets (7 financial + WikiTe
 
 \Cref{fig:heatmap_transfer} makes three patterns clear. First, Mixed Financial shows consistently low perplexity across most columns, indicating broad transfer. Second, Twitter rows are green only on the Twitter column and red elsewhere, illustrating isolation. Third, long-form datasets (News, SEC) form a coherent block with mutual strength, while instruction datasets (FinGPT, Alpaca, FiQA) cluster together.
 
-The following cross-dataset comparison tables (\Cref{tab:cross_alpaca,tab:cross_financial_news,tab:cross_financial_qa,tab:cross_financial_repor,tab:cross_fingpt,tab:cross_fiqa,tab:cross_twitter,tab:cross_wikitext}) provide detailed performance comparisons. Each table shows which training dataset (including LR variants) performs best for a specific evaluation dataset across model sizes. Boldface values highlight the best-performing training approach for each model size and metric, revealing format-specific transfer patterns and the superiority of mixed dataset approaches.
+The following cross-dataset comparison tables (\Cref{tab:cross_alpaca,tab:cross_financial_news,tab:cross_financial_qa,tab:cross_financial_report,tab:cross_fingpt,tab:cross_fiqa,tab:cross_twitter,tab:cross_wikitext}) provide detailed performance comparisons. Each table shows which training dataset (including LR variants) performs best for a specific evaluation dataset across model sizes. Boldface values highlight the best-performing training approach for each model size and metric, revealing format-specific transfer patterns and the superiority of mixed dataset approaches.
 
 \subsection{Document Format and Task Type Effects}
 
@@ -383,9 +383,9 @@ The correlation between News and SEC performance across all models is $r = 0.82$
 
 \input{tables/table_cross_financial_news}
 
-\input{tables/table_cross_financial_repor}
+\input{tables/table_cross_financial_report}
 
-\Cref{tab:cross_financial_news,tab:cross_financial_repor} reveal interesting patterns: News training (News Articles row) and SEC training (SEC Reports row) frequently appear in boldface for each other's evaluation columns, confirming bidirectional transfer. Mixed Financial consistently shows competitive or best performance (boldface) across most model sizes, demonstrating the value of diversity over specialization.
+\Cref{tab:cross_financial_news,tab:cross_financial_report} reveal interesting patterns: News training (News Articles row) and SEC training (SEC Reports row) frequently appear in boldface for each other's evaluation columns, confirming bidirectional transfer. Mixed Financial consistently shows competitive or best performance (boldface) across most model sizes, demonstrating the value of diversity over specialization.
 
 \textbf{Instruction-Following Transfer (Moderate)}:
 
