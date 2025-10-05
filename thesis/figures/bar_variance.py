@@ -18,49 +18,59 @@ plt.rcParams['figure.dpi'] = 300
 # not the 26.36% which is only on WikiText itself
 
 experiments = {
-    'Alpaca': {'spread': 11.51, 'category': 'medium'},
-    'FiQA': {'spread': 18.97, 'category': 'medium'},
-    'SEC Reports': {'spread': 19.32, 'category': 'large'},
-    'Financial QA': {'spread': 19.92, 'category': 'small'},
-    'Twitter': {'spread': 20.35, 'category': 'small'},
-    'FinGPT': {'spread': 37.07, 'category': 'medium'},
-    'WikiText': {'spread': 53.0, 'category': 'general'},  # Approx spread on financial evals
-    'Mixed Financial': {'spread': 55.16, 'category': 'mixture'},
-    'Mixed Wiki+Fin': {'spread': 62.05, 'category': 'mixture'},
-    'News Articles': {'spread': 65.53, 'category': 'large'},
+    'Alpaca': {'spread': 11.51, 'tokens': 8.46, 'epochs': 11.8},
+    'FiQA': {'spread': 18.97, 'tokens': 3.60, 'epochs': 27.7},
+    'SEC Reports': {'spread': 19.32, 'tokens': 8.12, 'epochs': 12.3},
+    'Financial QA': {'spread': 19.92, 'tokens': 0.70, 'epochs': 142.7},
+    'Twitter': {'spread': 20.35, 'tokens': 0.28, 'epochs': 351.7},
+    'FinGPT': {'spread': 37.07, 'tokens': 4.14, 'epochs': 24.2},
+    'WikiText': {'spread': 53.0, 'tokens': 123.58, 'epochs': 0.8},  # Approx spread on financial evals
+    'Mixed Financial': {'spread': 55.16, 'tokens': 219.77, 'epochs': 0.5},
+    'Mixed Wiki+Fin': {'spread': 62.05, 'tokens': 343.35, 'epochs': 0.3},
+    'News Articles': {'spread': 65.53, 'tokens': 194.47, 'epochs': 0.5},
 }
 
 # Sort by spread (ascending)
 sorted_exps = sorted(experiments.items(), key=lambda x: x[1]['spread'])
 names = [name for name, _ in sorted_exps]
 spreads = [data['spread'] for _, data in sorted_exps]
-categories = [data['category'] for _, data in sorted_exps]
+tokens = [data['tokens'] for _, data in sorted_exps]
+epochs = [data['epochs'] for _, data in sorted_exps]
 
-# Color mapping
-color_map = {
-    'mixture': '#2166ac',      # Blue
-    'large': '#4dac26',        # Green
-    'medium': '#f1b229',       # Yellow/Gold
-    'small': '#d73027',        # Red
-    'general': '#8856a7'       # Purple
-}
+# Create labels with token counts and epoch counts
+def format_tokens(t):
+    if t >= 1:
+        return f'{t:.2f}M' if t < 100 else f'{t:.1f}M'
+    else:
+        return f'{t*1000:.0f}K' if t < 1 else f'{t:.2f}M'
 
-colors = [color_map[cat] for cat in categories]
+def format_epochs(e):
+    if e >= 10:
+        return f'{e:.1f}ep'
+    elif e >= 1:
+        return f'{e:.1f}ep'
+    else:
+        return f'{e:.1f}ep'
 
-# Special highlight for Mixed Financial
-edge_colors = ['black' if name == 'Mixed Financial' else 'none' for name in names]
-edge_widths = [2.5 if name == 'Mixed Financial' else 0 for name in names]
+labels = [f'{name} ({format_tokens(tok)}, {format_epochs(ep)})' for name, tok, ep in zip(names, tokens, epochs)]
+
+# Use single color for all bars
+single_color = '#4472C4'  # Professional blue
+
+# No special highlighting
+edge_colors = ['none' for _ in names]
+edge_widths = [0 for _ in names]
 
 # Create figure
 fig, ax = plt.subplots(figsize=(10, 8))
 
 # Create horizontal bars
 y_pos = np.arange(len(names))
-bars = ax.barh(y_pos, spreads, color=colors, edgecolor=edge_colors, linewidth=edge_widths)
+bars = ax.barh(y_pos, spreads, color=single_color, edgecolor=edge_colors, linewidth=edge_widths)
 
 # Customize
 ax.set_yticks(y_pos)
-ax.set_yticklabels(names)
+ax.set_yticklabels(labels)
 ax.set_xlabel('Relative Spread (%)', fontsize=12, fontweight='bold')
 ax.set_title('Cross-Dataset Variance at 4B Model Size\n(Lower = more consistent generalization)',
              fontsize=13, fontweight='bold', pad=20)
@@ -70,24 +80,8 @@ for i, (spread, bar) in enumerate(zip(spreads, bars)):
     ax.text(spread + 1.5, i, f'{spread:.1f}%',
             va='center', ha='left', fontsize=9)
 
-# Add vertical reference line at 55% (Mixed Financial)
-ax.axvline(x=55.16, color='black', linestyle='--', linewidth=1.5, alpha=0.5, zorder=0)
-ax.text(55.16, len(names)-0.5, ' Mixed Financial\n (55.16%)',
-        va='top', ha='left', fontsize=8, alpha=0.7)
-
 # Grid
 ax.grid(True, axis='x', alpha=0.3, linestyle=':', zorder=0)
-
-# Legend
-from matplotlib.patches import Patch
-legend_elements = [
-    Patch(facecolor=color_map['mixture'], label='Mixture experiments'),
-    Patch(facecolor=color_map['large'], label='Large datasets (>80M)'),
-    Patch(facecolor=color_map['medium'], label='Medium datasets (4-20M)'),
-    Patch(facecolor=color_map['small'], label='Small datasets (<4M)'),
-    Patch(facecolor=color_map['general'], label='General domain')
-]
-ax.legend(handles=legend_elements, loc='lower right', fontsize=9, framealpha=0.9)
 
 # Tight layout
 plt.tight_layout()
