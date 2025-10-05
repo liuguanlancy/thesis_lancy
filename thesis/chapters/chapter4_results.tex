@@ -518,7 +518,7 @@ Resource-Constrained & Mixed Financial & 1.7B & 34.49 & 63\% \\
 
 \textbf{What Fails}
 
-Three configurations consistently failed in our setup. Pure WikiText for finance reached 41.96 ppl mean on financial tasks—nearly $2\times$ worse than Mixed Financial. Small individual datasets (<4M tokens) remained problematic even after LR fixes, showing \~20\% spread and extreme overtraining. Uniform hyperparameters across sizes invite reverse scaling; we saw this with WikiText, Financial QA, and Twitter. And single‑format training struggles when tasks are diverse; format mismatch blocks transfer.
+Three configurations consistently failed in our setup. Pure WikiText for finance reached 41.96 ppl mean on financial tasks—nearly $2\times$ worse than Mixed Financial. Small individual datasets (<1M tokens) remained problematic even after LR fixes, showing \~20\% spread and extreme overtraining. Uniform hyperparameters across sizes invite reverse scaling; we saw this with WikiText, Financial QA, and Twitter. And single‑format training struggles when tasks are diverse; format mismatch blocks transfer.
 
 \textbf{Performance Ranking}
 
