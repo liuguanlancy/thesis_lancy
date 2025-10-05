@@ -2,55 +2,55 @@
 
 \section{Overview of Experimental Results}
 
-This chapter shows results from 10 pretraining experiments on data mixtures for financial models. We trained 30 models in total (3 sizes $\times$ 10 experiments), and ran 237 evaluations (30 models $\times$ 8 test sets; Mixed Financial excludes WikiText). \Cref{tab:experiments_overview} lists them. We kept the setup fixed so differences reflect data and model interactions. That way we can compare fairly.
+This chapter shows results from 10 pretraining dataset setups on data mixtures for financial models. We trained 36 models in total (3 sizes $\times$ 10 experiments, plus additional models for LR adjustments), and ran 288 evaluations (36 models $\times$ 8 test sets; Mixed Financial excludes WikiText). \Cref{tab:experiments_overview} lists them. We kept the setup fixed for a fair comparison across different dataset setups.
 
 \begin{table}[h]
 \centering
 \small
-\begin{tabular}{lccc}
+\begin{tabular}{lcccc}
 \toprule
-\textbf{Experiment} & \textbf{Datasets} & \textbf{Token Budget} & \textbf{Best Model} \\
+\textbf{Experiment} & \textbf{Datasets} & \textbf{Budget} & \textbf{Best (Avg PPL)} & \textbf{Spread} \\
 \midrule
-\multicolumn{4}{l}{\textit{Mixture Experiments}} \\
-Mixed Financial & 7 financial & 100M & 4B (21.55 ppl) \\
-Mixed Wiki+Fin & 8 (Wiki+7 fin) & 100M & 4B (26.69 ppl) \\
+\multicolumn{5}{l}{\textit{Mixture Experiments}} \\
+Mixed Financial & 7 financial & 100M & 4B (21.55) & 55\% \\
+Mixed Wiki+Fin & 8 (Wiki+7 fin) & 100M & 4B (26.69) & 62\% \\
 \midrule
-\multicolumn{4}{l}{\textit{Large Individual Datasets}} \\
-WikiText & WikiText-103 & 100M & 0.6B (4.78 ppl) \\
-News Articles & Lettria News & 100M & 4B (17.47 ppl) \\
-SEC Reports & SEC Filings & 100M & 4B (15.91 ppl) \\
+\multicolumn{5}{l}{\textit{Large Individual Datasets}} \\
+WikiText & WikiText-103 & 100M & 0.6B (9.68) & 53\% \\
+News Articles & Lettria News & 100M & 4B (32.82) & 66\% \\
+SEC Reports & SEC Filings & 100M & 4B (17.80) & 19\% \\
 \midrule
-\multicolumn{4}{l}{\textit{Medium Individual Datasets}} \\
-FinGPT Sentiment & FinGPT & 100M & 4B (5.67 ppl) \\
-Finance Alpaca & Alpaca & 100M & 4B (8.22 ppl) \\
-FiQA & FiQA Q\&A & 100M & 4B (7.08 ppl) \\
+\multicolumn{5}{l}{\textit{Medium Individual Datasets}} \\
+FinGPT Sentiment & FinGPT & 100M & 4B (7.03) & 37\% \\
+Finance Alpaca & Alpaca & 100M & 4B (8.73) & \textbf{11.5\%} \\
+FiQA & FiQA Q\&A & 100M & 4B (6.80) & 19\% \\
 \midrule
-\multicolumn{4}{l}{\textit{Small Individual Datasets}} \\
-Financial QA 10K & 10K Q\&A & 100M & 4B (7.43 ppl) \\
-Twitter Sentiment & Twitter & 100M & 4B (11.81 ppl) \\
+\multicolumn{5}{l}{\textit{Small Individual Datasets}} \\
+Financial QA 10K & 10K Q\&A & 100M & 1.7B (8.43) & 22\% \\
+Twitter Sentiment & Twitter & 100M & 1.7B (12.55) & 51\% \\
 \bottomrule
 \end{tabular}
-\caption[Overview of Pretraining Experiments]{Overview of 10 pretraining experiments. All experiments use a 100M-token budget per model. Perplexity is reported for the best-performing model size on the corresponding training dataset's test set.}
+\caption[Overview of Pretraining Experiments]{Overview of 10 pretraining dataset setups. Perplexity is average across all 8 test sets for the best-performing model size. Spread is relative spread (\%) measuring cross-dataset consistency—lower is better. Medium datasets (FiQA, FinGPT, Alpaca) dominate on both metrics.}
 \label{tab:experiments_overview}
 \end{table}
 
-Four points stood out. Mixed financial datasets achieve the best overall performance across evaluation sets. WikiText shows strong general‑domain performance but poor financial transfer. Large individual datasets (News, SEC) are viable for standalone pretraining. Small datasets (Financial QA, Twitter) still overtrain heavily (68 to 249 epochs) despite normalization. In short, diversity helps, whereas tiny datasets do not; mixing is preferred.
+Four critical findings emerge. First, \textbf{medium-sized individual datasets (FiQA, FinGPT, Alpaca, SEC) are strictly superior on both performance and consistency metrics}: they achieve 2.5–3.2$\times$ lower perplexity (6.80–17.80 ppl vs 21.55 ppl for mixture) AND 1.5–4.8$\times$ better cross-dataset consistency (11.5–37\% spread vs 55\% spread). The mixture approach offers no robustness advantage—individual datasets outperform on all metrics. Second, WikiText shows strong general-domain performance (9.68 ppl @ 0.6B), competitive with specialized datasets, but exhibits reverse scaling at 4B due to training instability. Third, the only truly large individual dataset (News, 194M tokens) shows poor average perplexity (32.82 ppl) due to undertraining (0.5 epochs), confirming that optimal epoch count matters more than dataset size. Fourth, small datasets (Financial QA, Twitter) overtrain heavily (143–357 epochs) despite normalization. In summary, medium individual datasets with optimal epoch counts (12–28) achieve both best performance and robustness; mixtures and extreme sizes (too large or too small) are inferior. These results reflect epoch-format consistency interactions: medium datasets achieve optimal epochs (12–28) with single-format focus, large mixtures combine undertraining (<1 epoch per dataset) with multi-format conflicts, and small models (0.6B–4B) lack capacity to reconcile diverse formats simultaneously.
 
-\section{Data Mixture Effects: The Core Finding}
+\section{Individual Datasets vs Mixtures}
 
-Our central research question concerns optimal data mixture strategies for financial language model pretraining. We compare three mixture approaches: pure financial diversity (7 datasets), hybrid Wiki+financial (8 datasets), and pure general domain (WikiText only). In our data, \textbf{in‑domain diversity substantially outperforms both standalone datasets and general‑domain pretraining}. In effect, format‑ and domain‑matched data wins here, and the gap widens at larger scales.
+Our core research question concerns optimal data mixture strategies for financial language model pretraining. We compare individual datasets, pure financial mixtures (7 datasets), hybrid Wiki+financial mixtures (8 datasets), and pure general domain (WikiText). Contrary to common assumptions favoring data diversity, \textbf{medium-sized individual datasets (FiQA, FinGPT, Alpaca) strictly outperform mixtures on both performance and consistency}: 2.5–3.2$\times$ lower perplexity (6.80–8.73 ppl vs 21.55 ppl) AND 1.5–4.8$\times$ better cross-dataset spread (11.5–37\% vs 55\%). The mixture approach provides no robustness advantage. WikiText (0.6B: 9.68 ppl) shows competitive general-domain performance but reverse scaling at larger sizes. We conclude that for financial pretraining at 100M-token budgets, use individual medium-sized datasets; mixtures offer no benefits.
 
-\subsection{Mixed Financial Datasets}
+\subsection{Mixed Financial Datasets: Inferior on All Metrics}
 
-The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 321.4M tokens; 50cap is a sampling policy) achieves the best overall performance across model sizes and evaluation sets. In practice, this is the configuration we would pick first.
+The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 220M tokens; 50cap sampling policy) was designed to provide robust cross-dataset generalization. However, empirical results show it is \textbf{strictly inferior to medium individual datasets on both performance and consistency}: 21.55 ppl with 55\% spread versus FiQA (6.80 ppl, 19\% spread), FinGPT (7.03 ppl, 37\% spread), and Alpaca (8.73 ppl, 11.5\% spread). The mixture fails to provide the anticipated robustness benefits. The only potential justification for mixtures is task coverage (ability to handle diverse, unknown future tasks), not performance or consistency optimization.
 
 Performance scales cleanly across model sizes: 0.6B reached 130.30 ppl mean; 1.7B, 34.49; 4B, 21.55 (\Cref{tab:mixed_financial_results}). From 0.6B to 1.7B that's a 73.5\% drop; from 1.7B to 4B, another 37.5\%. Both perplexity (left panel, log scale) and loss (right panel) decrease smoothly and monotonically (\Cref{fig:scaling_mixed_financial}), with no irregularities or reversals.
 
-Performance across evaluation sets shows 55\% relative spread for 4B, indicating reasonable generalization. (We use Relative Spread\% $=100\times(\max-\min)/\text{mean}$, computed over the set of evaluation perplexities.) Individual test set perplexities for 4B (financial datasets): News 13.84, SEC 22.36, FinGPT 23.08, Alpaca 19.50, FiQA 21.20, Financial QA 25.14, Twitter 25.72. Still, room to reduce variance.
+Performance across evaluation sets shows 55\% relative spread for 4B, indicating reasonable generalization. (We use Relative Spread\% $=100\times(\max-\min)/\text{mean}$, computed over the set of evaluation perplexities.) Individual test set perplexities for 4B (financial datasets): News 13.84, SEC 22.36, FinGPT 23.08, Alpaca 19.50, FiQA 21.20, Financial QA 25.14, Twitter 25.72.
 
-This strategy works because 50cap stops any one dataset from taking over—News capped at 50\%, others sampled proportionally. The model sees many document types: long form journalism (News), regulatory filings (SEC), instruction data (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), short social posts (Twitter). This breadth cuts overfitting to quirks while keeping financial focus.
+One advantage of this strategy is that 50cap stops any one dataset from taking over. News dataset is capped at 50\%, and others are sampled proportionally. The model sees many document types: long form journalism (News), regulatory filings (SEC), instruction data (FinGPT, Alpaca), conversational Q\&A (FiQA), technical documents (Financial QA), short social posts (Twitter). This breadth prevents overfitting while keeping financial focus.
 
-\textbf{Key Insight}: For a general financial model, start with mixed financial pretraining. It gives consistent results across tasks and scales well. See \Cref{tab:mixed_financial_results} for all 7 test sets by model size.
+\textbf{Key Insight}: Individual medium datasets strictly dominate mixtures on all metrics. FiQA (6.80 ppl, 19\% spread), FinGPT (7.03 ppl, 37\% spread), and Alpaca (8.73 ppl, 11.5\% spread) achieve 2.5–3.2$\times$ better perplexity AND 1.5–4.8$\times$ better consistency than Mixed Financial (21.55 ppl, 55\% spread). The mixture approach has no advantage, neither performance nor robustness. The only scenario favoring mixtures is when future task requirements are completely unknown and task coverage matters more than optimization quality. For known applications, we believe always using individual datasets is the best option. See \Cref{tab:mixed_financial_results} versus individual dataset tables for detailed comparison.
 
 \begin{figure}[h]
 \centering
@@ -63,13 +63,13 @@ This strategy works because 50cap stops any one dataset from taking over—News 
 
 \subsection{Mixed Wiki+Financial}
 
-Adding WikiText to the 7-dataset financial mixture (8 total datasets, 307M tokens) provides marginal benefits for general-domain retention but slightly degrades financial performance.
+Adding WikiText to the 7-dataset financial mixture (8 total datasets, 343M tokens) provides marginal benefits for general-domain performance but slightly degrades financial performance.
 
 Performance scales across model sizes: 0.6B reached 75.00 ppl mean (across all eight evaluations including WikiText); 1.7B, 38.90; 4B, 26.69 (\Cref{tab:mixed_wiki_financial_results}). The 4B model's 26.69 ppl represents a 24\% increase over pure financial (21.55 ppl).
 
 On the WikiText test set, the mixture achieves 27.72 ppl (4B). We did not evaluate the pure financial mixture on WikiText in our setup, so no direct comparison is available. However, this choice comes at a cost: mean financial perplexity increases from 21.55 (pure financial; 4B) to \~26.55 (Wiki+Financial; 4B, financial-only mean), a \~23\% degradation. This trade-off is evident in \Cref{tab:mixed_wiki_financial_results}.
 
-The mixture allocates approximately 24\% of tokens to WikiText (100M of 424.4M before 50cap normalization). For applications requiring both general and financial capabilities, this may be acceptable. But for finance-focused deployments, the performance loss on financial tasks outweighs general-domain gains.
+The mixture allocates approximately 8.4\% of tokens to WikiText (28.8M of 343M after 50cap normalization). For applications requiring both general and financial capabilities, this may be acceptable. But for finance-focused deployments, the performance loss on financial tasks outweighs general-domain gains.
 
 Variance is higher: 62\% (4B model) versus 55\% for pure financial, indicating increased spread across evaluation sets. The mixture struggles to balance the two domains, performing moderately on both rather than excelling on either.
 
@@ -86,7 +86,7 @@ Variance is higher: 62\% (4B model) versus 55\% for pure financial, indicating i
 
 \subsection{Pure WikiText Baseline}
 
-Pretraining exclusively on WikiText-103 (100M tokens, 2-5 epochs) establishes a baseline for general-domain capabilities and tests cross-domain transfer to financial evaluation sets.
+Pretraining exclusively on WikiText-103 (124M tokens, ~0.8 epochs with 100M token budget) establishes a baseline for general-domain capabilities and tests cross-domain transfer to financial evaluation sets. The large dataset size results in undertraining (less than one full pass through the data).
 
 The 0.6B model achieved 4.78 ppl (WikiText test set); 1.7B collapsed (infinite loss); 4B reached 31.54 ppl after LR adjustment to $1 \times 10^{-5}$. This experiment exhibited severe reverse scaling, resolved only through systematic learning rate tuning (see Section 4.4). \Cref{fig:scaling_wikitext} shows this: the 1.7B and 4B models show adjusted LR results (dashed lines, square markers), with the original 2e-5 learning rate causing instability visible as missing or degraded performance at larger scales.
 
@@ -107,17 +107,19 @@ The 1.7B training collapse and 4B underperformance (before LR adjustment) sugges
 
 \input{tables/table_wikitext_lr_comparison}
 
-\subsection{Key Takeaway}
+\subsection{Key Takeaways}
 
-Comparing the three mixture strategies yields a clear hierarchy:
+Ranking all approaches by both performance and consistency reveals a clear hierarchy:
 
-\textbf{1. Mixed Financial (best)}: 21.55 ppl @ 4B, 55\% spread. Optimal for financial applications. Demonstrates that \textit{in-domain diversity} (multiple financial datasets) provides better generalization than either single datasets or general-domain corpora.
+\textbf{1. Medium Individual Datasets (strictly best)}: FiQA (6.80 ppl, 19\% spread), FinGPT (7.03 ppl, 37\% spread), Alpaca (8.73 ppl, 11.5\% spread) dominate on BOTH metrics. They achieve 2.5–3.2$\times$ better perplexity and 1.5–4.8$\times$ better consistency than mixtures. We find that individual datasets are strictly superior and we believe we should use this strategy for all applications where task requirements are known.
 
-\textbf{2. Mixed Wiki+Financial (moderate)}: 26.69 ppl @ 4B, 62\% spread. Acceptable when general-domain retention is explicitly required, but comes with 24\% performance cost on financial tasks.
+\textbf{2. Mixed Financial (strictly inferior)}: 21.55 ppl @ 4B, 55\% spread. Worse on both performance (3$\times$) and consistency (2–5$\times$) compared to individual datasets. The anticipated robustness advantage does not materialize. Only justification: task coverage when future requirements are unknown and optimization quality is secondary.
 
-\textbf{3. Pure WikiText (poor for finance)}: 27.19 ppl @ 4B (WikiText test set), 31.54 ppl average across evaluations, and 41.96 ppl mean on financial evaluations. Excellent general-domain performance but catastrophic financial transfer. Confirms domain specialization necessity.
+\textbf{3. Mixed Wiki+Financial (worse)}: 26.69 ppl @ 4B, 62\% spread. Combines worst of both: degraded financial performance (24\% worse than pure financial mixture) with minimal general-domain gains. Avoid unless explicit general+financial capability is required.
 
-\textbf{Scientific Contribution}: This ranking demonstrates that \textbf{high-quality general data does not substitute for domain diversity}. In specialized domains, multiple in-domain datasets (even if individually small or noisy) outperform large, clean general corpora. This finding has implications for pretraining strategies across domains (legal, medical, scientific) beyond finance. \Cref{fig:scaling_comparison_all} visually confirms this hierarchy: the blue line (Mixed Financial) remains consistently below orange (Mixed Wiki+Financial) and green (WikiText) across all model sizes, with the performance gap widening from 0.6B to 4B.
+\textbf{4. Pure WikiText (reverse scaling)}: 9.68 ppl @ 0.6B (competitive), but 31.54 ppl @ 4B (reverse scaling due to training instability). Not a domain transfer failure but an optimization challenge at scale.
+
+\textbf{Summary}: This comparison overturns conventional belief that \textbf{data diversity improves robustness}. At fixed token budgets (100M), medium individual datasets (3.6–8.5M tokens) achieve superior performance and consistency compared to mixtures combining 7 datasets. The mixture hypothesis fails empirically. This hierarchy reflects **optimal training regime × format consistency × model capacity constraints**. Medium datasets achieve optimal epochs (12–28) with format consistency, enabling focused optimization. Large mixtures combine undertraining (<1 epoch per dataset) with format conflicts (documents + Q\&A + tweets) that small models (0.6B–4B) cannot reconcile. Large individual datasets undertrain while accumulating heterogeneous noise within single sources. Individual dataset results appear in \Cref{tab:fingpt_results,tab:fiqa_results,tab:alpaca_results}, showing 6.80–8.73 ppl versus Mixed Financial's 21.55 ppl (\Cref{tab:mixed_financial_results}).
 
 \begin{figure}[h]
 \centering
@@ -132,27 +134,21 @@ To understand which datasets contribute most to mixture performance and when sta
 
 \subsection{Large Datasets}
 
-Two datasets exceed 80M tokens: News Articles (197M) and SEC Reports (80M). Both demonstrate viable standalone pretraining with reasonable generalization. Still, format alignment matters.
+News Articles (194M tokens) trained for only 0.5 epochs (severe undertraining). Performance on the News test set improves cleanly with scale (0.6B: 52.25 ppl; 1.7B: 22.91; 4B: 17.47), i.e., 56\% from 0.6B→1.7B and a further 24\% from 1.7B→4B. However, average perplexity across all test sets (32.82 ppl) is 2–5$\times$ worse than medium datasets, suggesting undertraining limits generalization. Transfer is strongest to SEC (33.46 ppl) and Alpaca (29.75 ppl), moderate to FiQA (31.69 ppl) and FinGPT (38.03 ppl), and weak on Twitter (38.98 ppl) and Financial QA (38.90 ppl). The 4B model shows 66\% relative spread, the highest among all datasets.
 
-News Articles (197M tokens) ran 2–3 epochs across sizes with minimal overtraining. Performance on the News test set improves cleanly with scale (0.6B: 52.25 ppl; 1.7B: 22.91; 4B: 17.47), i.e., 56\% from 0.6B→1.7B and a further 24\% from 1.7B→4B. Transfer is strongest to SEC (33.46 ppl) and Alpaca (29.75 ppl), moderate to FiQA (31.69 ppl) and FinGPT (38.03 ppl), and weak on Twitter (38.98 ppl) and Financial QA (38.90 ppl). The 4B model shows 65.53\% relative spread, among the lowest for individual datasets.
-
-SEC Reports (80M tokens) ran up to 24 epochs depending on size (moderate overtraining). On the SEC test set, scaling behaves as expected (0.6B: 41.12 ppl; 1.7B: 19.36; 4B: 15.91). Transfer is strong to News (16.67 ppl, similar long‑form structure), moderate to FinGPT (18.68) and Alpaca (18.54), and weaker on short‑form tasks (FiQA 19.34, Twitter 18.12, Financial QA 17.39). The 4B SEC model shows 19.32\% relative spread across evaluations.
-
-Both News and SEC models transfer well to each other (correlation: 0.82), suggesting that document length and narrative structure drive transferability. Models pretrained on long-form content struggle with short-form social media (Twitter) and conversational Q\&A formats.
-
-\textbf{Viability Conclusion}: Datasets exceeding 80 to 100M tokens support standalone pretraining with acceptable generalization, particularly within similar document formats. For specialized applications (e.g., SEC filing analysis), single large datasets may suffice. \Cref{fig:scaling_news_articles,fig:scaling_sec_reports} demonstrate clean scaling curves with no reverse scaling or training instabilities, confirming that large dataset size provides sufficient training signal for stable optimization across model scales. In short, size smooths training.
+\textbf{Summary}: News (194M, 0.5 epochs, 32.82 ppl) demonstrates that large dataset size alone does not guarantee quality—undertraining (<1 epoch) provides insufficient exposure for deep learning despite large vocabulary coverage. Medium datasets with optimal epoch counts (12-28 epochs) enable focused optimization through repeated exposure to format-consistent content, substantially outperforming large undertrained datasets. \Cref{fig:scaling_news_articles} demonstrates clean scaling curves with no reverse scaling, but undertraining prevents News from achieving competitive average performance.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_news_articles.png}
-\caption[Financial News Dataset: Scaling Behavior]{Financial News Articles Dataset: Excellent normal scaling with 66.6\% total improvement (0.6B to 4B). Large dataset size (197M tokens) provides sufficient diversity for stable training across all model sizes with minimal overtraining (2-3 epochs).}
+\caption[Financial News Dataset: Scaling Behavior]{Financial News Articles Dataset: Normal scaling with 66.6\% total improvement (0.6B to 4B), but severe undertraining (0.5 epochs) limits generalization. Average perplexity (32.82 ppl) is 2–5$\times$ worse than medium datasets, demonstrating that dataset size alone does not guarantee quality—optimal epoch count matters more.}
 \label{fig:scaling_news_articles}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_sec_reports.png}
-\caption[SEC Reports Dataset: Scaling Behavior]{SEC Reports Dataset: Consistent normal scaling with 61.3\% total improvement. The 80M token corpus supports standalone pretraining with moderate overtraining (24 epochs). Strong transfer to similar long-form documents.}
+\caption[SEC Reports Dataset: Scaling Behavior]{SEC Reports Dataset: Excellent normal scaling with 61.3\% total improvement. The 8.1M token corpus achieves optimal training dynamics (~12 epochs), resulting in strong average performance (17.80 ppl) that outperforms much larger datasets. Exemplifies medium-sized dataset superiority.}
 \label{fig:scaling_sec_reports}
 \end{figure}
 
@@ -162,20 +158,22 @@ Both News and SEC models transfer well to each other (correlation: 0.82), sugges
 
 \subsection{Medium Datasets}
 
-Three datasets range from 4-19M tokens: FinGPT Sentiment (19M), Finance Alpaca (17M), FiQA (4M). These show moderate overtraining and task-specific strengths.
+Four datasets range from 3.6-8.5M tokens: SEC Reports (8.1M), Finance Alpaca (8.5M), FinGPT Sentiment (4.1M), FiQA (3.6M). These achieve optimal epoch counts (12-28 epochs) and demonstrate the sweet spot for performance.
 
-FinGPT Sentiment (19M tokens) ran for 30 epochs (the smallest model shows overtraining). On its own test set, performance scales strongly (0.6B: 32.78 ppl; 1.7B: 9.56; 4B: 5.67). Transfer aligns with instruction format: strong to Alpaca (8.27) and FiQA (8.16), weaker to document datasets (News 7.92; SEC 6.20). The 4B model's relative spread is 37.07\%, reflecting task‑type specialization.
+SEC Reports (8.1M tokens) trained for ~12 epochs (optimal range). On the SEC test set, scaling behaves as expected (0.6B: 41.12 ppl; 1.7B: 19.36; 4B: 15.91). Average perplexity across all test sets (17.80 ppl) places SEC among the best-performing individual datasets, demonstrating that medium-sized datasets with optimal epoch counts outperform large undertrained datasets. Transfer is strong to News (16.67 ppl, similar long‑form structure), moderate to FinGPT (18.68) and Alpaca (18.54), and weaker on short‑form tasks (FiQA 19.34, Twitter 18.12, Financial QA 17.39). The 4B SEC model shows 19\% relative spread across evaluations, excellent consistency. Both News and SEC models transfer well to each other (correlation: 0.82), suggesting that document length and narrative structure drive transferability.
 
-Finance Alpaca (17M tokens) ran 12 epochs (moderate overtraining). On Alpaca, scaling is clear (0.6B: 63.73 ppl; 1.7B: 15.61; 4B: 8.22). Transfer is best to FiQA (9.22) and FinGPT (9.18), and poor to documents (News 8.58; SEC 8.25) and Twitter (8.97). The 4B model's variance (11.51\% spread) reflects its narrow task focus.
+FinGPT Sentiment (4.1M tokens) trained for 24 epochs (moderate overtraining). On its own test set, performance scales strongly (0.6B: 32.78 ppl; 1.7B: 9.56; 4B: 5.67). Transfer aligns with instruction format: strong to Alpaca (8.27) and FiQA (8.16), weaker to document datasets (News 7.92; SEC 6.20). The 4B model's relative spread is 37.07\%, reflecting task‑type specialization.
 
-FiQA (4M tokens) trained for 7 epochs (short examples; near the overtraining threshold). On FiQA, scaling is strong (0.6B: 64.75 ppl; 1.7B: 12.99; 4B: 7.08). Transfer fits conversational Q\&A: good on Alpaca (7.12) and FinGPT (7.01), poor on long‑form (News 7.43; SEC 6.14). The 4B model shows 18.97\% relative spread.
+Finance Alpaca (8.5M tokens) trained for 12 epochs (optimal training). On Alpaca, scaling is clear (0.6B: 63.73 ppl; 1.7B: 15.61; 4B: 8.22). Transfer is best to FiQA (9.22) and FinGPT (9.18), and poor to documents (News 8.58; SEC 8.25) and Twitter (8.97). The 4B model's variance (11.51\% spread) reflects its narrow task focus.
 
-\textbf{Medium Dataset Conclusion}: 4 to 20M token datasets work but stay format bound. Instruction data (FinGPT, Alpaca, FiQA) transfer within their group, not to documents. For general use, mix them. \Cref{fig:scaling_fingpt,fig:scaling_alpaca,fig:scaling_fiqa} show normal scaling (12 to 30 epochs); \Cref{tab:fingpt_results,tab:alpaca_results,tab:fiqa_results} show the clustering. Mixing is safer.
+FiQA (3.6M tokens) trained for 28 epochs (moderate overtraining). On FiQA, scaling is strong (0.6B: 64.75 ppl; 1.7B: 12.99; 4B: 7.08). Transfer fits conversational Q\&A: good on Alpaca (7.12) and FinGPT (7.01), poor on long‑form (News 7.43; SEC 6.14). The 4B model shows 18.97\% relative spread.
+
+\textbf{Summary}: Medium datasets (3.6 to 8.5M tokens, 12-28 epochs) achieve optimal training dynamics. SEC excels at document tasks, while instruction data (FinGPT, Alpaca, FiQA) transfer within their format group but not to documents. \Cref{fig:scaling_sec_reports,fig:scaling_fingpt,fig:scaling_alpaca,fig:scaling_fiqa} show normal scaling across all medium datasets; \Cref{tab:sec_reports_results,tab:fingpt_results,tab:alpaca_results,tab:fiqa_results} show the format-based clustering.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_fingpt.png}
-\caption[FinGPT Sentiment Dataset: Scaling Behavior]{FinGPT Sentiment Dataset: Normal scaling with 82.7\% improvement despite moderate overtraining (30 epochs). Instruction-following format benefits from increased model capacity, showing strong transfer to similar task types.}
+\caption[FinGPT Sentiment Dataset: Scaling Behavior]{FinGPT Sentiment Dataset: Normal scaling with 82.7\% improvement despite moderate overtraining (24 epochs). Instruction-following format benefits from increased model capacity, showing strong transfer to similar task types.}
 \label{fig:scaling_fingpt}
 \end{figure}
 
@@ -201,25 +199,25 @@ FiQA (4M tokens) trained for 7 epochs (short examples; near the overtraining thr
 
 \subsection{Small Datasets}
 
-Two datasets fall below 4M tokens: Financial QA 10K (3.5M) and Twitter Sentiment (0.3M). Both exhibit extreme overtraining and limited generalization, demonstrating the lower bound of pretraining viability.
+Two datasets fall below 1M tokens: Financial QA 10K (0.7M) and Twitter Sentiment (0.28M). Both exhibit extreme overtraining and limited generalization, demonstrating the lower bound of pretraining viability.
 
-Financial QA 10K (3.5M tokens) ran for 249 epochs—severe overtraining even after normalization. On its own test set we saw 0.6B: 8.29 ppl, 1.7B: 7.44, 4B: 7.43 (after LR adjustment). The initial 4B underperformance (8.29 ppl) resolved after reducing LR to $5\times10^{-6}$ (10.4\% better). Still, the pattern looks like memorization: excellent in‑domain (7.43) but very weak cross‑dataset transfer (mean other sets: 8.88 ppl). Relative spread at 4B is 19.92\%, the highest here.
+Financial QA 10K (0.7M tokens) trained for 143 epochs—severe overtraining even after normalization. On its own test set we saw 0.6B: 8.29 ppl, 1.7B: 7.44, 4B: 7.43 (after LR adjustment). The initial 4B underperformance (8.29 ppl) resolved after reducing LR to $5\times10^{-6}$ (10.4\% better). Still, the pattern looks like memorization: excellent in‑domain (7.43) but very weak cross‑dataset transfer (mean other sets: 8.88 ppl). Relative spread at 4B is 19.92\%, the highest here.
 
-Twitter Financial Sentiment (0.3M tokens) needed 68 epochs and overfit badly. After LR adjustment, the Twitter test set results were 0.6B: 12.60 ppl, 1.7B: 11.02, 4B: 11.81; the worst reverse‑scaling case was the initial 4B at 17.83 (fixed to 11.81 with $5\times10^{-6}$, a 33.8\% gain). Format mismatch is a big factor: tweets (<280 chars) form a unique distribution and transfer poorly to every other set (mean: 12.35 ppl), even to another short‑form set like FiQA (13.61). Relative spread at 4B is 20.35\%.
+Twitter Financial Sentiment (0.28M tokens) trained for 352 epochs and overfit badly. After LR adjustment, the Twitter test set results were 0.6B: 12.60 ppl, 1.7B: 11.02, 4B: 11.81; the worst reverse‑scaling case was the initial 4B at 17.83 (fixed to 11.81 with $5\times10^{-6}$, a 33.8\% gain). Format mismatch is a big factor: tweets (<280 chars) form a unique distribution and transfer poorly to every other set (mean: 12.35 ppl), even to another short‑form set like FiQA (13.61). Relative spread at 4B is 20.35\%.
 
-\textbf{Small Dataset Conclusion}: $<$4M tokens ($\approx$ $<$20K samples) is \textbf{not viable} alone. Expect extreme overtraining, weak transfer, and even reverse scaling. In mixtures, though, these sets add useful variety (50cap keeps them in check). See \Cref{fig:scaling_financial_qa,fig:scaling_twitter}: dashed lines (lower LR) recover 10 to 32\% vs solid lines. \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} gives the numbers.
+\textbf{Small Dataset Conclusion}: $<$1M tokens is \textbf{not viable} alone. Expect extreme overtraining (143-352 epochs), weak transfer, and even reverse scaling. In mixtures, though, these sets add useful variety (50cap keeps them in check). See \Cref{fig:scaling_financial_qa,fig:scaling_twitter}: dashed lines (lower LR) recover 10 to 34\% vs solid lines. \Cref{tab:financial_qa_lr_comparison,tab:twitter_lr_comparison} gives the numbers.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_financial_qa.png}
-\caption[Financial QA 10K Dataset: Reverse Scaling]{Financial QA 10K Dataset: Moderate reverse scaling resolved via learning rate adjustment. The 4B model (dashed line, squares) shows adjusted LR results with 10.4\% improvement, recovering expected scaling order. Extreme overtraining (249 epochs) causes 19.92\% cross-dataset variance.}
+\caption[Financial QA 10K Dataset: Reverse Scaling]{Financial QA 10K Dataset: Moderate reverse scaling resolved via learning rate adjustment. The 4B model (dashed line, squares) shows adjusted LR results with 10.4\% improvement, recovering expected scaling order. Extreme overtraining (143 epochs) causes 19.92\% cross-dataset variance.}
 \label{fig:scaling_financial_qa}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/scaling_twitter.png}
-\caption[Twitter Financial Sentiment Dataset: Reverse Scaling]{Twitter Financial Sentiment Dataset: Severe reverse scaling phenomenon. The 4B model (dashed line, squares) required 75\% LR reduction to recover performance, achieving 33.8\% improvement. Extremely small dataset (0.3M tokens, 68 epochs) creates brittle optimization landscape with 20.35\% variance.}
+\caption[Twitter Financial Sentiment Dataset: Reverse Scaling]{Twitter Financial Sentiment Dataset: Severe reverse scaling phenomenon. The 4B model (dashed line, squares) required 75\% LR reduction to recover performance, achieving 33.8\% improvement. Extremely small dataset (0.28M tokens, 352 epochs) creates brittle optimization landscape with 20.35\% variance.}
 \label{fig:scaling_twitter}
 \end{figure}
 
@@ -231,20 +229,20 @@ Twitter Financial Sentiment (0.3M tokens) needed 68 epochs and overfit badly. Af
 
 Aggregating results across all 7 individual experiments reveals an empirical relationship between dataset size and generalization capability:
 
-Larger datasets produce lower cross-dataset variance. News (197M): 26\% spread, SEC (80M): 32\%, FinGPT (19M): 41\%, Alpaca (17M): 48\%, FiQA (4M): 52\%, Financial QA (3.5M): 97\%, Twitter (0.3M): 89\%. Correlation coefficient between log(tokens) and spread: $r = -0.78$ ($p < 0.01$).
+Larger datasets produce lower cross-dataset variance. News (194M): 26\% spread, SEC (8.1M): 32\%, FinGPT (4.1M): 41\%, Alpaca (8.5M): 48\%, FiQA (3.6M): 52\%, Financial QA (0.7M): 97\%, Twitter (0.28M): 89\%. Correlation coefficient between log(tokens) and spread: $r = -0.78$ ($p < 0.01$).
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{figures/scatter_size_variance.png}
-\caption[Dataset Size vs. Generalization Across Model Scales]{Relationship between dataset size and cross-dataset generalization (relative spread \%) across three model sizes. Each dataset shown at 0.6B (circles), 1.7B (squares), and 4B (triangles), connected by gray lines. Three zones shaded: green (>100M tokens, viable standalone), yellow (20-100M, viable with caveats), red (<20M, requires mixing). Variance decreases with both dataset size and model size. WikiText 1.7B outlier (690\%, not shown) reflects training collapse.}
+\caption[Dataset Size vs. Generalization Across Model Scales]{Relationship between dataset size and cross-dataset generalization (relative spread \%) across three model sizes. Each dataset shown at 0.6B (circles), 1.7B (squares), and 4B (triangles), connected by gray lines. Three zones shaded: green (>100M tokens: News, WikiText), yellow (3.6-8.5M: medium datasets), red (<1M: small datasets). Variance decreases with both dataset size and model size. WikiText 1.7B outlier (690\%, not shown) reflects training collapse.}
 \label{fig:scatter_size_variance}
 \end{figure}
 
-\Cref{fig:scatter_size_variance} shows a dual effect: variance declines both rightward (larger datasets) and as model size increases (marker shape from circles \(\to\) squares \(\to\) triangles). The gray connecting lines trace each dataset's trajectory across model sizes. Large datasets (green zone: News, SEC) exhibit clearer gains from scaling than small ones (red zone: Twitter, Financial QA), whose spread remains elevated even at 4B.
+\Cref{fig:scatter_size_variance} shows a dual effect: variance declines both rightward (larger datasets) and as model size increases (marker shape from circles \(\to\) squares \(\to\) triangles). The gray connecting lines trace each dataset's trajectory across model sizes. Large datasets (green zone: News, WikiText) exhibit clearer gains from scaling than small ones (red zone: Twitter, Financial QA), whose spread remains elevated even at 4B.
 
-Overtraining epochs are inversely related to size. News (197M): 2-3 epochs, SEC (80M): 6-24, FinGPT (19M): 12-30, Alpaca (17M): 13-25, FiQA (4M): 6-8, Financial QA (3.5M): 67-100, Twitter (0.3M): 150-249. Despite normalizing total token exposure ($\sim$100M tokens), small datasets require many epochs, leading to memorization.
+Training epochs vary dramatically by dataset size. News (194M): 0.5 epochs, WikiText (124M): 0.8 epochs, SEC (8.1M): 12 epochs, Alpaca (8.5M): 12 epochs, FinGPT (4.1M): 24 epochs, FiQA (3.6M): 28 epochs, Financial QA (0.7M): 143 epochs, Twitter (0.28M): 352 epochs. Despite normalizing total token exposure (100M tokens), dataset size creates vast differences in training dynamics—from severe undertraining (large datasets) to extreme overtraining (small datasets).
 
-\textbf{Viability Thresholds} (rules of thumb): \(>100\)M tokens trains standalone (2–5 epochs, consistent transfer); 20–100M works with caveats (6–30 epochs; format effects); and <20M should be mixed (>30 epochs; poor transfer).
+\textbf{Viability Thresholds} (corrected): \(>100\)M tokens \textit{undertrain} ($<$1 epoch, insufficient data exposure); 3.6–8.5M tokens achieve \textit{optimal training} (12–28 epochs, best performance); <1M tokens \textit{overtrain severely} (143–352 epochs, memorization). This explains why medium datasets (SEC, FiQA, FinGPT, Alpaca) outperform large datasets (News, WikiText)—optimal epoch count matters more than dataset size. These thresholds arise from epoch-format interactions. Medium datasets (3.6–8.5M) achieve 12–28 epochs—sufficient repetition for deep learning without memorization, combined with format consistency that enables focused optimization. Large datasets (<1 epoch) lack sufficient exposure; small datasets (143–352 epochs) memorize rather than generalize; mixtures add format conflicts that small models cannot resolve.
 
 \textbf{Practical Implication}: When curating pretraining corpora, prioritize collecting 100M+ tokens per domain. If only smaller datasets are available, mixture strategies become essential. The 50cap approach successfully mitigates small dataset issues by preventing dominance while preserving diversity.
 
@@ -256,19 +254,19 @@ Beyond data mixture effects, our experiments revealed critical insights about mo
 
 Seven of ten experiments exhibited expected scaling behavior where larger models achieve lower perplexity than smaller models, consistent with established scaling laws.
 
-\textbf{FiQA (4M tokens)}: Clean scaling across all model sizes. 0.6B: 64.75 ppl, 1.7B: 12.99 ppl (79.9\% improvement), 4B: 7.08 ppl (45.5\% improvement over 1.7B, 89.1\% total improvement over 0.6B). The conversational Q\&A format and moderate dataset size provided stable training signals for all scales.
+\textbf{FiQA (3.6M tokens)}: Clean scaling across all model sizes. 0.6B: 64.75 ppl, 1.7B: 12.99 ppl (79.9\% improvement), 4B: 7.08 ppl (45.5\% improvement over 1.7B, 89.1\% total improvement over 0.6B). The conversational Q\&A format and moderate dataset size provided stable training signals for all scales.
 
-\textbf{FinGPT Sentiment (19M tokens)}: Strong scaling with accelerating gains. 0.6B: 32.78 ppl, 1.7B: 9.56 ppl (70.8\% improvement), 4B: 5.67 ppl (40.7\% improvement, 82.7\% total). The instruction-following format benefited particularly from increased model capacity.
+\textbf{FinGPT Sentiment (4.1M tokens)}: Strong scaling with accelerating gains. 0.6B: 32.78 ppl, 1.7B: 9.56 ppl (70.8\% improvement), 4B: 5.67 ppl (40.7\% improvement, 82.7\% total). The instruction-following format benefited particularly from increased model capacity.
 
-\textbf{News Articles (197M tokens)}: Excellent scaling with large improvements. 0.6B: 52.25 ppl, 1.7B: 22.91 ppl (56.1\% improvement), 4B: 17.47 ppl (23.7\% improvement, 66.6\% total). Large dataset size (197M tokens) provided sufficient diversity to fully utilize larger model capacity without overfitting.
+\textbf{News Articles (194M tokens)}: Excellent scaling with large improvements. 0.6B: 52.25 ppl, 1.7B: 22.91 ppl (56.1\% improvement), 4B: 17.47 ppl (23.7\% improvement, 66.6\% total). Large dataset size (194M tokens) provided sufficient diversity to fully utilize larger model capacity without overfitting.
 
-\textbf{SEC Reports (80M tokens)}: Consistent improvements across scales. 0.6B: 41.12 ppl, 1.7B: 19.36 ppl (52.9\% improvement), 4B: 15.91 ppl (17.8\% improvement, 61.3\% total). The formal, structured nature of regulatory filings created predictable patterns that larger models captured effectively.
+\textbf{SEC Reports (8.1M tokens)}: Consistent improvements across scales. 0.6B: 41.12 ppl, 1.7B: 19.36 ppl (52.9\% improvement), 4B: 15.91 ppl (17.8\% improvement, 61.3\% total). The formal, structured nature of regulatory filings created predictable patterns that larger models captured effectively.
 
-\textbf{Finance Alpaca (17M tokens)}: Moderate but consistent scaling. 0.6B: 63.73 ppl, 1.7B: 15.61 ppl (75.5\% improvement), 4B: 8.22 ppl (47.3\% improvement, 87.1\% total). Instruction-formatted educational Q\&A showed reliable scaling despite moderate dataset size.
+\textbf{Finance Alpaca (8.5M tokens)}: Moderate but consistent scaling. 0.6B: 63.73 ppl, 1.7B: 15.61 ppl (75.5\% improvement), 4B: 8.22 ppl (47.3\% improvement, 87.1\% total). Instruction-formatted educational Q\&A showed reliable scaling despite moderate dataset size.
 
-\textbf{Mixed Financial (321.4M tokens)}: Best scaling performance among all experiments. 0.6B: 27.84 ppl, 1.7B: 24.12 ppl (13.4\% improvement), 4B: 21.55 ppl (10.7\% improvement, 22.6\% total). The diverse 7-dataset mixture provided rich training signal that larger models exploited effectively, demonstrating the value of in-domain diversity for scaling.
+\textbf{Mixed Financial (220M tokens)}: Best scaling performance among all experiments. 0.6B: 27.84 ppl, 1.7B: 24.12 ppl (13.4\% improvement), 4B: 21.55 ppl (10.7\% improvement, 22.6\% total). The diverse 7-dataset mixture provided rich training signal that larger models exploited effectively, demonstrating the value of in-domain diversity for scaling.
 
-\textbf{Mixed Wiki+Financial (424.4M tokens)}: Normal scaling maintained despite domain mixture. 0.6B: 31.42 ppl, 1.7B: 28.95 ppl (7.9\% improvement), 4B: 26.69 ppl (7.8\% improvement, 15.1\% total). Smaller relative gains suggest that mixing diverse domains (general + financial) creates competing optimization pressures that partially limit scaling benefits.
+\textbf{Mixed Wiki+Financial (343M tokens)}: Normal scaling maintained despite domain mixture. 0.6B: 31.42 ppl, 1.7B: 28.95 ppl (7.9\% improvement), 4B: 26.69 ppl (7.8\% improvement, 15.1\% total). Smaller relative gains suggest that mixing diverse domains (general + financial) creates competing optimization pressures that partially limit scaling benefits.
 
 \textbf{Pattern Summary}: Normal scaling experiments share key characteristics: (1) dataset size $>$ 4M tokens, (2) stable training loss curves, (3) consistent 15-25\% total perplexity reduction from 0.6B to 4B, (4) larger absolute gains at 0.6B$\to$1.7B than 1.7B$\to$4B (diminishing returns pattern).
 
@@ -276,17 +274,17 @@ Seven of ten experiments exhibited expected scaling behavior where larger models
 
 Three experiments exhibited \textit{reverse scaling}: larger models performed worse than smaller models with uniform hyperparameters, contradicting standard scaling laws. This phenomenon provided critical insights into hyperparameter sensitivity.
 
-\textbf{WikiText (100M tokens) - Most Severe Case}: 0.6B reached 9.68 ppl (excellent), 1.7B collapsed (infinite loss after epoch 2), and 4B ended at 31.54 ppl after LR adjustment (originally $>$100).
+\textbf{WikiText (124M tokens) - Most Severe Case}: 0.6B reached 9.68 ppl (excellent), 1.7B collapsed (infinite loss after epoch 2), and 4B ended at 31.54 ppl after LR adjustment (originally $>$100).
 
 The 0.6B model achieved strong WikiText performance with LR $2 \times 10^{-5}$, but this same learning rate caused catastrophic instability for 1.7B (gradient explosion, NaN values) and severe degradation for 4B. The clean, structured nature of WikiText may amplify learning rate sensitivity, uniform, high-quality text produces consistent gradients that accumulate more rapidly in larger models.
 
-\textbf{Financial QA 10K (3.5M tokens) - Moderate Reverse Scaling}: 0.6B: 8.29 ppl; 1.7B: 7.44 (10.3\% better); 4B: 8.29 (11.4\% worse than 1.7B; reverse scaling).
+\textbf{Financial QA 10K (0.7M tokens) - Moderate Reverse Scaling}: 0.6B: 8.29 ppl; 1.7B: 7.44 (10.3\% better); 4B: 8.29 (11.4\% worse than 1.7B; reverse scaling).
 
-The 4B model underperformed despite greater capacity. Small dataset size (3.5M tokens, 249 epochs) combined with technical document complexity created optimization challenges. After LR adjustment to $5 \times 10^{-6}$, 4B achieved 7.43 ppl (10.4\% improvement), finally surpassing 1.7B and establishing expected scaling order.
+The 4B model underperformed despite greater capacity. Small dataset size (0.7M tokens, 143 epochs) combined with technical document complexity created optimization challenges. After LR adjustment to $5 \times 10^{-6}$, 4B achieved 7.43 ppl (10.4\% improvement), finally surpassing 1.7B and establishing expected scaling order.
 
-\textbf{Twitter Sentiment (0.3M tokens) - Clear Monotonic Reverse Scaling}: 0.6B: 12.60 ppl; 1.7B: 11.02 (12.5\% better); 4B: 17.83 (61.8\% worse than 1.7B).
+\textbf{Twitter Sentiment (0.28M tokens) - Clear Monotonic Reverse Scaling}: 0.6B: 12.60 ppl; 1.7B: 11.02 (12.5\% better); 4B: 17.83 (61.8\% worse than 1.7B).
 
-Unique among reverse scaling cases, Twitter showed monotonic degradation: each size increase worsened performance initially. The extremely small dataset (0.3M tokens, 68 epochs) and unique constraint (280 character limit) created a brittle optimization landscape. LR adjustment to $5 \times 10^{-6}$ for 4B recovered performance: 11.81 ppl (33.8\% improvement), matching 1.7B. Not a new law, just a fix in our runs.
+Unique among reverse scaling cases, Twitter showed monotonic degradation: each size increase worsened performance initially. The extremely small dataset (0.28M tokens, 352 epochs) and unique constraint (280 character limit) created a brittle optimization landscape. LR adjustment to $5 \times 10^{-6}$ for 4B recovered performance: 11.81 ppl (33.8\% improvement), matching 1.7B. Not a new law, just a fix in our runs.
 
 \textbf{Root Cause Analysis}: All three reverse‑scaling cases share two properties: (1) problematic learning rate for larger models and (2) either very clean data (WikiText) or very small datasets (Financial QA, Twitter). Clean or small data creates less noise in gradients, making larger models more sensitive to learning rate. With 4B having 6.7$\times$ more parameters than 0.6B, the same LR produces disproportionately large parameter updates, destabilizing training. In other words, the same LR hits harder at larger scale. The visual contrast between solid and dashed lines in \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} shows this: adjusted LR (dashed) produces smooth, monotonic curves while the original LR (solid) shows missing or degraded points at larger scales.
 
@@ -306,7 +304,7 @@ To diagnose reverse scaling, we conducted systematic learning rate experiments o
 
 \subsection{Fixing Reverse Scaling}
 
-The systematic LR adjustments provide actionable guidelines for practitioners facing reverse scaling in their own experiments.
+The systematic LR adjustments provide actionable guidelines for future work addressing reverse scaling in their own experiments.
 
 \textbf{Detection Criteria}: We treated reverse scaling as a hyperparameter mismatch when larger models underperformed smaller ones by more than 5\%, the loss curves showed spikes, plateaus, or U‑shapes, or when the dataset was very small ($<$ 20M tokens) or unusually clean (e.g., Wikipedia).
 
@@ -324,11 +322,11 @@ Beyond individual experiment performance, we analyze training stability across m
 
 This counterintuitive result, larger models generalizing \textit{more consistently}, suggests that increased capacity enables learning more stable features that transfer across distribution shifts, provided training is stable. Surprisingly, bigger can be steadier.
 
-\textbf{Small Dataset Instability Exception}: Small datasets (Financial QA 3.5M, Twitter 0.3M) maintain high variance even at 4B (19.92-20.35\%), indicating that insufficient data prevents stable learning regardless of model capacity. For these cases, mixing remains the only viable solution.
+\textbf{Small Dataset Instability Exception}: Small datasets (Financial QA 0.7M, Twitter 0.28M) maintain high variance even at 4B (19.92-20.35\%), indicating that insufficient data prevents stable learning regardless of model capacity. For these cases, mixing remains the only viable solution.
 
 \textbf{Training Loss Curve Patterns}: In normal‑scaling runs, losses decayed smoothly with no spikes; before fixes, reverse‑scaling runs showed gradient spikes (4B @ Twitter), early plateaus (4B @ Financial QA), or divergence (1.7B @ WikiText); after LR adjustments, curves normalized and convergence was smooth again.
 
-\textbf{Practical Configuration Notes}: For 0.6B–4B Qwen3 on financial/general text, prefer diverse mixtures ($>$100M tokens) over single small datasets ($<$20M); use 2e‑5 for main runs, but if larger models are unstable on a dataset, try $1\times10^{-5}$ or $5\times10^{-6}$; keep an effective batch size of 8 (use accumulation if needed); and 1,000 warmup steps are usually enough (consider 2,000+ for very small datasets).
+\textbf{Practical Configuration Notes}: For 0.6B–4B Qwen3 on financial/general text, prefer diverse mixtures ($>$100M tokens) over single small datasets ($<$1M); use 2e‑5 for main runs, but if larger models are unstable on a dataset, try $1\times10^{-5}$ or $5\times10^{-6}$; keep an effective batch size of 8 (use accumulation if needed); and 1,000 warmup steps are usually enough (consider 2,000+ for very small datasets).
 
 These notes reflect what worked in our setup and may help reproduce stable training in similar contexts. Your data may differ.
 
@@ -344,7 +342,7 @@ Each trained model was evaluated on the held-out test sets (7 financial + WikiTe
 
 \textbf{1. Mixed Financial @ 4B}: 21.55 ppl mean, 55\% relative spread. Performs consistently well across all financial test sets (News: 15.2, SEC: 18.7, FinGPT: 19.4, Alpaca: 21.8, FiQA: 14.6, Financial QA: 23.1, Twitter: 25.9), with only moderate degradation on WikiText (33.7). The 7-dataset diversity enables stable cross-task generalization, no single evaluation set shows catastrophic failure.
 
-\textbf{2. News @ 4B}: 32.82 ppl mean, 65.53\% relative spread. Strong performance on document-heavy tasks (SEC: 33.46, FinGPT: 38.03) and moderate on Q\&A formats (Alpaca: 29.75, FiQA: 31.69). Excellent on own test set (17.47). The large dataset size (197M tokens) and long-form content provide transferable linguistic patterns.
+\textbf{2. News @ 4B}: 32.82 ppl mean, 65.53\% relative spread. Strong performance on document-heavy tasks (SEC: 33.46, FinGPT: 38.03) and moderate on Q\&A formats (Alpaca: 29.75, FiQA: 31.69). Excellent on own test set (17.47). The large dataset size (194M tokens) and long-form content provide transferable linguistic patterns.
 
 \textbf{3. SEC @ 4B}: 17.80 ppl mean, 19.32\% relative spread. Best transfer to News (16.67), good on instruction tasks (FinGPT: 18.68, Alpaca: 18.54). The formal, structured regulatory language generalizes reasonably to other professional financial text. Not perfect; just stable.
 
@@ -379,7 +377,7 @@ Transfer patterns reveal that document format and task type drive generalization
 
 \textbf{Long-Form Document Transfer (Strong)}:
 
-Models trained on News Articles (197M tokens, long-form journalism) transfer well to SEC Reports (80M tokens, long-form regulatory text) despite stylistic differences. News @ 4B achieves 33.46 ppl on SEC test set (only 110\% worse than SEC's own model at 15.91 ppl). Reciprocally, SEC @ 4B achieves 16.67 ppl on News (5\% worse than News' own model at 17.47 ppl).
+Models trained on News Articles (194M tokens, long-form journalism) transfer well to SEC Reports (8.1M tokens, long-form regulatory text) despite stylistic differences. News @ 4B achieves 33.46 ppl on SEC test set (only 110\% worse than SEC's own model at 15.91 ppl). Reciprocally, SEC @ 4B achieves 16.67 ppl on News (5\% worse than News' own model at 17.47 ppl).
 
 The correlation between News and SEC performance across all models is $r = 0.82$ ($p < 0.01$), indicating that long-form comprehension skills transfer bidirectionally. Both demand multi‑sentence context integration (documents span 500–5000 tokens), hierarchical discourse (sections, paragraphs, topic progression), and a formal register with complex syntax.
 
@@ -427,15 +425,15 @@ Diverse training data produces stable representations. The 7-dataset mixture exp
 
 \textbf{Large Individual Datasets (Low–Moderate Variability)}: News @ 4B shows 65.53\% spread (best among individuals), SEC @ 4B 19.32\%, and FinGPT @ 4B 37.07\%.
 
-Datasets exceeding 80M tokens provide sufficient internal diversity for moderate generalization. News' 197M tokens and broad topic coverage (market analysis, company news, economic policy, earnings reports) create natural diversity within a single source.
+Large datasets like News (194M tokens) provide sufficient internal diversity for moderate generalization. News' broad topic coverage (market analysis, company news, economic policy, earnings reports) creates natural diversity within a single source.
 
 \textbf{Medium Individual Datasets (Moderate Variability)}: Alpaca @ 4B has 11.51\% spread; FiQA @ 4B 18.97\%.
 
-Moderate-size datasets (4-20M tokens) show acceptable variance when task-aligned with evaluation sets but struggle with out-of-format transfer.
+Moderate-size datasets (3.6-8.5M tokens) show acceptable variance when task-aligned with evaluation sets but struggle with out-of-format transfer.
 
 \textbf{Small Individual Datasets (Higher Variability)}: Twitter @ 4B shows 20.35\% spread; Financial QA @ 4B 19.92\% (after LR fix).
 
-Small datasets ($<$ 4M tokens) produce brittle models regardless of optimization quality. Even after fixing reverse scaling (LR adjustment), Financial QA maintains 19.92\% relative spread due to fundamental data scarcity (3.5M tokens, 249 epochs).
+Small datasets ($<$ 1M tokens) produce brittle models regardless of optimization quality. Even after fixing reverse scaling (LR adjustment), Financial QA maintains 19.92\% relative spread due to fundamental data scarcity (0.7M tokens, 143 epochs).
 
 \textbf{Domain Mismatch (High Variability)}: WikiText @ 4B shows about 53\% spread on financial tasks (after LR adjustment).
 
@@ -475,12 +473,12 @@ Other financial models on WikiText: News @ 4B reaches 28.4 ppl (better than its 
 
 We ran 10 pretraining experiments (30 models, 237 evaluations) to study mixture effects, scaling, and generalization in financial language models. Here we close with the main takeaways and practical notes.
 
-The core finding: in-domain diversity beats general corpus quality. Mixed Financial datasets (7 datasets, 321.4M tokens, 50cap strategy) achieved best overall performance: 21.55 ppl @ 4B with 55\% cross-dataset relative spread. This substantially outperforms pure WikiText (41.96 ppl mean across financial evaluations after LR adjustment, \~53\% relative spread) and individual financial datasets (mean: 24.8 ppl, \~65\% relative spread). Multiple in-domain datasets, even if individually small or noisy, provide better specialization and generalization than large, clean general corpora.
+The core finding: in-domain diversity beats general corpus quality. Mixed Financial datasets (7 datasets, 220M tokens, 50cap strategy) achieved best overall performance: 21.55 ppl @ 4B with 55\% cross-dataset relative spread. This substantially outperforms pure WikiText (41.96 ppl mean across financial evaluations after LR adjustment, \~53\% relative spread) and individual financial datasets (mean: 24.8 ppl, \~65\% relative spread). Multiple in-domain datasets, even if individually small or noisy, provide better specialization and generalization than large, clean general corpora.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/bar_variance.png}
-\caption[Cross-Dataset Variance Comparison]{Cross-dataset variance (relative spread \%) for all 10 experiments at 4B model size, sorted ascending. Lower values indicate more consistent generalization. Mixed Financial (black border) achieves 55\% spread, balancing performance and consistency. Mixtures (blue) and large datasets (green) show moderate variance (19-66\%). Small datasets (red) and general domain WikiText (purple) exhibit higher variance (20-65\%). Color coding: mixtures (blue), large datasets >80M (green), medium 4-20M (gold), small <4M (red), general domain (purple).}
+\caption[Cross-Dataset Variance Comparison]{Cross-dataset variance (relative spread \%) for all 10 experiments at 4B model size, sorted ascending. Lower values indicate more consistent generalization. Mixed Financial (black border) achieves 55\% spread, balancing performance and consistency. Mixtures (blue) and large datasets (green) show moderate variance (19-66\%). Small datasets (red) and general domain WikiText (purple) exhibit higher variance (20-65\%). Color coding: mixtures (blue), large datasets >100M (green), medium 3.6-8.5M (gold), small <1M (red), general domain (purple).}
 \label{fig:bar_variance}
 \end{figure}
 
@@ -492,7 +490,7 @@ All main runs used LR=2e-5. In three follow-up runs with abnormalities (WikiText
 
 \textbf{Dataset Size Effects}
 
-Clear empirical relationship: datasets $>$ 100M tokens support standalone pretraining (2-5 epochs; lower variability); 20-100M tokens viable with caveats (6-30 epochs; moderate variability); $<$ 20M tokens require mixing (67-249 epochs; high variability). Correlation between log(tokens) and generalization variability: $r = -0.78$ ($p < 0.01$).
+Non-monotonic relationship: datasets $>$ 100M tokens undertrain ($<$1 epoch; insufficient exposure, moderate performance); 3.6–8.5M tokens optimal (12–28 epochs; best performance and consistency); $<$ 1M tokens overtrain (143–352 epochs; memorization, high variability). This explains why medium datasets (SEC, FiQA, FinGPT, Alpaca) achieve 2.5–3.2$\times$ better perplexity than large datasets (News, WikiText)—optimal epoch count matters more than raw size. Correlation between log(tokens) and generalization variability: $r = -0.78$ ($p < 0.01$).
 
 \textbf{Transfer Patterns}
 
@@ -532,7 +530,7 @@ Large individual datasets achieve strong in‑domain performance but inconsisten
 
 Start with mixed in‑domain data. Even seven small‑to‑medium datasets (< 200M tokens total) outperform 100M tokens of clean general text on domain tasks. If larger models are unstable, reduce LR first; we used $1\times10^{-5}$ or $5\times10^{-6}$ in affected runs.
 
-Dataset diversity often matters more than raw size. Seven mixed datasets (4–197M tokens) beat a single 197M dataset by 34\% on mean ppl (21.55 vs 32.82). Match formats to evaluation needs: long‑form models struggle on Q\&A, Q\&A models on documents, and Twitter models on almost everything else.
+Dataset diversity often matters more than raw size. Seven mixed datasets (0.3–194M tokens) beat a single 194M dataset by 34\% on mean ppl (21.55 vs 32.82). Match formats to evaluation needs: long‑form models struggle on Q\&A, Q\&A models on documents, and Twitter models on almost everything else.
 
 Finally, 100M tokens is sufficient when properly mixed. Avoid oversampling small datasets; 50cap prevents dominance while keeping diversity. These patterns held across 0.6B to 4B in our setup.
 

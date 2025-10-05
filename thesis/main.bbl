@@ -1641,55 +1641,6 @@
       \verb https://arxiv.org/abs/2305.13169
       \endverb
     \endentry
-    \entry{mccandlish2018empirical}{article}{}
-      \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=b51e7c5fe92844f39ce52b8a5fa5675f}{%
-           family={McCandlish},
-           familyi={M\bibinitperiod},
-           given={Sam},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=9e85370e215d552f72c95a2b63a37802}{%
-           family={Kaplan},
-           familyi={K\bibinitperiod},
-           given={Jared},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=1e6adbf36ab730cd5fdadb838b4d2667}{%
-           family={Amodei},
-           familyi={A\bibinitperiod},
-           given={Dario},
-           giveni={D\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=9ece18857b626a44d3ec79bd7e34eb8a}{%
-           family={Team},
-           familyi={T\bibinitperiod},
-           given={OpenAI\bibnamedelima Dota},
-           giveni={O\bibinitperiod\bibinitdelim D\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{be3221f95a7c7dc1007abacfc0568602}
-      \strng{fullhash}{695c4db93d3ae4db852083330863e082}
-      \strng{bibnamehash}{695c4db93d3ae4db852083330863e082}
-      \strng{authorbibnamehash}{695c4db93d3ae4db852083330863e082}
-      \strng{authornamehash}{be3221f95a7c7dc1007abacfc0568602}
-      \strng{authorfullhash}{695c4db93d3ae4db852083330863e082}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:1812.06162}
-      \field{title}{An Empirical Model of Large-Batch Training}
-      \field{year}{2018}
-      \verb{urlraw}
-      \verb https://arxiv.org/abs/1812.06162
-      \endverb
-      \verb{url}
-      \verb https://arxiv.org/abs/1812.06162
-      \endverb
-    \endentry
     \entry{mccloskey1989catastrophic}{inbook}{}
       \name{author}{2}{}{%
         {{un=0,uniquepart=base,hash=da4b0bb4a2a41b49cf13bd92c00bae58}{%

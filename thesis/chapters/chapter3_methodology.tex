@@ -1,6 +1,6 @@
 \chapter{Methodology}
 
-This chapter explains how we ran the experiments: first an overview of the design, then model architecture, datasets, training setup with tuning, and the evaluation protocol. We favor simple choices that are easy to reproduce. When trade‑offs appear, we keep the setup stable—deliberately straightforward by design.
+This chapter explains how we ran the experiments: we first provide an overview of the design, then model architecture, datasets, training setup with tuning, and lastly evaluation protocol.
 
 \section{Experimental Design Overview}
 
@@ -8,11 +8,11 @@ We evaluate 10 pretraining configurations: 2 mixtures (Financial; Wiki+Financial
 
 \input{tables/table_experimental_settings}
 
-This design supports our research questions on mixture composition, model scale, dataset size, and domain transfer. Results appear in Chapter 4 with figures and tables. We report measurements; we avoid theory claims.
+This design supports our research questions on mixture composition, model scale, dataset size, and domain transfer. We detailed the results in Chapter 4.
 
 \section{Model Architecture}
 
-We use the Qwen3 model family \parencite{yang2024qwen2,qwen3}, a series of open‑source transformer‑based decoder‑only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3 Base series (pretrained checkpoints without post‑training alignment), detailed in \Cref{tab:model_specs}. In our runs, these sizes allow clean comparisons without changing tokenizers or context limits.
+We use the Qwen3 model family \parencite{yang2024qwen2,qwen3}, a series of open‑source transformer‑based decoder‑only language models pretrained on diverse multilingual corpora. Qwen3 employs grouped query attention (GQA) for memory efficiency and supports both standard and flash attention. We select three sizes from the Qwen3 Base series (pretrained checkpoints without post‑training alignment), detailed in \Cref{tab:model_specs}. In our experiments, these different model sizes allow clean comparisons without changing tokenizers or context limits.
 
 \begin{table}[h]
 \centering
@@ -29,13 +29,13 @@ Qwen3-4B & 4.0B & 40 & 2560 & 20 & 4 & $\sim$20GB \\
 \end{tabular}
 \end{table}
 
-We chose Qwen3 for three reasons: (1) architectural consistency across scales enables clean size comparisons, (2) stable baseline performance on general and domain‑specific benchmarks, and (3) efficient inference suitable for edge deployment (all models fit on consumer hardware). Stated differently, it lets us study scale without changing too many other factors and reduces engineering noise.
+We chose Qwen3 for four reasons: (1) architectural consistency across scales enables clean size comparisons, (2) stable baseline performance on general and domain‑specific benchmarks, (3) efficient inference suitable for edge deployment (all models fit on consumer hardware, (4) SOTA performance of open-weight language models.
 
 \section{Datasets}
 
 \subsection{Financial Datasets}
 
-We curate 7 financial datasets spanning diverse tasks, document types, and data scales (total: 222.69M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.28M to 197.38M tokens), format (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra domain effects without changing models.
+We use 7 financial datasets spanning diverse tasks, document types, and data scales (total: 222.69M tokens), summarized in \Cref{tab:financial_datasets}. These datasets vary in size (0.28M to 197.38M tokens), genre (news, reports, Q\&A, social media), and formality (regulatory filings vs tweets). This diversity lets us examine intra domain effects without changing models.
 
 \begin{table}[h]
 \centering
@@ -65,7 +65,7 @@ Twitter Financial Sentiment$^7$ & 9.5K & 0.28M & Social Media & Labeled tweets (
 \end{tabular}
 \end{table}
 
-Our financial datasets cover diverse genres and formats. SEC reports (8.1M tokens, 200K filings) are 10‑K annual filings—no quarterly 10‑Qs—with formal regulatory language. FiQA (3.6M tokens, 14.5K examples) captures Stack Exchange investment discussions with user‑generated Q\&A. FinGPT headlines (4.1M tokens, 76.8K examples) provide sentiment labels in conversational format. The Twitter dataset (0.28M tokens, 9.5K tweets) includes Bearish/Bullish/Neutral labels with informal language. Financial QA (0.7M tokens, 7K pairs) draws from recent 10‑K filings requiring tabular reasoning. Finance Alpaca (8.5M tokens, 68.9K pairs) is synthetic instruction data—didactic Q\&A without time‑stamped grounding. WikiText (103M tokens, 1.8M articles) provides the general‑domain baseline.
+Our financial datasets cover diverse genres and formats. SEC reports (8.1M tokens, 200K filings) are 10‑K annual filings with formal regulatory language. FiQA (3.6M tokens, 14.5K examples) captures Stack Exchange investment discussions with user‑generated Q\&A. FinGPT headlines (4.1M tokens, 76.8K examples) provide sentiment labels in conversational format. The Twitter dataset (0.28M tokens, 9.5K tweets) includes Bearish/Bullish/Neutral labels with informal language. Financial QA (0.7M tokens, 7K pairs) draws from recent 10‑K filings requiring tabular reasoning. Finance Alpaca (8.5M tokens, 68.9K pairs) is synthetic instruction data—didactic Q\&A without time‑stamped grounding. WikiText (103M tokens, 1.8M articles) provides the general‑domain baseline.
 
 This diversity in genres (journalism, regulatory, instruction, forum, social media, document Q\&A) and formality levels lets us test how models handle different financial communication styles. WikiText provides a general‑domain contrast.
 
@@ -90,11 +90,11 @@ WikiText-103$^8$ & 1.8M & 103M & Encyclopedia & Verified Wikipedia articles with
 
 \subsection{Mixture Strategies}
 
-We use a 50\% capping strategy (``50cap'') for dataset mixing to balance diversity with data efficiency. If the largest dataset in a mixture exceeds 50\% of total tokens, we cap it at exactly 50\%; this prevents single‑source dominance. The remaining datasets are sampled proportionally to their original sizes, preserving relative contributions while ensuring diversity. During training, we sample batches from the mixed distribution at the token level, not by example. Fine‑grained interleaving throughout training beats sequential block exposure.
+We use a 50\% capping strategy (``50cap'') for dataset mixing to balance diversity with data efficiency. If the largest dataset in a mixture exceeds 50\% of total tokens, we cap it at exactly 50\%. This prevents single‑source dominance. The remaining datasets are sampled proportionally to their original sizes in token counts, preserving relative contributions while ensuring diversity. During training, we sample batches from the mixed distribution at the token level, not by example.
 
-Example. For the 7‑dataset financial mixture (News 197.38M, SEC 8.12M, FinGPT 4.14M, Alpaca 8.46M, FiQA 3.60M, Financial QA 0.70M, Twitter 0.28M; total 222.69M tokens), News exceeds 50\% (88.6\%) and is capped at 50\% (111.34M tokens); the remaining datasets are sampled proportionally from the other 111.34M‑token budget; the final mixture stays at $\sim$222.69M tokens with News contributing exactly half.
+We demonstrate our strategy with an example. For the 7‑dataset financial mixture (News 197.38M, SEC 8.12M, FinGPT 4.14M, Alpaca 8.46M, FiQA 3.60M, Financial QA 0.70M, Twitter 0.28M; total 222.69M tokens), News exceeds 50\% (88.6\%) and is capped at 50\% (111.34M tokens); the remaining datasets are sampled proportionally from the other 111.34M‑token budget; the final mixture stays at $\sim$222.69M tokens with News contributing exactly half.
 
-Dataset alignment. The financial datasets vary in formality (regulatory SEC filings vs informal tweets), source type (news articles vs forum discussions), and task format (sentiment labels vs Q\&A pairs). WikiText represents general encyclopedic knowledge with a different topical distribution. We accept these distribution differences as realistic: real applications mix diverse sources with varying formality and topical coverage.
+For dataset alignment, the financial datasets vary in formality (regulatory SEC filings vs informal tweets), source type (news articles vs forum discussions), and task format (sentiment labels vs Q\&A pairs). WikiText represents general encyclopedic knowledge with a different topical distribution. We accept these distribution differences, as we believe that real applications mix diverse sources with varying formality and topical coverage.
 
 \begin{figure}[h]
 \centering
@@ -107,17 +107,17 @@ Dataset alignment. The financial datasets vary in formality (regulatory SEC fili
 
 For the 8-dataset WikiText+Financial mixture, WikiText (103M) and News (197.38M) are both large; we apply 50cap to ensure neither dominates, then proportionally sample the other 6 financial datasets.
 
-This strategy contrasts with temperature sampling (which requires tuning hyperparameters) and equal mixing (which severely undersamples large datasets). The 50cap approach is deterministic, requires no tuning, and empirically performs well in production settings \parencite{longpre2023pretrainer}.
+This strategy contrasts with temperature sampling (which requires tuning hyperparameters) and equal mixing (which severely undersamples large datasets). Our 50cap approach is deterministic, and requires no tuning.
 
 \section{Training Setup and Hyperparameter Tuning}
 
 \subsection{Initial Configuration}
 
-We trained all models with a single hyperparameter template to set a baseline. Standard causal LM choices:
+We trained all models with a single hyperparameter template to set a baseline. 
 
-We used AdamW ($\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$, weight decay $0.01$) with an initial learning rate of $2\times10^{-5}$, cosine decay, 1{,}000 warmup steps, and minimum LR $10^{-6}$. The effective batch size was 8 across all runs; when memory was tight, we used gradient accumulation to maintain that size. Sequences were 1{,}024 tokens with bfloat16 mixed precision. Training duration was dataset‑dependent: small datasets ($<$20K samples) trained many epochs to reach $\sim$100M tokens, while large datasets trained for 2–5 epochs. We used NVIDIA RTX A6000 (48GB), A100 (40GB), and H100 (80GB) GPUs rented from Lambda Labs.
+We used AdamW ($\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$, weight decay $0.01$) with an initial learning rate of $2\times10^{-5}$, cosine decay, 1{,}000 warmup steps, and minimum LR $10^{-6}$. The effective batch size was 8 across all runs; when memory was tight, we used gradient accumulation to maintain that size. Sequences were 1{,}024 tokens with bfloat16 mixed precision. Training duration was dataset‑dependent: large datasets ($>$100M tokens) trained for $<$1 epoch (News: 0.5 epochs, WikiText: 1 epoch), medium datasets (4–20M) for 12–24 epochs, and small datasets ($<$4M) for 28–358 epochs to reach the fixed 100M token budget.
 
-When we observed abnormalities in a few experiments, we reran those specific cases with smaller LRs as a simple heuristic to stabilize training. We do not claim any theoretical scaling rule for LR; these adjustments were pragmatic.
+When we observed abnormalities in a few experiments, we reran those specific cases with smaller LRs as a simple heuristic to stabilize training.
 
 \subsection{Pragmatic Learning Rate Adjustments}
 
@@ -125,32 +125,36 @@ In three configurations we observed abnormal behavior (e.g., larger models under
 
 \subsection{Other Hyperparameters}
 
-Beyond learning rate, we kept other hyperparameters consistent: effective batch size 8 (using gradient accumulation as needed), warmup of 1{,}000 steps (3.1\% of 32K total steps), and dropout 0.0. Training epochs varied by dataset size to normalize token exposure: small datasets (Twitter, Financial QA) needed 67–249 epochs to reach 100M tokens; medium ones (FiQA, FinGPT, Alpaca) 6–30; large ones (SEC, News) 2–24. We fixed maximum sequence length at 1{,}024 tokens; although financial documents often exceed this, longer sequences increase memory quadratically, so we accepted truncation as a practical trade‑off.
+Beyond learning rate, we kept other hyperparameters consistent: effective batch size 8 (using gradient accumulation as needed), warmup of 1{,}000 steps (8\% of 12K total steps), and dropout 0.0. Training epochs varied by dataset size to normalize token exposure: small datasets (Twitter, Financial QA) needed 143–352 epochs to reach 100M tokens; medium ones (SEC, FiQA, FinGPT, Alpaca) 12–28 epochs; large ones (News, WikiText) 0.5–0.8 epochs. We fixed maximum sequence length at 1{,}024 tokens; although financial documents often exceed this, longer sequences increase memory quadratically, so we accepted truncation as a practical trade‑off.
 
 \subsection{Computational Budget}
 
-To ensure fair comparison across experiments, we normalized the token budget to 100M tokens per training run, regardless of dataset size or model scale. In total we ran 36 trainings: two mixture settings (Mixed Financial; Mixed Wiki+Financial), eight single‑dataset baselines (WikiText, Financial News, SEC, FinGPT, Finance Alpaca, FiQA, Financial QA 10K, Twitter), each at three sizes (0.6B/1.7B/4B) for 30 baselines, plus six follow‑ups with reduced learning rates on the three problematic datasets (WikiText, Financial QA, Twitter) to probe sensitivity at larger scales. The total computational cost was $36\times100\text{M}=3.6\text{B}$ tokens. On a single NVIDIA A100 (40GB), each 100M‑token run required 2–8 hours depending on model size (0.6B: $\sim$2h; 1.7B: $\sim$4h; 4B: $\sim$8h), about 150 GPU‑hours overall.
+To ensure fair comparison across experiments, we normalized the token budget to 100M tokens per training run, regardless of dataset size or model scale. In total we ran 36 trainings: two mixture settings (Mixed Financial; Mixed Wiki+Financial), eight single‑dataset baselines (WikiText, Financial News, SEC, FinGPT, Finance Alpaca, FiQA, Financial QA 10K, Twitter), each at three sizes (0.6B/1.7B/4B) for 30 baselines, plus six follow‑ups with reduced learning rates on the three problematic datasets (WikiText, Financial QA, Twitter) to probe sensitivity at larger scales. The total computational cost was $36\times100\text{M}=3.6\text{B}$ tokens.
 
-This token controlled design helps ensure that performance differences reflect model data interactions rather than unequal training compute. Variable epoch counts (2 to 249 across experiments) follow from dataset size while keeping token exposure constant. But it also means small datasets see many passes. A trade off we accept.
+This token controlled design helps ensure that performance differences reflect model data interactions rather than unequal training compute. Variable epoch counts (2 to 249 across experiments) follow from dataset size while keeping token exposure constant. But it also means small datasets see many passes. We accept this trade-off for fair comparisons across different settings.
 
 \section{Evaluation Protocol}
 
 \subsection{Multi-Dataset Evaluation}
 
-Each trained model is evaluated on eight held‑out test sets to measure both in‑domain and out‑of‑domain generalization: the seven financial test splits (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter) plus the WikiText test split to gauge retention of general language capabilities and cross‑domain transfer.
+Each trained model is evaluated on eight held‑out test sets to measure both in‑domain and out‑of‑domain generalization: seven financial test splits (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter) plus WikiText test split to evaluate general language capabilities and cross‑domain transfer.
 
 For models trained on dataset $D$, evaluation on $D$'s test set measures in-domain generalization; evaluation on other datasets measures cross-dataset transfer. For mixed models, all 8 test sets measure generalization across the mixture distribution.
 
 \subsection{Metrics}
 
-We report three complementary metrics. Cross‑entropy loss is the average negative log‑likelihood per token,
+We report three complementary metrics. We first use Cross‑entropy loss, which is the average negative log‑likelihood per token,
 \begin{equation*}
     \mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N} \log P\bigl(w_i \,\mid\, w_{<i}\bigr)
 \end{equation*}
-with lower being better. Perplexity is the interpretable transformation $\text{PPL}=\exp(\mathcal{L})$, representing the effective vocabulary size considered at each prediction (lower is better). Relative spread measures cross‑dataset variability:
+with lower being better. 
+
+We then use \textbf{Perplexity} as a interpretable transformation, where $\text{PPL}=\exp(\mathcal{L})$. Lower PPL indicates better performance.
+
+We also use \textbf{Relative Spread} to measure cross‑dataset variability:
 \begin{equation*}
     \text{Relative Spread}\% = 100\,\frac{\max(\text{PPL}) - \min(\text{PPL})}{\text{mean PPL}}\, ,
 \end{equation*}
 computed over evaluation perplexities (one per dataset); lower values indicate more consistent generalization.
 
-All metrics are computed on full test sets (no subsampling) with the same sequence length (1,024 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance, as we lack task-specific validation sets).
+All metrics are computed on full test sets (no subsampling) with the same sequence length (1,024 tokens) and batch size used during training. Evaluation uses the final checkpoint from training (no checkpoint selection based on validation performance).
