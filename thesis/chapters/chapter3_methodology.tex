@@ -40,6 +40,7 @@ We use 7 financial datasets spanning diverse tasks, document types, and data sca
 \caption[Financial Dataset Characteristics]{Financial dataset characteristics. Total: 222.69M tokens across 7 datasets with diverse genres and scales. Dataset identifiers listed in footnotes.}
 \label{tab:financial_datasets}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{p{3.4cm}cccp{5.5cm}}
 \toprule
 \textbf{Dataset} & \textbf{Examples} & \textbf{Tokens} & \textbf{Genre} & \textbf{Description} \\
@@ -60,7 +61,8 @@ Twitter Financial Sentiment$^7$ & 9.5K & 0.28M & Social Media & Labeled tweets (
 \bottomrule
 \multicolumn{5}{l}{\footnotesize $^1$\texttt{ashraq/financial-news-articles}, $^2$\texttt{JanosAudran/financial-reports-sec:small\_lite}, $^3$\texttt{FinGPT/fingpt-sentiment-train},} \\
 \multicolumn{5}{l}{\footnotesize $^4$\texttt{gbharti/finance-alpaca}, $^5$\texttt{LLukas22/fiqa}, $^6$\texttt{virattt/financial-qa-10K}, $^7$\texttt{zeroshot/twitter-financial-news-sentiment}}
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 Our financial datasets cover diverse genres and formats. SEC reports (8.1M tokens, 200K filings) are 10‑K annual filings with formal regulatory language. FiQA (3.6M tokens, 14.5K examples) captures Stack Exchange investment discussions with user‑generated Q\&A. FinGPT headlines (4.1M tokens, 76.8K examples) provide sentiment labels in conversational format. The Twitter dataset (0.28M tokens, 9.5K tweets) includes Bearish/Bullish/Neutral labels with informal language. Financial QA (0.7M tokens, 7K pairs) draws from recent 10‑K filings requiring tabular reasoning. Finance Alpaca (8.5M tokens, 68.9K pairs) is synthetic instruction data, which consists of Q\&A without time‑stamped grounding. WikiText (124M tokens, 1.8M articles) provides the general‑domain baseline.
@@ -92,7 +94,33 @@ We use a 50\% capping strategy (``50cap'') for dataset mixing. Given $n$ dataset
 
 \textbf{Mixed Wiki+Financial (8 datasets):} The raw corpus contains 343.35M tokens. News Articles (194.47M) represents 56.6\% of raw corpus size. We apply 50cap and allocate the 100M token budget. News receives 39.7M tokens (39.7\% of budget). WikiText receives 28.8M tokens (28.8\% of budget). The other six financial datasets receive: Alpaca 8.3M, SEC 8.1M, FinGPT 5.8M, FiQA 5.4M, Financial QA 2.4M, Twitter 1.5M. Each dataset sees 0.29 epochs on average. \Cref{fig:diagram_mixed_wiki} shows the 100M budget allocation.
 
-The 50cap strategy is deterministic and requires no hyperparameter tuning. It prevents dominance while avoiding severe undersampling of large datasets as in equal mixing.
+The 50cap strategy is deterministic and requires no hyperparameter tuning. It prevents dominance while avoiding severe undersampling of large datasets as in equal mixing. \Cref{tab:training_allocation} summarizes the token allocation and epoch counts across all 10 training configurations: 8 individual dataset setups (each with 100M token budget) plus 2 mixture setups.
+
+\begin{table}[htbp]
+\centering
+\caption[Training Token Allocation]{Training token allocation and epoch counts across all experimental setups. Individual training: each dataset receives full 100M budget. Mixtures: 100M budget distributed via 50cap strategy. Epoch counts vary inversely with dataset size.}
+\label{tab:training_allocation}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+\textbf{Dataset} & \textbf{Individual Training} & \textbf{Mixed Financial} & \textbf{Mixed Wiki+Financial} \\
+& \textbf{(Tokens | Epochs)} & \textbf{(Tokens | Epochs)} & \textbf{(Tokens | Epochs)} \\
+\midrule
+News Articles & 100M | 0.5 & 50.0M | 0.26 & 39.7M | 0.20 \\
+SEC Reports & 100M | 12.3 & 13.0M | 1.60 & 8.1M | 1.00 \\
+FinGPT Sentiment & 100M | 24.2 & 9.0M | 2.18 & 5.8M | 1.40 \\
+Finance Alpaca & 100M | 11.8 & 13.0M | 1.54 & 8.3M | 0.98 \\
+FiQA & 100M | 27.7 & 8.5M | 2.36 & 5.4M | 1.50 \\
+Financial QA 10K & 100M | 142.7 & 4.0M | 5.71 & 2.4M | 3.43 \\
+Twitter Sentiment & 100M | 351.7 & 2.5M | 8.79 & 1.5M | 5.28 \\
+WikiText & 100M | 0.8 & — & 28.8M | 0.23 \\
+\midrule
+\textbf{Total Budget} & \textbf{100M} & \textbf{100M} & \textbf{100M} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
 
 \begin{figure}[htbp]
 \centering
