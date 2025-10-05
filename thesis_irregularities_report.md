@@ -1,68 +1,67 @@
-**Thesis Irregularities Report**
+**Thesis Irregularities Report (Updated)**
 
 - Author: Guanlan Liu
 - Scope: LaTeX sources under `thesis/` (chapters, tables, figures)
-- Goal: Flag contradictions, inconsistencies, and polish items (no edits applied)
+- Goal: Flag actual inconsistencies, warnings, and cleanup opportunities (no edits applied)
 
 **Build Status**
 
-- Compiles successfully to 70 pages; no undefined references/citations found. See `thesis/main.log`.
-- Warnings summary from `thesis/main.log`:
-  - Overfull lines: 15 occurrences (various chapters)
-  - Underfull lines: 5 occurrences
-  - Float placement changed: 28 times (“h” -> “ht”)
+- Compiles successfully; no undefined references or citations in `thesis/main.log`.
+- Warnings from `thesis/main.log` (key items):
+  - Duplicate destination anchor: 1 occurrence (hyperref) at page.1.
+  - Underfull boxes: 4 occurrences.
+  - Overfull boxes: 3 occurrences.
 
-**High-Priority Contradictions**
+Details (from `thesis/main.log` slice 1253–1400):
+- Duplicate anchor: “destination with the same identifier (name{page.1}) … duplicate ignored” while entering `chapters/chapter1_introduction.tex`.
+- Underfull/Overfull boxes tied to tables:
+  - `tables/table_experimental_settings.tex` lines 11, 49, 51, 61 (Underfull); and lines 45–66 (Overfull ~46.7pt).
+  - `tables/table_wikitext_lr_comparison.tex` lines 9–32 (Overfull ~4.4pt).
+  - `tables/table_financial_qa_lr_comparison.tex` lines 9–32 (Overfull ~10.6pt).
 
-- Mixed Financial: “Inferior on all metrics” vs “best scaling/best overall.”
-  - Claims inferiority: `thesis/chapters/chapter4_results.tex:43` (section title), `thesis/chapters/chapter4_results.tex:53` (Key Insight paragraph)
-  - Claims best performance/generalization later: `thesis/chapters/chapter4_results.tex:267`, `thesis/chapters/chapter4_results.tex:343`, `thesis/chapters/chapter4_results.tex:361`, `thesis/chapters/chapter4_results.tex:476`
-  - Action: Resolve the narrative to one consistent position (either “medium individual datasets dominate” or “mixed financial dominates”). Update summary paragraphs and captions accordingly.
+Suggested fixes (optional):
+- For duplicate anchor: temporarily disable page anchors for the Roman-numbered front matter, then re-enable for arabic pages, e.g., set `\hypersetup{pageanchor=false}` before `\pagenumbering{Roman}` and `\hypersetup{pageanchor=true}` after switching to `\pagenumbering{arabic}`; or pass `hypertexnames=false` to `hyperref`.
+- For Overfull/Underfull table boxes: slightly reduce column content width, insert manual line breaks, or use `p{...}` columns with `\raggedright\arraybackslash` for text; `\small`/`\scriptsize` and `\setlength{\tabcolsep}{...}` can also help.
 
 **Figures, Tables, Assets**
 
-- Images: All `\includegraphics{...}` targets exist and load (15 entries verified).
-- Tables: All `\input{tables/...}` files exist (19 entries verified).
+- All `\includegraphics{...}` targets exist; all `\input{tables/...}` files exist.
+- One caption missing a label in `thesis/chapters/chapter4_results.tex`:
+  - “Best Configurations by Application” table at lines 504–520 has a `\caption[...]` but no `\label{...}`. Add a label (e.g., `\label{tab:best_configs}`) just after the caption.
 
 **Labels and Cross-References**
 
-- Referenced labels appear defined; no undefined references in the log.
-- Labels defined but not referenced (optional to fix):
-  - `tab:financial_qa_results`, `tab:news_articles_results`, `tab:twitter_results`, `tab:wikitext_results`
-- Action: Either add references in text (e.g., “see Table ...”) or remove labels if not needed.
+- No undefined references in the log. General cross-referencing via `\Cref{...}` appears consistent.
 
 **Terminology Consistency**
 
-- “WikiText” vs “Wikitext” mixed casing in tables vs text.
-  - Examples: `thesis/tables/table_wikitext_results.tex:7` (WikiText) vs `thesis/tables/table_wikitext_results.tex:21` (Wikitext); `thesis/tables/table_news_articles_results.tex:22` (Wikitext)
-  - Action: Standardize to “WikiText” throughout tables/captions for consistency.
+- “WikiText” vs “Wikitext” casing is inconsistent.
+  - Examples: `thesis/tables/table_wikitext_results.tex:21` uses “Wikitext”; `thesis/tables/table_wikitext_results.tex:7` uses “WikiText”. Also appears in `thesis/tables/table_financial_qa_lr_comparison.tex:28`.
+  - Action: Standardize to “WikiText” across tables/captions.
 
-**LaTeX Style Warnings**
+**Preamble and Packages**
 
-- Float placement: many figures use `[h]`, triggering “changed to ht” warnings.
-  - Examples: `thesis/chapters/chapter4_results.tex:55,78,101,124,141,148,173,180,187,210,217,234,363,478`; `thesis/chapters/chapter3_methodology.tex:99`
-  - Action: Prefer `[htbp]` or `[H]` (with `\usepackage{float}` already present).
-- Overfull/underfull boxes: present in chapters 4 and 6 (and bibliography).
-  - Action: Typical fixes include `\usepackage[protrusion=true,expansion=true]{microtype}`; `\emergencystretch=2em`; rephrasing long inline math/URLs; allowing page breaks with manual `\\` or `\allowdisplaybreaks` (already set for math).
+- `\usepackage{lipsum}` included but no `\lipsum` usage found — safe to remove.
+- `\usepackage{epstopdf}` included; no `.eps` assets detected — likely removable.
+- `\usepackage{datetime}` present; no explicit `\today`/datetime formatting used — likely removable unless needed for future updates.
+- `\usepackage{breqn}` appears unused — consider removing unless used elsewhere.
+- `microtype` and `\emergencystretch=2em` are already present (good for box warnings).
 
-**Placeholders and Minor Wording**
+**Style/Clarity Checks**
 
-- Submission date placeholder on title page: `thesis/preamble.tex:172` (“Date of Submission: [ Date ]”).
-- Non-standard phrase “three-folded” in abstract: `thesis/main.tex:35`. Suggest “threefold” or “three main contributions.”
+- Abstract phrasing uses “threefold” correctly in `thesis/main.tex:35` (no issue).
+- Captions are generally descriptive and consistent; ensure each figure/table has both `\caption` and `\label` (see one missing above).
 
-**Counts and Coverage (for clarity, not errors)**
+**Counts and Coverage (sanity)**
 
-- Totals used consistently as “30 models, 237 evaluations” across chapters: `thesis/chapters/chapter4_results.tex:5,474`; `thesis/chapters/chapter5_discussion.tex:7`.
-- Mixed-corpus sizes are internally consistent:
-  - Mixed Financial ≈ 219.77M tokens (e.g., `thesis/chapters/chapter3_methodology.tex:95`, `thesis/tables/table_mixed_financial_results.tex:2`)
-  - Mixed Wiki+Financial ≈ 343.35M tokens (e.g., `thesis/tables/table_mixed_wiki_financial_results.tex:2`, `thesis/chapters/chapter4_results.tex:66`)
+- Claimed totals (30 models; 237 evaluations) are consistently stated in Results/Discussion.
+- All referenced tables/figures for results exist and compile; dataset names and metrics appear consistent across tables.
 
-**Recommended Fix Plan**
+**Recommended Next Pass (optional)**
 
-- Unify the core conclusion for Mixed Financial vs Medium Individual datasets (update chapter 4 summary sections and any conflicting captions).
-- Standardize “WikiText” casing in all tables and captions.
-- Replace `[h]` with `[htbp]` (or `[H]` where exact placement is required) for figures/tables listed above.
-- Add `\usepackage[protrusion=true,expansion=true]{microtype}` to `thesis/preamble.tex` and consider `\emergencystretch=2em` to reduce overfull boxes.
-- Fill in the submission date on the title page and revise “three-folded” wording.
+- Add the missing table label in `chapter4_results.tex` (best configs).
+- Standardize “WikiText” casing in all tables.
+- If desired, drop unused packages: `lipsum`, `epstopdf`, `datetime`, `breqn`.
+- If the hyperref duplicate anchor warning is undesirable, apply the page-anchor tweak around front matter.
 
-If you want, I can apply these edits directly (or draft a patch touching only the exact lines referenced above).
+I can apply these small fixes directly on request (label addition, casing, optional package cleanup, hyperref tweak).
