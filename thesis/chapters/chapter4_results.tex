@@ -158,7 +158,7 @@ News Articles (194M tokens) trained for only 0.5 epochs (severe undertraining). 
 
 \subsection{Medium Datasets}
 
-Four datasets range from 3.6-8.5M tokens: SEC Reports (8.1M), Finance Alpaca (8.5M), FinGPT Sentiment (4.1M), FiQA (3.6M). These achieve optimal epoch counts (12-28 epochs) and demonstrate the sweet spot for performance.
+Four datasets range from 3.6–8.5M tokens: SEC Reports (8.1M), Finance Alpaca (8.5M), FinGPT Sentiment (4.1M), FiQA (3.6M). These achieve optimal epoch counts (12–28 epochs) and demonstrate the sweet spot for performance.
 
 SEC Reports (8.1M tokens) trained for ~12 epochs (optimal range). On the SEC test set, scaling behaves as expected (0.6B: 41.12 ppl; 1.7B: 19.36; 4B: 15.91). Average perplexity across all test sets (17.80 ppl) places SEC among the best-performing individual datasets, demonstrating that medium-sized datasets with optimal epoch counts outperform large undertrained datasets. Transfer is strong to News (16.67 ppl, similar long‑form structure), moderate to FinGPT (18.68) and Alpaca (18.54), and weaker on short‑form tasks (FiQA 19.34, Twitter 18.12, Financial QA 17.39). The 4B SEC model shows 19\% relative spread across evaluations, excellent consistency. Both News and SEC models transfer well to each other (correlation: 0.82), suggesting that document length and narrative structure drive transferability.
 
@@ -234,7 +234,7 @@ Larger datasets produce lower cross-dataset variance. News (194M): 26\% spread, 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{figures/scatter_size_variance.png}
-\caption[Dataset Size vs. Generalization Across Model Scales]{Relationship between dataset size and cross-dataset generalization (relative spread \%) across three model sizes. Each dataset shown at 0.6B (circles), 1.7B (squares), and 4B (triangles), connected by gray lines. Three zones shaded: green (>100M tokens: News, WikiText), yellow (3.6-8.5M: medium datasets), red (<1M: small datasets). Variance decreases with both dataset size and model size. WikiText 1.7B outlier (690\%, not shown) reflects training collapse.}
+\caption[Dataset Size vs. Generalization Across Model Scales]{Relationship between dataset size and cross-dataset generalization (relative spread \%) across three model sizes. Each dataset shown at 0.6B (circles), 1.7B (squares), and 4B (triangles), connected by gray lines. Three zones shaded: green (>100M tokens: News, WikiText), yellow (3.6–8.5M: medium datasets), red (<1M: small datasets). Variance decreases with both dataset size and model size. WikiText 1.7B outlier (690\%, not shown) reflects training collapse.}
 \label{fig:scatter_size_variance}
 \end{figure}
 
@@ -429,7 +429,7 @@ Large datasets like News (194M tokens) provide sufficient internal diversity for
 
 \textbf{Medium Individual Datasets (Moderate Variability)}: Alpaca @ 4B has 11.51\% spread; FiQA @ 4B 18.97\%.
 
-Moderate-size datasets (3.6-8.5M tokens) show acceptable variance when task-aligned with evaluation sets but struggle with out-of-format transfer.
+Moderate-size datasets (3.6–8.5M tokens) show acceptable variance when task-aligned with evaluation sets but struggle with out-of-format transfer.
 
 \textbf{Small Individual Datasets (Higher Variability)}: Twitter @ 4B shows 20.35\% spread; Financial QA @ 4B 19.92\% (after LR fix).
 
@@ -478,7 +478,7 @@ The core finding: in-domain diversity beats general corpus quality. Mixed Financ
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/bar_variance.png}
-\caption[Cross-Dataset Variance Comparison]{Cross-dataset variance (relative spread \%) for all 10 experiments at 4B model size, sorted ascending. Lower values indicate more consistent generalization. Mixed Financial (black border) achieves 55\% spread, balancing performance and consistency. Mixtures (blue) and large datasets (green) show moderate variance (19-66\%). Small datasets (red) and general domain WikiText (purple) exhibit higher variance (20-65\%). Color coding: mixtures (blue), large datasets >100M (green), medium 3.6-8.5M (gold), small <1M (red), general domain (purple).}
+\caption[Cross-Dataset Variance Comparison]{Cross-dataset variance (relative spread \%) for all 10 experiments at 4B model size, sorted ascending. Lower values indicate more consistent generalization. Mixed Financial (black border) achieves 55\% spread, balancing performance and consistency. Mixtures (blue) and large datasets (green) show moderate variance (19-66\%). Small datasets (red) and general domain WikiText (purple) exhibit higher variance (20-65\%). Color coding: mixtures (blue), large datasets >100M (green), medium 3.6–8.5M (gold), small <1M (red), general domain (purple).}
 \label{fig:bar_variance}
 \end{figure}
 
