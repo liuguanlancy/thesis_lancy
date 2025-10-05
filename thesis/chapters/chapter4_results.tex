@@ -88,7 +88,7 @@ Variance is higher: 62\% (4B model) versus 55\% for pure financial, indicating i
 
 Pretraining exclusively on WikiText-103 (124M tokens, ~0.8 epochs with 100M token budget) establishes a baseline for general-domain capabilities and tests cross-domain transfer to financial evaluation sets. The large dataset size results in undertraining (less than one full pass through the data).
 
-The 0.6B model achieved 4.78 ppl (WikiText test set); 1.7B collapsed (infinite loss); 4B reached 31.54 ppl after LR adjustment to $1 \times 10^{-5}$. This experiment exhibited severe reverse scaling, resolved only through systematic learning rate tuning (see Section 4.4). \Cref{fig:scaling_wikitext} shows this: the 1.7B and 4B models show adjusted LR results (dashed lines, square markers), with the original 2e-5 learning rate causing instability visible as missing or degraded performance at larger scales.
+The 0.6B model achieved 4.78 ppl (WikiText test set); 1.7B collapsed (infinite loss); 4B reached 31.54 ppl after LR adjustment to $1\times10^{-5}$. This experiment exhibited severe reverse scaling, resolved only through systematic learning rate tuning (see Section 4.4). \Cref{fig:scaling_wikitext} shows this: the 1.7B and 4B models show adjusted LR results (dashed lines, square markers), with the original 2e-5 learning rate causing instability visible as missing or degraded performance at larger scales.
 
 While 0.6B achieves excellent WikiText performance (4.78 ppl), financial evaluation reveals severe transfer failure. Mean financial perplexity (7 financial test sets): 0.6B: 10.38 ppl, 4B: 41.96 ppl (after LR fix). These values are 2-5$\times$ higher than mixed financial models, demonstrating that high-quality general corpora do not transfer effectively to specialized domains.
 
@@ -276,15 +276,15 @@ Three experiments exhibited \textit{reverse scaling}: larger models performed wo
 
 \textbf{WikiText (124M tokens) - Most Severe Case}: 0.6B reached 9.68 ppl (excellent), 1.7B collapsed (infinite loss after epoch 2), and 4B ended at 31.54 ppl after LR adjustment (originally $>$100).
 
-The 0.6B model achieved strong WikiText performance with LR $2 \times 10^{-5}$, but this same learning rate caused catastrophic instability for 1.7B (gradient explosion, NaN values) and severe degradation for 4B. The clean, structured nature of WikiText may amplify learning rate sensitivity, uniform, high-quality text produces consistent gradients that accumulate more rapidly in larger models.
+The 0.6B model achieved strong WikiText performance with LR $2\times10^{-5}$, but this same learning rate caused catastrophic instability for 1.7B (gradient explosion, NaN values) and severe degradation for 4B. The clean, structured nature of WikiText may amplify learning rate sensitivity, uniform, high-quality text produces consistent gradients that accumulate more rapidly in larger models.
 
 \textbf{Financial QA 10K (0.7M tokens) - Moderate Reverse Scaling}: 0.6B: 8.29 ppl; 1.7B: 7.44 (10.3\% better); 4B: 8.29 (11.4\% worse than 1.7B; reverse scaling).
 
-The 4B model underperformed despite greater capacity. Small dataset size (0.7M tokens, 143 epochs) combined with technical document complexity created optimization challenges. After LR adjustment to $5 \times 10^{-6}$, 4B achieved 7.43 ppl (10.4\% improvement), finally surpassing 1.7B and establishing expected scaling order.
+The 4B model underperformed despite greater capacity. Small dataset size (0.7M tokens, 143 epochs) combined with technical document complexity created optimization challenges. After LR adjustment to $5\times10^{-6}$, 4B achieved 7.43 ppl (10.4\% improvement), finally surpassing 1.7B and establishing expected scaling order.
 
 \textbf{Twitter Sentiment (0.28M tokens) - Clear Monotonic Reverse Scaling}: 0.6B: 12.60 ppl; 1.7B: 11.02 (12.5\% better); 4B: 17.83 (61.8\% worse than 1.7B).
 
-Unique among reverse scaling cases, Twitter showed monotonic degradation: each size increase worsened performance initially. The extremely small dataset (0.28M tokens, 352 epochs) and unique constraint (280 character limit) created a brittle optimization landscape. LR adjustment to $5 \times 10^{-6}$ for 4B recovered performance: 11.81 ppl (33.8\% improvement), matching 1.7B. Not a new law, just a fix in our runs.
+Unique among reverse scaling cases, Twitter showed monotonic degradation: each size increase worsened performance initially. The extremely small dataset (0.28M tokens, 352 epochs) and unique constraint (280 character limit) created a brittle optimization landscape. LR adjustment to $5\times10^{-6}$ for 4B recovered performance: 11.81 ppl (33.8\% improvement), matching 1.7B. Not a new law, just a fix in our runs.
 
 \textbf{Root Cause Analysis}: All three reverse‑scaling cases share two properties: (1) problematic learning rate for larger models and (2) either very clean data (WikiText) or very small datasets (Financial QA, Twitter). Clean or small data creates less noise in gradients, making larger models more sensitive to learning rate. With 4B having 6.7$\times$ more parameters than 0.6B, the same LR produces disproportionately large parameter updates, destabilizing training. This scaling amplification effect means larger models require more conservative learning rates. The visual contrast between solid and dashed lines in \Cref{fig:scaling_wikitext,fig:scaling_financial_qa,fig:scaling_twitter} shows this: adjusted LR (dashed) produces smooth, monotonic curves while the original LR (solid) shows missing or degraded points at larger scales.
 

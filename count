@@ -1,0 +1,86 @@
+------------------------------------------------------------
+MIXED CORPUS ANALYSIS (7 Financial Datasets)
+------------------------------------------------------------
+
+Mixture composition (50cap strategy):
+  Financial Q&A: 3.4% → 3.40M tokens (4.85 epochs)
+  FinGPT Sentiment: 19.1% → 19.10M tokens (4.62 epochs)
+  Finance Alpaca: 17.2% → 17.20M tokens (2.03 epochs)
+  FiQA: 4.3% → 4.30M tokens (1.19 epochs)
+  Twitter Sentiment: 0.3% → 0.30M tokens (1.06 epochs)
+  SEC Reports: 19.4% → 19.40M tokens (2.39 epochs)
+  News Articles: 36.2% → 36.20M tokens (0.19 epochs)
+
+Mixed corpus total tokens: 219,774,426 (219.77M)
+With 100M budget: each dataset sees 0.46 epochs on average
+
+------------------------------------------------------------
+MIXED-WIKI CORPUS ANALYSIS (8 Datasets with WikiText)
+------------------------------------------------------------
+
+Mixture composition (50cap strategy with WikiText):
+  Financial Q&A: 2.4% → 2.40M tokens (3.43 epochs)
+  FinGPT Sentiment: 5.8% → 5.80M tokens (1.40 epochs)
+  Finance Alpaca: 8.3% → 8.30M tokens (0.98 epochs)
+  FiQA: 5.4% → 5.40M tokens (1.50 epochs)
+  Twitter Sentiment: 1.5% → 1.50M tokens (5.28 epochs)
+  SEC Reports: 8.1% → 8.10M tokens (1.00 epochs)
+  News Articles: 39.9% → 39.90M tokens (0.21 epochs)
+  WikiText: 28.8% → 28.80M tokens (0.23 epochs)
+
+Mixed-wiki corpus total tokens: 343,351,575 (343.35M)
+With 100M budget: each dataset sees 0.29 epochs on average
+
+============================================================
+TOKEN COUNT SUMMARY
+============================================================
+
+Total processing time: 2.7 minutes
+
+With packing ENABLED and ~12k steps for all experiments:
+Each experiment processes: 100M tokens (0.1B)
+
+Dataset-specific epoch counts:
+(* = estimated from 100K sample, otherwise exact)
+   Financial Q&A:            700,711 (   0.70M) →    142.7 epochs ⚠️ EXTREME overtraining!
+   FinGPT Sentiment:       4,137,180 (   4.14M) →     24.2 epochs ⚠️ Significant overtraining
+   Finance Alpaca:         8,459,573 (   8.46M) →     11.8 epochs ⚠️ Significant overtraining
+   FiQA:                   3,604,013 (   3.60M) →     27.7 epochs ⚠️ Significant overtraining
+   Twitter Sentiment:        284,354 (   0.28M) →    351.7 epochs ⚠️ EXTREME overtraining!
+   SEC Reports:            8,122,935 (   8.12M) →     12.3 epochs ⚠️ Significant overtraining
+  *News Articles:        194,465,660 ( 194.47M) →      0.5 epochs
+  *WikiText:             123,577,149 ( 123.58M) →      0.8 epochs
+
+  Mixed (7 Financial):  219,774,426 ( 219.77M) →      0.5 epochs
+  Mixed-Wiki (8 Total):  343,351,575 ( 343.35M) →      0.3 epochs
+
+✓ Exact results saved to: /Users/mengzhao/thesis_lancy/scripts/dataset_token_stats_exact.json
+
+============================================================
+ANALYSIS COMPLETE
+============================================================
+
+Methodology:
+- Small datasets (<100K): exact counts from all examples
+- Large datasets (>100K): estimated from 50K random sample
+- WikiText and News Articles: sampled for faster processing
+
+Key findings (with 100M token budget):
+1. Twitter dataset is extremely short (~27 tokens avg) - massive overtraining
+2. FinGPT is surprisingly short (~54 tokens avg) despite being 'sentiment instructions'
+3. Finance Alpaca and FiQA are longer (~250 tokens avg) but still heavily overtrained
+4. WikiText provides general language modeling data to balance financial-specific content
+5. All individual experiments will massively overtrain their datasets
+6. Mixed corpus (7 financial) provides reasonable training (~0.5 epochs)
+7. Mixed-wiki corpus (8 total) provides balanced training with general domain data
+
+
+My theory for why medium datasets give the best performance:
+
+small: over-trained, not enough diversity
+
+medium: just right
+
+large: undertrained, and mixed ones too diverse, harder for small models (like 0.6B/1.7B/4B) to capture
+
+

@@ -1,6 +1,6 @@
 \chapter{Conclusion}
 
-This thesis investigated efficient pretraining strategies for financial language models, addressing the challenge of developing lightweight, privacy-preserving models suitable for on-device deployment. Through systematic experiments with 10 pretraining configurations across three scales (0.6B, 1.7B, 4B parameters), we derived empirical guidelines for data mixture composition and resource allocation, demonstrating that effective specialized models can be developed without massive computational resources while maintaining practical deployment feasibility.
+This thesis investigated efficient pretraining strategies for financial language models, addressing the challenge of developing lightweight, privacy-preserving models suitable for on-device deployment. Through systematic experiments with 10 pretraining configurations across three scales (0.6B/1.7B/4B parameters), we derived empirical guidelines for data mixture composition and resource allocation, demonstrating that effective specialized models can be developed without massive computational resources while maintaining practical deployment feasibility.
 
 \section{Summary of Contributions}
 
@@ -16,7 +16,7 @@ WikiText (0.6B: 9.68 ppl) shows competitive general-domain performance, but exhi
 
 \subsection{Learning Rate Notes}
 
-All primary experiments used LR=2e-5. In three follow-up runs that showed abnormalities (WikiText, Financial QA, Twitter Financial), we reduced LR (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) as a practical fix to stabilize training. We do not claim a general scaling rule from these observations.
+All primary experiments used LR=2e-5. In three follow-up runs that showed abnormalities (WikiText, Financial QA, Twitter), we reduced LR (e.g., to $1\times10^{-5}$ or $5\times10^{-6}$) as a practical fix to stabilize training. We do not claim a general scaling rule from these observations.
 
 \subsection{Dataset Size Effects and Generalization}
 
