@@ -50,7 +50,7 @@ Our core research question concerns optimal data mixture strategies for financia
 
 \subsection{Mixed Financial Datasets: Inferior on All Metrics}
 
-The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 220M tokens; 50cap sampling policy) was designed to provide robust cross-dataset generalization. However, empirical results show it is \textbf{inferior to medium individual datasets on both performance and consistency}: 21.55 ppl with 55\% spread versus FiQA (6.80 ppl, 19\% spread), FinGPT (7.03 ppl, 37\% spread), and Alpaca (8.73 ppl, 11.5\% spread). The mixture fails to provide the anticipated robustness benefits. The only potential justification for mixtures is task coverage (ability to handle diverse, unknown future tasks), not performance or consistency optimization.
+The 7-dataset financial mixture (News, SEC, FinGPT, Alpaca, FiQA, Financial QA, Twitter; 219.78M tokens; 50cap sampling policy) was designed to provide robust cross-dataset generalization. However, empirical results show it is \textbf{inferior to medium individual datasets on both performance and consistency}: 21.55 ppl with 55\% spread versus FiQA (6.80 ppl, 19\% spread), FinGPT (7.03 ppl, 37\% spread), and Alpaca (8.73 ppl, 11.5\% spread). The mixture fails to provide the anticipated robustness benefits. The only potential justification for mixtures is task coverage (ability to handle diverse, unknown future tasks), not performance or consistency optimization.
 
 Performance scales cleanly across model sizes: 0.6B reached 130.30 ppl mean; 1.7B, 34.49; 4B, 21.55 (\Cref{tab:mixed_financial_results}). From 0.6B to 1.7B that's a 73.5\% drop; from 1.7B to 4B, another 37.5\%. Both perplexity (left panel, log scale) and loss (right panel) decrease smoothly and monotonically (\Cref{fig:scaling_mixed_financial}), with no irregularities or reversals.
 
@@ -128,7 +128,7 @@ To understand which datasets contribute most to mixture performance and when sta
 
 News Articles (194M tokens) trained for only 0.5 epochs (severe undertraining). Performance on the News test set improves cleanly with scale (0.6B: 52.25 ppl; 1.7B: 22.91; 4B: 17.47), i.e., 56\% from 0.6B→1.7B and a further 24\% from 1.7B→4B. However, average perplexity across all test sets (32.82 ppl) is 2–5$\times$ worse than medium datasets, suggesting undertraining limits generalization. Transfer is strongest to SEC (33.46 ppl), Alpaca (29.75 ppl), and FiQA (31.69 ppl), and weaker to FinGPT (38.03 ppl), Twitter (38.98 ppl) and Financial QA (38.90 ppl).
 
-\textbf{Summary}: News (194M, 0.5 epochs, 32.82 ppl) demonstrates that large dataset size alone does not guarantee quality, possibly due to undertraining ($<$1 epoch) provides insufficient exposure to data despite large vocabulary coverage. \Cref{fig:scaling_news_articles} demonstrates clean scaling curves with no reverse scaling, but undertraining prevents News from achieving competitive average performance.
+\textbf{Summary}: News (194M, 0.5 epochs, 32.82 ppl) demonstrates that large dataset size alone does not guarantee quality, possibly because undertraining ($<$1 epoch) provides insufficient exposure to data despite large vocabulary coverage. \Cref{fig:scaling_news_articles} demonstrates clean scaling curves with no reverse scaling, but undertraining prevents News from achieving competitive average performance.
 
 \begin{figure}[htbp]
 \centering
