@@ -75,7 +75,7 @@ Adding WikiText to the 7-dataset financial mixture (8 total datasets, 343M token
 
 Performance scales across model sizes: 0.6B reached 75.00 ppl mean (across all eight evaluations including WikiText); 1.7B, 38.90; 4B, 26.69 (\Cref{tab:mixed_wiki_financial_results}). The 4B model's 26.69 ppl represents a 24\% increase over pure financial (21.55 ppl).
 
-On the WikiText test set, the mixture achieves 27.72 ppl (4B). However, mean financial perplexity increases from 21.55 (pure financial; 4B) to \~26.55 (Wiki+Financial; 4B, financial-only mean), a \~23\% degradation. This trade-off is evident in \Cref{tab:mixed_wiki_financial_results}.
+On the WikiText test set, the mixture achieves 27.72 ppl (4B). However, mean financial perplexity increases from 21.55 (pure financial; 4B) to $\sim$26.55 (Wiki+Financial; 4B, financial-only mean), a $\sim$23\% degradation. This trade-off is evident in \Cref{tab:mixed_wiki_financial_results}.
 
 The mixture allocates approximately 28\% of tokens to WikiText (28.8M of 100M after 50cap normalization). For applications requiring both general and financial capabilities, this may be acceptable. But for finance-focused deployments, the performance loss on financial tasks outweighs general-domain gains.
 
