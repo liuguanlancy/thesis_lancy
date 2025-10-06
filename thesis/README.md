@@ -8,7 +8,7 @@ University of Zurich
 
 ```
 thesis/
-├── main.tex                    # Main LaTeX file
+├── thesis_guanlan_liu_19-768-837.tex    # Main LaTeX file
 ├── preamble.tex                # Preamble with packages and settings
 ├── references.bib              # Bibliography file
 ├── chapters/
@@ -24,14 +24,14 @@ thesis/
 
 ## Compilation
 
-To compile the thesis:
+To compile the thesis (pdfLaTeX + Biber):
 
 ```bash
 cd thesis/
-pdflatex main.tex
-biber main
-pdflatex main.tex
-pdflatex main.tex
+pdflatex thesis_guanlan_liu_19-768-837.tex
+biber thesis_guanlan_liu_19-768-837
+pdflatex thesis_guanlan_liu_19-768-837.tex
+pdflatex thesis_guanlan_liu_19-768-837.tex
 ```
 
 Or use your preferred LaTeX editor (VSCode with LaTeX Workshop, TeXMaker, Overleaf).

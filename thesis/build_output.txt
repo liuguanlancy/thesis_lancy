@@ -1,0 +1,1078 @@
+Rc files read:
+  NONE
+Latexmk: This is Latexmk, John Collins, 29 September 2020, version: 4.70b.
+Rule 'biber thesis_guanlan_liu_19-768-837': File changes, etc:
+   Changed files, or newly in use since previous run(s):
+      'references.bib'
+------------
+Run number 1 of rule 'biber thesis_guanlan_liu_19-768-837'
+------------
+------------
+Running 'biber  "thesis_guanlan_liu_19-768-837.bcf"'
+------------
+Latexmk: applying rule 'biber thesis_guanlan_liu_19-768-837'...
+INFO - This is Biber 2.16
+INFO - Logfile is 'thesis_guanlan_liu_19-768-837.blg'
+INFO - Reading 'thesis_guanlan_liu_19-768-837.bcf'
+INFO - Found 43 citekeys in bib section 0
+INFO - Processing section 0
+INFO - Looking for bibtex format file 'references.bib' for section 0
+INFO - LaTeX decoding ...
+INFO - Found BibTeX data source 'references.bib'
+WARN - I didn't find a database entry for 'mitra2023orca2' (section 0)
+INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+INFO - No sort tailoring available for locale 'en-US'
+INFO - Writing 'thesis_guanlan_liu_19-768-837.bbl' with encoding 'UTF-8'
+INFO - Output to thesis_guanlan_liu_19-768-837.bbl
+INFO - WARNINGS: 1
+Latexmk: Found biber source file(s) [references.bib thesis_guanlan_liu_19-768-837.bcf]
+Rule 'pdflatex': File changes, etc:
+   Changed files, or newly in use since previous run(s):
+      'chapters/chapter2_background.tex'
+      'tables/table_experimental_settings.tex'
+      'thesis_guanlan_liu_19-768-837.bbl'
+------------
+Run number 1 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -file-line-error -recorder  "thesis_guanlan_liu_19-768-837.tex"'
+------------
+Biber warning: [537] Utils.pm:395> WARN - I didn't find a database entry for 'mitra2023orca2' (section 0)
+Latexmk: applying rule 'pdflatex'...
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./thesis_guanlan_liu_19-768-837.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18>
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2020/04/10 v1.4m Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/bk11.clo)) (./preamble.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/etex-pkg/etex.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/mathtools/mathtools.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/mathtools/mhsetup.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/breqn.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/flexisym.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/cmbase.sym)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/mathstyle.sty)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/setspace/setspace.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/footmisc/footmisc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/doublestroke/dsfont.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xcolor/svgnam.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/colortbl/colortbl.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/array.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/hhline.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/rotating.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/float/float.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption3.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thmtools.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-patch.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/parseargs.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-kv.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-autoref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/aliasctr.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-listof.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-restate.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-amsthm.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/appendix/appendix.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/grfext/grfext.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty))
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/lipsum/lipsum.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse-2020-10-
+01.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.
+tex))) (/usr/local/texlive/2021/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/datetime/datetime.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fcnumparser.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fc-english.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/datetime/datetime-defaults.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/chngcntr/chngcntr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/arydshln/arydshln.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/logreq/logreq.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/logreq/logreq.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-dm.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex-apa/apa.dbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-compat.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/bbx/standard.bbx))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/cbx/authoryear.cbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2021/texmf-dist/tex/latex/cleveref/cleveref.sty))
+(./thesis_guanlan_liu_19-768-837.aux)
+(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/lbx/english.lbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty)
+(./thesis_guanlan_liu_19-768-837.bbl
+
+Package biblatex Warning: The following entry could not be found
+(biblatex)                in the database:
+(biblatex)                mitra2023orca2
+(biblatex)                Please verify the spelling and rerun
+(biblatex)                LaTeX afterwards.
+
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty)) (./thesis_guanlan_liu_19-768-837.out) (./thesis_guanlan_liu_19-768-837.out
+) [1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../
+thesis_template/Graphics/uzh_logo_e_pos.pdf>]
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msb.cfg) [1]
+(./thesis_guanlan_liu_19-768-837.toc [2]) [3]
+(./thesis_guanlan_liu_19-768-837.lof) [4] (./thesis_guanlan_liu_19-768-837.lot)
+[5] (./chapters/chapter1_introduction.tex
+Chapter 1.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.17 
+      [1] [2]) (./chapters/chapter2_background.tex [3]
+Chapter 2.
+[4] [5] [6]
+
+LaTeX Warning: Citation 'mitra2023orca' on page 7 undefined on input line 81.
+
+) (./chapters/chapter3_methodology.tex [7]
+Chapter 3.
+(./tables/table_experimental_settings.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--11
+[]|\OT1/cmr/m/n/10 (+20) Pretraining con-fig-u-ra-
+) [8]
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) Financial News
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) SEC Fi-nan-cial
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) Twitter Fi-nan-cial
+[9] [10] [11] [12 <./figures/diagram_50cap.png>] [13 <./figures/diagram_mixed_w
+iki.png>] [14]) (./chapters/chapter4_results.tex [15]
+Chapter 4.
+[16] [17] (./tables/table_mixed_financial_results.tex) [18 <./figures/scaling_m
+ixed_financial.png>] (./tables/table_mixed_wiki_financial_results.tex) [19 <./f
+igures/scaling_mixed_wiki_financial.png>]
+(./tables/table_wikitext_lr_comparison.tex) [20 <./figures/scaling_wikitext.png
+>] [21 <./figures/scaling_comparison_all.png>]
+(./tables/table_news_articles_results.tex)
+(./tables/table_sec_reports_results.tex) [22 <./figures/scaling_news_articles.p
+ng> <./figures/scaling_sec_reports.png>] [23]
+(./tables/table_fingpt_results.tex) (./tables/table_alpaca_results.tex)
+(./tables/table_fiqa_results.tex) [24 <./figures/scaling_fingpt.png>] [25 <./fi
+gures/scaling_alpaca.png> <./figures/scaling_fiqa.png>] [26]
+(./tables/table_financial_qa_lr_comparison.tex)
+(./tables/table_twitter_lr_comparison.tex) [27 <./figures/scaling_financial_qa.
+png>] [28 <./figures/scaling_twitter.png>] [29] [30] [31] [32 <./figures/bar_va
+riance_06b.png>] [33 <./figures/bar_variance_17b.png>] [34 <./figures/bar_varia
+nce.png>] (./tables/table_cross_financial_news.tex)
+(./tables/table_cross_financial_report.tex) (./tables/table_cross_alpaca.tex)
+(./tables/table_cross_fingpt.tex) (./tables/table_cross_fiqa.tex)
+(./tables/table_cross_twitter.tex) (./tables/table_cross_financial_qa.tex)
+(./tables/table_cross_wikitext.tex)) (./chapters/chapter5_discussion.tex
+[35 <./figures/heatmap_transfer_06b.png>] [36 <./figures/heatmap_transfer_17b.p
+ng>] [37 <./figures/heatmap_transfer.png>] [38] [39] [40] [41]
+Chapter 5.
+[42] [43]) (./chapters/chapter6_conclusion.tex [44]
+Chapter 6.
+) [45] [46] [47] [48] [49] [50] (./thesis_guanlan_liu_19-768-837.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                thesis_guanlan_liu_19-768-837
+(biblatex)                and rerun LaTeX afterwards.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Hfootnote.2} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<
+/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></
+usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
+/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
+/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2021/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on thesis_guanlan_liu_19-768-837.pdf (56 pages, 7083807 bytes).
+Transcript written on thesis_guanlan_liu_19-768-837.log.
+Latexmk: Found input bbl file 'thesis_guanlan_liu_19-768-837.bbl'
+Latexmk: Log file says output to 'thesis_guanlan_liu_19-768-837.pdf'
+Latexmk: List of undefined refs and citations:
+  Citation 'mitra2023orca' on page 7 undefined on input line 81
+Latexmk: Found biber source file(s) [references.bib thesis_guanlan_liu_19-768-837.bcf]
+Rule 'biber thesis_guanlan_liu_19-768-837': File changes, etc:
+   Changed files, or newly in use since previous run(s):
+      'thesis_guanlan_liu_19-768-837.bcf'
+------------
+Run number 2 of rule 'biber thesis_guanlan_liu_19-768-837'
+------------
+------------
+Running 'biber  "thesis_guanlan_liu_19-768-837.bcf"'
+------------
+Latexmk: Examining 'thesis_guanlan_liu_19-768-837.log'
+=== TeX engine is 'pdfTeX'
+Biber warning: [537] Utils.pm:395> WARN - I didn't find a database entry for 'mitra2023orca2' (section 0)
+Latexmk: applying rule 'biber thesis_guanlan_liu_19-768-837'...
+INFO - This is Biber 2.16
+INFO - Logfile is 'thesis_guanlan_liu_19-768-837.blg'
+INFO - Reading 'thesis_guanlan_liu_19-768-837.bcf'
+INFO - Found 43 citekeys in bib section 0
+INFO - Processing section 0
+INFO - Looking for bibtex format file 'references.bib' for section 0
+INFO - LaTeX decoding ...
+INFO - Found BibTeX data source 'references.bib'
+INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+INFO - No sort tailoring available for locale 'en-US'
+INFO - Writing 'thesis_guanlan_liu_19-768-837.bbl' with encoding 'UTF-8'
+INFO - Output to thesis_guanlan_liu_19-768-837.bbl
+Latexmk: Found biber source file(s) [references.bib thesis_guanlan_liu_19-768-837.bcf]
+Rule 'pdflatex': File changes, etc:
+   Changed files, or newly in use since previous run(s):
+      'thesis_guanlan_liu_19-768-837.aux'
+      'thesis_guanlan_liu_19-768-837.bbl'
+      'thesis_guanlan_liu_19-768-837.run.xml'
+------------
+Run number 2 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -file-line-error -recorder  "thesis_guanlan_liu_19-768-837.tex"'
+------------
+Latexmk: applying rule 'pdflatex'...
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./thesis_guanlan_liu_19-768-837.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18>
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2020/04/10 v1.4m Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/bk11.clo)) (./preamble.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/etex-pkg/etex.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/mathtools/mathtools.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/mathtools/mhsetup.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/breqn.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/flexisym.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/cmbase.sym)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/mathstyle.sty)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/setspace/setspace.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/footmisc/footmisc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/doublestroke/dsfont.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xcolor/svgnam.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/colortbl/colortbl.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/array.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/hhline.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/rotating.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/float/float.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption3.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thmtools.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-patch.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/parseargs.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-kv.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-autoref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/aliasctr.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-listof.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-restate.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-amsthm.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/appendix/appendix.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/grfext/grfext.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty))
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/lipsum/lipsum.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse-2020-10-
+01.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.
+tex))) (/usr/local/texlive/2021/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/datetime/datetime.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fcnumparser.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fc-english.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/datetime/datetime-defaults.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/chngcntr/chngcntr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/arydshln/arydshln.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/logreq/logreq.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/logreq/logreq.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-dm.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex-apa/apa.dbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-compat.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/bbx/standard.bbx))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/cbx/authoryear.cbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2021/texmf-dist/tex/latex/cleveref/cleveref.sty))
+(./thesis_guanlan_liu_19-768-837.aux)
+(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/lbx/english.lbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty)
+(./thesis_guanlan_liu_19-768-837.bbl)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty)) (./thesis_guanlan_liu_19-768-837.out) (./thesis_guanlan_liu_19-768-837.out
+) [1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../
+thesis_template/Graphics/uzh_logo_e_pos.pdf>]
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msb.cfg) [1]
+(./thesis_guanlan_liu_19-768-837.toc [2]) [3]
+(./thesis_guanlan_liu_19-768-837.lof) [4] (./thesis_guanlan_liu_19-768-837.lot)
+[5] (./chapters/chapter1_introduction.tex
+Chapter 1.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.17 
+      [1] [2]) (./chapters/chapter2_background.tex [3]
+Chapter 2.
+[4] [5] [6]) (./chapters/chapter3_methodology.tex [7]
+Chapter 3.
+(./tables/table_experimental_settings.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--11
+[]|\OT1/cmr/m/n/10 (+20) Pretraining con-fig-u-ra-
+) [8]
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) Financial News
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) SEC Fi-nan-cial
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) Twitter Fi-nan-cial
+[9] [10] [11] [12 <./figures/diagram_50cap.png>] [13 <./figures/diagram_mixed_w
+iki.png>] [14]) (./chapters/chapter4_results.tex [15]
+Chapter 4.
+[16] [17] (./tables/table_mixed_financial_results.tex) [18 <./figures/scaling_m
+ixed_financial.png>] (./tables/table_mixed_wiki_financial_results.tex) [19 <./f
+igures/scaling_mixed_wiki_financial.png>]
+(./tables/table_wikitext_lr_comparison.tex) [20 <./figures/scaling_wikitext.png
+>] [21 <./figures/scaling_comparison_all.png>]
+(./tables/table_news_articles_results.tex)
+(./tables/table_sec_reports_results.tex) [22 <./figures/scaling_news_articles.p
+ng> <./figures/scaling_sec_reports.png>] [23]
+(./tables/table_fingpt_results.tex) (./tables/table_alpaca_results.tex)
+(./tables/table_fiqa_results.tex) [24 <./figures/scaling_fingpt.png>] [25 <./fi
+gures/scaling_alpaca.png> <./figures/scaling_fiqa.png>] [26]
+(./tables/table_financial_qa_lr_comparison.tex)
+(./tables/table_twitter_lr_comparison.tex) [27 <./figures/scaling_financial_qa.
+png>] [28 <./figures/scaling_twitter.png>] [29] [30] [31] [32 <./figures/bar_va
+riance_06b.png>] [33 <./figures/bar_variance_17b.png>] [34 <./figures/bar_varia
+nce.png>] (./tables/table_cross_financial_news.tex)
+(./tables/table_cross_financial_report.tex) (./tables/table_cross_alpaca.tex)
+(./tables/table_cross_fingpt.tex) (./tables/table_cross_fiqa.tex)
+(./tables/table_cross_twitter.tex) (./tables/table_cross_financial_qa.tex)
+(./tables/table_cross_wikitext.tex)) (./chapters/chapter5_discussion.tex
+[35 <./figures/heatmap_transfer_06b.png>] [36 <./figures/heatmap_transfer_17b.p
+ng>] [37 <./figures/heatmap_transfer.png>] [38] [39] [40] [41]
+Chapter 5.
+[42] [43]) (./chapters/chapter6_conclusion.tex [44]
+Chapter 6.
+) [45] [46] [47] [48] [49] [50] (./thesis_guanlan_liu_19-768-837.aux)
+
+Package biblatex Warning: Please rerun LaTeX.
+(biblatex)                Page breaks have changed.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Hfootnote.2} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<
+/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></
+usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
+/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
+/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2021/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on thesis_guanlan_liu_19-768-837.pdf (56 pages, 7084137 bytes).
+Transcript written on thesis_guanlan_liu_19-768-837.log.
+Latexmk: Found input bbl file 'thesis_guanlan_liu_19-768-837.bbl'
+Latexmk: Log file says output to 'thesis_guanlan_liu_19-768-837.pdf'
+Latexmk: Found biber source file(s) [references.bib thesis_guanlan_liu_19-768-837.bcf]
+Rule 'pdflatex': File changes, etc:
+   Changed files, or newly in use since previous run(s):
+      'thesis_guanlan_liu_19-768-837.aux'
+      'thesis_guanlan_liu_19-768-837.run.xml'
+------------
+Run number 3 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -file-line-error -recorder  "thesis_guanlan_liu_19-768-837.tex"'
+------------
+Latexmk: Examining 'thesis_guanlan_liu_19-768-837.log'
+=== TeX engine is 'pdfTeX'
+Latexmk: applying rule 'pdflatex'...
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./thesis_guanlan_liu_19-768-837.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18>
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2020/04/10 v1.4m Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/bk11.clo)) (./preamble.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/etex-pkg/etex.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/mathtools/mathtools.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/mathtools/mhsetup.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/breqn.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/flexisym.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/cmbase.sym)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/mathstyle.sty)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/setspace/setspace.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/footmisc/footmisc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/doublestroke/dsfont.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xcolor/svgnam.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/colortbl/colortbl.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/array.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/hhline.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/rotating.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/float/float.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption3.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thmtools.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-patch.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/parseargs.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-kv.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-autoref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/aliasctr.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-listof.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-restate.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-amsthm.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/appendix/appendix.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/grfext/grfext.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty))
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/lipsum/lipsum.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse-2020-10-
+01.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.
+tex))) (/usr/local/texlive/2021/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/datetime/datetime.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fcnumparser.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fc-english.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/datetime/datetime-defaults.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/chngcntr/chngcntr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/arydshln/arydshln.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/logreq/logreq.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/logreq/logreq.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-dm.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex-apa/apa.dbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-compat.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/bbx/standard.bbx))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/cbx/authoryear.cbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2021/texmf-dist/tex/latex/cleveref/cleveref.sty))
+(./thesis_guanlan_liu_19-768-837.aux)
+(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/lbx/english.lbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty)
+(./thesis_guanlan_liu_19-768-837.bbl)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty)) (./thesis_guanlan_liu_19-768-837.out) (./thesis_guanlan_liu_19-768-837.out
+) [1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../
+thesis_template/Graphics/uzh_logo_e_pos.pdf>]
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msb.cfg) [1]
+(./thesis_guanlan_liu_19-768-837.toc [2]) [3]
+(./thesis_guanlan_liu_19-768-837.lof) [4] (./thesis_guanlan_liu_19-768-837.lot)
+[5] (./chapters/chapter1_introduction.tex
+Chapter 1.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.17 
+      [1] [2]) (./chapters/chapter2_background.tex [3]
+Chapter 2.
+[4] [5] [6]) (./chapters/chapter3_methodology.tex [7]
+Chapter 3.
+(./tables/table_experimental_settings.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--11
+[]|\OT1/cmr/m/n/10 (+20) Pretraining con-fig-u-ra-
+) [8]
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) Financial News
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) SEC Fi-nan-cial
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) Twitter Fi-nan-cial
+[9] [10] [11] [12 <./figures/diagram_50cap.png>] [13 <./figures/diagram_mixed_w
+iki.png>] [14]) (./chapters/chapter4_results.tex [15]
+Chapter 4.
+[16] [17] (./tables/table_mixed_financial_results.tex) [18 <./figures/scaling_m
+ixed_financial.png>] (./tables/table_mixed_wiki_financial_results.tex) [19 <./f
+igures/scaling_mixed_wiki_financial.png>]
+(./tables/table_wikitext_lr_comparison.tex) [20 <./figures/scaling_wikitext.png
+>] [21 <./figures/scaling_comparison_all.png>]
+(./tables/table_news_articles_results.tex)
+(./tables/table_sec_reports_results.tex) [22 <./figures/scaling_news_articles.p
+ng> <./figures/scaling_sec_reports.png>] [23]
+(./tables/table_fingpt_results.tex) (./tables/table_alpaca_results.tex)
+(./tables/table_fiqa_results.tex) [24 <./figures/scaling_fingpt.png>] [25 <./fi
+gures/scaling_alpaca.png> <./figures/scaling_fiqa.png>] [26]
+(./tables/table_financial_qa_lr_comparison.tex)
+(./tables/table_twitter_lr_comparison.tex) [27 <./figures/scaling_financial_qa.
+png>] [28 <./figures/scaling_twitter.png>] [29] [30] [31] [32 <./figures/bar_va
+riance_06b.png>] [33 <./figures/bar_variance_17b.png>] [34 <./figures/bar_varia
+nce.png>] (./tables/table_cross_financial_news.tex)
+(./tables/table_cross_financial_report.tex) (./tables/table_cross_alpaca.tex)
+(./tables/table_cross_fingpt.tex) (./tables/table_cross_fiqa.tex)
+(./tables/table_cross_twitter.tex) (./tables/table_cross_financial_qa.tex)
+(./tables/table_cross_wikitext.tex)) (./chapters/chapter5_discussion.tex
+[35 <./figures/heatmap_transfer_06b.png>] [36 <./figures/heatmap_transfer_17b.p
+ng>] [37 <./figures/heatmap_transfer.png>] [38] [39] [40] [41]
+Chapter 5.
+[42] [43]) (./chapters/chapter6_conclusion.tex [44]
+Chapter 6.
+) [45] [46] [47] [48] [49] [50] (./thesis_guanlan_liu_19-768-837.aux) )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Hfootnote.2} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<
+/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></
+usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
+/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
+/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2021/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on thesis_guanlan_liu_19-768-837.pdf (56 pages, 7084137 bytes).
+Transcript written on thesis_guanlan_liu_19-768-837.log.
+Latexmk: Found input bbl file 'thesis_guanlan_liu_19-768-837.bbl'
+Latexmk: Log file says output to 'thesis_guanlan_liu_19-768-837.pdf'
+Latexmk: Found biber source file(s) [references.bib thesis_guanlan_liu_19-768-837.bcf]
+Rule 'pdflatex': File changes, etc:
+   Changed files, or newly in use since previous run(s):
+      'thesis_guanlan_liu_19-768-837.run.xml'
+------------
+Run number 4 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -file-line-error -recorder  "thesis_guanlan_liu_19-768-837.tex"'
+------------
+Latexmk: Examining 'thesis_guanlan_liu_19-768-837.log'
+=== TeX engine is 'pdfTeX'
+Latexmk: applying rule 'pdflatex'...
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./thesis_guanlan_liu_19-768-837.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18>
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2020/04/10 v1.4m Standard LaTeX document class
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/bk11.clo)) (./preamble.tex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/etex-pkg/etex.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/mathtools/mathtools.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/mathtools/mhsetup.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/breqn.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/flexisym.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/cmbase.sym)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/breqn/mathstyle.sty)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/setspace/setspace.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/footmisc/footmisc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/doublestroke/dsfont.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xcolor/svgnam.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/colortbl/colortbl.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/array.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/hhline.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/rotating.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/float/float.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption3.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/textcomp.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thmtools.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-patch.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/parseargs.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-kv.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-autoref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/aliasctr.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-listof.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-restate.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/thmtools/thm-amsthm.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/appendix/appendix.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/grfext/grfext.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty))
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/lipsum/lipsum.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse-2020-10-
+01.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.
+tex))) (/usr/local/texlive/2021/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/datetime/datetime.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fcnumparser.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/fmtcount/fc-english.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/datetime/datetime-defaults.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/chngcntr/chngcntr.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/arydshln/arydshln.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/logreq/logreq.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/logreq/logreq.def))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-dm.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex-apa/apa.dbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-compat.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/bbx/standard.bbx))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/cbx/authoryear.cbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/biblatex.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
+) (/usr/local/texlive/2021/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2021/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2021/texmf-dist/tex/latex/cleveref/cleveref.sty))
+(./thesis_guanlan_liu_19-768-837.aux)
+(/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/lbx/english.lbx)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty)
+(./thesis_guanlan_liu_19-768-837.bbl)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty)) (./thesis_guanlan_liu_19-768-837.out) (./thesis_guanlan_liu_19-768-837.out
+) [1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../
+thesis_template/Graphics/uzh_logo_e_pos.pdf>]
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msb.cfg) [1]
+(./thesis_guanlan_liu_19-768-837.toc [2]) [3]
+(./thesis_guanlan_liu_19-768-837.lof) [4] (./thesis_guanlan_liu_19-768-837.lot)
+[5] (./chapters/chapter1_introduction.tex
+Chapter 1.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.17 
+      [1] [2]) (./chapters/chapter2_background.tex [3]
+Chapter 2.
+[4] [5] [6]) (./chapters/chapter3_methodology.tex [7]
+Chapter 3.
+(./tables/table_experimental_settings.tex
+Underfull \hbox (badness 10000) in paragraph at lines 11--11
+[]|\OT1/cmr/m/n/10 (+20) Pretraining con-fig-u-ra-
+) [8]
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) Financial News
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) SEC Fi-nan-cial
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--65
+[]|\OT1/cmr/m/n/10 (+20) Twitter Fi-nan-cial
+[9] [10] [11] [12 <./figures/diagram_50cap.png>] [13 <./figures/diagram_mixed_w
+iki.png>] [14]) (./chapters/chapter4_results.tex [15]
+Chapter 4.
+[16] [17] (./tables/table_mixed_financial_results.tex) [18 <./figures/scaling_m
+ixed_financial.png>] (./tables/table_mixed_wiki_financial_results.tex) [19 <./f
+igures/scaling_mixed_wiki_financial.png>]
+(./tables/table_wikitext_lr_comparison.tex) [20 <./figures/scaling_wikitext.png
+>] [21 <./figures/scaling_comparison_all.png>]
+(./tables/table_news_articles_results.tex)
+(./tables/table_sec_reports_results.tex) [22 <./figures/scaling_news_articles.p
+ng> <./figures/scaling_sec_reports.png>] [23]
+(./tables/table_fingpt_results.tex) (./tables/table_alpaca_results.tex)
+(./tables/table_fiqa_results.tex) [24 <./figures/scaling_fingpt.png>] [25 <./fi
+gures/scaling_alpaca.png> <./figures/scaling_fiqa.png>] [26]
+(./tables/table_financial_qa_lr_comparison.tex)
+(./tables/table_twitter_lr_comparison.tex) [27 <./figures/scaling_financial_qa.
+png>] [28 <./figures/scaling_twitter.png>] [29] [30] [31] [32 <./figures/bar_va
+riance_06b.png>] [33 <./figures/bar_variance_17b.png>] [34 <./figures/bar_varia
+nce.png>] (./tables/table_cross_financial_news.tex)
+(./tables/table_cross_financial_report.tex) (./tables/table_cross_alpaca.tex)
+(./tables/table_cross_fingpt.tex) (./tables/table_cross_fiqa.tex)
+(./tables/table_cross_twitter.tex) (./tables/table_cross_financial_qa.tex)
+(./tables/table_cross_wikitext.tex)) (./chapters/chapter5_discussion.tex
+[35 <./figures/heatmap_transfer_06b.png>] [36 <./figures/heatmap_transfer_17b.p
+ng>] [37 <./figures/heatmap_transfer.png>] [38] [39] [40] [41]
+Chapter 5.
+[42] [43]) (./chapters/chapter6_conclusion.tex [44]
+Chapter 6.
+) [45] [46] [47] [48] [49] [50] (./thesis_guanlan_liu_19-768-837.aux) )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{Hfootnote.2} has been referenced but does not exist, replaced by a fixed one
+
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<
+/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></
+usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></u
+sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
+/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
+/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2021/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2021/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2021/texmf-dis
+t/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on thesis_guanlan_liu_19-768-837.pdf (56 pages, 7084137 bytes).
+Transcript written on thesis_guanlan_liu_19-768-837.log.
+Latexmk: Found input bbl file 'thesis_guanlan_liu_19-768-837.bbl'
+Latexmk: Log file says output to 'thesis_guanlan_liu_19-768-837.pdf'
+Latexmk: Found biber source file(s) [references.bib thesis_guanlan_liu_19-768-837.bcf]
+Latexmk: Examining 'thesis_guanlan_liu_19-768-837.log'
+=== TeX engine is 'pdfTeX'
+Latexmk: All targets (thesis_guanlan_liu_19-768-837.pdf) are up-to-date

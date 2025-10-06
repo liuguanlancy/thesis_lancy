@@ -17,9 +17,10 @@ LR schedule & Cosine decay, 1{,}000 warmup steps, minimum LR $10^{-6}$ \\
 Learning rate & $2\times10^{-5}$ for all main runs; ad-hoc smaller LRs used in a few follow-ups when anomalies were observed \\
 Batching & Effective batch size 8; gradient accumulation used only when memory was insufficient \\
 Precision & bfloat16 mixed precision; dropout 0.0 \\
-Hardware & NVIDIA RTX A6000 (48GB), A100 (40GB), H100 (80GB); GPUs rented from Lambda Cloud\footnote{\url{https://lambda.ai/}} \\
+Hardware & NVIDIA RTX A6000 (48GB), A100 (40GB), H100 (80GB); GPUs rented from Lambda Cloud\footnotemark{} \\
 Mixture policy & 50cap-proportional sampling (sampling cap; does not change corpus sizes) to limit dominance of large sources \\
 Evaluation & 8 held-out test sets (7 financial + WikiText); metrics: Cross-Entropy, Perplexity, Relative Spread\% \\
 \bottomrule
 \end{tabular}
+\footnotetext{\url{https://lambda.ai/}}
 \end{table}
