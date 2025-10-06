@@ -40,7 +40,7 @@ Second, WikiText shows strong general-domain performance (9.68 ppl @ 0.6B), comp
 
 Third, the only large individual financial dataset (News, 194M tokens) shows poor average perplexity (32.82 ppl) due to undertraining (0.5 epochs), confirming that optimal epoch count matters more than dataset size. 
 
-Fourth, small datasets (Financial QA, Twitter) overtrain heavily (143–357 epochs), which might lead to suboptimal performance. 
+Fourth, small datasets (Financial QA, Twitter) overtrain heavily (143–352 epochs), which might lead to suboptimal performance. 
 
 In summary, medium individual datasets with optimal epoch counts (12–28) achieve both best performance and robustness, while mixtures and extreme sizes (too large or too small) are inferior. These results reflect epoch-format consistency interactions: medium datasets achieve optimal epochs (12–28) with single-format focus, large mixtures combine undertraining ($<$1 epoch per dataset) with multi-format conflicts, and small models might lack capacity to reconcile diverse formats simultaneously.
 
@@ -248,7 +248,7 @@ Three experiments exhibited \textit{reverse scaling}: larger models performed wo
 
 \textbf{WikiText (124M tokens) - Most Severe Case}: 0.6B reached 9.68 ppl (excellent), 1.7B collapsed (infinite loss after epoch 2), and 4B ended at 31.54 ppl after LR adjustment (originally $>$100).
 
-The 0.6B model achieved strong WikiText performance with LR $2\times10^{-5}$, but this same learning rate caused catastrophic instability for 1.7B (gradient explosion, NaN values) and severe degradation for 4B. The clean, structured nature of WikiText may amplify learning rate sensitivity, uniform, high-quality text produces consistent gradients that accumulate more rapidly in larger models.
+The 0.6B model achieved strong WikiText performance with LR $2\times10^{-5}$, but this same learning rate caused catastrophic instability for 1.7B (gradient explosion, NaN values) and severe degradation for 4B. The clean, structured nature of WikiText may amplify learning rate sensitivity; uniform, high-quality text produces consistent gradients that accumulate more rapidly in larger models.
 
 \textbf{Financial QA 10K (0.7M tokens) - Moderate Reverse Scaling}: 0.6B: 9.69 ppl; 1.7B: 8.42 (13.1\% better); 4B: 9.02 (7.1\% worse than 1.7B; reverse scaling).
 
